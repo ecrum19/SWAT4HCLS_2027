@@ -1,0 +1,57 @@
+# What travels and what does not.
+#
+# Travels: the manuscript sources, the workstream records, the reproducibility
+# scripts, and the small JSON each run writes. Those are the evidence and the
+# means to regenerate it, and they are worth reading in a diff.
+#
+# Stays on the VM: converted graphs, run metrics and LaTeX intermediates. They
+# are large, they are regenerable from the scripts above, and a git history of
+# them is noise. Anything here can be rebuilt by rerunning the pipeline.
+
+# --- converted RDF and conversion working state -------------------------------
+w2/conv/
+w2/out/
+w4/conv/
+w4/out/
+**/run_metrics/
+**/.intermediate/
+*.nt
+*.nt.gz
+*.nt.br
+*.hdt
+*.hdt.index*
+*.cottas
+*.cottas.gz
+*.ttl.gz
+*.vcf.gz
+*.bcf
+
+# --- LaTeX build products -----------------------------------------------------
+.build/
+*.aux
+*.bbl
+*.blg
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.toc
+*.synctex.gz
+pdfa.xmpi
+
+# --- packaging ----------------------------------------------------------------
+VCF-Core-SWAT4HCLS-2027*.zip
+
+# --- python -------------------------------------------------------------------
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# --- deliberately kept, despite the rules above -------------------------------
+# The exported PDFs are the submission artifacts, so they stay tracked.
+!main_long.pdf
+!main_short.pdf
+# Every generated JSON under w2/ is a recorded result, not an intermediate.
+!w2/generated/
+!w2/generated/**

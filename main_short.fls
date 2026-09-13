@@ -1,6 +1,0 @@
-PWD /Users/eliascrum/PhD_Things/SWAT4HCLS_2027
-INPUT /usr/local/texlive/2026/texmf.cnf
-INPUT /usr/local/texlive/2026/texmf-dist/web2c/texmf.cnf
-INPUT /usr/local/texlive/2026/texmf-var/web2c/pdftex/pdflatex.fmt
-INPUT /Users/eliascrum/PhD_Things/SWAT4HCLS_2027/main_short.tex
-OUTPUT main_short.log
