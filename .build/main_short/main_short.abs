@@ -1,0 +1,7 @@
+Medical applications of genomic data depend on connecting variant observations to clinical information and biomedical knowledge.
+Linked Data offers a framework for this integration, but the Variant Call Format (VCF) does not natively provide an RDF representation of the observations and their interpretation context.
+We present ongoing work on VCF Core, a shared semantic target for representing VCF files, header declarations, records, annotations and sample data.
+The current vocabulary integrates existing provenance and genomic models while retaining VCF-specific field definitions, ordering and missingness.
+Expanded sample calls and condensed, sample-ordered vectors support different representation needs, with version-specific artifacts addressing VCF 4.1--4.5.
+Initial assessments provide evidence of broad representation coverage, while validation and cross-version review remain ongoing.
+We outline how this foundation could support reusable conversion engines and traceable biomedical queries, and invite contributions to its mappings, assessment and application.
