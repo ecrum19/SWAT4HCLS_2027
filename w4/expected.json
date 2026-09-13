@@ -1,0 +1,33 @@
+{
+  "$comment": "Authored by reading local-alleles-v4.5.vcf and the VCF 4.5 Number=LR rule, before the query was run. Derived from the source text, never from converter output.",
+  "threshold": "LAD >= 20",
+  "expectedRows": [
+    {
+      "contig": "chr1", "position": 1, "ref": "G", "alt": "C", "depth": "30",
+      "sample": "sample", "fieldId": "LAD", "number": "LR",
+      "why": "LAA=2,4 makes the local set REF,ALT2,ALT4; LAD=20,30,10 therefore gives ALT2 (C) a depth of 30."
+    },
+    {
+      "contig": "chr1", "position": 2, "ref": "A", "alt": "T", "depth": "25",
+      "sample": "sample", "fieldId": "LAD", "number": "LR",
+      "why": "LAA=3 makes the local set REF,ALT3; LAD=15,25 therefore gives ALT3 (T) a depth of 25."
+    }
+  ],
+  "excludedRows": [
+    {
+      "contig": "chr1", "position": 1, "ref": "G", "alt": "A",
+      "why": "Flagged, and ALT1 is in the file, but 1 is not in LAA=2,4 -- this sample reports no depth for it. A positional reading of Number=LR would hand it the second LAD value, 30, and wrongly report it above threshold.",
+      "wrongDepthUnderPositionalReading": "30"
+    },
+    {
+      "contig": "chr1", "position": 2, "ref": "A", "alt": "C",
+      "why": "Flagged, but 1 is not in LAA=3. A positional reading would hand it 25 and wrongly report it above threshold.",
+      "wrongDepthUnderPositionalReading": "25"
+    },
+    {
+      "contig": "chr1", "position": 3, "ref": "C", "alt": "G",
+      "why": "Flagged, but 1 is not in LAA=3, so no depth. Under a positional reading it would take 1, which is below threshold and so excluded either way -- this row does not discriminate."
+    }
+  ],
+  "discriminates": "Two of the three excluded rows are excluded ONLY when Number=LR is resolved through the sample's LAA. The answer therefore depends on the modelling choice, not merely on the data being present."
+}

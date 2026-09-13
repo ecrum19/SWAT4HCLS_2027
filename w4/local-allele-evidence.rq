@@ -1,0 +1,54 @@
+PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
+PREFIX ex:   <https://example.org/w4/annotations#>
+
+# W4: which sample observations correspond to a flagged alteration, and what
+# source evidence supports them?
+#
+# The join between the annotation snapshot and the VCF Core graph is the four
+# literals below -- contig, position, reference allele, alternate allele. It is
+# written out here rather than pre-minted as a link so the mapping rule, and its
+# assumption that both sides share a reference assembly, can be read and argued
+# with.
+#
+# The read depth comes from LAD, declared Number=LR: one value per allele of the
+# SAMPLE'S OWN local allele subset, not per ALT column entry. vcfc:forAllele
+# carries that resolution, so this query never sees the LAA indirection. Resolve
+# it positionally instead and two of the five flagged alterations gain a depth
+# they do not have -- see the excluded rows in expected.json.
+
+SELECT ?contig ?position ?ref ?alt ?depth ?sample ?fieldId ?number ?file
+WHERE {
+  # --- the flagged alteration, from the pinned snapshot ---
+  ?annotation a ex:FlaggedAlteration ;
+              ex:contig ?contig ;
+              ex:position ?position ;
+              ex:referenceAllele ?ref ;
+              ex:alternateAllele ?alt .
+
+  # --- the same alteration as written in the VCF ---
+  ?file vcfc:hasRecord ?record .
+  ?record vcfc:chrom ?contig ;
+          vcfc:pos ?position ;
+          vcfc:ref ?ref ;
+          vcfc:hasCall ?call .
+  ?altAllele a vcfc:AltAllele ;
+             vcfc:alleleValue ?alt .
+  FILTER(STRSTARTS(STR(?altAllele), CONCAT(STR(?record), "/allele/")))
+
+  # --- the sample observation supporting it ---
+  ?call vcfc:hasSampleCall ?sampleCall .
+  ?sampleCall vcfc:sampleId ?sample ;
+              vcfc:hasFormatValue ?field .
+  ?field vcfc:declaredBy ?declaration ;
+         vcfc:hasValueItem ?item .
+  ?declaration vcfc:fieldId ?fieldId ;
+               vcfc:fieldNumber ?number .
+  FILTER(?fieldId = "LAD")
+
+  # --- the depth for THIS allele, resolved through the local allele set ---
+  ?item vcfc:forAllele ?altAllele ;
+        vcfc:itemValue ?depth .
+
+  FILTER(xsd:integer(?depth) >= 20)
+}
+ORDER BY ?position ?alt

@@ -1,0 +1,56 @@
+# Pinned annotation snapshot for the W4 integration example.
+#
+# EVERY ASSERTION HERE IS SYNTHETIC. No clinical or biological claim is made or
+# implied. The alteration coordinates are those of the synthetic fixture
+# coverage/methodology/fixtures/local-alleles-v4.5.vcf in the vcf-core-vocabulary
+# repository, which is itself authored, not observed.
+#
+# Why a local snapshot rather than a live endpoint: the example must produce the
+# same answer on rerun. A federated query against a resource that can change
+# would make the checked answers unreproducible, which is the one property this
+# example exists to have.
+#
+# The mapping rule is deliberately NOT baked into these IRIs. An annotation
+# names an alteration by (reference, contig, position, reference allele,
+# alternate allele) as plain literals, and the query joins on those. The rule is
+# therefore inspectable in the query rather than hidden in a pre-minted link.
+# Its assumptions: the annotation and the VCF share a reference assembly; an
+# alteration is identified by its as-written REF/ALT pair at a position, with no
+# normalisation; and the VCF sample column is a sample, not a patient.
+
+@prefix ex:   <https://example.org/w4/annotations#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix so:   <http://purl.obolibrary.org/obo/SO_> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:AnnotationSet a ex:Set ;
+  rdfs:label "W4 synthetic annotation snapshot"@en ;
+  rdfs:comment "Five alterations flagged for review. Synthetic: not derived from any database."@en ;
+  ex:assembly "https://example.org/reference.fa" ;
+  ex:snapshotDate "2026-09-13"^^xsd:date .
+
+# --- flagged alterations ------------------------------------------------------
+# Two of these have local-allele read depth in the fixture and two do not; the
+# fifth is below the depth threshold. That spread is deliberate: it is what makes
+# the expected answer depend on resolving Number=LR correctly rather than
+# positionally. See W4-INTEGRATION.md.
+
+ex:alt-1 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 1 ; ex:referenceAllele "G" ; ex:alternateAllele "C" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:1 G>C"@en .
+
+ex:alt-2 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 1 ; ex:referenceAllele "G" ; ex:alternateAllele "A" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:1 G>A"@en .
+
+ex:alt-3 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 2 ; ex:referenceAllele "A" ; ex:alternateAllele "T" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:2 A>T"@en .
+
+ex:alt-4 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 2 ; ex:referenceAllele "A" ; ex:alternateAllele "C" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:2 A>C"@en .
+
+ex:alt-5 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 3 ; ex:referenceAllele "C" ; ex:alternateAllele "G" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:3 C>G"@en .
