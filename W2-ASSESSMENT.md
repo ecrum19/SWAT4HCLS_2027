@@ -147,8 +147,11 @@ python3 w2/cross-producer.py <outdir>       # 572 checks
 The 28 both-fail checks are all condensed-profile structure queries — the deliberate storage
 trade-off the assessment already documents. The producers agree there, before and after.
 
-**42 of 47 requirements now hold for both producers; 5 do not.** The first run of this check
-found 15 divergent requirements; nine of them were converter defects or gaps that the check
+**Corrected count.** An earlier draft of this file said "42 of 47 requirements"; the pinned
+results say **39 requirements exercised**, of which **34 agree on every check** and 5 diverge.
+Of the 34, **28 pass everywhere for both producers**; the other 6 (R18, R19, R20, R28, R29, R83)
+agree because both producers fail the same condensed-profile structure checks. The first run of
+this check found 15 divergent requirements; nine of them were converter defects or gaps that the check
 identified precisely enough to fix, and they were fixed (see below). What remains is a much
 smaller and better-understood set.
 
@@ -267,8 +270,9 @@ The honest summary is neither of the two numbers the paper currently quotes.
 The vocabulary is not the limiting factor anywhere: zero divergences trace to something VCF Core
 cannot express, and the round-trip recovers every record's fixed columns and genotypes through
 structured properties alone. What the cross-producer check establishes is narrower and more
-useful than "104/104": **for 42 of 47 requirements exercised in this subset, the coverage the
-paper claims is reproducible with the converter the paper cites.** Of the five that are not,
+useful than "104/104": **of the 39 requirements exercised in this subset, 34 agree across both
+producers and 28 pass outright for both — the coverage the paper claims is reproducible with the
+converter the paper cites.** Of the five that are not,
 three are accessors the converter has not built, one is a datatype the vocabulary deliberately
 leaves open, and one is a condensed-vector encoding convention.
 
