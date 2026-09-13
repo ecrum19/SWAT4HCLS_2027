@@ -1,7 +1,8 @@
 # W2 — Assessment evidence
 
-Completed 2026-09-12 against vcfcv `v2.1.1` (`dd139f9`) and VCF-RDFizer `v3.0.2` (`b8da2ed`)
-plus the fixes this workstream prompted, which are described below and are not yet released. Scripts and results: [`w2/`](w2/).
+Completed 2026-09-13 against vcfcv `v2.1.1` (`dd139f9`) and VCF-RDFizer `v3.0.2` (`b8da2ed`)
+plus the fixes this workstream prompted (branch `fix/vcf45-structured-accessors`, PR #12, not yet
+released). The final figures were produced on the `vcf-bench-2` VM. Scripts and results: [`w2/`](w2/).
 
 ## What this adds to the existing assessment
 
@@ -40,15 +41,15 @@ python3 w2/cross-producer.py <outdir>       # 572 checks
 
 | Outcome | Before the fixes | **After** |
 | --- | ---: | ---: |
-| Both producers pass | 366 | **504** |
-| Repo passes, converter fails | 178 | **40** |
+| Both producers pass | 366 | **508** |
+| Repo passes, converter fails | 178 | **36** |
 | Both fail | 28 | 28 |
 | Converter passes, repo fails | 0 | 0 |
 
 The 28 both-fail checks are all condensed-profile structure queries — the deliberate storage
 trade-off the assessment already documents. The producers agree there, before and after.
 
-**41 of 47 requirements now hold for both producers; 6 do not.** The first run of this check
+**42 of 47 requirements now hold for both producers; 5 do not.** The first run of this check
 found 15 divergent requirements; nine of them were converter defects or gaps that the check
 identified precisely enough to fix, and they were fixed (see below). What remains is a much
 smaller and better-understood set.
@@ -72,9 +73,9 @@ requirements — R09, R12, R13, R14, R17, R20, R28, R51 and R83:
   `BaseModification` resource was ever built. The 30 aliases now resolve, and
   `features-v4.5` emits three `BaseModification` resources where it emitted none.
 
-### The six that remain
+### The five that remain
 
-40 checks, on six requirements. None is a correctness defect, and none is a limit of the
+36 checks, on five requirements. None is a correctness defect, and none is a limit of the
 vocabulary.
 
 | Requirement | Checks | Profile | What it is |
@@ -82,7 +83,6 @@ vocabulary.
 | **R11** QUAL datatype | 20 | both | The materializer writes `"60"^^vcfc:VCFFloat`, the converter `"60"^^xsd:decimal`. `vcfc:QualityShape` accepts six datatypes deliberately, so both conform; only a query projecting `DATATYPE()` can tell them apart. Addressed in the vocabulary rather than either producer — see below. |
 | **R89** repeat components | 6 | both | Tandem-repeat fields decompose partially: the summary row appears, the per-allele components are null. |
 | **R21** sample fields | 5 | condensed | Needs `vcfc:sampleDataRaw`, which the converter does not emit, to decode a condensed vector. |
-| **R29** base modifications | 4 | expanded | The alias fix made the keys recognisable, but the query traverses `hasFormatValue/hasValueItem/forBaseModification`, and `Number=M` is not yet positional, so no value items and no `forBaseModification` exist. One modification is also split across three resources, keyed by FORMAT key rather than by modification identity. |
 | **R61** named Number codes | 4 | both | Value items are not materialised for the named Number codes this requirement exercises. |
 | **R27** local alleles | 1 | condensed | A near-miss: the expected empty local-allele list is `""`, the converter encodes it as `"."`. A vector-encoding convention, not a structural gap. |
 
@@ -93,11 +93,22 @@ conforming data. `vcfc:qual` now carries explicit guidance instead: producers SH
 file can differ here, and consumers MUST NOT branch on `DATATYPE(?qual)`. This changes the
 released ontology and wants a **2.1.2 bump** before the manuscript cites it.
 
-**R29 is the one with real work left.** Making `Number=M` positional requires the specification's
-own rule — one value per base on either strand of the allele sequence that could carry the
-modification, positive strand then negative, in occurrence order. A simplified rule would put
-plausible numbers on the wrong positions, which is exactly the failure R83 was, so it is left
-open rather than approximated.
+**R29 was closed by implementing the specification's own counting rule** rather than
+approximating it. A `Number=M` field carries one value per base, on either strand, of the
+concatenated genotype allele sequences that could hold the modification, in occurrence order;
+missing and symbolic alleles contribute none, and `N` yields both strands with the negative
+immediately after the positive. The rule reproduces the specification's worked example — an
+allele of `CGA` gives two `M5mC` values, the forward-strand C at the first base and the
+reverse-strand C at the second.
+
+Each item now carries `vcfc:modifiedBaseOffset`, `vcfc:forAllele` and `vcfc:forBaseModification`.
+`vcfc:BaseModification` is keyed by the modification rather than by the FORMAT key that reported
+it, so `M5mC`, `DPM5mC` and `ADM5mC` converge on one resource — which is what the R29 queries
+ask for, a single `?m` carrying both a fraction and its depth.
+
+Where the payload length and the positions the sequences imply disagree, no item is emitted and
+the run counts a mismatch. Binding a value to the wrong base is the failure mode R83 was, and a
+whole list on `vcfc:fieldValue` is better than a confidently wrong decomposition.
 
 ## W2.7 Semantic round-trip
 
@@ -138,7 +149,7 @@ That row must be rewritten from the per-version table, not patched — W5.3.
 | --- | --- | --- |
 | Representation gap (vocabulary cannot express it) | **0** | — |
 | Correctness defect | 1 (R83 local alleles) — **fixed** | No longer |
-| Missing implementation (structured accessor not built) | 9 requirements — **fixed**; 4 remain (R21, R29, R61, R89) | No — bounds the implementation claim |
+| Missing implementation (structured accessor not built) | 10 requirements — **fixed**; 3 remain (R21, R61, R89) | No — bounds the implementation claim |
 | Unresolved interpretation (vocabulary permits both) | 1 (R11 QUAL datatype) — **guidance added** | No |
 | Encoding convention | 1 (R27 condensed empty list) | No |
 | Deliberate profile trade-off | 28 condensed structure checks | No — already documented |
@@ -151,10 +162,10 @@ The honest summary is neither of the two numbers the paper currently quotes.
 The vocabulary is not the limiting factor anywhere: zero divergences trace to something VCF Core
 cannot express, and the round-trip recovers every record's fixed columns and genotypes through
 structured properties alone. What the cross-producer check establishes is narrower and more
-useful than "104/104": **for 41 of 47 requirements exercised in this subset, the coverage the
-paper claims is reproducible with the converter the paper cites.** Of the six that are not, four
-are accessors the converter has not built, one is a datatype the vocabulary deliberately leaves
-open, and one is a condensed-vector encoding convention.
+useful than "104/104": **for 42 of 47 requirements exercised in this subset, the coverage the
+paper claims is reproducible with the converter the paper cites.** Of the five that are not,
+three are accessors the converter has not built, one is a datatype the vocabulary deliberately
+leaves open, and one is a condensed-vector encoding convention.
 
 The check also earned its keep as a check. It found a silent correctness defect in VCF 4.5 local
 alleles — the manuscript's own headline feature — that no existing test caught, because the

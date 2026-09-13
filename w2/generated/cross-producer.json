@@ -5582,15 +5582,7 @@
   {
    "axis": "preservation",
    "case": "R29-4.5-modifications",
-   "converter": "fail",
-   "converterAnswer": [],
-   "expectedAnswer": [
-    [
-     "S1",
-     "0.9",
-     "20"
-    ]
-   ],
+   "converter": "pass",
    "fixture": "features-v4.5",
    "profile": "expanded",
    "query": "queries/modifications.rq",
@@ -5612,15 +5604,7 @@
   {
    "axis": "structure",
    "case": "R29-4.5-modifications",
-   "converter": "fail",
-   "converterAnswer": [],
-   "expectedAnswer": [
-    [
-     "S1",
-     "0.9",
-     "20"
-    ]
-   ],
+   "converter": "pass",
    "fixture": "features-v4.5",
    "profile": "expanded",
    "query": "queries/modifications.rq",
@@ -7747,17 +7731,7 @@
   {
    "axis": "preservation",
    "case": "R29-4.5-modification-depths",
-   "converter": "fail",
-   "converterAnswer": [],
-   "expectedAnswer": [
-    [
-     "S1",
-     "http://purl.obolibrary.org/obo/CHEBI_27551",
-     "0.9",
-     "20",
-     "18"
-    ]
-   ],
+   "converter": "pass",
    "fixture": "features-v4.5",
    "profile": "expanded",
    "query": "queries/modification-depths.rq",
@@ -7779,17 +7753,7 @@
   {
    "axis": "structure",
    "case": "R29-4.5-modification-depths",
-   "converter": "fail",
-   "converterAnswer": [],
-   "expectedAnswer": [
-    [
-     "S1",
-     "http://purl.obolibrary.org/obo/CHEBI_27551",
-     "0.9",
-     "20",
-     "18"
-    ]
-   ],
+   "converter": "pass",
    "fixture": "features-v4.5",
    "profile": "expanded",
    "query": "queries/modification-depths.rq",
@@ -7891,12 +7855,12 @@
   }
  ],
  "summary": {
-  "agree": 532,
-  "bothPass": 504,
+  "agree": 536,
+  "bothPass": 508,
   "byOutcome": {
    "fail/fail": 28,
-   "pass/fail": 40,
-   "pass/pass": 504
+   "pass/fail": 36,
+   "pass/pass": 508
   },
   "checks": 572,
   "converterPassRepoNot": [],
@@ -7916,7 +7880,6 @@
    "R11",
    "R21",
    "R27",
-   "R29",
    "R61",
    "R89"
   ]
