@@ -1,7 +1,7 @@
 # W5 — Manuscript revision
 
-Executed 2026-09-13 against `main_long.tex`. Compiles clean in `ceurart`: **12 → 15 pages**,
-no undefined references or citations, 2 overfull boxes (both pre-existing, the keywords line).
+Executed 2026-09-13 against `main_long.tex`, then revised against a review pass.
+Compiles clean in `ceurart`: **12 → 14 pages**, no undefined references or citations.
 
 ## What changed, and why each change was needed
 
@@ -30,7 +30,34 @@ no undefined references or citations, 2 overfull boxes (both pre-existing, the k
 2. **R11 guidance wants vcfcv 2.1.2.** The manuscript cites 2.1.1 throughout.
 3. **No versioned container tags**, so §5.3 has to tell readers to cite a digest.
 
+## Review pass — what it caught
+
+A review of the revised text against the evidence records and result JSON found eleven
+substantive errors, all introduced or carried by this revision and all now fixed:
+
+| Was | Is | Why it mattered |
+| --- | --- | --- |
+| "agree for 508 of 572" | agree 536, both pass 508 | the abstract contradicted the body on the headline figure |
+| "assessment of 94 requirements is replayed" | the 39 a ten-fixture subset exercises | implied four times the coverage actually replayed |
+| "an independent converter" (×4) | "a second, separately implemented producer" | **both repositories are the same author's**; the paper now says so explicitly |
+| 225 expanded triples | 227 | pre-fix figure, in a sentence claiming the fixes were applied |
+| "35 targeted regression tests" | 101 | stale; measured by running the suite |
+| "2024 SWAT4HCLS Biohackathon" | 2025 | contradicts `sources.bib` |
+| 35/35 round-trip, unqualified | + expanded-profile only, one recovery per duplicated site | two stated limits were dropped |
+| "allele questions agree in both profiles" | record-level allele questions | two of the nine divergent requirements are local-allele ones |
+| "two structured accessors" / "three" | three | same three requirements, two counts, 16 lines apart |
+| 347 registry entries vs 333 rows | explained from the methodology's scope note | reader does the subtraction and finds no answer |
+| R11 vocabulary change undisclosed | disclosed in §5.4 | the cited 2.1.1 tag does not contain it |
+| RQ1–RQ3 declared, never answered | answered with 53/94, 17/36, 27/38 | W5.1's actual requirement |
+
+**Trimming applied** (W5.4): the prospective pharmacogenomic SPARQL listing (it queried an
+invented namespace and duplicated the executed example), the three discussion vignettes, the
+term-by-term walk in §3.2, and the genotype tutorial in §2.1. **15 → 14 pages.**
+
 ## Not done
 
-Page count grew 12 → 15. W5.4 asked for term-by-term description to be reduced to create space;
-§3 was left untouched. That is the obvious trimming target if length becomes a constraint.
+Three author TODOs remain in the source: a GeoSPARQL citation (line 223), a repository deep link
+(line 330), and "refine this section" on the BioHackathon paragraph (line 337).
+Five pre-existing figures could not be traced to any evidence record and were left as written:
+the eleven meta-information line types, the 40/40/67/78/122 registry entries, the 48-inline /
+75-bridge mapping split, and the 47-terms-lacking-VRS claim.
