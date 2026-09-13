@@ -1,6 +1,7 @@
 # Plan vs. delivered
 
-Checked 2026-09-13 against [VCF_Core_Long_Paper_Task_Checklist.md](VCF_Core_Long_Paper_Task_Checklist.md).
+Checked 2026-09-13 against [VCF_Core_Long_Paper_Task_Checklist.md](VCF_Core_Long_Paper_Task_Checklist.md);
+W1.4, W2.1 and W2.4 completed the same day and re-scored.
 **Yes** = done and evidenced · **Partial** = done within a stated bound · **No** = not started.
 
 ## W0 — Evidence baseline · complete
@@ -22,19 +23,19 @@ vcfcv **2.1.1** (`dd139f9`) and VCF-RDFizer **3.0.2** (`b8da2ed`) — the releas
 | W1.1 Small comparison set | Yes | [W1-COMPARISON.md](W1-COMPARISON.md) §W1.1 — 4 models, each justified; VRS excluded with reason |
 | W1.2 8–12 features | Yes | 9 features F1–F9 |
 | W1.3 Operational criteria | Yes | criterion column, one retrieval question each |
-| W1.4 Inspect pinned artifacts | **Partial** | GFVO + HERO ontologies inspected; **GVO** = paper + curated terms (HTTPS refused), **VCF2RDF** = paper only. Stated in the doc; 4 cells carry `?` for this reason |
+| W1.4 Inspect pinned artifacts | Yes | all four artifacts inspected 2026-09-13 — GVO over plain HTTP (`versionInfo` 2021-11-18), VCF2RDF's published term set (`diegopenhanut/vcf-resources`). **No `?` cells remain**; GVO's three resolved to *outside scope*, VCF2RDF's F2 corrected C→**E** |
 | W1.5 Populate comparison | Yes | 9×5 matrix, four statuses, evidence paragraph per column |
 | W1.6 Worked contrasts | Yes | two: allele-dependent values, version-conditioned interpretation |
-| W1.7 Bounded conclusion | Yes | §W1.7, three stated limits, no overall winner |
+| W1.7 Bounded conclusion | Yes | §W1.7, three stated limits, no overall winner; revised after W1.4 completed |
 
 ## W2 — Assessment · complete within one bound
 
 | Task | | Evidence |
 | --- | :-: | --- |
-| W2.1 Inventory test capabilities | **Partial** | [W2-ASSESSMENT.md](W2-ASSESSMENT.md) maps evidence to the three levels, not to RQ1–RQ3 by name; no duplicate-check pass was run |
+| W2.1 Inventory test capabilities | Yes | §W2.1 via [`w2/evidence-map.py`](w2/evidence-map.py) — RQ1–RQ3 and F1–F9 mapped, duplicate pass run: **0 cross-case duplicates, 375 of 840 executions redundant**, F7 thinnest at 4/11 |
 | W2.2 Distinguish evidence strength | Yes | §W2.1–W2.3 table, with execution status |
 | W2.3 Compact evidence map | Yes | by reuse, as instructed — extends `coverage/methodology/` with a producer axis rather than a parallel tracker |
-| W2.4 8–12 competency questions | Yes* | **scope exceeded, not met as written**: 143 existing cases over 47 requirements × 10 fixtures × 2 profiles = 572 checks, rather than a hand-picked 8–12 |
+| W2.4 8–12 competency questions | Yes | §W2.4 — **12 named CQs** with executed results and profile agreement; three version transitions; expanded/condensed equivalence stated precisely (252/286). The 572-check replay remains the broader evidence behind them |
 | W2.5 Independent expected answers | Yes | `cases.json` as reviewed 2026-09-11; nothing re-derived from converter output |
 | W2.6 Execute and report | Yes | `w2/generated/cross-producer.json` — 508 both-pass, 36 divergent, 5 requirements; 9 claim-critical requirements fixed |
 | W2.7 Semantic round-trip | **Partial** | 35/35 records, structural recovery only. **Expanded profile only** — condensed decoding is blocked on R21 (converter emits no `vcfc:sampleDataRaw`) |
@@ -70,13 +71,18 @@ row count with different alterations — the two `expected.json` predicted, at t
 W5.1–W5.6: **No.** `main_long.tex` is unchanged by W1–W4; §4.2 and `tab:evidence` still carry the
 stale "133/491" figures ([main_long.tex:352](main_long.tex:352), [:368](main_long.tex:368)).
 
+Three numbers W5.3 must carry in: the per-version requirement table in place of 133/491; **465**
+rather than 840 wherever an execution count appears; and the profile claim as *equivalent for
+file/header/allele questions, divergent by design for per-sample structure queries* rather than
+equivalent outright.
+
 ## Final completion gate
 
 | Gate | | Note |
 | --- | :-: | --- |
 | Comparison answers novelty with sourced evidence | Yes | W1 |
 | Mechanism / instantiation / checked behaviour distinguishable | Yes | W2.1–W2.3 |
-| Version & profile claims executed; denominators understandable | **Partial** | denominators grounded, but condensed round-trip not executed and the manuscript's denominators are not yet corrected (W5.3) |
+| Version & profile claims executed; denominators understandable | **Partial** | denominators grounded and now audited (840 nominal → **465 distinct**); condensed round-trip still not executed, and the manuscript's denominators are not yet corrected (W5.3) |
 | Exact tested release produces the described representation | **Partial** | true for 3.0.2 **plus PR #12**, which is unmerged and unreleased; the published image predates every fix |
 | Integration example with checked answers and provenance | Yes | W4 |
 | Limitations explicit; no conclusion rests on unexecuted work | Yes | in W0–W4. Not yet true of the manuscript |
@@ -86,4 +92,4 @@ stale "133/491" figures ([main_long.tex:352](main_long.tex:352), [:368](main_lon
 1. **PR #12** merged and released (carries R83, the accessors, R29) — author's call.
 2. **vcfcv 2.1.2** bump for the R11 QUAL guidance the manuscript would cite.
 3. **Image rebuilt and versioned tags pushed** — reproduction currently needs a digest, not a version.
-4. Optional, both bounded and documented: condensed round-trip (needs R21), GVO/VCF2RDF artifact inspection.
+4. Optional, bounded and documented: condensed round-trip (needs R21).

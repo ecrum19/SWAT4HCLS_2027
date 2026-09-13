@@ -1,7 +1,7 @@
 # W1 — Comparison with existing models
 
-Completed 2026-09-12. Every verdict below names the artifact it rests on. Where an artifact
-could not be inspected, the verdict is **Not established**, which is not a claim of absence.
+Completed 2026-09-12; W1.4 finished 2026-09-13, when the two artifacts that had resisted
+retrieval were obtained and inspected. Every verdict below names the artifact it rests on.
 
 ## W1.1 Comparison set
 
@@ -12,8 +12,8 @@ purpose for the same subject matter — which is what makes the contrast informa
 | --- | --- | --- |
 | **GFVO** | `gfvo.xml`, BioInterchange/Ontologies `master`, retrieved 2026-09-12 | ontology inspected |
 | **HERO-Genomics** | `hero_genomics.ttl` v1.0, `hereditary.dei.unipd.it`, retrieved 2026-09-12 | ontology inspected |
-| **GVO** | Kawashima et al., SWAT4HCLS 2023 (CEUR Vol-3415 paper-22) + the 39 `gvo:` terms curated in `mappings/vcf-core-alignments.sssom.tsv` | **paper + curated terms only** — `genome-variation.org` refused HTTPS, so the ontology file itself was not inspected |
-| **VCF2RDF** | Penha et al., *Bioinformatics* 33(4):547–548, 2017 | **paper only** — the released artifact was not inspected |
+| **GVO** | `http://genome-variation.org/resource/gvo`, `owl:versionInfo` **2021-11-18**, retrieved 2026-09-13 (content-negotiated Turtle; the host serves **plain HTTP only**, which is why an earlier HTTPS attempt failed) | ontology inspected |
+| **VCF2RDF** | `diegopenhanut/vcf-resources` @ `gh-pages` (pushed 2018-09-17), the published term set behind Penha et al., *Bioinformatics* 33(4):547–548, 2017; live at `diegopenhanut.github.io/vcf-resources/v4_2/` | published term set inspected; converter behaviour still from the paper |
 
 GA4GH VRS is not scored. Its 15 curated alignments are all variation-shaped (`vrs:Allele`,
 `vrs:SequenceLocation`, `vrs:CisPhasedBlock`, `vrs:Adjacency`, `vrs:CopyNumberChange`), and it
@@ -47,14 +47,16 @@ stated scope · **?** not established from the available artifacts
 | | VCF Core 2.1.1 | GFVO | HERO 1.0 | GVO | VCF2RDF |
 | --- | :-: | :-: | :-: | :-: | :-: |
 | F1 file identity | **E** | **E** | **E** | **S** | **C** |
-| F2 header declarations | **E** | **S** | **S** | **S** | **C** |
+| F2 header declarations | **E** | **S** | **S** | **S** | **E** |
 | F3 version | **E** | **S** | **S** | **S** | **C** |
-| F4 ordered alleles | **E** | **C** | **C** | **?** | **C** |
+| F4 ordered alleles | **E** | **C** | **C** | **S** | **C** |
 | F5 genotype structure | **E** | **C** | **C** | **S** | **C** |
 | F6 per-sample FORMAT | **E** | **C** | **C** | **S** | **C** |
-| F7 allele-dependent values | **E** | **C** | **C** | **?** | **C** |
-| F8 missingness | **E** | **S** | **C** | **?** | **C** |
+| F7 allele-dependent values | **E** | **C** | **C** | **S** | **C** |
+| F8 missingness | **E** | **S** | **C** | **C** | **C** |
 | F9 profile choice | **E** | **S** | **S** | **S** | **S** |
+
+No cell is now `?`: both remaining artifacts were retrieved and inspected on 2026-09-13.
 
 ### Evidence per verdict
 
@@ -84,22 +86,51 @@ INFO survives, and every INFO-derived question (F7 especially) requires re-parsi
 lines, no version. The schema's own notes mention a MISSING value but define no class or
 datatype for it, so F8 is a convention rather than a mechanism.
 
-**GVO** — the paper is explicit about scope: 47 classes "corresponding to genomic variation
-types", organised under `gvo:Variation`, collected from dbSNP, dbVar, gnomAD, SO, VariO and
-HGVS. Its VCF contact surface is a small property set the curated alignments confirm —
-`gvo:chrom`, `pos_vcf`, `ref_vcf`, `alt_vcf`, `qual`, `filter`, `info` — introduced because the
-authors "plan to use GVO with the FALDO ontology to convert genomic variations distributed in
-VCF format into RDF". Like HERO, `gvo:info` aligns to `vcfc:infoRaw`. File, header, sample and
-version concepts are **outside its stated purpose**, not missing from it. F4, F7 and F8 are
-marked not established because the ontology file could not be retrieved; the paper does not
-settle them and the curated set only covers what the curator mapped.
+**GVO** — the retrieved ontology (279 triples) is exactly what the paper describes, and its
+shape settles every cell. It declares **48 classes and 12 datatype properties, and zero object
+properties**. Forty-seven of the classes are variation types under a bare `gvo:Variation` root
+(`SNV`, `MNV`, `Indel`, `Inv`, `Dup`, `Bnd`, the `DelME`/`InsME` mobile-element families, …),
+each with a `skos:definition` and `rdfs:seeAlso` links to SO and VariO. The 12 properties are
+`chrom`, `pos`, `ref`, `alt`, `lft`, `rgt` — GVO's own normalised coordinates — alongside
+`pos_vcf`, `ref_vcf`, `alt_vcf`, `qual`, `filter`, `info`, kept for VCF as written. Like HERO,
+`gvo:info` aligns to `vcfc:infoRaw`.
 
-**VCF2RDF** — an isomorphic map: the paper describes URIs "for all resources we found on the
-VCF specification" organised into two classes, header and body, joined by line identifiers, and
-its worked triple uses generic terms (`body`, `head`, `row_1000`). That design preserves the
-file's content faithfully — which is why F1–F8 are *representable* — but it mints no domain
-terms, so every feature is recovered by re-parsing the text the graph carries. F9 does not
-arise: an isomorphic map has one representation by construction.
+Two inspected facts decide F4, F7 and F8, which were previously `?`. First, **every property is
+an `owl:DatatypeProperty`**: with no object property in the ontology, nothing can be attached to
+an allele, a sample or a declaration as a resource, so allele indexing and per-allele value
+binding are not merely unconventionalised but unexpressible in GVO's own terms — and since its
+stated purpose is typing variation, that is **outside scope** (F4, F7), not a defect. Second,
+the 12 properties carry **an `rdfs:label` and nothing else** — no `rdfs:domain`, `rdfs:range`,
+`skos:definition` or comment (`gvo:info` is labelled just "Info"; `gvo:qual`, "Qual"). The
+VCF-facing surface is therefore declared but not axiomatised, which is consistent with the
+authors' stated plan to pair GVO with FALDO rather than to model the file. F8 is **C**: a
+literal-valued property can carry `"."`, but distinguishing it from an absent triple is a
+convention the ontology does not supply. File, header, sample, version and profile concepts are
+absent, as the paper's scope implies.
+
+**VCF2RDF** — the published term set corrects the reading taken from the paper alone. It is not
+term-free: `v4_2/` publishes **59 dereferenceable resources**, each an HTML page carrying the
+term's gloss from the VCF 4.2 specification. They include the header-declaration components
+`INFO_ID`, `FORMAT_ID`, `FILTER_ID`, `ALT_ID`, **`Number`** ("How many values a propertie can
+have"), **`Type`** ("Can be integer, Float, Flag (boolean), Character, String") and
+`Description`; the file-level `reference`, `contig`, `contig_URL`, `assembly`, `SAMPLE` and
+`PEDIGREE`; and one resource per reserved key of that version (`INFO_ID_AF`, `INFO_ID_DP`,
+`FORMAT_ID_GT`, `FORMAT_ID_PL`, …), each reproducing the specification's own prose.
+
+So **F2 is E, not C** — the earlier verdict was wrong, and it was wrong because it rested on the
+paper rather than the artifact. A declaration's ID, Number, Type and Description each have a
+published predicate; nothing needs re-parsing to reach them. The rest of the row stands. There
+is no allele-index term (`ALT` is one resource, "Alternative alelle"), no genotype decomposition
+(`FORMAT_ID_GT` carries the specification's paragraph about `/` and `|` as *prose*, not as
+structure), no missing-value term, and `SAMPLE` is the `##SAMPLE` header line — "Define sample to
+genome mappings" — not a genotype column, so F6 still needs a convention. F3 stays C: the version
+lives in the IRI path segment `v4_2`, a namespace convention rather than a declared property, and
+only that one version was ever published. F9 does not arise.
+
+Two limits on this column. The pages carry glosses, not RDF axioms — no `rdf:type`, domain or
+range is asserted for any term — so what is inspected is a published, dereferenceable
+*vocabulary*, not an ontology. And whether the converter populates these predicates from a real
+file is still established only by the paper's design description; no output was inspected.
 
 ## W1.6 Two worked contrasts
 
@@ -110,13 +141,19 @@ and the sample's cell. VCF Core carries all three (`fieldNumber`, `alleleIndex`,
 HERO and GVO both retain INFO as one literal (`vcfInfo`/`gvo:info`, each aligned to
 `vcfc:infoRaw`) and neither declares `Number`, so the consumer must re-parse the cell *and*
 supply the cardinality rule from outside the graph. GFVO would answer it only for the fields it
-happens to name as concepts. VCF2RDF preserves the characters and defers the whole question.
+happens to name as concepts. VCF2RDF is the interesting case: it **does** publish `Number`, so
+the cardinality rule is in the graph — but with no allele-index term, the consumer still has to
+split the list itself and count ALT alleles by re-reading the ALT literal. Having the declaration
+is necessary and, on its own, not sufficient; the binding to an allele is the part that has to be
+represented rather than inferred.
 
 **Version-conditioned interpretation.** `CIPOS` is defined differently across VCF 4.1–4.5, and
 the 4.5 local-allele families (`LA`, `LR`, `LG`) do not exist earlier. Reading such a field
 correctly requires knowing the file's version. Only VCF Core attaches it (`fileFormat` plus the
 `VCF4xFile` gates, which W3 saw the converter emit as `VCF45File`). In the other three the
-version is either absent or, for VCF2RDF, present only as a header line to be re-read.
+version is either absent or, for VCF2RDF, carried by the term namespace itself — its resources
+live under `/v4_2/`, so a graph is implicitly 4.2 and only 4.2 was ever published. That is a
+workable convention for one version and no answer at all to a 4.1–4.5 corpus.
 
 ## W1.7 Bounded conclusion
 
@@ -126,12 +163,21 @@ and the curated set aligns to them rather than competing. It is that VCF Core re
 *interpretation context* a VCF file carries about itself: the declaration that gives a field its
 cardinality and type, the version that selects which rule applies, the allele ordinal that makes
 a genotype integer resolvable, and the sample column that scopes a value. In the inspected
-artifacts, that context is either kept as text to re-parse (HERO, GVO, VCF2RDF) or replaced by
-concepts for individual fields (GFVO).
+artifacts, that context is either kept as text to re-parse (HERO, GVO), replaced by concepts for
+individual fields (GFVO), or — VCF2RDF — declared for the header and left unbound for the data.
+
+The completed inspection sharpened the claim in one place and weakened it in another. GVO's
+verdicts moved from `?` to **outside scope**, which is the fairer reading: an ontology of 48
+variation classes and no object properties is not failing at file modelling, it is doing
+something else. VCF2RDF's F2 moved the other way, from *convention* to **explicit** — it
+publishes `Number`, `Type` and `Description` as terms, which is more than the paper's
+"isomorphic map" framing suggested, and the earlier verdict was an error of reading a paper
+instead of an artifact.
 
 Three limits on this conclusion. The comparison covers features VCF Core was built to serve, so
 it is not a neutral ranking — a matrix chosen by GVO's authors would look different and they
-would be right. Two of the four verdict columns rest on a paper plus curated terms rather than
-an inspected artifact, and several `?` cells could resolve either way. And "requires additional
-conventions" is a statement about what an inspected artifact establishes, never a claim that a
-model's community could not represent something.
+would be right. All four columns now rest on inspected artifacts, but for VCF2RDF that artifact
+is a published term set, not converter output, so what its graphs actually contain is still
+taken from the paper. And "requires additional conventions" is a statement about what an
+inspected artifact establishes, never a claim that a model's community could not represent
+something.

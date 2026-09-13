@@ -8,7 +8,8 @@ released). The final figures were produced on the `vcf-bench-2` VM. Scripts and 
 
 The existing assessment is sound and is not re-derived here. It scores 94 specification-derived
 requirements over 210 cases, every expected answer authored before the query ran, every passing
-query re-run against an emptied graph. W2 changes one thing: **who produced the RDF.**
+query re-run against an emptied graph. W2.1 below maps that evidence to RQ1–RQ3 and the W1
+features and audits it for duplication. W2 changes one thing: **who produced the RDF.**
 
 `assess.py` builds its witnesses with `from vcf_examples import materialize` — the vocabulary
 repository's own 408-line materializer. VCF-RDFizer is a separate program. Both target VCF Core;
@@ -19,15 +20,112 @@ So W2 replays the existing queries and the existing reviewed expected answers ov
 converter-produced graphs. No expected answer was re-derived: the oracle is
 `coverage/methodology/inputs/cases.json` as reviewed and accepted on 11 September.
 
-## W2.1–W2.3 Evidence levels, applied
+## W2.1 Where the existing evidence sits
+
+Mapped 2026-09-13 with [`w2/evidence-map.py`](w2/evidence-map.py) — reads the pinned inputs only,
+derives nothing from converter output. Results: [`w2/generated/evidence-map.json`](w2/generated/evidence-map.json).
+
+```sh
+python3 w2/evidence-map.py <vcf-core-vocabulary checkout> w2/generated/cross-producer.json
+```
+
+**By research question.** A requirement can serve more than one. The rules are in the script:
+RQ1 is every requirement (each asks whether a construct's meaning survives); RQ2 adds the
+version-scoped ones and those whose text turns on a version; RQ3 is the provenance chain an
+integration query has to traverse — file, declaration, sample, allele.
+
+| | Requirements | With at least one case | Untested |
+| --- | ---: | ---: | ---: |
+| RQ1 meaning preserved | 94 | 53 | 41 |
+| RQ2 version & profile behaviour | 36 | 17 | 19 |
+| RQ3 integration retains source context | 38 | 27 | 11 |
+
+**By W1 comparison feature.** The mapping is a curated one, written out in the script so it can
+be corrected rather than trusted.
+
+| Feature | Requirements | Tested | Weakest point |
+| --- | ---: | ---: | --- |
+| F1 file identity | 11 | 10 | R55 BKPTID→assembly URL |
+| F2 header declarations | 12 | 10 | R35, R36 sample mixtures and clonal pedigrees |
+| F3 version distinction | 35 | 17 | the 18 untested are mostly SV fields with version-specific semantics |
+| F4 ordered alleles | 8 | 5 | R54, R64, R90 symbolic, star and literal-haplotype alleles |
+| F5 genotype structure | 8 | 4 | R37, R70, R81 arbitrary ploidy and phase sets |
+| F6 per-sample FORMAT | 7 | 6 | R68 reserved FORMAT keys |
+| **F7 allele-dependent values** | 11 | **4** | **R38, R44, R73, R74, R77, R91 — the paper's own headline area is the thinnest** |
+| F8 missingness | 11 | 5 | R40, R45, R64, R66, R87, R91 |
+
+F9 (profile choice) is not a per-requirement feature: every case runs in both sample profiles, so
+the profile axis carries it. Seventeen requirements fall outside all nine features — breakend and
+adjacency structure (R39–R43, R93), lexical encoding (R47), generic custom fields (R48), QUAL
+semantics (R63), pedigree haplotypes (R78). That is expected: the nine features were chosen to
+discriminate between *models* in W1, not to partition the specification.
+
+**Duplicate-check pass.** Two results, one reassuring and one not.
+
+- **No redundancy across cases.** 210 cases yield 255 distinct (query, expected, fixture)
+  signatures and **zero** signatures reached from more than one case. No case duplicates another.
+- **Substantial redundancy inside cases.** 165 of the 210 cases run byte-identical
+  `preservation` and `structure` blocks — the same query against the same expected answer, scored
+  twice on two axes. Expanding the profile axis, the suite's **840 nominal query executions are
+  465 distinct ones; 375 (45%) are re-runs of an identical check.**
+
+The second finding changes no pass/fail outcome, but it means "840 query executions" overstates
+independent evidence by roughly 1.8×. **The manuscript should cite 465, or cite 210 cases and
+drop the execution count.** Added to the W5.3 list.
+
+**Untested, by version** — applicable requirements with at least one case:
+
+| | 4.1 | 4.2 | 4.3 | 4.4 | 4.5 |
+| --- | ---: | ---: | ---: | ---: | ---: |
+| Applicable | 69 | 72 | 74 | 83 | 91 |
+| Tested | 32 | 34 | 35 | 38 | 51 |
+
+## W2.2–W2.3 Evidence levels, applied
 
 | Level | What the existing assessment establishes | What W2 adds |
 | --- | --- | --- |
 | Mechanism exists | 467 declared terms; 104/104 inventoried constructs | unchanged |
-| Example instantiates it | 41 fixtures, 210 cases, 840 executions over `vcf_examples` output | the same cases over converter output |
+| Example instantiates it | 41 fixtures, 210 cases, 465 distinct executions over `vcf_examples` output | the same cases over converter output |
 | Behaviour independently checked | queries answer independently authored expectations | **whether that holds for the shipped converter** |
 
-## W2.4–W2.6 The cross-producer check
+## W2.4 The twelve competency questions
+
+Drawn from the 94 requirement questions rather than newly written — each is already a bounded
+retrieval question with a reviewed expected answer. The twelve were chosen to cover the difficult
+interpretation decisions W0.3 prioritised, three version transitions, and the expanded/condensed
+comparison. Every one is executed against **both producers and both profiles**; the counts are
+checks, from [`w2/generated/cross-producer.json`](w2/generated/cross-producer.json).
+
+| CQ | Req | Question | Why it is hard | Versions | Both pass | Profiles agree |
+| --- | --- | --- | --- | --- | --- | ---: |
+| CQ1 | R01 | Which VCF version applies to this file? | gates every version-conditioned rule below | 4.1–4.5 | 20/20 | 10/10 |
+| CQ2 | R03 | Can INFO declarations expose ID, Number, Type and Description? | the declaration mechanism itself | 4.1–4.5 | 20/20 | 10/10 |
+| CQ3 | R52 | Same for FORMAT declarations, within their file | declarations must be file-scoped, not global | 4.1–4.5 | 20/20 | 10/10 |
+| CQ4 | R10 | Can REF and ALT be retrieved with VCF allele indices? | an index, not a string, is what GT resolves against | 4.1–4.5 | 20/20 | 10/10 |
+| CQ5 | R16 | Can `Number=A` values be associated with the correct ALT allele? | allele-dependent binding | 4.1–4.5 | 20/20 | 10/10 |
+| CQ6 | R18 | Can sample, field and scalar depth be recovered together? | the provenance shape W4 needs | 4.1–4.5 | 15/20 | 5/10 |
+| CQ7 | R19 | Do ordered genotype calls distinguish called from missing alleles? | order and missingness at once | 4.1–4.5 | 15/20 | 5/10 |
+| CQ8 | R20 | Can phased and unphased separators be distinguished? | `/` vs `|` is meaning, not syntax | 4.1–4.5 | 15/20 | 5/10 |
+| CQ9 | R21 | Is an omitted trailing FORMAT field distinguishable from an explicit dot? | absence vs stated-missing | 4.1–4.5 | 10/20 | **0/10** |
+| CQ10 | R28 | Can mixed and leading per-allele phasing indicators be retrieved? | **transition 4.3→4.4** | 4.4, 4.5 | 3/4 | 1/2 |
+| CQ11 | R27 | Can local allele indices map to global record alleles? | **new in 4.5** | 4.5 | 5/8 | 1/4 |
+| CQ12 | R83 | Can local-allele vectors relate to their global equivalents, incl. an empty LAA set? | **new in 4.5**; the W4 difficulty | 4.5 | 3/4 | 1/2 |
+
+**Expanded/condensed equivalence, stated precisely.** Across all 39 exercised requirements the two
+profiles return the same outcome on **252 of 286** comparable checks. The 34 disagreements are not
+scattered: every one is a genotype- or sample-level question (CQ6–CQ9, CQ11), which is the
+condensed profile's documented trade-off — it stores sample values as vectors, so a query that
+walks per-sample resources finds nothing. CQ1–CQ5, the file-, header- and allele-level questions,
+agree on every check in both profiles. The claim the paper can make is therefore **not**
+"the profiles are equivalent" but: *equivalent for file, header, record and allele questions;
+divergent by design for per-sample structure queries.*
+
+**CQ9 is the honest failure.** It is the only question where the profiles never agree, and it
+is also one of the five surviving cross-producer divergences (R21). Distinguishing a dropped
+trailing FORMAT field from an explicit `.` is the hardest missingness case in VCF, and the
+condensed profile cannot currently answer it at all.
+
+## W2.5–W2.6 The cross-producer check
 
 Ten fixtures — `basic-v4.1` … `basic-v4.5`, `header-audit-v4.5`, `features-v4.5`,
 `local-alleles-v4.5`, `tandem-repeats-v4.4/4.5` — covering 143 of the 210 cases and the
@@ -134,14 +232,21 @@ one recovery per site, not both.
 | 45.8–56.0 % per version | share of that version's requirements with a passing expanded-profile test | untested scores zero | conservative coverage, not capability |
 | 104/104 constructs | a maintainer's inventory of the VCF 4.5 logical model | authored list | per-construct map; cannot reveal an omission nobody listed |
 | 333/333 rows | reserved Number/Type rows extracted from the specs | all extracted rows | registry agreement |
-| 572 checks / 15 requirements (W2) | cases replayed over both producers | the 10-fixture subset only | cross-producer agreement |
+| 572 checks / 39 requirements (W2) | cases replayed over both producers | the 10-fixture subset only | cross-producer agreement |
+| **465 distinct executions** | query runs that are not a re-run of an identical (query, expected, fixture, profile) | replaces the nominal 840 | independent executed evidence |
 
-These five denominators count different things and must never be combined.
+These denominators count different things and must never be combined.
+
+**Two corrections owed by this table.** The nominal **840** query executions contain 375 re-runs
+of identical checks (W2.1), so the independent figure is **465**. And the earlier draft of this
+row said "15 requirements" for the cross-producer check, which was the count of *divergent*
+requirements on the first run, not the count exercised; 39 requirements are exercised, 5 diverge.
 
 **Correction owed to the manuscript.** §4.2 and `tab:evidence` still report "491 reviewed
 requirements, of which 133 have the required supporting evidence". The current generation has
 94 requirements scored per version and per profile; there is no single 133-equivalent figure.
-That row must be rewritten from the per-version table, not patched — W5.3.
+That row must be rewritten from the per-version table, not patched — W5.3. If the manuscript
+quotes an execution count anywhere, it must be 465, not 840.
 
 ## W2.9 Gap classification
 

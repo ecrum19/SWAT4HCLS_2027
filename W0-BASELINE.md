@@ -22,7 +22,7 @@ version, so the 2.1.1 relationship rests on the behaviour recorded in W3, not on
 
 | Asset (in `vcf-core-vocabulary`) | Establishes | Regenerate |
 | --- | --- | --- |
-| `coverage/methodology/` | 94 spec-derived requirements, 210 cases, 840 query executions; expected answers authored before running; every pass has a negative probe. Reviewed and accepted 2026-09-11, `pendingReviews: 0` | `npm run methodology:check` |
+| `coverage/methodology/` | 94 spec-derived requirements, 210 cases, 840 nominal query executions (**465 distinct** — see W2.1); expected answers authored before running; every pass has a negative probe. Reviewed and accepted 2026-09-11, `pendingReviews: 0` | `npm run methodology:check` |
 | `coverage/vcf45-inventory/` | 104/104 curated VCF 4.5 constructs represented, 87 enforced | `npm run coverage:report` |
 | `coverage/methodology/fixtures/` (41), `queries/` | Per-version, per-profile witnesses | — |
 | `examples/` incl. `profile-comparison/` | Expanded/condensed illustration + 14 queries | `npm run validate:examples` |
@@ -53,7 +53,7 @@ Counts as of `v2.1.1` / `9b6d85e`. Any later change is a delta, not a correction
 
 | Measure | Value |
 | --- | --- |
-| Methodology requirements / cases / query executions | 94 / 210 / 840 |
+| Methodology requirements / cases / query executions | 94 / 210 / 840 nominal, 465 distinct |
 | Preservation demonstrated, expanded (4.1–4.5) | 46.4, 47.2, 47.3, 45.8, 56.0 % |
 | Structure demonstrated, condensed (4.1–4.5) | 37.7, 38.9, 39.2, 37.3, 40.7 % |
 | Curated inventory | 104/104 represented, 87 enforced |
