@@ -54,8 +54,9 @@ Expanded sample calls expose individual values, whereas condensed, sample-ordere
 Version-specific registries and validation profiles address VCF 4.1--4.5, including 122 reserved INFO and FORMAT declarations for VCF 4.5. 
 A curated assessment records representation evidence for all 104 inventoried logical-model constructs and enforcement evidence for 87, and a set of 123 curated alignments documents connections to existing variation models and reference ontologies. 
 We evaluate the vocabulary with executed checks rather than term counts. 
-A specification-derived assessment of 94 requirements over VCF 4.1--4.5 is replayed over graphs from an independent converter, on which the two producers agree for 508 of 572 checks with no divergence attributable to a representation gap; a semantic round-trip recovers the fixed columns and genotypes of all 35 records from structured properties alone; and one integration example answers an allele-dependent question under VCF 4.5 local alleles with checked answers and recovered provenance. 
-The cross-producer replay also found a silent correctness defect in local-allele handling that per-producer testing had not, which we report as evidence for keeping representational mechanism, implementation and correctness apart. 
+A specification-derived assessment of 94 requirements over VCF 4.1--4.5 supplies queries and expected answers authored in advance; replaying the 39 requirements that a ten-fixture subset exercises over graphs from a second, separately implemented producer gives agreement on 536 of 572 checks, 508 of them passing for both, with no divergence attributable to a representation gap. 
+A semantic round-trip recovers the fixed columns and genotypes of all 35 records, in the expanded profile, from structured properties alone, and one integration example answers an allele-dependent question under VCF 4.5 local alleles with checked answers and recovered provenance. 
+The replay also found a silent correctness defect in local-allele handling that per-producer testing had not, which we report as evidence for keeping representational mechanism, implementation and correctness apart. 
 We then discuss how this foundation could support reusable conversion engines, traceable links to biomedical resources, and SPARQL queries combining genomic observations with medically relevant information.
 \end{abstract}
 \begin{keywords}
@@ -66,18 +67,18 @@ Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration
 % REVISED: motivation before technical detail; no first-ever conversion claim.
 \section{Introduction}
 
-Genomic data are increasingly useful in medicine when integrated with other pateint, public, and/or proprietary information. 
+Genomic data are increasingly useful in medicine when integrated with other patient, public and proprietary information. 
 A drug-response assessment, for example, depends on the relationship between a patient's genomic findings, a prescribed medication, and the knowledge used to interpret that relationship~\cite{lee2022cpic}.
 The presence of a variant alone does not establish these connections. 
 Semantic approaches provide a basis for making such connections explicit: HERO-Genomics addresses integration of genomic and biomedical information, while Semantic Beacons demonstrates federated queries over variant data and public knowledge graphs~\cite{cazzaro2025hero,bodrug2025semantic}. 
-The maturing investigations of genomic-medical data integration motivates a reusable representation of the source observations on which interpretation depends.
+Maturing investigation of genomic--medical data integration motivates a reusable representation of the source observations on which interpretation depends.
 
 The Variant Call Format (VCF) is widely used to exchange genomic variant data~\cite{danecek2011vcf}. 
 It already supports database identifiers, reference information and extensible annotations, so its limitation is not that data linking is impossible. 
 Rather, VCF does not natively expose these elements and their relationships in a Findable, Accessible, Interoperable and Reusable (FAIR) way. 
 Moreover, a value in a VCF file often depends on a header declaration, an ordered allele list, or the structure of a sample column for its interpretation~\cite{vcf45}. 
 Converting only selected variant attributes can leave those dependencies implicit.
-Thus, leveraging semantic approaches, such as data modeling using Linked Data and the Resource Description Framework (RDF), is an attractive approach to capturing the full context of information contained within VCF files.
+Linked Data and the Resource Description Framework (RDF) are therefore an attractive way to capture the full context of the information a VCF file carries.
 
 Existing VCF-to-RDF approaches provide important foundations. 
 The Genomic Feature and Variation Ontology (GFVO) includes VCF term coverage within a broader model of genomic features and variation, and VCF2RDF presents an isomorphic semantic mapping of the VCF format~\cite{baran2015gfvo,penha2017vcf2rdf}. 
@@ -87,7 +88,7 @@ Such a target would allow conversion and querying approaches to develop without 
 
 Here, we present the VCF Core Vocabulary (\textit{vcfcv}) 2.1.1~\cite{vcfc210}, developed from our earlier VCF-RDFizer Vocabulary~\cite{crum2025semantifying}. 
 The contribution combines source-context preservation, alternative sample representations, documented alignment, and coverage evidence across VCF 4.1--4.5. 
-After introducing VCF and the model, we explain its relationship to existing work, assess its scope, and discuss how our vocabulary facilitates integrated, medically-relevant genomic querying. 
+After introducing VCF and the model, we explain its relationship to existing work, assess its scope, and discuss how it could support integrated, medically relevant genomic querying. 
 Throughout, \term{vcfc:} denotes \url{https://w3id.org/vcf-core/vocab#}.
 
 % VCF introduction for readers who already understand RDF and vocabularies.
@@ -119,12 +120,8 @@ FORMAT and samples & Declare an ordered set of keys and give corresponding value
 \end{tabularx}
 \end{table}
 
-For example, consider the supplied synthetic record at position 100 on contig 1, with reference allele A, alternative allele G and \term{FORMAT=GT:DP}. 
-Its three sample values are \term{0/1:42}, \term{0/0:18} and \term{./.:.}. 
-In this biallelic example, genotype \term{0/1} refers to one reference and one alternative allele, while \term{0/0} refers to two reference alleles. 
-The values 42 and 18 are read depths. 
-The third sample has missing genotype and depth values. 
-The slash separates unphased allele calls; a vertical bar is used for phased calls, where the ordering of alleles is meaningful~\cite{vcf45}.
+For example, a synthetic record at position 100 on contig 1 with reference allele A, alternative allele G and \term{FORMAT=GT:DP} may carry the sample values \term{0/1:42}, \term{0/0:18} and \term{./.:.} --- a heterozygous call at depth 42, a homozygous reference call at depth 18, and a sample whose genotype and depth are both missing. 
+The slash separates unphased allele calls, while a vertical bar marks phased calls in which allele ordering is meaningful~\cite{vcf45}.
 
 These compact encodings illustrate why representing VCF requires more than assigning predicates to columns. 
 Genotype indices refer to the record's ordered allele list, and the meaning of a sample value depends on its FORMAT key. 
@@ -199,25 +196,15 @@ Sample identity and ordering are described separately through \term{VCFSample} a
 
 \subsection{Making field interpretation explicit}
 
-% TODO: This is all descriptive but uninteresting to a general audience, reads more like a Vocab Specification...
 
-Header declarations are represented because they determine how values should be read. 
-The vcfcv model includes dedicated classes for the eleven meta-information line types identified in the VCF 4.5 inventory, together with the column-header line. 
-Generic \term{HeaderAttribute} resources retain attributes of structured declarations, including producer-defined additions. 
-Field definitions expose their identifier, Number, Type, Description and optional source and version information~\cite{vcfc210}.
+Header declarations are represented because they determine how values should be read: VCF Core gives each meta-information line type its own class and exposes a field definition's identifier, Number, Type, Description and optional source and version as data, with generic \term{HeaderAttribute} resources retaining producer-defined additions~\cite{vcfc210}.
 
-A standardized field definition and its occurrence in a file have different roles. 
-The reserved FORMAT/DP definition describes a key supplied by the specification; a particular header line records what one file declares. 
-VCF Core therefore provides distinct \term{FieldDefinition} and \term{HeaderLine} resources, connected by \term{declaredOnLine}. 
-Values can refer to their defining declaration through \term{declaredBy}. 
-This pattern supports reuse of existing declarations without treating a registry entry as a line present in every file.
-
-Lexical and parsed values are complementary. 
-\term{fieldValue} retains a source token or list, while optional integer, decimal and boolean properties support suitable scalar queries. 
-A missing depth is not converted to zero, and a non-finite floating-point token is not forced into \term{xsd:decimal}. 
-Standalone missing values can use \term{vcfc:Null}; genotype strings retain their allele separators. 
-Ordered allele resources use index zero for REF and positive indices for ALT, preserving the context needed to interpret genotype indices and allele-dependent annotations. 
-Optional raw fields preserve additional source text, but retaining a string alone is not counted as structured coverage.
+Two modelling decisions in this area carry most of the weight. 
+First, a standardized definition and its occurrence in a file are kept apart --- the reserved FORMAT/DP definition describes a key the specification supplies, while a header line records what one file declares --- so \term{FieldDefinition} and \term{HeaderLine} are distinct resources joined by \term{declaredOnLine}, and values reach their declaration through \term{declaredBy}. 
+Without that separation a registry entry would be forged into every file that never declared it. 
+Second, lexical and parsed forms are both retained: \term{fieldValue} keeps the source token or list while optional integer, decimal and boolean properties serve scalar queries, so a missing depth is never coerced to zero and a non-finite float is never forced into \term{xsd:decimal}. 
+Standalone missing values use \term{vcfc:Null}, and ordered allele resources index REF at zero and ALT upwards, which is what makes a genotype integer and an allele-dependent annotation resolvable. 
+Raw source text may be retained alongside, but a preserved string is never counted as structured coverage.
 
 \subsection{Choosing how sample data are represented}
 \label{sec:profiles}
@@ -266,12 +253,11 @@ SELECT ?sampleName ?depth WHERE {
 
 \subsection{Complementary contributions}
 
-% TODO: expand abbreviations 
 The usefulness of VCF Core depends on its relationship to the models already used for genomic data. 
 GFVO was developed from several genomic formats, explicitly including VCF 4.1 and 4.2~\cite{baran2015gfvo}. 
 VCF2RDF demonstrated source-preserving semantic conversion~\cite{penha2017vcf2rdf}. 
-HERO-Genomics includes VCF files and records within a broader integration model, while GVO addresses detailed variation descriptions, including complex structural variants~\cite{cazzaro2025hero,kawashima2023gvo}. 
-VRS provides computable variation descriptions and federated identification, rather than a representation of every source-file detail~\cite{wagner2021vrs}. 
+HERO-Genomics includes VCF files and records within a broader integration model, while the Genome Variation Ontology (GVO) addresses detailed variation descriptions, including complex structural variants~\cite{cazzaro2025hero,kawashima2023gvo}. 
+The GA4GH Variation Representation Specification (VRS) provides computable variation descriptions and federated identification, rather than a representation of every source-file detail~\cite{wagner2021vrs}. 
 These are complementary purposes, not successive attempts at the same task.
 
 To place VCF Core among them without asserting superiority, we inspected the published artifact of each model and scored nine retrieval criteria drawn from the interpretation context a VCF file carries about itself (Table~\ref{tab:comparison}). 
@@ -279,7 +265,7 @@ Each criterion is a question about what can be retrieved, not a judgement of qua
 GA4GH VRS is deliberately not scored: it describes computable variation identity rather than a source file, so scoring it against file-format criteria would manufacture a contrast its authors never sought.
 
 \begin{table}[htbp]
-\caption{What each inspected artifact lets a consumer retrieve. \textbf{E}~explicitly represented; \textbf{C}~representable with additional conventions; \textbf{S}~outside the model's stated scope, which is not a defect. Scored against GFVO (BioInterchange \texttt{master}), HERO-Genomics 1.0, GVO (\texttt{versionInfo} 2021-11-18) and the VCF2RDF term set (\texttt{v4\_2}), all retrieved 2026-09-13.}
+\caption{What each inspected artifact lets a consumer retrieve. \textbf{E}~explicitly represented; \textbf{C}~representable with additional conventions; \textbf{S}~outside the model's stated scope, which is not a defect. Scored against GFVO (BioInterchange \texttt{master}), HERO-Genomics 1.0, GVO (\texttt{versionInfo} 2021-11-18) and the VCF2RDF term set (\texttt{v4\_2}), GFVO and HERO-Genomics retrieved 2026-09-12, GVO and the VCF2RDF term set 2026-09-13.}
 \label{tab:comparison}
 \centering\small
 \begin{tabularx}{\linewidth}{@{}Xccccc@{}}
@@ -302,13 +288,15 @@ The sample encoding is readable from the graph & E & S & S & S & S \\
 Two contrasts explain the pattern. 
 HERO-Genomics and GVO both retain the INFO column as a single literal --- our alignment set records \term{hero:vcfInfo} and \term{gvo:info} as exact matches to \term{vcfc:infoRaw} --- so every INFO-derived question requires re-parsing that string and supplying the cardinality rule from outside the graph. 
 GFVO makes the opposite choice, modelling particular field \emph{meanings} as first-class concepts (\term{AlleleCount}, \term{Coverage}, \term{MappingQuality}), which answers those fields well and leaves the declaration mechanism unaddressed. 
-VCF2RDF is the instructive case: its published term set does define \term{Number}, \term{Type} and \term{Description}, so the cardinality rule is in the graph, but with no allele-index term a consumer must still split the list and count ALT alleles by re-reading a literal. 
+VCF2RDF is the instructive case: its published term set does define \term{Number}, \term{Type} and \term{Description} as dereferenceable terms, so the cardinality rule is named rather than left outside the vocabulary --- but with no allele-index term a consumer must still split the list and count ALT alleles by re-reading a literal. 
 Having the declaration is necessary and, alone, insufficient; binding a value to an allele is the part that must be represented rather than inferred.
 
 These verdicts are bounded in three ways. 
 The criteria were chosen for the interpretation problem VCF Core addresses, so this is not a neutral ranking --- a matrix chosen by GVO's authors would look different and would be equally legitimate. 
-GVO's column reads S throughout because the retrieved ontology declares 48 classes, 12 datatype properties and \emph{no} object properties: a model of variation types, doing something other than file modelling. 
-And ``requires additional conventions'' states what an inspected artifact establishes, never that a model's community could not represent something.
+GVO's column is S in every row but missingness, because the retrieved ontology declares 48 classes, 12 datatype properties and \emph{no} object properties: a model of variation types, doing something other than file modelling. 
+Missingness scores C there only because a literal-valued property can carry a dot, while distinguishing that from an absent triple remains a convention the ontology does not supply. 
+The VCF2RDF column rests on a published term set carrying specification glosses rather than RDF axioms, and on no converter output, so what its graphs contain is still taken from its paper. 
+Finally, ``requires additional conventions'' states what an inspected artifact establishes, never that a model's community could not represent something.
 
 \subsection{Reuse and curated alignment}
 
@@ -335,7 +323,7 @@ SO, ChEBI, GENO, FALDO & 35 & Alteration types, modifications, genotype concepts
 \end{tabularx}
 \end{table}
 
-Mappings are curated in SSSOM, which records the mapping predicate, justification and associated metadata~\cite{matentzoglu2022sssom}. 
+Mappings are curated in the Simple Standard for Sharing Ontological Mappings (SSSOM), which records the mapping predicate, justification and associated metadata~\cite{matentzoglu2022sssom}. 
 A generated Turtle bridge provides the RDF form. 
 Of the 123 mappings, 48 are also asserted inline in ontology modules; the remaining 75 are available through the separately loaded bridge. 
 Keeping this distinction visible lets consumers identify which mapping assertions accompany the core and which require an additional module.
@@ -347,7 +335,7 @@ They nevertheless have defined semantics: \term{skos:exactMatch} is transitive, 
 Consequently, mixed mapping paths cannot be treated as unrestricted rules for predicate substitution, and mappings between different VRS releases require explicit review.
 
 % TODO: refine this section
-The repository additionally preserves 116 SSSOM mappings from work in the 2024 SWAT4HCLS Biohackathon separately from VCF Core's own assertions~\cite{bh25}. 
+The repository additionally preserves 116 SSSOM mappings from work in the 2025 SWAT4HCLS BioHackathon separately from VCF Core's own assertions~\cite{bh25}. 
 Of 47 terms previously recorded as lacking a VRS counterpart, eight have a source-oriented VCF Core counterpart, including file, quality, and as-written allele concepts. 
 This illustrates the contribution of retaining source semantics alongside biological models; it does not mean that the 39 remaining annotation and interpretation concepts should all become VCF Core terms.
 
@@ -382,6 +370,8 @@ Two assessments and two cross-checks address three questions: whether VCF Core p
 The curated VCF 4.5 inventory enumerates 104 logical constructs across file and header organization, declarations, types and cardinalities, lexical rules, fixed fields and alleles, genotypes, structural variation, repeats and gVCF. 
 All 104 have preserved, structured representations and 87 additionally have an enforcement rule. 
 Separately, all 333 reserved Number/Type rows extracted from the specification texts match the versioned registries~\cite{vcfc210}. 
+Those 333 rows --- 31, 31, 69, 79 and 123 per version --- are the keys each source declares explicitly in \texttt{\#\#INFO=}/\texttt{\#\#FORMAT=} blocks or reserved-key tables, and are a different population from the registry entries counted above. 
+VCF 4.1 and 4.2 each define a further 29 reserved keys in prose bullets that give no Number and, for INFO, no Type; those rows are inventoried but cannot be compared, so this agreement figure is weighted towards VCF 4.3--4.5. 
 The inventory was curated by the vocabulary's developers, so it maps what its authors listed and cannot reveal an omission nobody listed.
 
 \paragraph{Instantiation and independent checking.}
@@ -417,39 +407,50 @@ That generation has been superseded: requirements are now scored per version and
 \label{sec:crossproducer}
 
 The assessment above builds its witness graphs with the vocabulary repository's own materializer, whereas the implementation this paper cites is a separate program. 
-Both target VCF Core, and nothing had established that a query and expected answer written against one also holds over the other --- which is precisely the gap between ``the vocabulary can express this'' and ``the software people will use does''.
+Both target VCF Core, and nothing had established that a query and expected answer written against one also holds over the other --- which is precisely the gap between ``the vocabulary can express this'' and ``the software people will use does''. 
+The two programs share an author but no code: the assessment materializes graphs from a Python fixture builder, the converter from RML mappings and streaming emitters. 
+Producer independence here therefore means independent implementations, not independent authorship, and the check is correspondingly weaker than a third-party reproduction would be.
 
 We therefore replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer. 
 Ten fixtures spanning VCF 4.1--4.5 and the difficult decisions above were each converted in both profiles and every applicable case replayed, giving 572 checks over 143 cases and 39 requirements. 
 The two producers agree on 536 checks and both pass on 508. 
-Of the 39 requirements, 34 agree on every check and 28 pass outright for both. 
-The 28 both-fail checks are the condensed profile's documented storage trade-off, on which the producers agree before and after.
+Of the 39 requirements, 34 agree on every check, and for 28 of those every check passes for both producers. 
+Where the two agree by both failing, the cause is uniform: all such checks are condensed-profile structure queries, the documented storage trade-off, on which the producers agreed before and after the corrections below.
 
 The exercise earned its keep by failing. 
 Its first run diverged on 15 requirements, nine of which were converter defects or gaps precise enough to fix. 
 One was a silent correctness defect in VCF 4.5 local alleles, this paper's own headline feature: \term{Number=LA} and \term{Number=LR} items were bound to allele indices positionally, ignoring the sample's \texttt{LAA} subset, so a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} was attached to alleles 0, 1 and 2 instead of 0, 2 and 4. 
 The values were plausible and well-formed; they were on the wrong alleles. 
 No existing test caught it because every existing test ran against the other producer. 
-Five requirements still diverge: a QUAL datatype the vocabulary deliberately leaves open, two structured accessors the converter has not built, one condensed-vector decoding path and one empty-list encoding convention. 
+Five requirements still diverge: a QUAL datatype the vocabulary deliberately leaves open, three structured accessors the converter has not built (one of them the condensed-vector decoding path), and one empty-list encoding convention. 
 None is a case of the vocabulary being unable to express something --- across all 572 checks, zero divergences trace to a representation gap.
 
 A complementary check recovers logical content rather than comparing query answers. 
 For each of the ten fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone and compare with the source file: REF and ALT are rebuilt from ordered \term{alleleIndex}/\term{alleleValue} resources and GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
 All 35 records are recovered. 
-This is a partial recovery by design: INFO and the non-GT FORMAT subfields are out of scope, and it is not a claim of whole-file reconstruction.
+The recovery is bounded in three ways, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor that requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
+It is not a claim of whole-file reconstruction.
 
 \paragraph{Where the two sample profiles agree.}
 Because every case runs in both profiles, the profile claim can be stated precisely rather than asserted. 
-Across the 39 exercised requirements the profiles return the same outcome on 252 of 286 comparable checks, and the 34 disagreements are not scattered: every one is a genotype- or sample-level question. 
-File, header, record and allele questions agree on every check in both profiles. 
-The supported claim is therefore that the profiles are equivalent for file, header, record and allele questions and divergent by design for per-sample structure queries, the condensed profile storing sample values as vectors rather than as per-sample resources.
+Across the 39 exercised requirements the profiles return the same outcome on 252 of 286 comparable checks. 
+The 34 disagreements are not scattered: they fall on nine requirements, every one of which reads a FORMAT-scoped value --- genotype structure, trailing-field missingness, sample-local allele and base-modification items, and repeat components. 
+The record-level file, header, declaration and allele questions agree on every check in both profiles. 
+The supported claim is therefore that the profiles are equivalent for file, header, record and record-level allele questions, and divergent by design wherever a query walks per-sample resources, the condensed profile storing sample values as vectors. 
+Two of the nine are local-allele requirements, so the paper's headline feature is among those a condensed graph answers less completely.
+
+\paragraph{Answers to the three questions.}
+For RQ1, 53 of the 94 requirements have at least one executed case and the overwhelming majority pass; meaning preservation is demonstrated where tested and untested elsewhere. 
+For RQ2, 17 of the 36 version-conditioned requirements are tested, and the two sample profiles behave as documented --- equivalent above the sample level, divergent below it. 
+For RQ3, 27 of the 38 requirements on the provenance chain an integration query must traverse are tested, and Section~\ref{sec:integration} exercises that chain end to end. 
+None of these fractions is a conformance claim; each is the share of requirements for which behaviour has been checked at all.
 
 \paragraph{Remaining gaps, classified.}
 Of the requirements exercised, none reveals a representation gap. 
 One correctness defect was found and fixed; three requirements await structured accessors in the converter; one reflects an interpretation the vocabulary deliberately permits both ways; one is an encoding convention. 
 The largest limitation is absence of evidence rather than negative evidence: 41 of the 94 requirements have no test case yet, concentrated in structural-variant fields with version-specific semantics. 
 Allele-dependent values, this paper's central modelling claim, are tested for 4 of the 11 requirements that bear on them --- adequate to demonstrate the mechanism and to catch the defect above, not adequate to claim general correctness. 
-Four validator findings also remain: custom structured-header IDs can be absent or duplicated without rejection; numeric base-modification keys can be accepted with incorrect Number/Type pairs; a partially missing phase-set-list example is rejected under an unresolved interpretation; and mixed LF/CRLF line endings are rejected under an unconfirmed reading of the specification. 
+Outside that classification, four validator findings remain from the release's own conformance checks: custom structured-header IDs can be absent or duplicated without rejection; numeric base-modification keys can be accepted with incorrect Number/Type pairs; a partially missing phase-set-list example is rejected under an unresolved interpretation; and mixed LF/CRLF line endings are rejected under an unconfirmed reading of the specification. 
 Byte-level checking is reported separately, and neither BCF binary layout nor byte-for-byte reconstruction is a target of the logical model.
 
 \subsection{Implementation and reproducibility}
@@ -457,16 +458,18 @@ Byte-level checking is reported separately, and neither BCF binary layout nor by
 
 The release provides OWL/Turtle modules, SHACL profiles, examples, versioned registries, SSSOM mappings and documentation~\cite{vcfc210}. 
 VCF-RDFizer supplies a separate implementation: release 3.0.2 constructs file and record context with RML mappings and produces expanded or condensed sample structures through streaming emitters~\cite{vcfrConverter2026}. 
-All results in Sections~\ref{sec:evidence}--\ref{sec:integration} were produced with VCF Core 2.1.1 and VCF-RDFizer 3.0.2 together with the corrections that the cross-producer check prompted, which are not yet in a tagged converter release; the exact commits are recorded with the reproduction scripts. 
-Converting the Section~\ref{sec:profiles} example emits 225 expanded and 159 condensed triples, drawing on 79 and 69 distinct VCF Core terms respectively. 
-Every emitted class and property is declared in VCF Core 2.1.1, and both graphs satisfy the shared and VCF 4.5 SHACL profiles when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
+The Section~\ref{sec:evidence} assessment was produced with VCF Core 2.1.1 and the vocabulary's own materializer, with no converter involvement. 
+All converter-dependent results (Sections~\ref{sec:crossproducer}--\ref{sec:integration}) additionally used VCF-RDFizer 3.0.2 together with the corrections that the cross-producer check prompted, which are not yet in a tagged converter release; the exact commits are recorded with the reproduction scripts. 
+One further caveat applies on the vocabulary side: the QUAL datatype guidance discussed in Section~\ref{sec:crossproducer} was added after the 2.1.1 tag and is not part of the cited release, which the results otherwise use unmodified. 
+Converting the Section~\ref{sec:profiles} example emits 227 expanded triples, two more than before the typed-accessor correction. 
+Every emitted class and property is declared in VCF Core 2.1.1, and both profiles' graphs satisfy the shared and VCF 4.5 SHACL profiles when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
 The converter pins no vocabulary version, so this relationship is established by the behaviour recorded here rather than by a declaration, and it is evidence for the terms these graphs exercise, not for all 467 declared terms or for every historical VCF version.
 
 Two pinning limitations are worth stating plainly because they affect reproduction. 
 The container image is published only under a mutable \texttt{latest} tag, so reproduction must cite an image digest rather than a version; and the toolchain inside that image is not independently pinned. 
-The figures quoted for the Section~\ref{sec:profiles} illustration --- 172 expanded and 149 condensed triples --- describe the hand-authored illustration file, not converter output; the converter emits more because it also materializes allele resources and per-sample genotype and allele-call resources that the illustration omits for readability.
+The counts above are converter output; the hand-authored illustration file in the release is smaller, because it omits the allele resources and per-sample genotype and allele-call resources that the converter materializes.
 
-The recorded validation run accepts 21 fixtures and includes a negative control and 35 targeted regression tests. 
+The recorded validation run accepts 21 fixtures and includes a negative control, alongside a regression suite of 101 tests. 
 The published workflow recomputes the reported counts and checks evidence references against the maintained artifacts, and each result in Section~\ref{sec:evidence} has a script that reproduces it from the pinned inputs. 
 Review of coverage judgements and mappings nonetheless remains a human task. 
 The established result is full representation of the curated VCF 4.5 inventory with version-aware support across VCF 4.1--4.5, demonstrated to be reproducible with an independent converter on the subset tested --- not complete conformance.
@@ -480,7 +483,7 @@ To test whether the retained context survives contact with an external annotatio
 The example is bounded to a single difficulty: allele-dependent values under VCF 4.5 local alleles. 
 \texttt{LAD} is declared \texttt{Number=LR}, meaning one value per allele of \emph{the sample's own} local allele subset named by \texttt{LAA}, not per entry of the record's ALT column. 
 Answering ``how deep is this alteration in this sample?'' therefore requires the declaration, the sample's \texttt{LAA} and the allele's ordinal simultaneously. 
-The input is a pinned four-site, single-sample VCF 4.5 fixture; the annotations are a local, explicitly synthetic snapshot of five flagged alterations, labelled as such in the file, and local rather than federated so the example returns the same answer on every run. 
+The input is a pinned four-site, single-sample VCF 4.5 fixture, each site written twice, once with local alleles and once globally; the annotations are a local, explicitly synthetic snapshot of five flagged alterations, labelled as such in the file, and local rather than federated so the example returns the same answer on every run. 
 The link is made in the query rather than by pre-minted identifiers: an annotation names an alteration by contig, position, reference and alternate allele, and the query joins on those four literals. 
 Three assumptions are recorded because they are what would break the link --- a shared assembly, as-written allele identity with no normalization or VRS matching, and that a VCF sample column is a sample and not a patient.
 
@@ -503,15 +506,15 @@ What it does not demonstrate is equally clear: the input is synthetic and tiny, 
 
 VCF Core can make more of the evidence already present in a VCF file available to semantic applications. It retains observations and their interpretation context, while other models describe specimens, patients, diseases, treatments and biological variation. These layers can develop independently when their relationships are explicit.
 
-For example, two laboratories may report the same sequence alteration in separate files. After reference-aware normalization, their records could link to a common variation description while retaining distinct quality values, sample identities and provenance. A disease-association assertion could then be linked to that description without being copied into each source record. When the association changes, a query could retrieve the revised interpretation together with the original observations. PROV, FALDO and the published variation-model alignments provide useful starting points, but the actual normalization and instance mappings would still need to be implemented and evaluated.
+Two laboratories reporting the same alteration in separate files could, after reference-aware normalization, link to a common variation description while each retains its own quality values, sample identities and provenance --- so a disease association attaches to the description once rather than being copied into every source record, and a revised interpretation can be retrieved alongside the original observations. PROV, FALDO and the published alignments are starting points; the normalization and instance mappings themselves remain to be implemented and evaluated.
 
-The same separation matters for sample identity. In a tumour/normal analysis, two columns may belong to different specimens from the same patient. Treating column names as patient identifiers would lose this distinction. An integration layer could instead link each \term{VCFSample} to its specimen and connect both specimens to the patient using an appropriate biomedical model, such as the broader setting addressed by HERO-Genomics~\cite{cazzaro2025hero}. VCF Core preserves the source side of that relationship without attempting to replace the clinical model.
+Sample identity needs the same separation. In a tumour/normal analysis two columns may be different specimens from one patient, and treating column names as patient identifiers destroys that distinction. An integration layer can link each \term{VCFSample} to its specimen and both specimens to the patient through a biomedical model such as HERO-Genomics~\cite{cazzaro2025hero}; VCF Core preserves the source side without replacing the clinical one.
 
 \subsection{A shared target for conversion engines}
 
-A reusable vocabulary could also separate conversion strategy from representation decisions. Consider a hospital converting a single-sample VCF for detailed inspection and a research group converting a large cohort. The first may choose expanded values so individual calls can be queried and annotated directly. The second may choose condensed vectors, then expand selected samples or fields when a particular analysis needs them. Both can retain the same file, header and record model rather than creating incompatible vocabularies for different workloads.
+A reusable vocabulary also separates conversion strategy from representation decisions. A clinical site converting one sample for inspection and a research group converting a cohort can choose different sample profiles --- expanded values for direct annotation, condensed vectors with selective expansion for scale --- while retaining the same file, header and record model rather than growing incompatible vocabularies per workload. A pipeline spanning VCF 4.2 and 4.5 data can likewise select the registry and validation overlay from \term{fileFormat} instead of silently imposing the newest cardinality on an older declaration.
 
-Version-aware conversion provides another concrete use. A pipeline processing historical VCF 4.2 data and newer VCF 4.5 data could select the corresponding registry and validation overlay from \term{fileFormat}. It would not silently impose the latest cardinality on an older declaration. These examples suggest a common evaluation strategy: compare recovered source values and query answers first, then measure conversion time, peak memory, serialized size and loading cost. Compression formats and query engines can be evaluated separately from the choice of sample granularity. The vocabulary enables that comparison; the present results do not determine which implementation will be most efficient.
+That suggests an evaluation order for future work: compare recovered source values and query answers first, as Section~\ref{sec:crossproducer} does, and only then measure conversion time, peak memory, serialized size and loading cost. Section~\ref{sec:profiles} is explicit that the profiles trade query granularity rather than demonstrated storage savings, and the present results do not establish which implementation is most efficient.
 
 \subsection{SPARQL questions that combine genomic and clinical evidence}
 \label{sec:clinicalqueries}
@@ -524,37 +527,12 @@ SPARQL provides the query structure; it does not supply missing interpretation o
 \paragraph{Pharmacogenomic review.}
 A possible question is: \emph{Which patients with an active clopidogrel prescription have an externally established CYP2C19 phenotype relevant to a guideline for their treatment indication, and which source observations support that assessment?} The CPIC guideline provides a concrete example of why genotype-derived phenotype and indication both matter~\cite{lee2022cpic}. A workflow such as PharmCAT separates variant input processing, allele matching and clinical interpretation~\cite{pharmcatmethods}; these steps must not be replaced by interpreting one VCF genotype token as a metabolizer phenotype.
 
-Listing~\ref{lst:pgx} sketches the joined query after those interpretation and mapping steps. The \term{app:} namespace is an illustrative application schema, not part of VCF Core or a claim of an implemented clinical mapping. The query returns the patient, assessment, applicable guideline, source file and supporting call depth. The depth filter only illustrates access to retained sample evidence; it neither validates the assessment as a whole nor defines a prescribing threshold.
-
-\begin{lstlisting}[float=htbp,caption={Prospective pharmacogenomic evidence query. Application-level clinical assertions must be supplied and reviewed separately.},label={lst:pgx}]
-PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
-PREFIX prov: <http://www.w3.org/ns/prov#>
-PREFIX app: <https://example.org/clinical/>
-SELECT DISTINCT ?patient ?phenotype ?assessment
-                ?guideline ?file ?record ?depth WHERE {
-  ?order app:patient ?patient ; app:drug app:Clopidogrel ;
-         app:status app:Active ; app:indication ?indication .
-  ?assessment app:forPatient ?patient ; app:gene app:CYP2C19 ;
-              app:phenotype ?phenotype ;
-              prov:wasDerivedFrom ?sampleCall .
-  ?guideline app:forDrug app:Clopidogrel ;
-             app:forIndication ?indication ;
-             app:forGene app:CYP2C19 ;
-             app:appliesToPhenotype ?phenotype ;
-             app:reviewRequired true .
-  ?patient app:hasSampleColumn ?sample .
-  ?file vcfc:representationProfile vcfc:ExpandedRepresentation ;
-        vcfc:hasRecord ?record .
-  ?record vcfc:hasCall/vcfc:hasSampleCall ?sampleCall .
-  ?sampleCall vcfc:forSample ?sample ; vcfc:hasFormatValue ?value .
-  ?value vcfc:declaredBy/vcfc:fieldId "DP" ;
-         vcfc:fieldValueInteger ?depth .
-  FILTER (?depth >= 20)
-}
-\end{lstlisting}
+After those interpretation and mapping steps, the joined query would return the patient, assessment, applicable guideline, source file and supporting call depth, reaching the depth through the same declaration-to-value path that Section~\ref{sec:integration} executes. 
+The clinical assertions would come from an application schema that is not part of VCF Core, and a depth filter illustrates access to retained sample evidence without defining a prescribing threshold.
 
 \paragraph{Rare-disease investigation.}
-A second question is: \emph{Which candidate alterations occur in genes associated with diseases that share the patient's recorded phenotypic features, and which retain sufficient source evidence for further review?} Phenotypic observations could use HPO, which supplies standardized descriptions and disease annotations~\cite{hpo}. The query would join a patient's specimen-linked VCF calls to normalized alterations, gene associations, disease annotations and recorded phenotypes. A follow-up could include an independently assessed inheritance model and parental calls. Importantly, absence of a row in a variant-only VCF must not be treated as evidence that a parent is homozygous reference. The vocabulary retains observations; completeness and segregation analysis require additional evidence.
+A second question --- \emph{which candidate alterations occur in genes associated with diseases that share the patient's recorded phenotypic features, and which retain sufficient source evidence for review?} --- would join specimen-linked calls to normalized alterations, gene associations and phenotype descriptions such as HPO~\cite{hpo}. 
+The critical constraint is that absence of a row in a variant-only VCF is not evidence that a parent is homozygous reference: the vocabulary retains observations, while completeness and segregation analysis require evidence it does not carry.
 
 \paragraph{Oncology evidence review.}
 A third question --- \emph{which alterations detected in a tumour have reviewed therapeutic evidence for the patient's cancer type, and what do the matched-normal observations show?} --- would join curated interpretation evidence such as CIViC~\cite{griffith2017civic} to normalized alterations, then retrieve tumour and normal calls through their specimen links. 
@@ -566,7 +544,7 @@ These scenarios could be implemented over a materialized graph or, where source 
 
 VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
 It combines reuse of existing models, explicit source structure, alternative sample representations and version-specific artifacts for VCF 4.1--4.5. 
-All 104 constructs in the curated VCF 4.5 inventory are represented, and the claims that matter have been executed rather than asserted: the specification-derived checks hold across an independent converter for the subset tested, all 35 records round-trip through structured properties, and one integration example returns answers authored in advance together with their source provenance.
+All 104 constructs in the curated VCF 4.5 inventory are represented, and the claims that matter have been executed rather than asserted: the specification-derived checks agree across a second producer on 536 of 572 replayed checks with no divergence traceable to the vocabulary, all 35 records round-trip through structured properties, and one integration example returns answers authored in advance together with their source provenance.
 
 The remaining work is specific rather than general. 
 Evidence is absent for 41 of the 94 requirements, concentrated in structural-variant fields, and thinner than we would like for allele-dependent values in particular; three structured accessors are not yet implemented in the cited converter; one QUAL datatype question is an interpretation the vocabulary deliberately leaves open; and the per-sample condensed profile cannot yet answer the hardest missingness question. 
@@ -574,7 +552,7 @@ None of these is a representation gap, and none is hypothetical --- each is a na
 
 What this foundation makes practical is the step from representing genomic files to connecting their contents with biomedical knowledge. 
 Conversion engines can target the same model, integration layers can preserve the distinction between observations and interpretations, and SPARQL studies can examine medically relevant questions with traceable source evidence. 
-The clinical scenarios in Section~\ref{sec:clinicalqueries} remain future work; the representation they would require is in place and checked.
+The clinical scenarios in Section~\ref{sec:clinicalqueries} remain future work: the VCF-side representation they would build on is in place and checked, while the biomedical models and reviewed instance mappings they equally require are not.
 
 \begin{acknowledgments}
 Project funding provided from the Research Foundation -- Flanders (FWO) (SB Fellowship 1S27825N).
