@@ -166,8 +166,8 @@ def main() -> int:
     # A second positional argument names the output file, so a discovery run
     # against a pre-correction converter cannot overwrite the final results.
     name = sys.argv[2] if len(sys.argv) > 2 else "cross-producer.json"
-    out = Path(__file__).parent / "generated"
-    out.mkdir(exist_ok=True)
+    out = Path(os.environ.get("RESULTS_DIR", Path(__file__).parent / "generated"))
+    out.mkdir(parents=True, exist_ok=True)
     (out / name).write_text(
         json.dumps({"summary": summary, "results": results}, indent=1, sort_keys=True) + "\n"
     )

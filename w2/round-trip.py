@@ -14,6 +14,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -130,7 +131,9 @@ def main() -> int:
     total = sum(f["recordsChecked"] for f in report["fixtures"].values())
     ok = sum(f["recordsMatched"] for f in report["fixtures"].values())
     report["totals"] = {"recordsChecked": total, "recordsMatched": ok}
-    out = Path(__file__).parent / "generated/round-trip.json"
+    out_dir = Path(os.environ.get("RESULTS_DIR", Path(__file__).parent / "generated"))
+    out_dir.mkdir(parents=True, exist_ok=True)
+    out = out_dir / "round-trip.json"
     out.write_text(json.dumps(report, indent=1, sort_keys=True) + "\n")
     print(json.dumps(report["totals"], indent=1))
     for stem, f in sorted(report["fixtures"].items()):

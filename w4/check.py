@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import gzip
 import json
+import os
 import sys
 from pathlib import Path
 
@@ -78,7 +79,7 @@ def main() -> int:
         ],
         "problems": problems,
     }
-    out = HERE / "generated"
+    out = Path(os.environ.get("RESULTS_DIR", HERE / "generated"))
     out.mkdir(exist_ok=True)
     (out / "w4-results.json").write_text(json.dumps(report, indent=1) + "\n")
 
