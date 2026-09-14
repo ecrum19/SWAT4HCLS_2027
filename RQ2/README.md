@@ -3,7 +3,7 @@
 Every experimental figure in the paper comes from one command:
 
 ```sh
-sh reproduce/run.sh
+sh RQ2/run.sh
 ```
 
 It needs `git`, `docker` and `python3` with `rdflib`, about 2 GB of disk and

@@ -69,18 +69,30 @@ execute from this bundle on their own. The fixtures and the recorded
 
 ## Reproducing the results
 
-[reproduce/](reproduce/README.md) regenerates every experimental figure in the paper
-with one command:
+The evidence is split by research question, and each directory runs on its own. Both
+fetch what they evaluate from GitHub at a pinned revision, so neither needs a local
+checkout of the vocabulary or the converter.
+
+[RQ1/](RQ1/README.md) — *does VCF Core preserve the intended meaning of the constructs
+it supports?* The specification-derived assessment (94 requirements over 210 cases) and
+the curated VCF 4.5 inventory (104 constructs, 87 enforced), copied from the vocabulary
+release and re-runnable against it:
 
 ```sh
-sh reproduce/run.sh
+sh RQ1/run.sh
 ```
 
-It fetches the vocabulary and the converter at pinned revisions, pulls the container
-image by digest, converts the fixtures, runs the checks, and writes a self-contained
-run directory holding the environment, every command with its exit code and duration,
-the converted graphs, the results and a summary. The completed run the paper cites is
-in [reproduce/runs/](reproduce/runs/); superseded earlier runs are in
+[RQ2/](RQ2/README.md) — *do the version-specific artifacts and the two sample profiles
+behave as documented?* Converts the fixtures with the released converter, replays the
+assessment over its output, round-trips the records, and runs the integration example:
+
+```sh
+sh RQ2/run.sh
+```
+
+RQ2 writes a self-contained run directory holding the environment, every command with
+its exit code and duration, the converted graphs, the results and a summary; the run
+the paper cites is in [RQ2/runs/](RQ2/runs/). Superseded earlier runs are in
 [archive/](archive/README.md) and are cited by nothing.
 
 ## Working notes

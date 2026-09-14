@@ -14,7 +14,7 @@ Thus, the CIPOS example in Section~\ref{sec:vcf} can be assessed under the appro
 Shared validation is divided into portable SHACL structure checks, SPARQL-based cross-resource checks and raw/parsed-value consistency checks~\cite{shacl2017,vcfc210}. 
 This organization permits different validator capabilities without implying that each layer independently validates the entire format.
 
-\subsection{What the evidence establishes, and at what strength}
+\subsection{Results of the two specification assessments (RQ1)}
 \label{sec:evidence}
 
 Coverage claims are easy to overstate because three different things are routinely reported as one number. 
@@ -26,19 +26,98 @@ Only the third supports a correctness claim, and only within what was tested.
 
 Two assessments and two cross-checks address three questions: whether VCF Core preserves the intended meaning of the constructs it claims to support (RQ1); whether the version-specific artifacts and the two sample profiles behave as documented (RQ2); and whether the result supports a reproducible integration task that retains source context (RQ3).
 
-\paragraph{Mechanism.}
+\paragraph{Initial empirical inventory.}
 The curated VCF 4.5 inventory enumerates 104 logical constructs across file and header organization, declarations, types and cardinalities, lexical rules, fixed fields and alleles, genotypes, structural variation, repeats and gVCF. 
-All 104 have preserved, structured representations and 87 additionally have an enforcement rule. 
+All 104 were classified as preserved and structured, with no partial or absent representations; 87 (83.7\%) additionally had a rule checking a stated requirement~\cite{vcfc210}.
+Table~\ref{tab:inventory-results} gives the distribution by specification area.
+The assigned evidence tiers were query for 7 constructs, regression probe for 23, shape or decoded check for 62, and materialized fixture for 12.
+These tiers describe the evidence attached to curated judgements, not 104 independently executed retrieval tests.
+The remaining 17 constructs had representation evidence without an enforcement rule; this did not reduce their representation classification.
+The inventory was curated by the vocabulary's developers, so it maps what its authors listed and cannot reveal an omission nobody listed.
+
+\begin{table}[htbp]
+\caption{Initial VCF 4.5 inventory results by area. Full representation means that both the preserved and structured axes were recorded as satisfied. Enforcement is a separate judgement and does not establish comprehensive validation of a construct.}
+\label{tab:inventory-results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xrr@{}}
+\toprule
+Specification area & Fully represented & With enforcement \\
+\midrule
+File and header structure & 20/20 & 17/20 \\
+Field declaration attributes & 8/8 & 8/8 \\
+Type and arity value sets & 14/14 & 14/14 \\
+Lexical and encoding rules & 7/7 & 6/7 \\
+Fixed fields and allele structure & 18/18 & 18/18 \\
+FORMAT and genotype & 21/21 & 16/21 \\
+Structural variation, repeats and gVCF & 16/16 & 8/16 \\
+\midrule
+Total & 104/104 & 87/104 \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+\paragraph{Reserved declaration agreement.}
 Separately, all 333 reserved Number/Type rows extracted from the specification texts match the versioned registries~\cite{vcfc210}. 
 Those 333 rows --- 31, 31, 69, 79 and 123 per version --- are the keys each source declares explicitly in \texttt{\#\#INFO=}/\texttt{\#\#FORMAT=} blocks or reserved-key tables, and are a different population from the registry entries counted above. 
 VCF 4.1 and 4.2 each define a further 29 reserved keys in prose bullets that give no Number and, for INFO, no Type; those rows are inventoried but cannot be compared, so this agreement figure is weighted towards VCF 4.3--4.5. 
-The inventory was curated by the vocabulary's developers, so it maps what its authors listed and cannot reveal an omission nobody listed.
+There were no missing or differing declarations among the compared rows; four rows repeat a key declared elsewhere in the same source, and the three base-modification key families were compared as patterns rather than as every possible concrete identifier.
+Agreement of declarations did not resolve inconsistencies between a declaration and its prose meaning: for example, the review identified CNL/CNP declarations with \texttt{Number=G} alongside prose defining an ordering by copy number.
+
+\paragraph{Source audit and human-review outcomes.}
+The specification-derived assessment inventoried 344 source-section intervals across VCF 4.1--4.5 and recorded 1,134 authored passage-level assertions.
+The audit expanded the requirement register from 50 to 94 by adding omitted capabilities; this was an expansion of the assessment scope, not a measured increase in percentage coverage.
+The review record documents adjudication of 21 ambiguous or defective source passages and acceptance by Elias Crum on 11 September 2026.
+The generated assessment records no pending requirement reviews, no source sections flagged as needing review, and acceptance of the source audit~\cite{vcfc210}.
+Acceptance included explicitly retained limitations; it did not mean that all assertions had executable evidence.
+Of the 1,134 assertions, 149 had targeted cases, 154 had partial test evidence and 831 had no targeted case.
+These categories record test presence, not passing outcomes, and repeat information across sections and versions; they therefore form an audit-work inventory rather than an additional coverage denominator.
+
+Review also changed the evidence that could support particular claims.
+The local-allele cases included a non-identity \texttt{LAA=2,4} subset, so a positional mapping could no longer pass merely because local and global indices happened to coincide.
+Corrected phase-set examples and reviewer-authored phase-quality and PS-versus-PSL examples supplied tests of interpretations for which the printed records were inconsistent or absent.
+Conversely, legacy GLE (R80, VCF 4.1--4.2) and haplotype-bundle BDP/BCN (R94, VCF 4.1--4.3) remained unassessed because the reviewed sources supplied no defensible serialization and expected-answer basis.
 
 \paragraph{Instantiation and independent checking.}
 The specification-derived assessment reads information requirements from pinned VCF 4.1--4.5 sources and tests them against fixtures. 
-It comprises 94 requirements over 210 cases; each case pairs a SPARQL query with an expected answer authored from the specification text \emph{before} the query was run, and every passing query is re-run against an emptied graph as a negative probe. 
-Executing every case on both sample profiles yields 840 nominal query runs, but 165 cases score the identical query and expected answer on two axes, so the independent figure is \textbf{465 distinct executions}. 
-Coverage is reported per version because requirements apply per version, and an untested requirement scores zero rather than being excluded (Table~\ref{tab:evidence}).
+It comprises 94 requirements over 210 cases; each case pairs a SPARQL query with an expected answer authored from the specification text \emph{before} the query was run.
+The cases exercise 53 distinct requirements in at least one applicable version; the remaining 41 have no registered case in any version.
+Executing every case on both sample profiles and both retrieval axes yields 840 scored query slots.
+Of the 210 cases, 165 reuse the same query and expected answer on both axes in both profiles, and the remaining 45 do so in the expanded profile only.
+Deduplicating identical query, expected-answer and fixture combinations within each case and profile leaves \textbf{465 distinct executions}, with 375 repeated slots; this is not a count of independent requirements or statistically independent observations.
+Coverage is reported per version because requirements apply per version, and an untested requirement scores zero rather than being excluded (Table~\ref{tab:requirement-results}).
+
+\begin{table}[htbp]
+\caption{Demonstrated coverage of registered information requirements. Preservation in both profiles and structure in the expanded profile have identical counts (third column). Percentages use all $N$ applicable requirements, including unassessed ones. ND denotes tested but not demonstrated; U denotes unassessed. No requirement was partial in any version/profile/axis.}
+\label{tab:requirement-results}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}lrXXrr@{}}
+\toprule
+VCF & $N$ & Preservation (both); structure (expanded) & Structure (condensed) & ND$^{a}$ & U$^{b}$ \\
+\midrule
+4.1 & 69 & 32 (46.4\%) & 26 (37.7\%) & 6 & 37 \\
+4.2 & 72 & 34 (47.2\%) & 28 (38.9\%) & 6 & 38 \\
+4.3 & 74 & 35 (47.3\%) & 29 (39.2\%) & 6 & 39 \\
+4.4 & 83 & 38 (45.8\%) & 31 (37.3\%) & 7 & 45 \\
+4.5 & 91 & 51 (56.0\%) & 37 (40.7\%) & 14 & 40 \\
+\bottomrule
+\end{tabularx}
+\par\smallskip\raggedright\footnotesize
+$^{a}$ Condensed structure only; all other profile/axis combinations had zero ND requirements.
+$^{b}$ The same unassessed count applies to each profile and axis within a version.
+\end{table}
+
+All 210 preservation tests passed in each profile, as did all 210 expanded-structure tests.
+In the condensed profile, 165 structure tests passed and 45 failed; every failure concerned per-sample FORMAT access that the profile stores in encoded vectors rather than individual sample resources.
+In VCF 4.5 specifically, 18 failed condensed-structure tests affected 14 requirements: failed tests and affected requirements are different counts.
+Every passing query slot rejected the empty-graph control and changed its answer under at least one referenced-predicate deletion.
+Thus the observed structural difference was a sample-profile limitation under the no-decoding axis, not evidence that VCF Core could not express those values structurally: the corresponding expanded tests passed.
+
+The preservation and expanded-structure scores ranged from 45.8\% to 56.0\%, while condensed-structure scores ranged from 37.3\% to 40.7\%.
+The lower percentages than in the curated inventory reflect a different, source-derived denominator and an executable-evidence requirement, not a measured loss of represented content.
+For VCF 4.5, the 40 unassessed requirements comprised 37 awaiting the planned version-specific fixtures and queries, the reference-block requirement R45 whose tests were withdrawn because the source interpretation was disputed at review, and two broad requirements for the meanings and values of all reserved INFO and FORMAT keys (R67/R68).
+Passing selected field examples and matching all extracted Number/Type rows did not discharge those two broad requirements.
+The supported RQ1 result is therefore full representation of the curated list and demonstrated retrieval of a bounded subset of the registered information requirements, with the remaining test gaps explicit; neither assessment establishes complete specification coverage.
+Table~\ref{tab:evidence} places these results alongside the separate implementation cross-checks.
 
 \begin{table}[htbp]
 \caption{Reported evidence, its denominator and the claim it supports. The denominators count different things and must not be combined into a single percentage.}
@@ -51,8 +130,8 @@ Assessment & Result & Supported interpretation \\
 Curated VCF 4.5 inventory & 104/104 & All inventoried logical constructs have preserved, structured representations. \\
 Enforcement within that inventory & 87/104 & A stated requirement is checked for these constructs. \\
 Reserved Number/Type rows & 333/333 & Extracted declarations match the version-specific artifacts. \\
-Requirements with a passing test, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Conservative demonstrated coverage for VCF 4.1--4.5; untested requirements score zero. \\
-Distinct executed checks & 465 & Query runs that are not a repeat of an identical check. \\
+Demonstrated preservation, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Both profiles; expanded structure has the same counts. Condensed structure is reported separately in Table~\ref{tab:requirement-results}. \\
+Distinct executed checks & 465 & Non-repeated query/answer/fixture checks within each case and profile, not independent requirements. \\
 Cross-producer replay & 508/572 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
 Semantic round-trip & 35/35 records & Fixed columns and genotypes recovered from structured properties alone. \\
 Recorded full validation run & 21 fixtures & These examples pass the implemented validation layers. \\

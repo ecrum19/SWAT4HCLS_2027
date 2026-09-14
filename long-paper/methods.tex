@@ -17,6 +17,76 @@ A separate biomedically-motivated integration case study addresses RQ3.
 To address RQ4, we conduct a comparative representation assessment of existing semantic models that model VCF contents and identify how they relate to the terms provided by VCF Core.
 
 
+\subsection{Extracting VCF constructs, rules, and meanings into the VCF Core Vocabulary and Accompanying SHACL rule-sets (RQ1)}
+
+VCF Core was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}.
+Successive revisions combined Claude Opus 5 and GPT-6 Astra assistance with expert human review to extract VCF constructs, field meanings, rules and representation constraints from the VCF 4.1--4.5 specifications~\cite{htsspecs,vcf45}.
+The extracted interpretations informed vocabulary terms and relationships, version-specific field definitions and accompanying SHACL constraints; human review guided their acceptance and revision.
+Two complementary assessments tracked this development: an initial empirical inventory of VCF 4.5 constructs, followed by a specification-derived assessment of information requirements across VCF 4.1--4.5~\cite{htsspecs}.
+
+\paragraph{Initial empirical inventory.}
+The first assessment, available for reproducability in the git repository, organized 104 curated logical-model constructs by specification area and linked each to vocabulary terms and available evidence.
+The evidence distinguished materialized example graphs, SHACL shapes or decoded checks, regression probes that reject violating graphs, and executed queries with fixed expected answers.
+For each construct, reviewers recorded three separate judgements: whether its information was \emph{preserved}, whether it was \emph{structured} for retrieval through graph patterns without parsing a literal, and whether a validation rule \emph{enforced} a stated requirement.
+Representation was classified as full when both preservation and structure held, partial when only preservation held, and absent otherwise; enforcement earned no additional representation credit.
+The reporting script recomputed these classifications and totals, checked cited vocabulary terms and query paths, and incorporated recorded validation results.
+The evidence supported the curators' judgements, but the script did not independently verify their semantic adequacy or discover constructs missing from the curated list.
+Byte-level serialization checks were reported separately from logical-model coverage.
+
+\paragraph{Specification extraction and requirement registration.}
+The later assessment, recorded in \path{coverage/methodology/}, began with local copies of the VCF 4.1--4.5 LaTeX specifications, identified by source URLs and verified against SHA-256 digests in \path{sources.lock.json}.
+A bounded text reader partitioned each complete source into section intervals, retaining tables, examples and changelogs for review, and separately extracted explicit reserved INFO/FORMAT Number/Type declarations.
+Semantic interpretation remained an authored, reviewed step: passage-level assertions recorded source line ranges, requirement links, exclusions, ambiguities and remaining test gaps in \path{inputs/source-assertions.json}.
+The requirement register recorded stable identifiers, retrieval questions, applicable versions, interpretations and hashed source anchors; missing capabilities identified during the source audit expanded the register from 50 to 94 requirements.
+The scope covered source identity, field meaning, version context, ordering and missingness.
+Binary encoding, compression, indexing, producer estimation algorithms and general invalid-input rejection were excluded from this retrieval assessment.
+
+\paragraph{Human review of interpretations and test evidence.}
+The review record documents two preparatory agent passes followed by expert human review and acceptance by Elias Crum.
+Review examined source meaning, version applicability, proposed RDF patterns, expected answers and the adequacy of the linked cases.
+This process distinguished normative rules from inconsistent examples, recorded reasoned corrections, and identified cases that required reviewer-authored fixtures.
+For example, a local-allele test whose indices made the mapping trivial was supplemented with a non-identity allele subset; inconsistent phase-set examples were corrected with the rationale recorded.
+Where the source supplied no defensible expected answer, the limitation remained explicit.
+\path{REVIEW-REPORT.md} and \path{inputs/review.json} preserve these decisions, including reviewer attribution, dates, rationales and evidence fingerprints; agent-authored interpretations are identified separately from human acceptance.
+
+\paragraph{Executable retrieval tests.}
+Each case linked a registered requirement and VCF version to a fixture, a SPARQL query and expected answer rows authored from the source interpretation and fixture before query execution.
+Reused fixtures retained origin records; reviewer corrections and newly authored examples were documented in the review evidence.
+The vocabulary repository's Python fixture materializer generated RDF in expanded and condensed profiles, which the assessment queried with RDFLib.
+Preservation tests could explicitly decode compound VCF literals, whereas structure tests required access through RDF properties and indices.
+The runner compared answer rows including their multiplicities, rejected queries that returned the expected answer on an empty graph, and required every passing query to change its answer when at least one referenced VCF Core predicate was deleted.
+It also checked that emitted vocabulary terms were declared and that object and datatype properties had the appropriate resource or literal values.
+These controls tested data dependence and representation consistency; they did not establish unrestricted conversion correctness or comprehensive SHACL enforcement.
+
+\paragraph{Coverage and progress measures.}
+Requirements were scored separately for each applicable VCF version, sample profile and retrieval axis.
+A requirement was \emph{demonstrated} only when all its supplied tests passed, \emph{partial} when some passed, \emph{not demonstrated} when tested but none passed, and \emph{unassessed} when no test was supplied.
+The numerator counted demonstrated requirements with equal weight; the denominator retained all applicable registered requirements, including unassessed ones, without fractional credit.
+Alongside these scores, the source audit exposed assertions with targeted cases, partial evidence or no targeted case, since a passing requirement-level example need not exercise every linked assertion.
+Comparison of extracted Number/Type declarations with the versioned RDF registries was an additional consistency check, limited to explicit declarations rather than all field meanings.
+The two assessments therefore measured different populations and their percentages were not combined; neither established complete specification coverage.
+
+\paragraph{Reproducible assessment artifacts.}
+Pinned specifications and authored assertions, requirements, fixtures, queries and expected answers were kept separate from generated reports and RDF witnesses~\cite{vcfc210}.
+With the repository dependencies installed, the specification-derived assessment runs offline: \texttt{npm run methodology:build} regenerates the evidence, \texttt{npm run methodology:check} recomputes it without writing and detects stale outputs, and \texttt{npm run methodology:test} exercises the assessment's safeguards.
+Adding \texttt{-- --require-reviewed} to the check command also requires current recorded acceptance of the requirements and source audit.
+Provenance records input hashes and the RDFLib version; changes to substantive hashed evidence invalidate requirement acceptance, while release-version metadata alone is normalized before hashing.
+For the initial inventory, \texttt{npm run coverage:report} runs the separate byte checks and regenerates the report; its summary of SHACL fixture results reads the recorded validation output, while \texttt{npm run validate:force} reruns the complete validation suite.
+
+VCF Core retains a file, its header declarations, records and sample observations as distinct resources (Figure~\ref{fig:model}).
+A \term{VariantCall} groups the observations associated with a record rather than identifying an additional source-file line.
+File-scoped identifiers and provenance distinguish observations even when they concern the same alteration.
+A \term{VCFSample} identifies a source column, not automatically a patient or specimen.
+Direct reuse of PROV and DCAT supports source descriptions, while SO and FALDO provide connections to alteration and location models~\cite{prov2013,eilbeck2005so,bolleman2016faldo,vcfc210}.
+These connections do not perform variant normalization or establish instance identity across files.
+
+Field definitions are separate from their occurrence in a file header, and values can link to the declaration needed to interpret them.
+Lexical values, typed accessors and explicit missingness remain distinguishable; ordered allele resources retain the relationship between allele indices and sequence alternatives.
+These mechanisms are the objects of assessment, rather than evidence of correct conversion by themselves.
+
+
+
+
 \paragraph{Evaluated artifacts.}
 \label{sec:implementation}
 The assessment used VCF Core 2.1.2 together with its accompanying vocabulary files, version-specific definitions, validation rules, mappings and test data~\cite{vcfc210}. 

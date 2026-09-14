@@ -5,7 +5,7 @@
 # fetched at a pinned revision or digest. Nothing depends on the machine that
 # produced the published numbers.
 #
-# Output lands in reproduce/runs/<UTC timestamp>/:
+# Output lands in RQ2/runs/<UTC timestamp>/:
 #
 #     env.json      what this machine is, and what was pinned
 #     steps.jsonl   every command run, with exit code and duration

@@ -3,7 +3,7 @@
 These are the incremental runs made between 12 and 14 September 2026, while the
 converter corrections were still being developed. **The paper does not cite any
 number in this directory.** Every reported figure now comes from a single run of
-`reproduce/run.sh`, recorded under [`../reproduce/runs/`](../reproduce/runs/).
+`RQ2/run.sh`, recorded under [`../RQ2/runs/`](../RQ2/runs/).
 
 They also include a comparison against the preceding converter release that the
 current run does not make: the evaluation now reports one release, VCF-RDFizer
@@ -12,10 +12,10 @@ interpretable.
 
 | Archived | Superseded by |
 | --- | --- |
-| `results/` | `reproduce/runs/<stamp>/results/` |
-| `graphs/` | `reproduce/runs/<stamp>/graphs/` |
-| `integration/` | `reproduce/runs/<stamp>/results/integration.json` |
-| `profile-figures/`, `profile-graphs/` | `reproduce/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
+| `results/` | `RQ2/runs/<stamp>/results/` |
+| `graphs/` | `RQ2/runs/<stamp>/graphs/` |
+| `integration/` | `RQ2/runs/<stamp>/results/integration.json` |
+| `profile-figures/`, `profile-graphs/` | `RQ2/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
 
 ## Why they were not good enough
 

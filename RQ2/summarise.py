@@ -4,7 +4,7 @@
 Every figure here is computed from that run's own results; nothing is carried
 over from an earlier run, and nothing is stated that the JSON does not support.
 
-    python3 reproduce/summarise.py reproduce/runs/<stamp> > SUMMARY.md
+    python3 RQ2/summarise.py RQ2/runs/<stamp> > SUMMARY.md
 """
 import collections
 import json
@@ -42,7 +42,7 @@ def main():
 
     w(f"# Reproduction run {run.name}")
     w("")
-    w(f"Produced by `sh reproduce/run.sh` on {env['recordedAt']}, "
+    w(f"Produced by `sh RQ2/run.sh` on {env['recordedAt']}, "
       f"{len(steps)} steps, {sum(s['seconds'] for s in steps)}s total, "
       f"{sum(1 for s in steps if s['exit'] != 0)} failures.")
     w("")
