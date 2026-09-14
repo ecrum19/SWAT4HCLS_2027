@@ -406,44 +406,37 @@ That generation has been superseded: requirements are now scored per version and
 \subsection{Whether the claimed coverage survives a second producer}
 \label{sec:crossproducer}
 
-The assessment above builds its witness graphs with the vocabulary repository's own materializer, whereas the implementation this paper cites is a separate program. 
-Both target VCF Core, and nothing had established that a query and expected answer written against one also holds over the other --- which is precisely the gap between ``the vocabulary can express this'' and ``the software people will use does''. 
-The two programs share an author but no code: the assessment materializes graphs from a Python fixture builder, the converter from RML mappings and streaming emitters. 
-Producer independence here therefore means independent implementations, not independent authorship, and the check is correspondingly weaker than a third-party reproduction would be.
+The assessment above builds its witness graphs with the vocabulary repository's own materializer, whereas the implementation this paper cites is a separate program, and nothing had established that a query and expected answer written against one also holds over the other --- the gap between ``the vocabulary can express this'' and ``the software people will use does''. 
+The two programs share an author but no code: one materializes graphs from a Python fixture builder, the other from RML mappings and streaming emitters. 
+Independence here therefore means independent implementations, not independent authorship, and the check is correspondingly weaker than third-party reproduction.
 
-We therefore replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer. 
-Ten fixtures spanning VCF 4.1--4.5 and the difficult decisions above were each converted in both profiles and every applicable case replayed, giving 572 checks over 143 cases and 39 requirements. 
-The two producers agree on 536 checks and both pass on 508. 
-Of the 39 requirements, 34 agree on every check, and for 28 of those every check passes for both producers. 
-Where the two agree by both failing, the cause is uniform: all such checks are condensed-profile structure queries, the documented storage trade-off, on which the producers agreed before and after the corrections below.
+We replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer: ten fixtures spanning VCF 4.1--4.5 and the difficult decisions above, each converted in both profiles, giving 572 checks over 143 cases and 39 requirements. 
+The producers agree on 536 checks and both pass on 508; 34 requirements agree on every check and 28 of those pass throughout. 
+Every check they agree on by both failing is a condensed-profile structure query, the documented storage trade-off.
 
 The exercise earned its keep by failing. 
-Its first run diverged on 15 requirements, nine of which were converter defects or gaps precise enough to fix. 
-One was a silent correctness defect in VCF 4.5 local alleles, this paper's own headline feature: \term{Number=LA} and \term{Number=LR} items were bound to allele indices positionally, ignoring the sample's \texttt{LAA} subset, so a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} was attached to alleles 0, 1 and 2 instead of 0, 2 and 4. 
-The values were plausible and well-formed; they were on the wrong alleles. 
-No existing test caught it because every existing test ran against the other producer. 
+Its first run diverged on 15 requirements, nine of which were converter defects precise enough to fix. 
+One was a silent correctness defect in VCF 4.5 local alleles, this paper's own headline feature: \term{Number=LA} and \term{Number=LR} items were bound to allele indices positionally, ignoring the sample's \texttt{LAA} subset, so a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} landed on alleles 0, 1 and 2 instead of 0, 2 and 4 --- plausible, well-formed values on the wrong alleles, which no existing test caught because every existing test ran against the other producer. 
 Five requirements still diverge: a QUAL datatype the vocabulary deliberately leaves open, three structured accessors the converter has not built (one of them the condensed-vector decoding path), and one empty-list encoding convention. 
 None is a case of the vocabulary being unable to express something --- across all 572 checks, zero divergences trace to a representation gap.
 
 A complementary check recovers logical content rather than comparing query answers. 
-For each of the ten fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone and compare with the source file: REF and ALT are rebuilt from ordered \term{alleleIndex}/\term{alleleValue} resources and GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
-All 35 records are recovered. 
-The recovery is bounded in three ways, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor that requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
-It is not a claim of whole-file reconstruction.
+Across the same ten fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
+All 35 records are recovered, with three bounds, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
+It is not whole-file reconstruction.
 
 \paragraph{Where the two sample profiles agree.}
 Because every case runs in both profiles, the profile claim can be stated precisely rather than asserted. 
-Across the 39 exercised requirements the profiles return the same outcome on 252 of 286 comparable checks. 
-The 34 disagreements are not scattered: they fall on nine requirements, every one of which reads a FORMAT-scoped value --- genotype structure, trailing-field missingness, sample-local allele and base-modification items, and repeat components. 
-The record-level file, header, declaration and allele questions agree on every check in both profiles. 
-The supported claim is therefore that the profiles are equivalent for file, header, record and record-level allele questions, and divergent by design wherever a query walks per-sample resources, the condensed profile storing sample values as vectors. 
-Two of the nine are local-allele requirements, so the paper's headline feature is among those a condensed graph answers less completely.
+The profiles return the same outcome on 252 of 286 comparable checks, and the 34 disagreements fall on nine requirements, every one reading a FORMAT-scoped value: genotype structure, trailing-field missingness, sample-local allele and base-modification items, and repeat components. 
+Record-level file, header, declaration and allele questions agree on every check in both profiles. 
+The supported claim is therefore that the profiles are equivalent for file, header, record and record-level allele questions and divergent by design wherever a query walks per-sample resources. 
+Two of the nine are local-allele requirements, so this paper's headline feature is among those a condensed graph answers less completely.
 
 \paragraph{Answers to the three questions.}
-For RQ1, 53 of the 94 requirements have at least one executed case and the overwhelming majority pass; meaning preservation is demonstrated where tested and untested elsewhere. 
-For RQ2, 17 of the 36 version-conditioned requirements are tested, and the two sample profiles behave as documented --- equivalent above the sample level, divergent below it. 
-For RQ3, 27 of the 38 requirements on the provenance chain an integration query must traverse are tested, and Section~\ref{sec:integration} exercises that chain end to end. 
-None of these fractions is a conformance claim; each is the share of requirements for which behaviour has been checked at all.
+RQ1 is answered for the 53 of 94 requirements with at least one executed case, the great majority passing. 
+RQ2 is answered for 17 of the 36 version-conditioned requirements, with the profiles behaving as documented: equivalent above the sample level, divergent below it. 
+RQ3 is answered for 27 of the 38 requirements on the provenance chain an integration query must traverse, which Section~\ref{sec:integration} then exercises end to end. 
+None of these fractions is a conformance claim; each is the share of requirements whose behaviour has been checked at all.
 
 \paragraph{Remaining gaps, classified.}
 Of the requirements exercised, none reveals a representation gap. 
@@ -461,8 +454,9 @@ VCF-RDFizer supplies a separate implementation: release 3.0.2 constructs file an
 The Section~\ref{sec:evidence} assessment was produced with VCF Core 2.1.1 and the vocabulary's own materializer, with no converter involvement. 
 All converter-dependent results (Sections~\ref{sec:crossproducer}--\ref{sec:integration}) additionally used VCF-RDFizer 3.0.2 together with the corrections that the cross-producer check prompted, which are not yet in a tagged converter release; the exact commits are recorded with the reproduction scripts. 
 One further caveat applies on the vocabulary side: the QUAL datatype guidance discussed in Section~\ref{sec:crossproducer} was added after the 2.1.1 tag and is not part of the cited release, which the results otherwise use unmodified. 
-Converting the Section~\ref{sec:profiles} example emits 227 expanded triples, two more than before the typed-accessor correction. 
-Every emitted class and property is declared in VCF Core 2.1.1, and both profiles' graphs satisfy the shared and VCF 4.5 SHACL profiles when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
+Converting the Section~\ref{sec:profiles} example emits 242 expanded and 168 condensed triples, drawing on 93 and 80 distinct VCF Core terms respectively. 
+Every one of those terms is declared in VCF Core 2.1.1, and both graphs conform, with no violations, to the shared and the VCF 4.5 SHACL profile when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
+The depth query in Listing~\ref{lst:depth} returns its expected single row against the expanded graph. 
 The converter pins no vocabulary version, so this relationship is established by the behaviour recorded here rather than by a declaration, and it is evidence for the terms these graphs exercise, not for all 467 declared terms or for every historical VCF version.
 
 Two pinning limitations are worth stating plainly because they affect reproduction. 
@@ -524,19 +518,13 @@ The questions below extend that pattern to clinical settings.
 They are proposed research scenarios and \emph{not} evaluated workflows: unlike the example in Section~\ref{sec:integration}, none has been executed, and each requires additional biomedical data, reviewed instance mappings and appropriate access controls. 
 SPARQL provides the query structure; it does not supply missing interpretation or establish that a returned result is clinically actionable.
 
-\paragraph{Pharmacogenomic review.}
-A possible question is: \emph{Which patients with an active clopidogrel prescription have an externally established CYP2C19 phenotype relevant to a guideline for their treatment indication, and which source observations support that assessment?} The CPIC guideline provides a concrete example of why genotype-derived phenotype and indication both matter~\cite{lee2022cpic}. A workflow such as PharmCAT separates variant input processing, allele matching and clinical interpretation~\cite{pharmcatmethods}; these steps must not be replaced by interpreting one VCF genotype token as a metabolizer phenotype.
+\paragraph{Three questions.}
+A \emph{pharmacogenomic} review asks which patients with an active clopidogrel prescription have an externally established CYP2C19 phenotype relevant to a guideline for their indication, and which source observations support that assessment; the CPIC guideline shows why phenotype and indication both matter~\cite{lee2022cpic}, and a workflow such as PharmCAT separates variant processing, allele matching and clinical interpretation~\cite{pharmcatmethods} --- steps that must not collapse into reading one genotype token as a metabolizer phenotype. 
+A \emph{rare-disease} investigation asks which candidate alterations lie in genes associated with diseases sharing the patient's recorded phenotypic features, joining specimen-linked calls to normalized alterations, gene associations and phenotype descriptions such as HPO~\cite{hpo}; its governing constraint is that a row absent from a variant-only VCF is not evidence that a parent is homozygous reference. 
+An \emph{oncology} review asks which alterations detected in a tumour have curated therapeutic evidence for the patient's cancer type, joining a resource such as CIViC~\cite{griffith2017civic} to normalized alterations and retrieving tumour and normal calls through their specimen links; a missing normal call likewise remains missing evidence, not proof of tumour specificity.
 
-After those interpretation and mapping steps, the joined query would return the patient, assessment, applicable guideline, source file and supporting call depth, reaching the depth through the same declaration-to-value path that Section~\ref{sec:integration} executes. 
-The clinical assertions would come from an application schema that is not part of VCF Core, and a depth filter illustrates access to retained sample evidence without defining a prescribing threshold.
-
-\paragraph{Rare-disease investigation.}
-A second question --- \emph{which candidate alterations occur in genes associated with diseases that share the patient's recorded phenotypic features, and which retain sufficient source evidence for review?} --- would join specimen-linked calls to normalized alterations, gene associations and phenotype descriptions such as HPO~\cite{hpo}. 
-The critical constraint is that absence of a row in a variant-only VCF is not evidence that a parent is homozygous reference: the vocabulary retains observations, while completeness and segregation analysis require evidence it does not carry.
-
-\paragraph{Oncology evidence review.}
-A third question --- \emph{which alterations detected in a tumour have reviewed therapeutic evidence for the patient's cancer type, and what do the matched-normal observations show?} --- would join curated interpretation evidence such as CIViC~\cite{griffith2017civic} to normalized alterations, then retrieve tumour and normal calls through their specimen links. 
-As above, a missing normal call remains missing evidence rather than proof of tumour specificity.
+Each reaches its sample-level evidence through the same declaration-to-value path that Section~\ref{sec:integration} executes, and each needs clinical assertions from an application schema that is not part of VCF Core. 
+The vocabulary retains the observations; completeness, segregation and therapeutic interpretation require evidence it does not carry.
 
 These scenarios could be implemented over a materialized graph or, where source interfaces and authorization permit, through federated SPARQL as demonstrated in related work~\cite{bodrug2025semantic}. Availability of RDF and vocabulary alignments alone does not guarantee complete or performant answers. Future experiments should evaluate answer correctness, instance-link accuracy, provenance recovery and source availability before making claims about medical utility or query speed. The opportunity is to investigate these questions against a common representation instead of repeatedly reconstructing VCF semantics within each application.
 

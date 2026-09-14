@@ -1,7 +1,8 @@
 # W5 — Manuscript revision
 
-Executed 2026-09-13 against `main_long.tex`, then revised against a review pass.
-Compiles clean in `ceurart`: **12 → 14 pages**, no undefined references or citations.
+Executed 2026-09-13 against `main_long.tex`, revised against a review pass, then measured and
+cut to length on 2026-09-14. **Main matter ends on page 12** — `make pages`, against the
+repository's stated limit of 12 pages of main matter. No undefined references or citations.
 
 ## What changed, and why each change was needed
 
@@ -53,6 +54,30 @@ substantive errors, all introduced or carried by this revision and all now fixed
 **Trimming applied** (W5.4): the prospective pharmacogenomic SPARQL listing (it queried an
 invented namespace and duplicated the executed example), the three discussion vignettes, the
 term-by-term walk in §3.2, and the genotype tutorial in §2.1. **15 → 14 pages.**
+
+## Measured on the VM, 2026-09-14
+
+`vcf-bench-2`, image `vcf-rdfizer:local-025fb7d` built from the working branch, input
+`coverage/synthetic.vcf`. Replaces every §5.4 figure, all of which predated the accessor fixes.
+
+| | Expanded | Condensed |
+| --- | ---: | ---: |
+| Triples | **242** (was 225 pre-fix; W3 projected 227) | **168** (was 159) |
+| Distinct VCF Core terms | **93** (was 79) | **80** (was 69) |
+| Terms not declared at `v2.1.1` | **0** | **0** |
+| SHACL, shared profile + ontology + RDFS | conforms, 0 violations | conforms, 0 violations |
+| SHACL, VCF 4.5 profile | conforms, 0 violations | conforms, 0 violations |
+
+W3's projected 227 was itself too low: it counted only the typed-accessor fix, while the branch
+also emits record identifiers, FILTER codes, `fieldIndex`, record-level `FormatKey` resources
+and `phaseIndicator`. Declaredness was re-checked against the **`v2.1.1` git tag**, not the
+working tree, so the R11 edit cannot flatter it. `coverage/sample-depth.rq` returns its expected
+single row (`SAMPLE1, 42`) against the measured expanded graph.
+
+## Cut to length
+
+13 → 12 pages of main matter, by compressing §5.3's prose and folding the three clinical
+scenarios in §6.3 into one paragraph. No evidence was removed.
 
 ## Not done
 
