@@ -1,0 +1,30 @@
+{
+ "agree": 536,
+ "bothPass": 508,
+ "byOutcome": {
+  "fail/fail": 28,
+  "pass/fail": 36,
+  "pass/pass": 508
+ },
+ "checks": 572,
+ "converterPassRepoNot": [],
+ "fixtures": [
+  "basic-v4.1",
+  "basic-v4.2",
+  "basic-v4.3",
+  "basic-v4.4",
+  "basic-v4.5",
+  "features-v4.5",
+  "header-audit-v4.5",
+  "local-alleles-v4.5",
+  "tandem-repeats-v4.4",
+  "tandem-repeats-v4.5"
+ ],
+ "repoPassConverterNot": [
+  "R11",
+  "R21",
+  "R27",
+  "R61",
+  "R89"
+ ]
+}

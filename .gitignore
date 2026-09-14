@@ -4,12 +4,12 @@
 # scripts, and the small JSON each run writes. Those are the evidence and the
 # means to regenerate it, and they are worth reading in a diff.
 #
-# Also travels: one complete run of reproduce/run.sh, under reproduce/runs/.
+# Also travels: one complete run of RQ2/run.sh, under RQ2/runs/.
 # That directory is the evidence -- the environment, every command with its exit
 # code and duration, the converted graphs, the result JSON and a summary. It
 # weighs 840 KB, so there is no size reason to keep any of it off GitHub. Both
 # converter versions are kept, because the paper reports a difference between
-# them. The scratch checkouts under reproduce/work/ do not travel.
+# them. The scratch checkouts under RQ2/work/ do not travel.
 #
 # Stays on the VM: run metrics, working conversion trees and LaTeX
 # intermediates. The metrics are timing logs rather than evidence, the working
@@ -61,13 +61,13 @@ venv/
 !main_long.pdf
 !main_short.pdf
 # One complete run is the evidence; the scratch it was built from is not.
-reproduce/work/
+RQ2/work/
 # RQ1/run.sh clones the vocabulary here; the clone is fetched, not stored.
 RQ1/work/
 !RQ1/results/
 !RQ1/results/**
-!reproduce/runs/
-!reproduce/runs/**
+!RQ2/runs/
+!RQ2/runs/**
 # The archived earlier runs, kept only so old commits stay interpretable.
 !archive/
 !archive/**
