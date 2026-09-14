@@ -32,10 +32,8 @@ repository's stated limit of 12 pages of main matter. No undefined references or
    the emitter change was a docstring.
 2. ~~R11 guidance wants vcfcv 2.1.2.~~ **Closed.** `v2.1.2` = `3f06d18`. Declaredness for the
    §5.4 terms is now checked against that tag.
-3. **Container image still lags.** Version-tagged images exist (the earlier "only a mutable
-   `latest`" note is out of date), but the newest is **3.0.2**, published 12 September, which
-   predates the corrections. There is no 3.0.3 image, so reproducing §5.2–§5.4 means building
-   from source. §5.4 now says exactly that.
+3. ~~Container image still lags.~~ **Closed.** `ecrum19/vcf-rdfizer:v3.0.3` is published as
+   `sha256:31f1361b`, so reproduction pulls by digest and builds nothing.
 
 ## Review pass — what it caught
 

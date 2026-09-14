@@ -11,9 +11,8 @@ Recorded 2026-09-12. Both repositories clean; every artifact below is a pushed c
 | VCF-RDFizer 3.0.3 | tag `v3.0.3` = `be658a2` (2026-09-14) | cited as `vcfrConverter2026`; carries the corrections this work prompted. See [W3-IMPLEMENTATION.md](W3-IMPLEMENTATION.md) |
 | VCF specs 4.1–4.5 | `coverage/methodology/sources.lock.json` | sha256 per version, retrieved 2026-09-08 from samtools/hts-specs |
 
-**Tag history.** The misplaced `v3.0.1` tag was deleted upstream. Version-tagged container
-images now exist, but the newest is **3.0.2**, which predates the corrections in the 3.0.3
-source — reproducing the recorded results requires building the image from 3.0.3.
+**Tag history.** The misplaced `v3.0.1` tag was deleted upstream. The **v3.0.3 image is
+published** (`sha256:31f1361b`), so reproduction pulls by digest and builds nothing.
 
 **Namespace.** VCF-RDFizer 3.0.3 emits `w3id.org/vcf-core/vocab#` and pins **no** vocabulary
 version, so the 2.1.2 relationship rests on the behaviour recorded in W3, not on a declaration.

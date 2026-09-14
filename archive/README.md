@@ -5,12 +5,15 @@ converter corrections were still being developed. **The paper does not cite any
 number in this directory.** Every reported figure now comes from a single run of
 `reproduce/run.sh`, recorded under [`../reproduce/runs/`](../reproduce/runs/).
 
-They are kept only so the earlier commits remain interpretable.
+They also include a comparison against the preceding converter release that the
+current run does not make: the evaluation now reports one release, VCF-RDFizer
+3.0.3, and nothing else. They are kept only so the earlier commits remain
+interpretable.
 
 | Archived | Superseded by |
 | --- | --- |
 | `w2-generated/` | `reproduce/runs/<stamp>/results/` |
-| `w2-graphs/` | `reproduce/runs/<stamp>/graphs/{final,baseline}/` |
+| `w2-graphs/` | `reproduce/runs/<stamp>/graphs/` |
 | `w4-generated/` | `reproduce/runs/<stamp>/results/w4-results.json` |
 | `w5-generated/`, `w5-graphs/` | `reproduce/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
 
@@ -22,9 +25,9 @@ Three problems, all fixed by running everything once from pinned artifacts:
   moving working branch, so figures from different runs could not be safely
   combined — and were. The count of corrected requirements was reported as nine
   when the data said ten.
-- **The pre-correction converter was a loose commit** (`e4de9d0`) rather than a
-  release, and the original discovery output had been overwritten by a later run
-  before anyone noticed.
+- **Results were overwritten in place.** One run's output replaced another's
+  before the difference was noticed, because every script wrote to the same
+  fixed path.
 - **Provenance was assembled after the fact** — `MANIFEST.json` and a hand-written
   `manifest-runtime.json`, both removed — instead of being recorded by the run
   that produced the results.
