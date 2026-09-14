@@ -12,10 +12,10 @@ interpretable.
 
 | Archived | Superseded by |
 | --- | --- |
-| `w2-generated/` | `reproduce/runs/<stamp>/results/` |
-| `w2-graphs/` | `reproduce/runs/<stamp>/graphs/` |
-| `w4-generated/` | `reproduce/runs/<stamp>/results/w4-results.json` |
-| `w5-generated/`, `w5-graphs/` | `reproduce/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
+| `results/` | `reproduce/runs/<stamp>/results/` |
+| `graphs/` | `reproduce/runs/<stamp>/graphs/` |
+| `integration/` | `reproduce/runs/<stamp>/results/w4-results.json` |
+| `profile-figures/`, `profile-graphs/` | `reproduce/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
 
 ## Why they were not good enough
 

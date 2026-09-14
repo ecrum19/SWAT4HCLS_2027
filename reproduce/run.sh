@@ -176,15 +176,15 @@ say "Running the analyses"
 export VCF_CORE_VOCAB="$VOCAB"
 export RESULTS_DIR="$RUN/results"
 
-step cross-producer "$PYTHON" "$REPO/w2/cross-producer.py" "$WORK/converted" cross-producer.json
-step round-trip     "$PYTHON" "$REPO/w2/round-trip.py"     "$WORK/converted"
+step cross-producer "$PYTHON" "$HERE/analysis/cross-producer.py" "$WORK/converted" cross-producer.json
+step round-trip     "$PYTHON" "$HERE/analysis/round-trip.py"     "$WORK/converted"
 
 step evidence-map sh -c \
-  "\"$PYTHON\" \"$REPO/w2/evidence-map.py\" \"$VOCAB\" \"$RUN/results/cross-producer.json\" \
+  "\"$PYTHON\" \"$HERE/analysis/evidence-map.py\" \"$VOCAB\" \"$RUN/results/cross-producer.json\" \
    > \"$RUN/results/evidence-map.json\""
 
 step integration sh -c \
-  "\"$PYTHON\" \"$REPO/w4/check.py\" \
+  "\"$PYTHON\" \"$HERE/integration-example/check.py\" \
    \"$WORK/converted/expanded/local-alleles-v4.5/local-alleles-v4.5.nt.gz\""
 
 # The Section 5.4 profile figures use the paper's own single-record example.
@@ -199,7 +199,7 @@ for p in $PROFILES; do
 done
 
 step profile-figures sh -c \
-  "\"$PYTHON\" \"$REPO/w5/measure.py\" \
+  "\"$PYTHON\" \"$HERE/analysis/profile-figures.py\" \
      \"$WORK/example/expanded/synthetic/synthetic.nt.gz\" \
      \"$WORK/example/condensed/synthetic/synthetic.nt.gz\" \
      \"$VOCAB\" \"$VOCAB_TAG\" > \"$RUN/results/example-profiles.json\""

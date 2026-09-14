@@ -26,7 +26,7 @@ from rdflib import Graph
 # answers. Override with VCF_CORE_VOCAB when it is not beside this repository.
 VOCAB = Path(os.environ.get(
     "VCF_CORE_VOCAB",
-    Path(__file__).resolve().parent.parent.parent / "vcf-rdfizer-vocabulary"))
+    Path(__file__).resolve().parents[3] / "vcf-rdfizer-vocabulary"))
 if not (VOCAB / "coverage/methodology/inputs/cases.json").exists():
     raise SystemExit(
         f"no vocabulary checkout at {VOCAB}; set VCF_CORE_VOCAB to one")
@@ -166,7 +166,7 @@ def main() -> int:
     # A second positional argument names the output file, so one run cannot
     # overwrite another's results.
     name = sys.argv[2] if len(sys.argv) > 2 else "cross-producer.json"
-    out = Path(os.environ.get("RESULTS_DIR", Path(__file__).parent / "generated"))
+    out = Path(os.environ.get("RESULTS_DIR", Path.cwd()))
     out.mkdir(parents=True, exist_ok=True)
     (out / name).write_text(
         json.dumps({"summary": summary, "results": results}, indent=1, sort_keys=True) + "\n"

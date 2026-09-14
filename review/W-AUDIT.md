@@ -32,12 +32,12 @@ vcfcv **2.1.1** (`dd139f9`) and VCF-RDFizer **3.0.2** (`b8da2ed`) — the releas
 
 | Task | | Evidence |
 | --- | :-: | --- |
-| W2.1 Inventory test capabilities | Yes | §W2.1 via [`w2/evidence-map.py`](w2/evidence-map.py) — RQ1–RQ3 and F1–F9 mapped, duplicate pass run: **0 cross-case duplicates, 375 of 840 executions redundant**, F7 thinnest at 4/11 |
+| W2.1 Inventory test capabilities | Yes | §W2.1 via [`reproduce/analysis/evidence-map.py`](../reproduce/analysis/evidence-map.py) — RQ1–RQ3 and F1–F9 mapped, duplicate pass run: **0 cross-case duplicates, 375 of 840 executions redundant**, F7 thinnest at 4/11 |
 | W2.2 Distinguish evidence strength | Yes | §W2.1–W2.3 table, with execution status |
 | W2.3 Compact evidence map | Yes | by reuse, as instructed — extends `coverage/methodology/` with a producer axis rather than a parallel tracker |
 | W2.4 8–12 competency questions | Yes | §W2.4 — **12 named CQs** with executed results and profile agreement; three version transitions; expanded/condensed equivalence stated precisely (252/286). The 572-check replay remains the broader evidence behind them |
 | W2.5 Independent expected answers | Yes | `cases.json` as reviewed 2026-09-11; nothing re-derived from converter output |
-| W2.6 Execute and report | Yes | `w2/generated/cross-producer.json` — 508 both-pass, 36 divergent, 5 requirements; 9 claim-critical requirements fixed |
+| W2.6 Execute and report | Yes | `reproduce/runs/<stamp>/results/cross-producer.json` — 508 both-pass, 36 divergent, 5 requirements; 9 claim-critical requirements fixed |
 | W2.7 Semantic round-trip | **Partial** | 35/35 records, structural recovery only. **Expanded profile only** — condensed decoding is blocked on R21 (converter emits no `vcfc:sampleDataRaw`) |
 | W2.8 Explain each denominator | Yes | §W2.8, five denominators, stated as non-combinable |
 | W2.9 Classify gaps | Yes | §W2.9 — 0 representation gaps; 1 correctness defect, fixed |
@@ -58,10 +58,10 @@ vcfcv **2.1.1** (`dd139f9`) and VCF-RDFizer **3.0.2** (`b8da2ed`) — the releas
 | --- | :-: | --- |
 | W4.1 Bound the example | Yes | [W4-INTEGRATION.md](W4-INTEGRATION.md) §W4.1 — allele-dependent values under 4.5 local alleles |
 | W4.2 Document inputs | Yes | §W4.2; annotation snapshot pinned and labelled synthetic in the file |
-| W4.3 Explicit links + assumptions | Yes | §W4.3 — join rule in `w4/local-allele-evidence.rq`; sample ≠ patient stated |
-| W4.4 Implement the query | Yes | `w4/local-allele-evidence.rq`, returns file/record/sample/declaration |
-| W4.5 Expected vs observed | Yes | `w4/expected.json` authored first; PASS, 2 rows, 3 exclusions confirmed by identity |
-| W4.6 Reproduction + limitations | Yes | `sh w4/run.sh …`; limitations stated |
+| W4.3 Explicit links + assumptions | Yes | §W4.3 — join rule in `reproduce/integration-example/local-allele-evidence.rq`; sample ≠ patient stated |
+| W4.4 Implement the query | Yes | `reproduce/integration-example/local-allele-evidence.rq`, returns file/record/sample/declaration |
+| W4.5 Expected vs observed | Yes | `reproduce/integration-example/expected.json` authored first; PASS, 2 rows, 3 exclusions confirmed by identity |
+| W4.6 Reproduction + limitations | Yes | `sh reproduce/run.sh`; limitations stated |
 
 **Plan's discrimination requirement met:** the same query over the pre-fix converter returns the same
 row count with different alterations — the two `expected.json` predicted, at the predicted depths.
@@ -69,7 +69,7 @@ row count with different alterations — the two `expected.json` predicted, at t
 ## W5 — Manuscript · not started
 
 W5.1–W5.6: **No.** `main_long.tex` is unchanged by W1–W4; §4.2 and `tab:evidence` still carry the
-stale "133/491" figures ([main_long.tex:352](main_long.tex:352), [:368](main_long.tex:368)).
+stale "133/491" figures ([main_long.tex:352](../long-paper/main_long.tex:352), [:368](../long-paper/main_long.tex:368)).
 
 Three numbers W5.3 must carry in: the per-version requirement table in place of 133/491; **465**
 rather than 840 wherever an execution count appears; and the profile claim as *equivalent for

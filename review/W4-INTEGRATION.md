@@ -1,6 +1,6 @@
 # W4 — Integration example
 
-Executed 2026-09-13 on the `vcf-bench-2` VM. Scripts and results: [`w4/`](w4/).
+Executed 2026-09-13 on the `vcf-bench-2` VM. Scripts and results: [`reproduce/`](../reproduce/README.md).
 
 `VCF input → VCF Core 2.1.1 graph → flagged alterations → SPARQL → checked answers with provenance`
 
@@ -27,7 +27,7 @@ same number of rows describing different alterations.
 | Provenance | **Authored, not observed.** A synthetic fixture written to exercise the VCF 4.5 local-allele families. |
 | Size | 4 sites, 1 sample, 8 data lines — each site written twice, once with `LAA`/`LAD`/`LPL` and once with the equivalent global `AD`/`PL` |
 | Converter | VCF-RDFizer `fix/vcf45-structured-accessors` (`e128c71`), expanded profile; that branch was released as `v3.0.3` (`be658a2`) on 2026-09-14 |
-| Annotations | [`w4/annotations.ttl`](w4/annotations.ttl) — pinned local snapshot, five flagged alterations |
+| Annotations | [`reproduce/integration-example/annotations.ttl`](../reproduce/integration-example/annotations.ttl) — pinned local snapshot, five flagged alterations |
 
 The annotation snapshot is **entirely synthetic and labelled as such in the file**. No
 clinical or biological claim is made. It is local rather than federated because the example
@@ -37,7 +37,7 @@ must give the same answer on rerun, which a changeable remote resource cannot pr
 
 An annotation names an alteration by four literals — contig, position, reference allele,
 alternate allele — and the query joins on them. Nothing is pre-linked, so the mapping rule
-is readable in [`w4/local-allele-evidence.rq`](w4/local-allele-evidence.rq) rather than
+is readable in [`reproduce/integration-example/local-allele-evidence.rq`](../reproduce/integration-example/local-allele-evidence.rq) rather than
 hidden inside a minted IRI.
 
 Three assumptions, stated because they are the ones that would break the link:
@@ -55,7 +55,7 @@ Three assumptions, stated because they are the ones that would break the link:
 Question: *which sample observations correspond to a flagged alteration with read depth ≥ 20,
 and what source evidence supports them?*
 
-Expected rows were authored in [`w4/expected.json`](w4/expected.json) by reading the VCF text
+Expected rows were authored in [`reproduce/integration-example/expected.json`](../reproduce/integration-example/expected.json) by reading the VCF text
 and the `Number=LR` rule, **before the query was run**, and never from converter output.
 
 **Observed: PASS — 2 rows, identical to the authored answers.**
@@ -101,11 +101,11 @@ back with full provenance attached.
 ## W4.6 Reproduction and limitations
 
 ```sh
-sh w4/run.sh <vcf-core-vocabulary checkout> <VCF-RDFizer checkout> <workdir>
+sh reproduce/run.sh
 ```
 
 Converts the fixture and checks the query against the authored answers; exits non-zero if
-they differ. Needs Docker and `rdflib`. Results land in `w4/generated/w4-results.json`.
+they differ. Needs Docker and `rdflib`. Results land in `reproduce/runs/<stamp>/results/w4-results.json`.
 
 **What this demonstrates:** that the representation carries the interpretation context, that
 the mapping rule connects it to an external annotation, and that the answers are the ones

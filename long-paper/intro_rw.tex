@@ -1,0 +1,48 @@
+% !TeX root = main_long.tex
+\section{Introduction}
+
+Healthcare research and personalized medicine depend on connecting clinical observations, molecular data, and biomedical knowledge.
+These resources are distributed across institutions and databases, where differences in data structures, identifiers and terminology complicate their combined use~\cite{gaudetblavignac2021sphn,putman2024monarch}.
+Semantic Web approaches provide a basis for addressing this heterogeneity through shared identifiers, explicit relationships and reusable vocabularies~\cite{smith2007obo,belleau2008bio2rdf}.
+Leveraging these strategies has enabled harmonizing clinical data across institutions while integrating knowledge about genes, diseases, and phenotypes to support biomedical investigations~\cite{gaudetblavignac2021sphn,putman2024monarch}.
+Meaningful integration of these distributed resources nevertheless depends on retaining the context in which source observations were recorded, not only on adopting common identifiers or terminology~\cite{gaudetblavignac2021sphn}.
+For genomic data, this motivates a reusable semantic representation that preserves source observations and their interpretation context while enabling connections to clinical information and biomedical knowledge.
+
+The Variant Call Format (VCF) is widely used to exchange genomic variant data~\cite{danecek2011vcf}.
+A VCF file can be understood as a structured table in which each data row describes a genomic location and the sequence observed there relative to a reference genome.
+For each row, a record contains the reference allele, one or more alternative alleles, and optional annotations describing properties such as quality, filtering, or predicted biological effects.
+When individual samples are included, additional columns record sample-level observations such as the genotype or sequencing depth.
+A header at the beginning of the file defines many of these fields and specifies how their values should be interpreted~\cite{vcf45}.
+
+These relationships are important because VCF often encodes meaning indirectly through the structure of the file.
+For example, the reference allele is assigned index 0 and alternative alleles are numbered in the order in which they appear.
+A genotype written as \term{0/2} therefore does not itself identify two DNA sequences: it indicates that the sample carries the reference allele and the second listed alternative allele.
+Similarly, the meaning and expected number of values for an annotation may depend on a definition given in the file header.
+This simple example illustrates a broader characteristic of VCF: the format achieves compactness by relying on relationships that are understood within the file rather than stated explicitly with each value. 
+More complex cases, discussed later, depend on several such relationships at once. 
+When VCF observations are integrated with information outside the file, these implicit relationships must remain available if the observations are to be integrated meaningfully with other genomic, clinical, and biomedical data.
+The challenge is therefore not that VCF lacks contextual information, but that much of this context is encoded through the internal structure of the file rather than exposed as explicit, independently addressable relationships.
+
+A semantic representation offers a way to make these dependencies explicit while preserving their connection to the original observations.
+Doing so supports semantic interoperability and reuse, central concerns of the Findable, Accessible, Interoperable and Reusable (FAIR) principles~\cite{wilkinson2016fair}.
+The wider FAIRness of a dataset also depends on its identifiers, metadata, access conditions and provenance, rather than on the choice of file format alone~\cite{bahim2020fair}.
+The Resource Description Framework (RDF) provides a graph-based model of resources and their relationships, while Linked Data principles support the use of shared identifiers and links across datasets~\cite{decker2000semantic,bizer2009linked}.
+Together, these provide a basis for exposing VCF observations and their interpretation context alongside connections to external biomedical resources, which is necessary for any downstream clinical or research applications \cite{lubin2017variantfile}.
+
+Existing VCF-to-RDF approaches provide important foundations for this work.
+The Genomic Feature and Variation Ontology (GFVO) represents VCF concepts within a broader model of genomic features and variation, while VCF2RDF presents an isomorphic semantic mapping of the format~\cite{baran2015gfvo,penha2017vcf2rdf}.
+HERO-Genomics places VCF files and records within a broader integration model, while the Genome Variation Ontology (GVO) describes variation, including complex structural variants~\cite{cazzaro2025hero,kawashima2023gvo}.
+The GA4GH Variation Representation Specification (VRS) addresses computable variation descriptions and federated identification rather than all source-file details~\cite{wagner2021vrs}.
+These complementary purposes motivate a distinction between representing an observation as recorded and linking it to a biological interpretation.
+Our aim is therefore not simply to establish that VCF can be represented in RDF, but to provide a version-aware representation that combines broad representation of the source format with explicit connections to existing genomic models.
+Such a target would allow conversion and querying approaches to develop without repeatedly defining application-specific interpretations of VCF structure, as has been done in the past.
+
+Here, we present the VCF Core Vocabulary (\textit{vcfcv})~\cite{vcfc210}.
+The contribution combines source-context preservation, expanded and condensed sample representations, documented alignments, and version-specific artifacts for VCF 4.1--4.5.
+We assess these capabilities through specification-derived queries with expected answers, a replay across separately implemented producers, semantic round-trip checks and an allele-dependent biomedical integration example with recovered provenance.
+These assessments distinguish the existence of a representational mechanism from its implementation and the correctness of the resulting data.
+We then discuss how this foundation could support reusable conversion engines and integrated, medically relevant genomic querying.
+Throughout, \term{vcfc:} denotes \url{https://w3id.org/vcf-core/vocab#}.
+
+% Maybe include: developed from an earlier more VCF-RDFizer Vocabulary~\cite{crum2025semantifying}.
+

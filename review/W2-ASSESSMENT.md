@@ -4,7 +4,7 @@ Completed 2026-09-13 against vcfcv `v2.1.1` (`dd139f9`) and VCF-RDFizer `v3.0.2`
 plus the fixes this workstream prompted (branch `fix/vcf45-structured-accessors`, PR #12).
 Those fixes were **released on 2026-09-14 as `v3.0.3`** (`be658a2`), and the R11 guidance as
 vcfcv **`v2.1.2`** (`3f06d18`); the figures below are as executed on the 13th, against the code
-those tags now carry. Produced on the `vcf-bench-2` VM. Scripts and results: [`w2/`](w2/).
+those tags now carry. Produced on the `vcf-bench-2` VM. Scripts and results: [`reproduce/`](../reproduce/README.md).
 
 ## What this adds to the existing assessment
 
@@ -24,11 +24,11 @@ converter-produced graphs. No expected answer was re-derived: the oracle is
 
 ## W2.1 Where the existing evidence sits
 
-Mapped 2026-09-13 with [`w2/evidence-map.py`](w2/evidence-map.py) — reads the pinned inputs only,
-derives nothing from converter output. Results: [`w2/generated/evidence-map.json`](w2/generated/evidence-map.json).
+Mapped 2026-09-13 with [`reproduce/analysis/evidence-map.py`](../reproduce/analysis/evidence-map.py) — reads the pinned inputs only,
+derives nothing from converter output. Results: [`reproduce/runs/<stamp>/results/evidence-map.json`](../reproduce/runs/<stamp>/results/evidence-map.json).
 
 ```sh
-python3 w2/evidence-map.py <vcf-core-vocabulary checkout> w2/generated/cross-producer.json
+python3 reproduce/analysis/evidence-map.py <vcf-core-vocabulary checkout> reproduce/runs/<stamp>/results/cross-producer.json
 ```
 
 **By research question.** A requirement can serve more than one. The rules are in the script:
@@ -96,7 +96,7 @@ Drawn from the 94 requirement questions rather than newly written — each is al
 retrieval question with a reviewed expected answer. The twelve were chosen to cover the difficult
 interpretation decisions W0.3 prioritised, three version transitions, and the expanded/condensed
 comparison. Every one is executed against **both producers and both profiles**; the counts are
-checks, from [`w2/generated/cross-producer.json`](w2/generated/cross-producer.json).
+checks, from [`reproduce/runs/<stamp>/results/cross-producer.json`](../reproduce/runs/<stamp>/results/cross-producer.json).
 
 | CQ | Req | Question | Why it is hard | Versions | Both pass | Profiles agree |
 | --- | --- | --- | --- | --- | --- | ---: |
@@ -135,8 +135,7 @@ difficult decisions W0.3 prioritised. Each converted in both sample profiles (20
 failures), then every applicable case replayed against both producers.
 
 ```sh
-sh w2/convert-fixtures.sh <outdir>          # 20 conversions
-python3 w2/cross-producer.py <outdir>       # 572 checks
+python3 reproduce/analysis/cross-producer.py <outdir>       # 572 checks
 ```
 
 | Outcome | Before the fixes | **After** |
@@ -161,7 +160,7 @@ smaller and better-understood set.
 
 The evaluation now reports a single converter release, VCF-RDFizer 3.0.3, so the
 before-and-after comparison this section once carried has been withdrawn; the runs that made it
-are in [`archive/`](archive/) and are cited by nothing. What follows describes the corrections
+are in [`archive/`](../archive/) and are cited by nothing. What follows describes the corrections
 that release contains, not a measured difference between releases.
 
 Acting on the first run's three causes closed nine requirements — R09, R12, R13, R14, R17, R20,
@@ -220,7 +219,7 @@ whole list on `vcfc:fieldValue` is better than a confidently wrong decomposition
 
 ## W2.7 Semantic round-trip
 
-`w2/round-trip.py` recovers CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from
+`reproduce/analysis/round-trip.py` recovers CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from
 converter RDF and compares them with the source VCF. Recovery is structural by construction:
 REF and ALT are rebuilt from the ordered `alleleIndex`/`alleleValue` resources, and GT from
 ordered `GenotypeAlleleCall` resources (`callIndex`, `calledAllele`, `isNoCall`) plus

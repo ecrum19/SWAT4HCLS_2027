@@ -1,0 +1,154 @@
+% !TeX root = main_long.tex
+\section{Specification coverage and implementation evidence}
+\label{sec:coverage}
+
+\subsection{One representation with version-specific rules}
+
+VCF Core uses one shared model for common structures and version-specific registries and validation overlays for VCF 4.1--4.5~\cite{vcfc210}. 
+The registries contain 40, 40, 67, 78 and 122 explicit reserved declarations, respectively. 
+For VCF 4.5 these comprise 51 INFO and 71 FORMAT definitions, including three entries for parameterized base-modification key families. 
+Prose-only fields in older versions are not assigned Number or Type constraints absent from their specifications.
+
+The overlays condition rules on the owning file's declared version. 
+Thus, the CIPOS example in Section~\ref{sec:vcf} can be assessed under the appropriate historical or current rule, while the LA, LR, LG and M cardinalities are restricted to VCF 4.5. 
+Shared validation is divided into portable SHACL structure checks, SPARQL-based cross-resource checks and raw/parsed-value consistency checks~\cite{shacl2017,vcfc210}. 
+This organization permits different validator capabilities without implying that each layer independently validates the entire format.
+
+\subsection{What the evidence establishes, and at what strength}
+\label{sec:evidence}
+
+Coverage claims are easy to overstate because three different things are routinely reported as one number. 
+We keep them apart. 
+\emph{A mechanism exists} when a term, rule or documented pattern is available; this establishes nothing about correct instantiation. 
+\emph{An example instantiates it} when a fixture demonstrates the mechanism in use; this establishes nothing about general correctness. 
+\emph{Behaviour is independently checked} when an executed query agrees with an expected answer established separately from the code that produced the graph. 
+Only the third supports a correctness claim, and only within what was tested.
+
+Two assessments and two cross-checks address three questions: whether VCF Core preserves the intended meaning of the constructs it claims to support (RQ1); whether the version-specific artifacts and the two sample profiles behave as documented (RQ2); and whether the result supports a reproducible integration task that retains source context (RQ3).
+
+\paragraph{Mechanism.}
+The curated VCF 4.5 inventory enumerates 104 logical constructs across file and header organization, declarations, types and cardinalities, lexical rules, fixed fields and alleles, genotypes, structural variation, repeats and gVCF. 
+All 104 have preserved, structured representations and 87 additionally have an enforcement rule. 
+Separately, all 333 reserved Number/Type rows extracted from the specification texts match the versioned registries~\cite{vcfc210}. 
+Those 333 rows --- 31, 31, 69, 79 and 123 per version --- are the keys each source declares explicitly in \texttt{\#\#INFO=}/\texttt{\#\#FORMAT=} blocks or reserved-key tables, and are a different population from the registry entries counted above. 
+VCF 4.1 and 4.2 each define a further 29 reserved keys in prose bullets that give no Number and, for INFO, no Type; those rows are inventoried but cannot be compared, so this agreement figure is weighted towards VCF 4.3--4.5. 
+The inventory was curated by the vocabulary's developers, so it maps what its authors listed and cannot reveal an omission nobody listed.
+
+\paragraph{Instantiation and independent checking.}
+The specification-derived assessment reads information requirements from pinned VCF 4.1--4.5 sources and tests them against fixtures. 
+It comprises 94 requirements over 210 cases; each case pairs a SPARQL query with an expected answer authored from the specification text \emph{before} the query was run, and every passing query is re-run against an emptied graph as a negative probe. 
+Executing every case on both sample profiles yields 840 nominal query runs, but 165 cases score the identical query and expected answer on two axes, so the independent figure is \textbf{465 distinct executions}. 
+Coverage is reported per version because requirements apply per version, and an untested requirement scores zero rather than being excluded (Table~\ref{tab:evidence}).
+
+\begin{table}[htbp]
+\caption{Reported evidence, its denominator and the claim it supports. The denominators count different things and must not be combined into a single percentage.}
+\label{tab:evidence}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}p{0.28\linewidth}p{0.15\linewidth}X@{}}
+\toprule
+Assessment & Result & Supported interpretation \\
+\midrule
+Curated VCF 4.5 inventory & 104/104 & All inventoried logical constructs have preserved, structured representations. \\
+Enforcement within that inventory & 87/104 & A stated requirement is checked for these constructs. \\
+Reserved Number/Type rows & 333/333 & Extracted declarations match the version-specific artifacts. \\
+Requirements with a passing test, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Conservative demonstrated coverage for VCF 4.1--4.5; untested requirements score zero. \\
+Distinct executed checks & 465 & Query runs that are not a repeat of an identical check. \\
+Cross-producer replay & 508/572 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
+Semantic round-trip & 35/35 records & Fixed columns and genotypes recovered from structured properties alone. \\
+Recorded full validation run & 21 fixtures & These examples pass the implemented validation layers. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+A previous version of this assessment reported 491 reviewed requirements of which 133 had complete evidence. 
+That generation has been superseded: requirements are now scored per version and per profile, and no single figure corresponds to the earlier 133.
+
+\subsection{Whether the claimed coverage survives a second producer}
+\label{sec:crossproducer}
+
+The assessment above builds its witness graphs with the vocabulary repository's own materializer, whereas the implementation this paper cites is a separate program, and nothing had established that a query and expected answer written against one also holds over the other --- the gap between ``the vocabulary can express this'' and ``the software people will use does''. 
+The two programs share an author but no code: one materializes graphs from a Python fixture builder, the other from RML mappings and streaming emitters. 
+Independence here therefore means independent implementations, not independent authorship, and the check is correspondingly weaker than third-party reproduction.
+
+We replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer: ten fixtures spanning VCF 4.1--4.5 and the difficult decisions above, each converted in both profiles, giving 572 checks over 143 cases and 39 requirements. 
+The producers agree on 536 checks and both pass on 508; 34 requirements agree on every check and 28 of those pass throughout. 
+Every check they agree on by both failing is a condensed-profile structure query, the documented storage trade-off.
+
+The check earned its keep during development, when an earlier converter bound \term{Number=LA} and \term{Number=LR} items to allele indices positionally, ignoring the sample's \texttt{LAA} subset: a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} landed on alleles 0, 1 and 2 instead of 0, 2 and 4 --- plausible, well-formed values on the wrong alleles, which no existing test caught because every existing test ran against the other producer. 
+Release 3.0.3 resolves local alleles correctly, and the requirements exercising them pass for both producers here. 
+Five requirements still diverge: a QUAL datatype the vocabulary deliberately leaves open, three structured accessors the converter has not built (one of them the condensed-vector decoding path), and one empty-list encoding convention. 
+None is a case of the vocabulary being unable to express something --- across all 572 checks, zero divergences trace to a representation gap.
+
+A complementary check recovers logical content rather than comparing query answers. 
+Across the same ten fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
+All 35 records are recovered, with three bounds, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
+It is not whole-file reconstruction.
+
+\paragraph{Where the two sample profiles agree.}
+Because every case runs in both profiles, the profile claim can be stated precisely rather than asserted. 
+The profiles return the same outcome on 252 of 286 comparable checks, and the 34 disagreements fall on nine requirements, every one reading a FORMAT-scoped value: genotype structure, trailing-field missingness, sample-local allele and base-modification items, and repeat components. 
+Record-level file, header, declaration and allele questions agree on every check in both profiles. 
+The supported claim is therefore that the profiles are equivalent for file, header, record and record-level allele questions and divergent by design wherever a query walks per-sample resources. 
+Two of the nine are local-allele requirements, so this paper's headline feature is among those a condensed graph answers less completely.
+
+\paragraph{Answers to the three questions.}
+RQ1 is answered for the 53 of 94 requirements with at least one executed case, the great majority passing. 
+RQ2 is answered for 17 of the 36 version-conditioned requirements, with the profiles behaving as documented: equivalent above the sample level, divergent below it. 
+RQ3 is answered for 27 of the 38 requirements on the provenance chain an integration query must traverse, which Section~\ref{sec:integration} then exercises end to end. 
+None of these fractions is a conformance claim; each is the share of requirements whose behaviour has been checked at all.
+
+\paragraph{Remaining gaps, classified.}
+Of the requirements exercised, none reveals a representation gap. 
+One correctness defect was found and fixed; three requirements await structured accessors in the converter; one reflects an interpretation the vocabulary deliberately permits both ways; one is an encoding convention. 
+The largest limitation is absence of evidence rather than negative evidence: 41 of the 94 requirements have no test case yet, concentrated in structural-variant fields with version-specific semantics. 
+Allele-dependent values, this paper's central modelling claim, are tested for 4 of the 11 requirements that bear on them --- adequate to demonstrate the mechanism and to catch the defect above, not adequate to claim general correctness. 
+Outside that classification, four validator findings remain from the release's own conformance checks: custom structured-header IDs can be absent or duplicated without rejection; numeric base-modification keys can be accepted with incorrect Number/Type pairs; a partially missing phase-set-list example is rejected under an unresolved interpretation; and mixed LF/CRLF line endings are rejected under an unconfirmed reading of the specification. 
+Byte-level checking is reported separately, and neither BCF binary layout nor byte-for-byte reconstruction is a target of the logical model.
+
+\subsection{Implementation and reproducibility}
+\label{sec:implementation}
+
+The release provides OWL/Turtle modules, SHACL profiles, examples, versioned registries, SSSOM mappings and documentation~\cite{vcfc210}. 
+VCF-RDFizer supplies a separate implementation: release 3.0.3 constructs file and record context with RML mappings and produces expanded or condensed sample structures through streaming emitters~\cite{vcfrConverter2026}. 
+The Section~\ref{sec:evidence} assessment was produced with VCF Core 2.1.2 and the vocabulary's own materializer, with no converter involvement; all converter-dependent results (Sections~\ref{sec:crossproducer}--\ref{sec:integration}) used VCF-RDFizer 3.0.3, the release that carries the corrections the cross-producer check prompted. 
+Both are tagged, so every figure below comes from a released artifact rather than a working branch. 
+Converting the Section~\ref{sec:profiles} example emits 242 expanded and 168 condensed triples, drawing on 93 and 80 distinct VCF Core terms respectively. 
+Every one of those terms is declared in VCF Core 2.1.2, and both graphs conform, with no violations, to the shared and the VCF 4.5 SHACL profile when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
+The depth query in Listing~\ref{lst:depth} returns its expected single row against the expanded graph. 
+The converter pins no vocabulary version, so this relationship is established by the behaviour recorded here rather than by a declaration, and it is evidence for the terms these graphs exercise, not for all 467 declared terms or for every historical VCF version.
+
+Every figure in this section comes from one execution of a single script, which fetches the vocabulary and both converter releases at pinned revisions, pulls their container images by digest, converts the fixtures, runs each analysis, and records the machine, the toolchain versions, and every command with its exit code and duration alongside the results. 
+One limitation remains: the toolchain inside the image is not independently pinned, so the image digest, not a list of component versions, is what fixes it. 
+The counts above are converter output; the hand-authored illustration file in the release is smaller, because it omits the allele resources and per-sample genotype and allele-call resources that the converter materializes.
+
+The recorded validation run accepts 21 fixtures and includes a negative control, alongside a regression suite of 101 tests. 
+The published workflow recomputes the reported counts and checks evidence references against the maintained artifacts, and each result in Section~\ref{sec:evidence} has a script that reproduces it from the pinned inputs. 
+Review of coverage judgements and mappings nonetheless remains a human task. 
+The established result is full representation of the curated VCF 4.5 inventory with version-aware support across VCF 4.1--4.5, demonstrated to be reproducible with an independent converter on the subset tested --- not complete conformance.
+
+\subsection{One integration example, with checked answers}
+\label{sec:integration}
+
+The claims above concern representation and query behaviour within the VCF world. 
+To test whether the retained context survives contact with an external annotation, we ran one small end-to-end example and checked its answers against expectations authored in advance.
+
+The example is bounded to a single difficulty: allele-dependent values under VCF 4.5 local alleles. 
+\texttt{LAD} is declared \texttt{Number=LR}, meaning one value per allele of \emph{the sample's own} local allele subset named by \texttt{LAA}, not per entry of the record's ALT column. 
+Answering ``how deep is this alteration in this sample?'' therefore requires the declaration, the sample's \texttt{LAA} and the allele's ordinal simultaneously. 
+The input is a pinned four-site, single-sample VCF 4.5 fixture, each site written twice, once with local alleles and once globally; the annotations are a local, explicitly synthetic snapshot of five flagged alterations, labelled as such in the file, and local rather than federated so the example returns the same answer on every run. 
+The link is made in the query rather than by pre-minted identifiers: an annotation names an alteration by contig, position, reference and alternate allele, and the query joins on those four literals. 
+Three assumptions are recorded because they are what would break the link --- a shared assembly, as-written allele identity with no normalization or VRS matching, and that a VCF sample column is a sample and not a patient.
+
+Asking which flagged alterations have supporting read depth of at least 20 returns two rows, identical to the expected answers: \texttt{chr1:1~G>C} at depth 30 and \texttt{chr1:2~A>T} at depth 25, each traced to its file, record, sample and the FORMAT declaration that gives the field its cardinality. 
+The three flagged alterations absent from the answer are each absent for a stated reason rather than by oversight.
+
+The example is worth reporting because of what a wrong implementation would do with it. 
+Reading \texttt{Number=LR} positionally --- taking the $n$th \texttt{LAD} value as belonging to the $n$th ALT allele, rather than to the $n$th member of the sample's own \texttt{LAA} subset --- returns \emph{two rows again}, but \texttt{chr1:1~G>A} at depth 30 and \texttt{chr1:2~A>C} at 25. 
+Those two alterations and those two depths are named in the expected answers as the positional-reading outcome, derived from the fixture text before any query ran. 
+A check comparing result counts cannot tell the two apart. 
+This is the concrete form of the paper's argument: retaining the declaration, the local allele set and the allele ordinal is not bookkeeping, because dropping it yields a plausible, well-formed, wrong answer delivered with complete provenance.
+
+What this example demonstrates is that the representation carries the interpretation context, that a mapping rule connects it to external annotation, and that the answers match those authored beforehand. 
+What it does not demonstrate is equally clear: the input is synthetic and tiny, the annotations are invented and carry no biological or clinical meaning, the link assumes as-written allele identity, and a single fixture establishes correct local-allele handling here rather than in general.
+
+% NEW: the following scenarios are prospective, not additional evaluation results.

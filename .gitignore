@@ -16,10 +16,6 @@
 # trees are regenerable, and a git history of either is noise.
 
 # --- converted RDF and conversion working state -------------------------------
-w2/conv/
-w2/out/
-w4/conv/
-w4/out/
 **/run_metrics/
 **/.intermediate/
 *.nt
@@ -64,9 +60,6 @@ venv/
 # The exported PDFs are the submission artifacts, so they stay tracked.
 !main_long.pdf
 !main_short.pdf
-# Every generated JSON under w2/ is a recorded result, not an intermediate.
-!w2/generated/
-!w2/generated/**
 # One complete run is the evidence; the scratch it was built from is not.
 reproduce/work/
 !reproduce/runs/

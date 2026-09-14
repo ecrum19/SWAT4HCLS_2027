@@ -1,0 +1,35 @@
+% !TeX root = main_long.tex
+\section{Discussion}
+\label{sec:discussion}
+
+\subsection{Connecting source observations to biomedical knowledge}
+
+VCF Core can make more of the evidence already present in a VCF file available to semantic applications. It retains observations and their interpretation context, while other models describe specimens, patients, diseases, treatments and biological variation. These layers can develop independently when their relationships are explicit.
+
+Two laboratories reporting the same alteration in separate files could, after reference-aware normalization, link to a common variation description while each retains its own quality values, sample identities and provenance --- so a disease association attaches to the description once rather than being copied into every source record, and a revised interpretation can be retrieved alongside the original observations. PROV, FALDO and the published alignments are starting points; the normalization and instance mappings themselves remain to be implemented and evaluated.
+
+Sample identity needs the same separation. In a tumour/normal analysis two columns may be different specimens from one patient, and treating column names as patient identifiers destroys that distinction. An integration layer can link each \term{VCFSample} to its specimen and both specimens to the patient through a biomedical model such as HERO-Genomics~\cite{cazzaro2025hero}; VCF Core preserves the source side without replacing the clinical one.
+
+\subsection{A shared target for conversion engines}
+
+A reusable vocabulary also separates conversion strategy from representation decisions. A clinical site converting one sample for inspection and a research group converting a cohort can choose different sample profiles --- expanded values for direct annotation, condensed vectors with selective expansion for scale --- while retaining the same file, header and record model rather than growing incompatible vocabularies per workload. A pipeline spanning VCF 4.2 and 4.5 data can likewise select the registry and validation overlay from \term{fileFormat} instead of silently imposing the newest cardinality on an older declaration.
+
+That suggests an evaluation order for future work: compare recovered source values and query answers first, as Section~\ref{sec:crossproducer} does, and only then measure conversion time, peak memory, serialized size and loading cost. Section~\ref{sec:profiles} is explicit that the profiles trade query granularity rather than demonstrated storage savings, and the present results do not establish which implementation is most efficient.
+
+\subsection{SPARQL questions that combine genomic and clinical evidence}
+\label{sec:clinicalqueries}
+
+Section~\ref{sec:integration} established the pattern at the smallest scale that requires it: an external annotation joined to sample-level evidence, with the answer depending on interpretation context that the representation retains. 
+The questions below extend that pattern to clinical settings. 
+They are proposed research scenarios and \emph{not} evaluated workflows: unlike the example in Section~\ref{sec:integration}, none has been executed, and each requires additional biomedical data, reviewed instance mappings and appropriate access controls. 
+SPARQL provides the query structure; it does not supply missing interpretation or establish that a returned result is clinically actionable.
+
+\paragraph{Three questions.}
+A \emph{pharmacogenomic} review asks which patients with an active clopidogrel prescription have an externally established CYP2C19 phenotype relevant to a guideline for their indication, and which source observations support that assessment; the CPIC guideline shows why phenotype and indication both matter~\cite{lee2022cpic}, and a workflow such as PharmCAT separates variant processing, allele matching and clinical interpretation~\cite{pharmcatmethods} --- steps that must not collapse into reading one genotype token as a metabolizer phenotype. 
+A \emph{rare-disease} investigation asks which candidate alterations lie in genes associated with diseases sharing the patient's recorded phenotypic features, joining specimen-linked calls to normalized alterations, gene associations and phenotype descriptions such as HPO~\cite{hpo}; its governing constraint is that a row absent from a variant-only VCF is not evidence that a parent is homozygous reference. 
+An \emph{oncology} review asks which alterations detected in a tumour have curated therapeutic evidence for the patient's cancer type, joining a resource such as CIViC~\cite{griffith2017civic} to normalized alterations and retrieving tumour and normal calls through their specimen links; a missing normal call likewise remains missing evidence, not proof of tumour specificity.
+
+Each reaches its sample-level evidence through the same declaration-to-value path that Section~\ref{sec:integration} executes, and each needs clinical assertions from an application schema that is not part of VCF Core. 
+The vocabulary retains the observations; completeness, segregation and therapeutic interpretation require evidence it does not carry.
+
+These scenarios could be implemented over a materialized graph or, where source interfaces and authorization permit, through federated SPARQL as demonstrated in related work~\cite{bodrug2025semantic}. Availability of RDF and vocabulary alignments alone does not guarantee complete or performant answers. Future experiments should evaluate answer correctness, instance-link accuracy, provenance recovery and source availability before making claims about medical utility or query speed. The opportunity is to investigate these questions against a common representation instead of repeatedly reconstructing VCF semantics within each application.

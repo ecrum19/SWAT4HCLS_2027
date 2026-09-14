@@ -5,9 +5,11 @@ Two versions of the same manuscript are maintained side by side:
 | File | Version | Main matter | Total |
 | --- | --- | --- | --- |
 | [main_short.tex](main_short.tex) | Five-page ongoing-work paper | 5 pages | 7 pages |
-| [main_long.tex](main_long.tex) | Full paper (limit: 12 pages of main matter) | 10 pages | 12 pages |
+| [long-paper/main_long.tex](long-paper/main_long.tex) | Full paper (limit: 12 pages of main matter) | 10 pages | 12 pages |
 
-Both share [sources.bib](sources.bib) and the unchanged CEURART class in
+The full paper is split into `intro_rw.tex`, `methods.tex`, `results.tex`, and
+`discussion.tex` alongside its master file in [long-paper/](long-paper/).
+Both versions share [sources.bib](sources.bib) and the unchanged CEURART class in
 [template/](template/). Neither uses external figures: the diagrams are TikZ and
 the code samples are `listings` environments, so the sources above plus a TeX Live
 installation are everything the build needs.
@@ -64,6 +66,28 @@ SPARQL query used in the manuscript, and the recorded verification results.
 repository and depend on its npm dependencies and generated reports; they will not
 execute from this bundle on their own. The fixtures and the recorded
 `generated/verification.json` are self-describing without them.
+
+## Reproducing the results
+
+[reproduce/](reproduce/README.md) regenerates every experimental figure in the paper
+with one command:
+
+```sh
+sh reproduce/run.sh
+```
+
+It fetches the vocabulary and the converter at pinned revisions, pulls the container
+image by digest, converts the fixtures, runs the checks, and writes a self-contained
+run directory holding the environment, every command with its exit code and duration,
+the converted graphs, the results and a summary. The completed run the paper cites is
+in [reproduce/runs/](reproduce/runs/); superseded earlier runs are in
+[archive/](archive/README.md) and are cited by nothing.
+
+## Working notes
+
+[review/](review/) holds the internal notes that guided this draft — the task
+checklist and the per-workstream records. They are working material, not part of the
+submission, and nothing in the manuscript depends on them.
 
 ## Review status
 

@@ -79,7 +79,7 @@ def main() -> int:
         ],
         "problems": problems,
     }
-    out = Path(os.environ.get("RESULTS_DIR", HERE / "generated"))
+    out = Path(os.environ.get("RESULTS_DIR", Path.cwd()))
     out.mkdir(exist_ok=True)
     (out / "w4-results.json").write_text(json.dumps(report, indent=1) + "\n")
 

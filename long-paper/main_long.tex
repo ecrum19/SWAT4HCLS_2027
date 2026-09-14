@@ -1,0 +1,102 @@
+\documentclass{ceurart}
+% Full-paper version of the manuscript; see README.md for build and review status.
+% No class, page-geometry or body-font overrides are applied to the CEURART build.
+\usepackage{listings}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta,positioning}
+\usepackage{xurl}
+\newcommand{\term}[1]{\texttt{#1}}
+\lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,
+  keepspaces=true,showstringspaces=false,frame=single,
+  aboveskip=6pt,belowskip=6pt}
+\emergencystretch=1em
+\begin{document}
+
+\copyrightyear{2027}
+\copyrightclause{Copyright for this paper by its authors.
+  Use permitted under Creative Commons License Attribution 4.0
+  International (CC BY 4.0).}
+\conference{SWAT4HCLS 2027, February 1--4, 2027, Basel, Switzerland}
+
+\title{VCF Core: A Semantic Foundation for RDF Representations of VCF}
+
+\author[1,2]{Elias Crum}[
+orcid=0009-0005-3991-754X,
+email=elias.crum@ugent.be
+]
+\cormark[1]
+\author[2]{Bart Buelens}[
+orcid=0000-0001-7734-3747,
+email=bart.buelens@vito.be
+]
+\author[2]{Gökhan Ertaylan}[
+orcid=0000-0001-5602-6435,
+email=gokhan.ertaylan@vito.be
+]
+\author[1]{Ruben Taelman}[
+orcid=0000-0001-5118-256X,
+email=ruben.taelman@ugent.be
+]
+\address[1]{IDLab, Department of Electronics and Information Systems, Ghent University -- imec, Belgium}
+\address[2]{Flemish institute for Technological Research (VITO) Mol, Belgium}
+\cortext[1]{Corresponding author.}
+
+
+
+% REVISED: abstract follows context, need, contribution, findings and prospects.
+\begin{abstract}
+Medical applications of genomic data depend on connecting variant observations to clinical information and biomedical knowledge. 
+Linked Data offers a framework for this integration, but the Variant Call Format (VCF) does not natively provide an RDF representation of the observations and their interpretation context. 
+We present VCF Core Vocabulary 2.1.2, a shared semantic target for representing VCF files, header declarations, records, annotations and sample data. The vocabulary integrates existing provenance and genomic models while retaining VCF-specific field definitions, ordering and missingness. 
+Expanded sample calls expose individual values, whereas condensed, sample-ordered vectors provide an alternative for cohort data. 
+Version-specific registries and validation profiles address VCF 4.1--4.5, including 122 reserved INFO and FORMAT declarations for VCF 4.5. 
+A curated assessment records representation evidence for all 104 inventoried logical-model constructs and enforcement evidence for 87, and a set of 123 curated alignments documents connections to existing variation models and reference ontologies. 
+We evaluate the vocabulary with executed checks rather than term counts. 
+A specification-derived assessment of 94 requirements over VCF 4.1--4.5 supplies queries and expected answers authored in advance; replaying the 39 requirements that a ten-fixture subset exercises over graphs from a second, separately implemented producer gives agreement on 536 of 572 checks, 508 of them passing for both, with no divergence attributable to a representation gap. 
+A semantic round-trip recovers the fixed columns and genotypes of all 35 records, in the expanded profile, from structured properties alone, and one integration example answers an allele-dependent question under VCF 4.5 local alleles with checked answers and recovered provenance. 
+The replay also found a silent correctness defect in local-allele handling that per-producer testing had not, which we report as evidence for keeping representational mechanism, implementation and correctness apart. 
+We then discuss how this foundation could support reusable conversion engines, traceable links to biomedical resources, and SPARQL queries combining genomic observations with medically relevant information.
+\end{abstract}
+\begin{keywords}
+Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration\sep SHACL
+\end{keywords}
+\maketitle
+
+% REVISED: motivation before technical detail; no first-ever conversion claim.
+\input{intro_rw}
+
+\input{methods}
+
+\input{results}
+
+\input{discussion}
+
+\section{Conclusion}
+
+VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
+It combines reuse of existing models, explicit source structure, alternative sample representations and version-specific artifacts for VCF 4.1--4.5. 
+All 104 constructs in the curated VCF 4.5 inventory are represented, and the claims that matter have been executed rather than asserted: the specification-derived checks agree across a second producer on 536 of 572 replayed checks with no divergence traceable to the vocabulary, all 35 records round-trip through structured properties, and one integration example returns answers authored in advance together with their source provenance.
+
+The remaining work is specific rather than general. 
+Evidence is absent for 41 of the 94 requirements, concentrated in structural-variant fields, and thinner than we would like for allele-dependent values in particular; three structured accessors are not yet implemented in the cited converter; one QUAL datatype question is an interpretation the vocabulary deliberately leaves open; and the per-sample condensed profile cannot yet answer the hardest missingness question. 
+None of these is a representation gap, and none is hypothetical --- each is a named requirement with a recorded result.
+
+What this foundation makes practical is the step from representing genomic files to connecting their contents with biomedical knowledge. 
+Conversion engines can target the same model, integration layers can preserve the distinction between observations and interpretations, and SPARQL studies can examine medically relevant questions with traceable source evidence. 
+The clinical scenarios in Section~\ref{sec:clinicalqueries} remain future work: the VCF-side representation they would build on is in place and checked, while the biomedical models and reviewed instance mappings they equally require are not.
+
+\begin{acknowledgments}
+Project funding provided from the Research Foundation -- Flanders (FWO) (SB Fellowship 1S27825N).
+Ruben Taelman is a postdoctoral fellow of the Research Foundation -- Flanders (FWO) (1202124N).
+\end{acknowledgments}
+
+\section*{Declaration on Generative AI}
+OpenAI Codex and Claude assisted with preparatory work on the vocabulary, assessment artifacts and manuscript. ChatGPT assisted with restructuring, prose revision, reference checks and prospective query examples. 
+
+\label{endofmain}
+
+{\interlinepenalty=10000
+\bibliography{sources}}
+\end{document}
