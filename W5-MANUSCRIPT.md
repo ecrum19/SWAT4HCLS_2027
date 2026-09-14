@@ -59,6 +59,12 @@ term-by-term walk in §3.2, and the genotype tutorial in §2.1. **15 → 14 page
 
 `vcf-bench-2`, image `vcf-rdfizer:local-025fb7d` built from the working branch, input
 `coverage/synthetic.vcf`. Replaces every §5.4 figure, all of which predated the accessor fixes.
+Reproduce with [`w5/measure.py`](w5/measure.py); results in
+[`w5/generated/example-profiles.json`](w5/generated/example-profiles.json).
+
+```sh
+python3 w5/measure.py <expanded.nt.gz> <condensed.nt.gz> <vcf-core-vocabulary checkout> v2.1.1
+```
 
 | | Expanded | Condensed |
 | --- | ---: | ---: |
