@@ -1,0 +1,29 @@
+{
+ "case": {
+  "annotations": "inputs/annotations.ttl (synthetic, labelled as such in the file)",
+  "fixture": "coverage/methodology/fixtures/local-alleles-v4.5.vcf",
+  "sampleProfile": "expanded"
+ },
+ "machine": {
+  "arch": "arm64",
+  "system": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+ },
+ "pinned": {
+  "converter": {
+   "commit": "be658a288b70b7a236dc45d40978b295f8c216b6",
+   "image": "ecrum19/vcf-rdfizer@sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a",
+   "repository": "https://github.com/ecrum19/VCF-RDFizer",
+   "tag": "v3.0.3"
+  },
+  "vocabulary": {
+   "commit": "3f06d188fe1ae72d0841bee45307a392cb3744d4",
+   "repository": "https://github.com/ecrum19/vcf-core-vocabulary",
+   "tag": "v2.1.2"
+  }
+ },
+ "ranAt": "2026-09-14T18:17:34+00:00",
+ "tooling": {
+  "python": "3.14.2",
+  "rdflib": "7.6.0"
+ }
+}

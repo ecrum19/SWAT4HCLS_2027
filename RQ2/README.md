@@ -18,7 +18,6 @@ not depend on the machine it runs on.
 | [`run.sh`](run.sh) | The whole pipeline. Pinned versions are the first thing in the file. |
 | [`summarise.py`](summarise.py) | Turns one run directory into the numbers the paper quotes. |
 | [`analysis/`](analysis) | The four checks, described below. |
-| [`integration-example/`](integration-example) | Inputs for the worked integration example: the annotation snapshot, the query, and the answers authored before it ran. |
 | [`runs/`](runs) | Completed runs. The paper cites the most recent. |
 
 ## What each run records
@@ -54,10 +53,8 @@ questions and comparison features, and audits it for duplicate checks.
 converter emits for the paper's worked example, in both sample profiles, and
 verifies that every emitted term is declared in the cited vocabulary release.
 
-**`integration-example/check.py`** runs the integration query and compares the
-rows, values and provenance against
-[`expected.json`](integration-example/expected.json), which was authored by
-reading the fixture text before the query was ever run.
+The integration case study that used to live here is now [`RQ3/`](../RQ3/README.md),
+which answers a different research question and runs on its own.
 
 ## Scope
 

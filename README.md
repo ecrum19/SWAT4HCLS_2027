@@ -90,6 +90,15 @@ assessment over its output, round-trips the records, and runs the integration ex
 sh RQ2/run.sh
 ```
 
+[RQ3/](RQ3/README.md) — *does the representation support a reproducible integration task
+while retaining source context?* One end-to-end case study: convert a VCF 4.5 fixture,
+join it to a flagged-alteration snapshot, query it, and compare the answers with ones
+authored before the query ran:
+
+```sh
+sh RQ3/run.sh
+```
+
 RQ2 writes a self-contained run directory holding the environment, every command with
 its exit code and duration, the converted graphs, the results and a summary; the run
 the paper cites is in [RQ2/runs/](RQ2/runs/). Superseded earlier runs are in

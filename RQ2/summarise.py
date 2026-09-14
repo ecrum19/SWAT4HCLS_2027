@@ -33,7 +33,6 @@ def main():
     final = load(run, "cross-producer.json")
     rt = load(run, "round-trip.json")
     emap = load(run, "evidence-map.json")
-    integ = load(run, "integration.json")
     prof = load(run, "example-profiles.json")
 
     pin = env["pinned"]
@@ -139,27 +138,6 @@ def main():
         w("")
         w(f"Declaredness checked against `{prof['declaredAt']}` "
           f"({prof['declaredNames']} declared local names).")
-        w("")
-
-    if integ:
-        status = integ.get("status", "?")
-        expected = integ.get("expectedRows", [])
-        observed = integ.get("observedRows", [])
-        excluded = integ.get("excludedConfirmed") or integ.get("excluded") or []
-        problems = integ.get("problems") or []
-        w("## Integration example")
-        w("")
-        w(f"**{status}** — {len(observed)} rows observed against {len(expected)} authored in "
-          f"advance, {len(excluded)} flagged alterations confirmed absent, "
-          f"{len(problems)} problems.")
-        if observed:
-            w("")
-            w("| contig:pos | alteration | depth | sample | via |")
-            w("| --- | --- | ---: | --- | --- |")
-            for r in observed:
-                w(f"| {r.get('contig')}:{r.get('position')} | {r.get('ref')}>{r.get('alt')} "
-                  f"| {r.get('depth')} | `{r.get('sample')}` | "
-                  f"`{r.get('fieldId')}` `Number={r.get('number')}` |")
         w("")
 
     print("\n".join(out))

@@ -17,6 +17,7 @@ from pathlib import Path
 import rdflib
 
 HERE = Path(__file__).parent
+INPUTS = HERE / "inputs"
 
 
 def load_graph(rdf_path: Path, annotations: Path) -> rdflib.Graph:
@@ -30,9 +31,9 @@ def load_graph(rdf_path: Path, annotations: Path) -> rdflib.Graph:
 
 def main() -> int:
     rdf_path = Path(sys.argv[1])
-    graph = load_graph(rdf_path, HERE / "annotations.ttl")
-    query = (HERE / "local-allele-evidence.rq").read_text(encoding="utf-8")
-    expected = json.loads((HERE / "expected.json").read_text(encoding="utf-8"))
+    graph = load_graph(rdf_path, INPUTS / "annotations.ttl")
+    query = (INPUTS / "local-allele-evidence.rq").read_text(encoding="utf-8")
+    expected = json.loads((INPUTS / "expected.json").read_text(encoding="utf-8"))
 
     observed = []
     for row in graph.query(query):

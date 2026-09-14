@@ -183,10 +183,6 @@ step evidence-map sh -c \
   "\"$PYTHON\" \"$HERE/analysis/evidence-map.py\" \"$VOCAB\" \"$RUN/results/cross-producer.json\" \
    > \"$RUN/results/evidence-map.json\""
 
-step integration sh -c \
-  "\"$PYTHON\" \"$HERE/integration-example/check.py\" \
-   \"$WORK/converted/expanded/local-alleles-v4.5/local-alleles-v4.5.nt.gz\""
-
 # The Section 5.4 profile figures use the paper's own single-record example.
 mkdir -p "$WORK/example"
 cp "$REPO/coverage/synthetic.vcf" "$WORK/example/"
