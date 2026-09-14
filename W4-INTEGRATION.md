@@ -23,10 +23,10 @@ same number of rows describing different alterations.
 
 | | |
 | --- | --- |
-| VCF | `coverage/methodology/fixtures/local-alleles-v4.5.vcf` (vcf-core-vocabulary `v2.1.1`) |
+| VCF | `coverage/methodology/fixtures/local-alleles-v4.5.vcf` (vcf-core-vocabulary `v2.1.1`, unchanged in `v2.1.2`) |
 | Provenance | **Authored, not observed.** A synthetic fixture written to exercise the VCF 4.5 local-allele families. |
 | Size | 4 sites, 1 sample, 8 data lines — each site written twice, once with `LAA`/`LAD`/`LPL` and once with the equivalent global `AD`/`PL` |
-| Converter | VCF-RDFizer `fix/vcf45-structured-accessors` (`e128c71`), expanded profile |
+| Converter | VCF-RDFizer `fix/vcf45-structured-accessors` (`e128c71`), expanded profile; that branch was released as `v3.0.3` (`be658a2`) on 2026-09-14 |
 | Annotations | [`w4/annotations.ttl`](w4/annotations.ttl) — pinned local snapshot, five flagged alterations |
 
 The annotation snapshot is **entirely synthetic and labelled as such in the file**. No

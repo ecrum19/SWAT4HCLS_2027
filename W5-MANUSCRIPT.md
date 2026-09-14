@@ -23,13 +23,19 @@ repository's stated limit of 12 pages of main matter. No undefined references or
 - **840 executions** → **465 distinct** (W2.1 duplicate pass).
 - **172/149 triples** relabelled as the hand-authored illustration; the converter emits 225/159.
 
-## Blocking before submission
+## Release gates — two of three closed 2026-09-14
 
-1. **The evaluation cites an unreleased converter.** Every result in §5.2–§5.4 used VCF-RDFizer
-   3.0.2 *plus* the corrections the cross-producer check prompted (PR #12), which has no tag.
-   The manuscript says so honestly, but a reader cannot reproduce it until that release exists.
-2. **R11 guidance wants vcfcv 2.1.2.** The manuscript cites 2.1.1 throughout.
-3. **No versioned container tags**, so §5.3 has to tell readers to cite a digest.
+1. ~~The evaluation cites an unreleased converter.~~ **Closed.** VCF-RDFizer `v3.0.3` =
+   `be658a2` carries the corrections. §5.4's figures were **re-measured from the tag**, not
+   relabelled: the tag differs from the commit originally measured (`025fb7d`) in
+   `vcf_rdfizer.py`, so the numbers were re-derived rather than assumed. They are identical —
+   the emitter change was a docstring.
+2. ~~R11 guidance wants vcfcv 2.1.2.~~ **Closed.** `v2.1.2` = `3f06d18`. Declaredness for the
+   §5.4 terms is now checked against that tag.
+3. **Container image still lags.** Version-tagged images exist (the earlier "only a mutable
+   `latest`" note is out of date), but the newest is **3.0.2**, published 12 September, which
+   predates the corrections. There is no 3.0.3 image, so reproducing §5.2–§5.4 means building
+   from source. §5.4 now says exactly that.
 
 ## Review pass — what it caught
 
@@ -73,6 +79,10 @@ python3 w5/measure.py <expanded.nt.gz> <condensed.nt.gz> <vcf-core-vocabulary ch
 | Terms not declared at `v2.1.1` | **0** | **0** |
 | SHACL, shared profile + ontology + RDFS | conforms, 0 violations | conforms, 0 violations |
 | SHACL, VCF 4.5 profile | conforms, 0 violations | conforms, 0 violations |
+
+Re-run 2026-09-14 from the **`v3.0.3` tag** against the **`v2.1.2`** term set: every figure
+above is unchanged, all four SHACL configurations still conform, and the depth query still
+returns `SAMPLE1, 42`.
 
 W3's projected 227 was itself too low: it counted only the typed-accessor fix, while the branch
 also emits record identifiers, FILTER codes, `fieldIndex`, record-level `FormatKey` resources

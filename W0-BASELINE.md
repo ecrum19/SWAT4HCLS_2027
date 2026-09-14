@@ -7,16 +7,16 @@ Recorded 2026-09-12. Both repositories clean; every artifact below is a pushed c
 | Input | Pin | Note |
 | --- | --- | --- |
 | Manuscript | `main_long.tex` (this directory) | |
-| VCF Core Vocabulary 2.1.1 | tag `v2.1.1` = `dd139f9` (2026-09-11) | cited as `vcfc210`; local `dev` tip `b33751a` is the pre-squash equivalent |
-| VCF-RDFizer 3.0.2 | tag `v3.0.2` = `b8da2ed` (2026-09-12) | cited as `vcfrConverter2026`; see [W3-IMPLEMENTATION.md](W3-IMPLEMENTATION.md) |
+| VCF Core Vocabulary 2.1.2 | tag `v2.1.2` = `3f06d18` (2026-09-14) | cited as `vcfc210`; supersedes 2.1.1 (`dd139f9`), which every result before 14 September used |
+| VCF-RDFizer 3.0.3 | tag `v3.0.3` = `be658a2` (2026-09-14) | cited as `vcfrConverter2026`; carries the corrections this work prompted. See [W3-IMPLEMENTATION.md](W3-IMPLEMENTATION.md) |
 | VCF specs 4.1–4.5 | `coverage/methodology/sources.lock.json` | sha256 per version, retrieved 2026-09-08 from samtools/hts-specs |
 
-**Tag history.** The misplaced `v3.0.1` tag was deleted upstream; `v3.0.2` is correctly placed
-and carries `version = "3.0.2"`. No versioned Docker image tags exist, so the container must be
-pinned by digest — see W3.1.
+**Tag history.** The misplaced `v3.0.1` tag was deleted upstream. Version-tagged container
+images now exist, but the newest is **3.0.2**, which predates the corrections in the 3.0.3
+source — reproducing the recorded results requires building the image from 3.0.3.
 
-**Namespace.** VCF-RDFizer 3.0.2 emits `w3id.org/vcf-core/vocab#` and pins **no** vocabulary
-version, so the 2.1.1 relationship rests on the behaviour recorded in W3, not on a declaration.
+**Namespace.** VCF-RDFizer 3.0.3 emits `w3id.org/vcf-core/vocab#` and pins **no** vocabulary
+version, so the 2.1.2 relationship rests on the behaviour recorded in W3, not on a declaration.
 
 ## W0.2 Reusable evidence
 

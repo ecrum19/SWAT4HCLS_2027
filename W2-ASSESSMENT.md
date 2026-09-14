@@ -1,8 +1,10 @@
 # W2 — Assessment evidence
 
 Completed 2026-09-13 against vcfcv `v2.1.1` (`dd139f9`) and VCF-RDFizer `v3.0.2` (`b8da2ed`)
-plus the fixes this workstream prompted (branch `fix/vcf45-structured-accessors`, PR #12, not yet
-released). The final figures were produced on the `vcf-bench-2` VM. Scripts and results: [`w2/`](w2/).
+plus the fixes this workstream prompted (branch `fix/vcf45-structured-accessors`, PR #12).
+Those fixes were **released on 2026-09-14 as `v3.0.3`** (`be658a2`), and the R11 guidance as
+vcfcv **`v2.1.2`** (`3f06d18`); the figures below are as executed on the 13th, against the code
+those tags now carry. Produced on the `vcf-bench-2` VM. Scripts and results: [`w2/`](w2/).
 
 ## What this adds to the existing assessment
 

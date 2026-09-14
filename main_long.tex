@@ -49,7 +49,7 @@ email=ruben.taelman@ugent.be
 \begin{abstract}
 Medical applications of genomic data depend on connecting variant observations to clinical information and biomedical knowledge. 
 Linked Data offers a framework for this integration, but the Variant Call Format (VCF) does not natively provide an RDF representation of the observations and their interpretation context. 
-We present VCF Core Vocabulary 2.1.1, a shared semantic target for representing VCF files, header declarations, records, annotations and sample data. The vocabulary integrates existing provenance and genomic models while retaining VCF-specific field definitions, ordering and missingness. 
+We present VCF Core Vocabulary 2.1.2, a shared semantic target for representing VCF files, header declarations, records, annotations and sample data. The vocabulary integrates existing provenance and genomic models while retaining VCF-specific field definitions, ordering and missingness. 
 Expanded sample calls expose individual values, whereas condensed, sample-ordered vectors provide an alternative for cohort data. 
 Version-specific registries and validation profiles address VCF 4.1--4.5, including 122 reserved INFO and FORMAT declarations for VCF 4.5. 
 A curated assessment records representation evidence for all 104 inventoried logical-model constructs and enforcement evidence for 87, and a set of 123 curated alignments documents connections to existing variation models and reference ontologies. 
@@ -86,7 +86,7 @@ The next step is therefore not to establish that VCF can be represented in RDF.
 It is to provide a shared, version-aware target that combines broad coverage of the source format with explicit connections to these existing models. 
 Such a target would allow conversion and querying approaches to develop without each introducing its own interpretation of VCF structure.
 
-Here, we present the VCF Core Vocabulary (\textit{vcfcv}) 2.1.1~\cite{vcfc210}, developed from our earlier VCF-RDFizer Vocabulary~\cite{crum2025semantifying}. 
+Here, we present the VCF Core Vocabulary (\textit{vcfcv}) 2.1.2~\cite{vcfc210}, developed from our earlier VCF-RDFizer Vocabulary~\cite{crum2025semantifying}. 
 The contribution combines source-context preservation, alternative sample representations, documented alignment, and coverage evidence across VCF 4.1--4.5. 
 After introducing VCF and the model, we explain its relationship to existing work, assess its scope, and discuss how it could support integrated, medically relevant genomic querying. 
 Throughout, \term{vcfc:} denotes \url{https://w3id.org/vcf-core/vocab#}.
@@ -450,17 +450,16 @@ Byte-level checking is reported separately, and neither BCF binary layout nor by
 \label{sec:implementation}
 
 The release provides OWL/Turtle modules, SHACL profiles, examples, versioned registries, SSSOM mappings and documentation~\cite{vcfc210}. 
-VCF-RDFizer supplies a separate implementation: release 3.0.2 constructs file and record context with RML mappings and produces expanded or condensed sample structures through streaming emitters~\cite{vcfrConverter2026}. 
-The Section~\ref{sec:evidence} assessment was produced with VCF Core 2.1.1 and the vocabulary's own materializer, with no converter involvement. 
-All converter-dependent results (Sections~\ref{sec:crossproducer}--\ref{sec:integration}) additionally used VCF-RDFizer 3.0.2 together with the corrections that the cross-producer check prompted, which are not yet in a tagged converter release; the exact commits are recorded with the reproduction scripts. 
-One further caveat applies on the vocabulary side: the QUAL datatype guidance discussed in Section~\ref{sec:crossproducer} was added after the 2.1.1 tag and is not part of the cited release, which the results otherwise use unmodified. 
+VCF-RDFizer supplies a separate implementation: release 3.0.3 constructs file and record context with RML mappings and produces expanded or condensed sample structures through streaming emitters~\cite{vcfrConverter2026}. 
+The Section~\ref{sec:evidence} assessment was produced with VCF Core 2.1.2 and the vocabulary's own materializer, with no converter involvement; all converter-dependent results (Sections~\ref{sec:crossproducer}--\ref{sec:integration}) used VCF-RDFizer 3.0.3, the release that carries the corrections the cross-producer check prompted. 
+Both are tagged, so every figure below comes from a released artifact rather than a working branch. 
 Converting the Section~\ref{sec:profiles} example emits 242 expanded and 168 condensed triples, drawing on 93 and 80 distinct VCF Core terms respectively. 
-Every one of those terms is declared in VCF Core 2.1.1, and both graphs conform, with no violations, to the shared and the VCF 4.5 SHACL profile when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
+Every one of those terms is declared in VCF Core 2.1.2, and both graphs conform, with no violations, to the shared and the VCF 4.5 SHACL profile when the shapes are loaded with the vocabulary and RDFS inference, as the vocabulary's own validation does. 
 The depth query in Listing~\ref{lst:depth} returns its expected single row against the expanded graph. 
 The converter pins no vocabulary version, so this relationship is established by the behaviour recorded here rather than by a declaration, and it is evidence for the terms these graphs exercise, not for all 467 declared terms or for every historical VCF version.
 
 Two pinning limitations are worth stating plainly because they affect reproduction. 
-The container image is published only under a mutable \texttt{latest} tag, so reproduction must cite an image digest rather than a version; and the toolchain inside that image is not independently pinned. 
+The published container image lags the source release: version-tagged images exist, but the newest is 3.0.2, which predates the corrections, so reproducing the results above requires building the image from the 3.0.3 source rather than pulling it. The toolchain inside that image is also not independently pinned. 
 The counts above are converter output; the hand-authored illustration file in the release is smaller, because it omits the allele resources and per-sample genotype and allele-call resources that the converter materializes.
 
 The recorded validation run accepts 21 fixtures and includes a negative control, alongside a regression suite of 101 tests. 

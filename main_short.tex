@@ -78,7 +78,7 @@ Converting only selected variant attributes can leave those dependencies implici
 
 Existing approaches, including the Genomic Feature and Variation Ontology (GFVO) and VCF2RDF, provide important foundations~\cite{baran2015gfvo,penha2017vcf2rdf}.
 The next step is therefore not to establish that VCF can be represented in RDF, but to provide a shared, version-aware target that combines broad source-format coverage with explicit connections to existing models.
-Here, we present VCF Core Vocabulary 2.1.0~\cite{vcfc210}, developed from our earlier VCF-RDFizer Vocabulary~\cite{crum2025semantifying}.
+Here, we present VCF Core Vocabulary 2.1.2~\cite{vcfc210}, developed from our earlier VCF-RDFizer Vocabulary~\cite{crum2025semantifying}.
 The vocabulary and supporting artifacts are available; ongoing work concerns establishing their semantic fidelity across VCF versions, refining validation, and evaluating reuse.
 Throughout, \term{vcfc:} denotes \url{https://w3id.org/vcf-core/vocab#}.
 
@@ -198,7 +198,7 @@ Priorities include strengthening evidence for less-tested constructs, resolving 
 Independent review is particularly important because the current logical-model inventory was curated by the vocabulary's developers.
 
 The release provides OWL/Turtle modules, SHACL profiles, examples, versioned registries, SSSOM mappings and documentation~\cite{vcfc210}.
-VCF-RDFizer supplies an implementation lineage, although its cited snapshot uses the predecessor namespace and is not evidence of complete VCF Core 2.1.0 support~\cite{vcfrConverter2026}.
+VCF-RDFizer supplies an implementation: the cited release emits the VCF Core namespace, but on the inputs tested rather than as evidence of complete VCF Core 2.1.2 support~\cite{vcfrConverter2026}.
 Small fixtures and a synthetic query example provide implementation evidence, but do not establish cohort-scale performance, general converter correctness or clinical validity.
 
 

@@ -1,5 +1,10 @@
 # W3 — Implementation evidence
 
+Executed 2026-09-12 against VCF-RDFizer 3.0.2 and vcfcv 2.1.1. **Superseded in part on
+2026-09-14**: the three issues below were fixed and released as `v3.0.3` (`be658a2`), and the
+QUAL guidance as vcfcv `v2.1.2` (`3f06d18`). Figures here are the pre-fix state; the released
+measurements are in [W5-MANUSCRIPT.md](W5-MANUSCRIPT.md).
+
 Executed 2026-09-12. Every result below comes from a run on this machine; nothing is quoted
 from documentation.
 
@@ -94,8 +99,9 @@ version, so the relationship is established only by the behaviour recorded here.
 Landed in `0b00b8f` on `main` (source) and [#11](https://github.com/ecrum19/VCF-RDFizer/pull/11)
 (the matching fixture oracle). Full suite: 647 tests, OK.
 
-**Not yet done:** `src/validation/` is baked into the image, so `ecrum19/vcf-rdfizer:latest`
-must be rebuilt before an end-to-end `-m validation` run passes. Against the published image the
+**Still not done as of 2026-09-14:** `src/validation/` is baked into the image, and the newest
+published image is 3.0.2, which predates these fixes, so it must be rebuilt before an
+end-to-end `-m validation` run passes. Against the published image the
 new graph reports `MISMATCH` with `extraRows: [{fieldValueInteger, 2}]`.
 
 ### Consequence for the manuscript

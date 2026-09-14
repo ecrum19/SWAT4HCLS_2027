@@ -83,13 +83,15 @@ equivalent outright.
 | Comparison answers novelty with sourced evidence | Yes | W1 |
 | Mechanism / instantiation / checked behaviour distinguishable | Yes | W2.1–W2.3 |
 | Version & profile claims executed; denominators understandable | **Partial** | denominators grounded and now audited (840 nominal → **465 distinct**); condensed round-trip still not executed, and the manuscript's denominators are not yet corrected (W5.3) |
-| Exact tested release produces the described representation | **Partial** | true for 3.0.2 **plus PR #12**, which is unmerged and unreleased; the published image predates every fix |
+| Exact tested release produces the described representation | Yes | vcfcv **2.1.2** (`3f06d18`) and VCF-RDFizer **3.0.3** (`be658a2`), both tagged 2026-09-14; §5.4 figures re-measured from the tags. The published *image* still lags at 3.0.2 |
 | Integration example with checked answers and provenance | Yes | W4 |
 | Limitations explicit; no conclusion rests on unexecuted work | Yes | in W0–W4. Not yet true of the manuscript |
 
 ## Open before W5 can close the gates
 
-1. **PR #12** merged and released (carries R83, the accessors, R29) — author's call.
-2. **vcfcv 2.1.2** bump for the R11 QUAL guidance the manuscript would cite.
-3. **Image rebuilt and versioned tags pushed** — reproduction currently needs a digest, not a version.
+1. ~~**PR #12** merged and released~~ — done, `v3.0.3` = `be658a2`.
+2. ~~**vcfcv 2.1.2** bump for the R11 QUAL guidance~~ — done, `v2.1.2` = `3f06d18`.
+3. **Container image still lags the source.** Version-tagged images exist, but the newest is
+   3.0.2 and predates the corrections; there is no 3.0.3 image. Reproduction means building
+   from source. This is the last release gate open.
 4. Optional, bounded and documented: condensed round-trip (needs R21).
