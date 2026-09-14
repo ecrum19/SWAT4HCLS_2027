@@ -1,8 +1,5 @@
 #!/usr/bin/env bash
-# Reproduce every experimental result in the paper, from pinned artifacts, in one command.
-#
-#     sh reproduce/run.sh [workdir]
-#
+
 # Needs: git, docker, python3 (with rdflib), ~2 GB disk, ~20 minutes.
 # Everything else -- the vocabulary, the converter, the container images -- is
 # fetched at a pinned revision or digest. Nothing depends on the machine that
@@ -16,9 +13,6 @@
 #     graphs/       the converted RDF each result was computed from
 #     results/      the JSON each analysis wrote
 #     SUMMARY.md    the headline numbers, ready to read
-#
-# Two converter versions are run, because the paper reports a difference between
-# them: v3.0.3, which carries the corrections, and v3.0.2, which precedes them.
 set -euo pipefail
 
 # ---------------------------------------------------------------- pins --------
@@ -27,15 +21,11 @@ VOCAB_TAG="v2.1.2"
 
 RDFIZER_REPO="https://github.com/ecrum19/VCF-RDFizer.git"
 
-# Each converter version is a wrapper revision plus the image it drives, pinned
-# by digest so a moved tag cannot change what runs.
-FINAL_TAG="v3.0.3"
-FINAL_IMAGE="ecrum19/vcf-rdfizer"
-FINAL_DIGEST="sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a"
-
-BASELINE_TAG="v3.0.2"
-BASELINE_IMAGE="ecrum19/vcf-rdfizer"
-BASELINE_DIGEST="sha256:452ad64b9aafad4abfee26f72469c998226c51b18e4d2c110972146a68c86020"
+# The converter is a wrapper revision plus the image it drives, pinned by digest
+# so a moved tag cannot change what runs.
+CONVERTER_TAG="v3.0.3"
+CONVERTER_IMAGE="ecrum19/vcf-rdfizer"
+CONVERTER_DIGEST="sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a"
 
 FIXTURES="basic-v4.1 basic-v4.2 basic-v4.3 basic-v4.4 basic-v4.5
           header-audit-v4.5 features-v4.5 local-alleles-v4.5
@@ -89,26 +79,23 @@ clone_at() {  # clone_at <repo> <tag> <dir>
   git -C "$3" rev-parse HEAD > /dev/null
 }
 
-step vocab-checkout     clone_at "$VOCAB_REPO"    "$VOCAB_TAG"    "$WORK/vocab"
-step rdfizer-checkout   clone_at "$RDFIZER_REPO"  "$FINAL_TAG"    "$WORK/rdfizer-$FINAL_TAG"
-step rdfizer-checkout-baseline clone_at "$RDFIZER_REPO" "$BASELINE_TAG" "$WORK/rdfizer-$BASELINE_TAG"
-step image-pull         docker pull --quiet "$FINAL_IMAGE@$FINAL_DIGEST"
-step image-pull-baseline docker pull --quiet "$BASELINE_IMAGE@$BASELINE_DIGEST"
+step vocab-checkout   clone_at "$VOCAB_REPO"   "$VOCAB_TAG"     "$WORK/vocab"
+step rdfizer-checkout clone_at "$RDFIZER_REPO" "$CONVERTER_TAG" "$WORK/rdfizer"
+step image-pull       docker pull --quiet "$CONVERTER_IMAGE@$CONVERTER_DIGEST"
 
-# Tag the pulled digests so the wrapper, which takes image+version, can find them.
-docker tag "$FINAL_IMAGE@$FINAL_DIGEST"       "reproduce-vcf-rdfizer:$FINAL_TAG"    >/dev/null
-docker tag "$BASELINE_IMAGE@$BASELINE_DIGEST" "reproduce-vcf-rdfizer:$BASELINE_TAG" >/dev/null
+# Tag the pulled digest so the wrapper, which takes image+version, can find it.
+docker tag "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "reproduce-vcf-rdfizer:$CONVERTER_TAG" >/dev/null
 
 VOCAB="$WORK/vocab"
 FIXDIR="$VOCAB/coverage/methodology/fixtures"
 
 # ------------------------------------------------------------ environment -----
 say "Recording the environment"
-"$PYTHON" - "$RUN" "$WORK" "$VOCAB_TAG" "$FINAL_TAG" "$FINAL_IMAGE@$FINAL_DIGEST" \
-             "$BASELINE_TAG" "$BASELINE_IMAGE@$BASELINE_DIGEST" <<'PY' > "$RUN/env.json"
+"$PYTHON" - "$RUN" "$WORK" "$VOCAB_TAG" "$CONVERTER_TAG" \
+             "$CONVERTER_IMAGE@$CONVERTER_DIGEST" <<'PY' > "$RUN/env.json"
 import json, os, platform, subprocess, sys, datetime
 
-run, work, vtag, ftag, fimg, btag, bimg = sys.argv[1:8]
+run, work, vtag, ctag, cimg = sys.argv[1:6]
 
 def sh(*c):
     try:
@@ -151,19 +138,11 @@ env = {
             "tag": vtag,
             "commit": git(os.path.join(work, "vocab"), "rev-parse", "HEAD"),
         },
-        "converterFinal": {
+        "converter": {
             "repository": "https://github.com/ecrum19/VCF-RDFizer",
-            "tag": ftag,
-            "commit": git(os.path.join(work, f"rdfizer-{ftag}"), "rev-parse", "HEAD"),
-            "image": fimg,
-            "role": "carries the corrections; every reported figure comes from this version",
-        },
-        "converterBaseline": {
-            "repository": "https://github.com/ecrum19/VCF-RDFizer",
-            "tag": btag,
-            "commit": git(os.path.join(work, f"rdfizer-{btag}"), "rev-parse", "HEAD"),
-            "image": bimg,
-            "role": "the released version preceding the corrections; used only for the discovery run",
+            "tag": ctag,
+            "commit": git(os.path.join(work, "rdfizer"), "rev-parse", "HEAD"),
+            "image": cimg,
         },
     },
     "specifications": json.loads(
@@ -174,38 +153,31 @@ print()
 PY
 
 # ------------------------------------------------------------ conversions -----
-convert_set() {  # convert_set <label> <rdfizer dir> <image tag>
-  local label="$1" rdfizer="$2" tag="$3"
-  local out="$WORK/converted/$label"
+convert_set() {
+  local out="$WORK/converted"
   mkdir -p "$out/in"
   for f in $FIXTURES; do cp "$FIXDIR/$f.vcf" "$out/in/"; done
   for f in $FIXTURES; do
     for p in $PROFILES; do
       [ -f "$out/$p/$f/$f.nt.gz" ] && continue
-      "$PYTHON" "$rdfizer/vcf_rdfizer.py" -m full -i "$out/in/$f.vcf" \
+      "$PYTHON" "$WORK/rdfizer/vcf_rdfizer.py" -m full -i "$out/in/$f.vcf" \
         --sample-representation "$p" --representations none --rdf-compression none \
-        --no-progress --quiet -I reproduce-vcf-rdfizer -v "$tag" -o "$out/$p" \
+        --no-progress --quiet -I reproduce-vcf-rdfizer -v "$CONVERTER_TAG" -o "$out/$p" \
         || return 1
     done
   done
 }
 
-say "Converting 10 fixtures x 2 profiles with $FINAL_TAG (this is the slow part)"
-step convert-final    convert_set final    "$WORK/rdfizer-$FINAL_TAG"    "$FINAL_TAG"
-
-say "Converting the same set with $BASELINE_TAG, for the discovery comparison"
-step convert-baseline convert_set baseline "$WORK/rdfizer-$BASELINE_TAG" "$BASELINE_TAG"
+say "Converting 10 fixtures x 2 profiles with $CONVERTER_TAG (this is the slow part)"
+step convert convert_set
 
 # ---------------------------------------------------------------- analyses ----
 say "Running the analyses"
 export VCF_CORE_VOCAB="$VOCAB"
 export RESULTS_DIR="$RUN/results"
 
-step cross-producer-final     "$PYTHON" "$REPO/w2/cross-producer.py" \
-                              "$WORK/converted/final"    cross-producer.json
-step cross-producer-discovery "$PYTHON" "$REPO/w2/cross-producer.py" \
-                              "$WORK/converted/baseline" cross-producer-discovery.json
-step round-trip               "$PYTHON" "$REPO/w2/round-trip.py" "$WORK/converted/final"
+step cross-producer "$PYTHON" "$REPO/w2/cross-producer.py" "$WORK/converted" cross-producer.json
+step round-trip     "$PYTHON" "$REPO/w2/round-trip.py"     "$WORK/converted"
 
 step evidence-map sh -c \
   "\"$PYTHON\" \"$REPO/w2/evidence-map.py\" \"$VOCAB\" \"$RUN/results/cross-producer.json\" \
@@ -213,17 +185,17 @@ step evidence-map sh -c \
 
 step integration sh -c \
   "\"$PYTHON\" \"$REPO/w4/check.py\" \
-   \"$WORK/converted/final/expanded/local-alleles-v4.5/local-alleles-v4.5.nt.gz\""
+   \"$WORK/converted/expanded/local-alleles-v4.5/local-alleles-v4.5.nt.gz\""
 
 # The Section 5.4 profile figures use the paper's own single-record example.
 mkdir -p "$WORK/example"
 cp "$REPO/coverage/synthetic.vcf" "$WORK/example/"
 for p in $PROFILES; do
   [ -f "$WORK/example/$p/synthetic/synthetic.nt.gz" ] && continue
-  step "convert-example-$p" "$PYTHON" "$WORK/rdfizer-$FINAL_TAG/vcf_rdfizer.py" \
+  step "convert-example-$p" "$PYTHON" "$WORK/rdfizer/vcf_rdfizer.py" \
     -m full -i "$WORK/example/synthetic.vcf" --sample-representation "$p" \
     --representations none --rdf-compression none --no-progress --quiet \
-    -I reproduce-vcf-rdfizer -v "$FINAL_TAG" -o "$WORK/example/$p"
+    -I reproduce-vcf-rdfizer -v "$CONVERTER_TAG" -o "$WORK/example/$p"
 done
 
 step profile-figures sh -c \
@@ -234,12 +206,10 @@ step profile-figures sh -c \
 
 # ------------------------------------------------------------- collect --------
 say "Collecting the graphs each result was computed from"
-for label in final baseline; do
-  for p in $PROFILES; do
-    mkdir -p "$RUN/graphs/$label/$p"
-    for f in $FIXTURES; do
-      cp "$WORK/converted/$label/$p/$f/$f.nt.gz" "$RUN/graphs/$label/$p/$f.nt.gz"
-    done
+for p in $PROFILES; do
+  mkdir -p "$RUN/graphs/$p"
+  for f in $FIXTURES; do
+    cp "$WORK/converted/$p/$f/$f.nt.gz" "$RUN/graphs/$p/$f.nt.gz"
   done
 done
 mkdir -p "$RUN/graphs/example"

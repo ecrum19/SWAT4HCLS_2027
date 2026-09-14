@@ -31,7 +31,6 @@ def main():
     steps = [json.loads(l) for l in (run / "steps.jsonl").read_text().splitlines() if l.strip()]
 
     final = load(run, "cross-producer.json")
-    disc = load(run, "cross-producer-discovery.json")
     rt = load(run, "round-trip.json")
     emap = load(run, "evidence-map.json")
     integ = load(run, "w4-results.json") or load(run, "results.json")
@@ -50,64 +49,45 @@ def main():
     w("| Pinned | |")
     w("| --- | --- |")
     w(f"| Vocabulary | `{pin['vocabulary']['tag']}` = `{(pin['vocabulary']['commit'] or '')[:7]}` |")
-    w(f"| Converter | `{pin['converterFinal']['tag']}` = "
-      f"`{(pin['converterFinal']['commit'] or '')[:7]}`, image `{pin['converterFinal']['image']}` |")
-    w(f"| Converter, pre-correction | `{pin['converterBaseline']['tag']}` = "
-      f"`{(pin['converterBaseline']['commit'] or '')[:7]}`, image `{pin['converterBaseline']['image']}` |")
+    w(f"| Converter | `{pin['converter']['tag']}` = "
+      f"`{(pin['converter']['commit'] or '')[:7]}`, image `{pin['converter']['image']}` |")
     w(f"| Host | {env['machine']['osRelease'] or env['machine']['system']}, "
       f"{env['machine']['arch']}, {env['machine']['cpus']} CPU |")
     w(f"| Engines | rdflib {env['tooling']['rdflib']} (SPARQL), "
       f"pyshacl {env['tooling']['pyshacl']}, Docker {env['tooling']['docker']} |")
     w("")
 
-    if final and disc:
-        fs, ds = final["summary"], disc["summary"]
+    if final:
+        fs = final["summary"]
+        by = fs["byOutcome"]
         w("## Cross-producer replay")
         w("")
-        w("| | Pre-correction | Final |")
-        w("| --- | ---: | ---: |")
-        w(f"| Checks | {ds['checks']} | {fs['checks']} |")
-        w(f"| Both pass | {ds['byOutcome'].get('pass/pass', 0)} | {fs['byOutcome'].get('pass/pass', 0)} |")
-        w(f"| Divergent (repo passes, converter fails) | {ds['byOutcome'].get('pass/fail', 0)} "
-          f"| {fs['byOutcome'].get('pass/fail', 0)} |")
-        w(f"| Both fail | {ds['byOutcome'].get('fail/fail', 0)} | {fs['byOutcome'].get('fail/fail', 0)} |")
-        w(f"| Converter passes, repo fails | {ds['byOutcome'].get('fail/pass', 0)} "
-          f"| {fs['byOutcome'].get('fail/pass', 0)} |")
+        w(f"The vocabulary's own materializer and the converter were run over the same "
+          f"{len(fs['fixtures'])} fixtures in both sample profiles, and every applicable case "
+          f"replayed against the reviewed expected answers.")
         w("")
-
-        d_div = set(ds["repoPassConverterNot"])
-        f_div = set(fs["repoPassConverterNot"])
-        corrected = sorted(d_div - f_div)
-        still = sorted(f_div)
-        introduced = sorted(f_div - d_div)
-
-        w(f"**{len(d_div)} requirements diverged before the corrections; {len(still)} still do.** "
-          f"Every one is accounted for below, so no total needs inferring.")
-        w("")
-        w("| Requirement | Pre-correction | Final | Disposition |")
-        w("| --- | --- | --- | --- |")
-        for r in sorted(d_div | f_div):
-            do, fo = outcomes(disc, r), outcomes(final, r)
-            if r in corrected:
-                disp = "corrected"
-            elif r in introduced:
-                disp = "**newly divergent**"
-            else:
-                disp = "still divergent"
-            w(f"| {r} | {dict(do)} | {dict(fo)} | {disp} |")
-        w("")
-        w(f"Corrected ({len(corrected)}): {', '.join(corrected) or 'none'}.  ")
-        w(f"Still divergent ({len(still)}): {', '.join(still) or 'none'}.  ")
-        if introduced:
-            w(f"Newly divergent ({len(introduced)}): {', '.join(introduced)} — "
-              f"a regression, not present before the corrections.  ")
+        w("| Outcome | Checks |")
+        w("| --- | ---: |")
+        w(f"| Both pass | {by.get('pass/pass', 0)} |")
+        w(f"| Repo passes, converter fails | {by.get('pass/fail', 0)} |")
+        w(f"| Both fail | {by.get('fail/fail', 0)} |")
+        w(f"| Converter passes, repo fails | {by.get('fail/pass', 0)} |")
+        w(f"| **Total** | **{fs['checks']}** |")
         w("")
 
         exercised = {row["requirement"] for row in final.get("results", [])}
         allpass = {r for r in exercised if set(outcomes(final, r)) == {"pass/pass"}}
         agree = {r for r in exercised if not outcomes(final, r).get("pass/fail")}
+        divergent = sorted(fs["repoPassConverterNot"])
         w(f"Requirements exercised: **{len(exercised)}**; agreeing on every check: "
           f"**{len(agree)}**; passing on every check for both producers: **{len(allpass)}**.")
+        w("")
+        w(f"**{len(divergent)} requirements diverge**, on {by.get('pass/fail', 0)} checks:")
+        w("")
+        w("| Requirement | Outcomes |")
+        w("| --- | --- |")
+        for r in divergent:
+            w(f"| {r} | {dict(outcomes(final, r))} |")
         w("")
 
         # Profile agreement, computed from this run only.
