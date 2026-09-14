@@ -11,7 +11,7 @@ W1.4, W2.1 and W2.4 completed the same day and re-scored.
 | W0.1 Pin the inputs | Yes* | [W0-BASELINE.md](W0-BASELINE.md) §W0.1 |
 | W0.2 Locate reusable evidence | Yes | §W0.2, 7 assets with regeneration commands |
 | W0.3 Assign owners, select priorities | Yes | §W0.3 |
-| W0.4 Separate baseline from changes | Yes | §W0.4 frozen counts; W2 reports before/after separately |
+| W0.4 Separate baseline from changes | Yes | §W0.4 frozen counts; the evaluation now reports one release, with the earlier runs in `archive/` |
 
 \* **Deviation, deliberate:** the plan named vcfcv 2.1.0 and VCF-RDFizer v2.x. The pinned artifacts are
 vcfcv **2.1.1** (`dd139f9`) and VCF-RDFizer **3.0.2** (`b8da2ed`) — the releases that existed when W0 ran.

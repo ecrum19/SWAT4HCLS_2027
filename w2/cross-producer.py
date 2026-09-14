@@ -163,8 +163,8 @@ def main() -> int:
         key = f"{r['repo']}/{r['converter']}"
         summary["byOutcome"][key] = summary["byOutcome"].get(key, 0) + 1
 
-    # A second positional argument names the output file, so a discovery run
-    # against a pre-correction converter cannot overwrite the final results.
+    # A second positional argument names the output file, so one run cannot
+    # overwrite another's results.
     name = sys.argv[2] if len(sys.argv) > 2 else "cross-producer.json"
     out = Path(os.environ.get("RESULTS_DIR", Path(__file__).parent / "generated"))
     out.mkdir(parents=True, exist_ok=True)
