@@ -62,6 +62,10 @@ venv/
 !main_short.pdf
 # One complete run is the evidence; the scratch it was built from is not.
 reproduce/work/
+# RQ1/run.sh clones the vocabulary here; the clone is fetched, not stored.
+RQ1/work/
+!RQ1/results/
+!RQ1/results/**
 !reproduce/runs/
 !reproduce/runs/**
 # The archived earlier runs, kept only so old commits stay interpretable.
