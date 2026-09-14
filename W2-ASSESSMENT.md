@@ -159,8 +159,29 @@ smaller and better-understood set.
 
 ### What the first run found, and what was fixed
 
-The first run divided the 178 divergent checks into three causes. Acting on them closed nine
-requirements — R09, R12, R13, R14, R17, R20, R28, R51 and R83:
+The discovery run is retained as [`w2/generated/cross-producer-discovery.json`](w2/generated/cross-producer-discovery.json),
+computed from the graphs in [`w2/graphs/discovery/`](w2/graphs/discovery/), which were produced by
+VCF-RDFizer **`e4de9d0`** — the last commit before the corrections, equal to `v3.0.2` (`b8da2ed`)
+plus the PR #11 oracle fix. It reproduces exactly: 572 checks, 366 both-pass, 178 divergent,
+28 both-fail.
+
+**The fifteen, and where each went.** Ten were corrected and five still diverge:
+
+| | Requirements |
+| --- | --- |
+| Corrected by the accessor and local-allele work (9) | R09, R12, R13, R14, R17, R20, R28, R51, R83 |
+| Corrected by the separate `Number=M` work (1) | **R29** |
+| Still divergent (5) | R11, R21, R27, R61, R89 |
+
+R29 is the one an earlier version of this file left unaccounted: it said nine were corrected and
+five remain, which is fourteen of fifteen. R29 went from `pass/fail` 4, `pass/pass` 2,
+`fail/fail` 2 in the discovery run to `pass/pass` 6, `fail/fail` 2 in the final one — corrected,
+with the two remaining both-fail checks being the condensed-profile trade-off both producers
+share. It was omitted from the count because it was fixed by the base-modification decomposition
+described below rather than by the accessor fixes, and was never folded back in.
+
+Acting on the first run's three causes closed nine requirements — R09, R12, R13, R14, R17, R20,
+R28, R51 and R83:
 
 - **One correctness defect.** `Number=LA`/`LR` items were bound to global allele indices
   positionally, ignoring the sample's LAA subset, so with `LAA=2,4` the depths `20,30,10` were
