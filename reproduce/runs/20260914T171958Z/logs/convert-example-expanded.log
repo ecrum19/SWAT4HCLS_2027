@@ -1,0 +1,31 @@
+Step 1/5: Validating inputs ✅
+  Metrics: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/run_metrics/synthetic__20260914T192438
+  Detailed logs: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/run_metrics/synthetic__20260914T192438/logs/wrapper.log
+  Progress log: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/run_metrics/synthetic__20260914T192438/logs/progress.log
+Step 2/5: Ensuring Docker image is available ✅
+Step 3/5: Processing per-input pipeline (TSV -> RDF -> compression)
+  Sample representation: expanded
+  INFO representation: structured
+  Header representation: structured
+  - Input 1/1: synthetic.vcf
+    * TSV conversion ✅
+    * VCF version: VCFv4.5 (detected)
+    * RDF conversion ✅
+    * Streaming expanded multi-sample RDF (no expanded helper TSVs)
+    * Sample calls streamed: 3; FORMAT values: 6
+    * Streaming structured header RDF
+    * Header lines typed: 5; contigs: 1
+    * Streaming QUAL and structured INFO RDF
+    * QUAL values streamed: 1; INFO values: 0; declarations: 0
+    * Triples produced: 242
+    * Compression ✅
+    * Output directory: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/synthetic
+      - RDF aggregate: synthetic.nt.gz
+      - RDF (.gz): 3.23 KB (kept (compression methods set to none))
+      - Compression: none selected
+      - Final RDF size (no compression): 3.23 KB
+Total triples produced (full run): 242
+Conversion process finished.
+Run time (full mode): 13.43s
+Timing log: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/run_metrics/synthetic__20260914T192438/wrapper_execution_times.csv
+Metrics summary: /home/ubuntu/w4/SWAT4HCLS_2027/reproduce/work/example/expanded/run_metrics/synthetic__20260914T192438/summary.json
