@@ -14,7 +14,7 @@ interpretable.
 | --- | --- |
 | `results/` | `reproduce/runs/<stamp>/results/` |
 | `graphs/` | `reproduce/runs/<stamp>/graphs/` |
-| `integration/` | `reproduce/runs/<stamp>/results/w4-results.json` |
+| `integration/` | `reproduce/runs/<stamp>/results/integration.json` |
 | `profile-figures/`, `profile-graphs/` | `reproduce/runs/<stamp>/results/example-profiles.json`, `graphs/example/` |
 
 ## Why they were not good enough

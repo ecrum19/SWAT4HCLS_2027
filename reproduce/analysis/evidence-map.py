@@ -4,7 +4,8 @@ find duplicate checks, and report untested requirements.
 
 Reads only pinned inputs; derives nothing from converter output.
 
-  python3 w2/evidence-map.py <vcf-core-vocabulary checkout> [w2/generated/cross-producer.json]
+  python3 reproduce/analysis/evidence-map.py <vcf-core-vocabulary checkout> \
+      [cross-producer.json]
 """
 import json, sys, collections, pathlib
 

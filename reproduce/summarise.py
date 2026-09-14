@@ -33,7 +33,7 @@ def main():
     final = load(run, "cross-producer.json")
     rt = load(run, "round-trip.json")
     emap = load(run, "evidence-map.json")
-    integ = load(run, "w4-results.json") or load(run, "results.json")
+    integ = load(run, "integration.json")
     prof = load(run, "example-profiles.json")
 
     pin = env["pinned"]

@@ -1,4 +1,4 @@
-"""W4.5 -- run the integration query and compare it with the authored answers.
+"""Run the integration query and compare it with the authored answers.
 
 Compares identities, values and provenance, not row counts: a count match with
 the wrong allele attached is exactly the failure this example exists to detect.
@@ -81,9 +81,9 @@ def main() -> int:
     }
     out = Path(os.environ.get("RESULTS_DIR", Path.cwd()))
     out.mkdir(exist_ok=True)
-    (out / "w4-results.json").write_text(json.dumps(report, indent=1) + "\n")
+    (out / "integration.json").write_text(json.dumps(report, indent=1) + "\n")
 
-    print(f"W4 integration check: {report['status']}")
+    print(f"Integration check: {report['status']}")
     print(f"  expected {len(want)} rows, observed {len(got)}")
     for r in got:
         print(f"    {r['contig']}:{r['position']} {r['ref']}>{r['alt']}  depth={r['depth']}"

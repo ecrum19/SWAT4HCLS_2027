@@ -1,5 +1,5 @@
 PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
-PREFIX ex:   <https://example.org/w4/annotations#>
+PREFIX ex:   <https://example.org/annotations#>
 
 # W4: which sample observations correspond to a flagged alteration, and what
 # source evidence supports them?

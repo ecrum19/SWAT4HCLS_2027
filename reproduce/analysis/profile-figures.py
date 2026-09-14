@@ -6,7 +6,8 @@ term not declared in the vocabulary release the paper cites. Declaredness is
 checked against a git ref (default the v2.1.1 tag) rather than the working tree,
 so an uncommitted ontology edit cannot flatter the result.
 
-  python3 w5/measure.py <expanded.nt.gz> <condensed.nt.gz> <vcf-core-vocabulary checkout> [ref]
+  python3 reproduce/analysis/profile-figures.py <expanded.nt.gz> <condensed.nt.gz> \
+      <vcf-core-vocabulary checkout> [tag]
 
 Convert first, from a VCF-RDFizer checkout, for each profile:
 
