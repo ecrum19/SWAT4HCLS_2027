@@ -163,9 +163,24 @@ def main():
 
     if integ:
         status = integ.get("status", "?")
-        rows = integ.get("rows") or integ.get("observed") or []
-        w(f"## Integration example\n\n**{status}** — {len(rows)} rows returned, "
-          f"matching the answers authored in advance.\n")
+        expected = integ.get("expectedRows", [])
+        observed = integ.get("observedRows", [])
+        excluded = integ.get("excludedConfirmed") or integ.get("excluded") or []
+        problems = integ.get("problems") or []
+        w("## Integration example")
+        w("")
+        w(f"**{status}** — {len(observed)} rows observed against {len(expected)} authored in "
+          f"advance, {len(excluded)} flagged alterations confirmed absent, "
+          f"{len(problems)} problems.")
+        if observed:
+            w("")
+            w("| contig:pos | alteration | depth | sample | via |")
+            w("| --- | --- | ---: | --- | --- |")
+            for r in observed:
+                w(f"| {r.get('contig')}:{r.get('position')} | {r.get('ref')}>{r.get('alt')} "
+                  f"| {r.get('depth')} | `{r.get('sample')}` | "
+                  f"`{r.get('fieldId')}` `Number={r.get('number')}` |")
+        w("")
 
     print("\n".join(out))
 
