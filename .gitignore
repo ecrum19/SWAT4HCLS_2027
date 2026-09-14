@@ -4,11 +4,12 @@
 # scripts, and the small JSON each run writes. Those are the evidence and the
 # means to regenerate it, and they are worth reading in a diff.
 #
-# Also travels, since 2026-09-14: the converted graphs the results were computed
-# from, under w2/graphs/ and w5/graphs/. All 42 of them weigh 352 KB together --
-# they are the direct evidence a reader can point at, and nothing about them is
-# large. Both the discovery run (pre-correction converter) and the final run are
-# kept, because the paper reports a difference between them.
+# Also travels: one complete run of reproduce/run.sh, under reproduce/runs/.
+# That directory is the evidence -- the environment, every command with its exit
+# code and duration, the converted graphs, the result JSON and a summary. It
+# weighs 840 KB, so there is no size reason to keep any of it off GitHub. Both
+# converter versions are kept, because the paper reports a difference between
+# them. The scratch checkouts under reproduce/work/ do not travel.
 #
 # Stays on the VM: run metrics, working conversion trees and LaTeX
 # intermediates. The metrics are timing logs rather than evidence, the working
@@ -46,6 +47,10 @@ vcf_core_reviewed/
 *.synctex.gz
 pdfa.xmpi
 
+# --- macOS ---------------------------------------------------------------------
+.DS_Store
+.vscode/
+
 # --- packaging ----------------------------------------------------------------
 VCF-Core-SWAT4HCLS-2027*.zip
 
@@ -62,12 +67,10 @@ venv/
 # Every generated JSON under w2/ is a recorded result, not an intermediate.
 !w2/generated/
 !w2/generated/**
-# The graphs each result was computed from. Small, and the evidence itself.
-!w2/graphs/
-!w2/graphs/**
-!w4/generated/
-!w4/generated/**
-!w5/generated/
-!w5/generated/**
-!w5/graphs/
-!w5/graphs/**
+# One complete run is the evidence; the scratch it was built from is not.
+reproduce/work/
+!reproduce/runs/
+!reproduce/runs/**
+# The archived earlier runs, kept only so old commits stay interpretable.
+!archive/
+!archive/**

@@ -1,0 +1,9819 @@
+{
+ "results": [
+  {
+   "axis": "preservation",
+   "case": "R01-4.1-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.1-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.1-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.1-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.2-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.2-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.2-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.2-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.3-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.3-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.3-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.3-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.4-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.4-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.4-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.4-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.5-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R01-4.5-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.5-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R01-4.5-r01",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r01.rq",
+   "repo": "pass",
+   "requirement": "R01",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.1-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.1-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.1-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.1-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.2-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.2-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.2-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.2-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.3-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.3-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.3-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.3-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.4-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.4-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.4-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.4-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.5-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R02-4.5-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.5-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R02-4.5-r02",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r02.rq",
+   "repo": "pass",
+   "requirement": "R02",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.1-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.1-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.1-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.1-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.2-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.2-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.2-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.2-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.3-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.3-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.3-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.3-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.4-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.4-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.4-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.4-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.5-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R03-4.5-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.5-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R03-4.5-r03",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r03.rq",
+   "repo": "pass",
+   "requirement": "R03",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.1-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.1-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.1-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.1-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.2-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.2-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.2-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.2-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.3-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.3-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.3-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.3-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.4-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.4-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.4-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.4-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.5-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R04-4.5-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.5-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R04-4.5-r04",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r04.rq",
+   "repo": "pass",
+   "requirement": "R04",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.1-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.1-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.1-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.1-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.2-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.2-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.2-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.2-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.3-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.3-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.3-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.3-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.4-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.4-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.4-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.4-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.5-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R05-4.5-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.5-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R05-4.5-r05",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r05.rq",
+   "repo": "pass",
+   "requirement": "R05",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.1-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.1-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.1-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.1-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.2-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.2-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.2-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.2-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.3-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.3-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.3-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.3-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.4-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.4-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.4-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.4-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.5-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R06-4.5-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.5-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R06-4.5-r06",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r06.rq",
+   "repo": "pass",
+   "requirement": "R06",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.1-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.1-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.1-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.1-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.2-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.2-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.2-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.2-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.3-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.3-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.3-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.3-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.4-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.4-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.4-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.4-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.5-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R07-4.5-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.5-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R07-4.5-r07",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r07.rq",
+   "repo": "pass",
+   "requirement": "R07",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.1-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.1-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.1-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.1-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.2-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.2-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.2-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.2-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.3-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.3-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.3-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.3-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.4-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.4-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.4-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.4-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.5-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R08-4.5-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.5-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R08-4.5-r08",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r08.rq",
+   "repo": "pass",
+   "requirement": "R08",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.1-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.1-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.1-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.1-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.2-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.2-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.2-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.2-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.3-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.3-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.3-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.3-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.4-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.4-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.4-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.4-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.5-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R09-4.5-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.5-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R09-4.5-r09",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "idA"
+    ],
+    [
+     "2",
+     "idB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r09.rq",
+   "repo": "pass",
+   "requirement": "R09",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.1-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.1-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.1-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.1-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.2-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.2-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.2-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.2-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.3-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.3-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.3-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.3-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.4-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.4-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.4-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.4-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.5-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R10-4.5-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.5-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R10-4.5-r10",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r10.rq",
+   "repo": "pass",
+   "requirement": "R10",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.1-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.1-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.1-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.1-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.2-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.2-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.2-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.2-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.3-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.3-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.3-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.3-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.4-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.4-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.4-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.4-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.5-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R11-4.5-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.5-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R11-4.5-r11",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "10",
+     "60",
+     "#decimal"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "10",
+     "60",
+     "#VCFFloat"
+    ],
+    [
+     "20",
+     ".",
+     "#Null"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r11.rq",
+   "repo": "pass",
+   "requirement": "R11",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.1-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.1-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.1-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.1-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.2-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.2-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.2-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.2-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.3-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.3-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.3-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.3-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.4-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.4-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.4-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.4-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.5-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R12-4.5-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.5-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R12-4.5-r12",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "10",
+     "#FiltersPassed"
+    ],
+    [
+     "20",
+     "#FiltersNotApplied"
+    ],
+    [
+     "30",
+     "#FiltersFailed"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r12.rq",
+   "repo": "pass",
+   "requirement": "R12",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.1-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.1-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.1-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.1-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.2-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.2-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.2-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.2-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.3-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.3-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.3-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.3-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.4-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.4-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.4-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.4-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.5-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R13-4.5-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.5-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R13-4.5-r13",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "q10"
+    ],
+    [
+     "2",
+     "s50"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r13.rq",
+   "repo": "pass",
+   "requirement": "R13",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.1-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.1-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.1-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.1-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.2-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.2-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.2-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.2-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.3-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.3-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.3-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.3-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.4-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.4-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.4-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.4-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.5-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R14-4.5-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.5-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R14-4.5-r14",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "AF"
+    ],
+    [
+     "2",
+     "DB"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r14.rq",
+   "repo": "pass",
+   "requirement": "R14",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.1-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.1-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.1-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.1-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.2-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.2-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.2-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.2-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.3-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.3-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.3-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.3-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.4-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.4-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.4-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.4-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.5-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R15-4.5-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.5-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R15-4.5-r15",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r15.rq",
+   "repo": "pass",
+   "requirement": "R15",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.1-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.1-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.1-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.1-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.2-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.2-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.2-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.2-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.3-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.3-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.3-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.3-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.4-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.4-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.4-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.4-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.5-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R16-4.5-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.5-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R16-4.5-r16",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r16.rq",
+   "repo": "pass",
+   "requirement": "R16",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.1-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.1-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.1-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.1-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.2-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.2-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.2-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.2-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.3-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.3-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.3-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.3-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.4-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.4-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.4-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.4-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.5-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R17-4.5-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.5-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R17-4.5-r17",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "GT"
+    ],
+    [
+     "2",
+     "DP"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r17.rq",
+   "repo": "pass",
+   "requirement": "R17",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.1-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.1-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r18-decode.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.1-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.1-r18",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "12"
+    ],
+    [
+     "S2",
+     "."
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r18.rq",
+   "repo": "fail",
+   "requirement": "R18",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.2-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.2-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r18-decode.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.2-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.2-r18",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "12"
+    ],
+    [
+     "S2",
+     "."
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r18.rq",
+   "repo": "fail",
+   "requirement": "R18",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.3-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.3-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r18-decode.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.3-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.3-r18",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "12"
+    ],
+    [
+     "S2",
+     "."
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r18.rq",
+   "repo": "fail",
+   "requirement": "R18",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.4-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.4-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r18-decode.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.4-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.4-r18",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "12"
+    ],
+    [
+     "S2",
+     "."
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r18.rq",
+   "repo": "fail",
+   "requirement": "R18",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.5-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R18-4.5-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r18-decode.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.5-r18",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r18.rq",
+   "repo": "pass",
+   "requirement": "R18",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R18-4.5-r18",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "12"
+    ],
+    [
+     "S2",
+     "."
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r18.rq",
+   "repo": "fail",
+   "requirement": "R18",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.1-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.1-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r19-decode.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.1-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.1-r19",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0",
+     "false",
+     "0"
+    ],
+    [
+     "S1",
+     "1",
+     "false",
+     "1"
+    ],
+    [
+     "S2",
+     "0",
+     "false",
+     "2"
+    ],
+    [
+     "S2",
+     "1",
+     "true",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r19.rq",
+   "repo": "fail",
+   "requirement": "R19",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.2-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.2-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r19-decode.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.2-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.2-r19",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0",
+     "false",
+     "0"
+    ],
+    [
+     "S1",
+     "1",
+     "false",
+     "1"
+    ],
+    [
+     "S2",
+     "0",
+     "false",
+     "2"
+    ],
+    [
+     "S2",
+     "1",
+     "true",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r19.rq",
+   "repo": "fail",
+   "requirement": "R19",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.3-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.3-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r19-decode.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.3-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.3-r19",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0",
+     "false",
+     "0"
+    ],
+    [
+     "S1",
+     "1",
+     "false",
+     "1"
+    ],
+    [
+     "S2",
+     "0",
+     "false",
+     "2"
+    ],
+    [
+     "S2",
+     "1",
+     "true",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r19.rq",
+   "repo": "fail",
+   "requirement": "R19",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.4-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.4-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r19-decode.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.4-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.4-r19",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0",
+     "false",
+     "0"
+    ],
+    [
+     "S1",
+     "1",
+     "false",
+     "1"
+    ],
+    [
+     "S2",
+     "0",
+     "false",
+     "2"
+    ],
+    [
+     "S2",
+     "1",
+     "true",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r19.rq",
+   "repo": "fail",
+   "requirement": "R19",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.5-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R19-4.5-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r19-decode.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.5-r19",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r19.rq",
+   "repo": "pass",
+   "requirement": "R19",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R19-4.5-r19",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0",
+     "false",
+     "0"
+    ],
+    [
+     "S1",
+     "1",
+     "false",
+     "1"
+    ],
+    [
+     "S2",
+     "0",
+     "false",
+     "2"
+    ],
+    [
+     "S2",
+     "1",
+     "true",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r19.rq",
+   "repo": "fail",
+   "requirement": "R19",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.1-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.1-r20",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r20-decode.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.1-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.1-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r20.rq",
+   "repo": "fail",
+   "requirement": "R20",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.2-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.2-r20",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r20-decode.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.2-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.2-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r20.rq",
+   "repo": "fail",
+   "requirement": "R20",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.3-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.3-r20",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r20-decode.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.3-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.3-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r20.rq",
+   "repo": "fail",
+   "requirement": "R20",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.4-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.4-r20",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r20-decode.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.4-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.4-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r20.rq",
+   "repo": "fail",
+   "requirement": "R20",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.5-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R20-4.5-r20",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r20-decode.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.5-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r20.rq",
+   "repo": "pass",
+   "requirement": "R20",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R20-4.5-r20",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "1",
+     "/"
+    ],
+    [
+     "S2",
+     "1",
+     "|"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r20.rq",
+   "repo": "fail",
+   "requirement": "R20",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.1-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.1-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r21-decode.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.1-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.1-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/r21.rq",
+   "repo": "fail",
+   "requirement": "R21",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.2-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.2-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r21-decode.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.2-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.2-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/r21.rq",
+   "repo": "fail",
+   "requirement": "R21",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.3-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.3-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r21-decode.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.3-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.3-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/r21.rq",
+   "repo": "fail",
+   "requirement": "R21",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.4-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.4-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r21-decode.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.4-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.4-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/r21.rq",
+   "repo": "fail",
+   "requirement": "R21",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.5-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R21-4.5-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r21-decode.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.5-r21",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/r21.rq",
+   "repo": "pass",
+   "requirement": "R21",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R21-4.5-r21",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "."
+    ],
+    [
+     "S2",
+     null
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/r21.rq",
+   "repo": "fail",
+   "requirement": "R21",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R27-4.5-local-alleles",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "1"
+    ],
+    [
+     "2",
+     "2"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-alleles.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R27-4.5-local-alleles",
+   "converter": "pass",
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/r27-decode.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R27-4.5-local-alleles",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "1"
+    ],
+    [
+     "2",
+     "2"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-alleles.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R27-4.5-local-alleles",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "1"
+    ],
+    [
+     "2",
+     "2"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/local-alleles.rq",
+   "repo": "fail",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R28-4.5-mixed-phasing",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "0",
+     "|"
+    ],
+    [
+     "1",
+     "/"
+    ],
+    [
+     "2",
+     "|"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/mixed-phasing.rq",
+   "repo": "pass",
+   "requirement": "R28",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R28-4.5-mixed-phasing",
+   "converter": "pass",
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/r28-decode.rq",
+   "repo": "pass",
+   "requirement": "R28",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R28-4.5-mixed-phasing",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "0",
+     "|"
+    ],
+    [
+     "1",
+     "/"
+    ],
+    [
+     "2",
+     "|"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/mixed-phasing.rq",
+   "repo": "pass",
+   "requirement": "R28",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R28-4.5-mixed-phasing",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "0",
+     "|"
+    ],
+    [
+     "1",
+     "/"
+    ],
+    [
+     "2",
+     "|"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/mixed-phasing.rq",
+   "repo": "fail",
+   "requirement": "R28",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R29-4.5-modifications",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0.9",
+     "20"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/modifications.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R29-4.5-modifications",
+   "converter": "pass",
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/r29-decode.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R29-4.5-modifications",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0.9",
+     "20"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/modifications.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R29-4.5-modifications",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "0.9",
+     "20"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/modifications.rq",
+   "repo": "fail",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.1-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.1-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.1-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.1-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.1-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.1-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.1-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.1-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.2-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.2-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.2-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.2-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.2-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.2-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.2-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.2-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.3-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.3-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.3-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.3-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.3-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.3-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.3-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.3-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.4-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.4-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.4-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.4-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.4-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.4-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.4-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.4-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.5-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.5-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.5-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.5-filter-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/filter-declarations.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.5-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R52-4.5-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.5-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R52-4.5-format-declarations",
+   "converter": "pass",
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/format-declarations.rq",
+   "repo": "pass",
+   "requirement": "R52",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R53-4.5-alt-declarations",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/alt-declarations.rq",
+   "repo": "pass",
+   "requirement": "R53",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R53-4.5-alt-declarations",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/alt-declarations.rq",
+   "repo": "pass",
+   "requirement": "R53",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R53-4.5-alt-declarations",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/alt-declarations.rq",
+   "repo": "pass",
+   "requirement": "R53",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R53-4.5-alt-declarations",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/alt-declarations.rq",
+   "repo": "pass",
+   "requirement": "R53",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R56-4.5-contig-attributes",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/contig-attributes.rq",
+   "repo": "pass",
+   "requirement": "R56",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R56-4.5-contig-attributes",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/contig-attributes.rq",
+   "repo": "pass",
+   "requirement": "R56",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R56-4.5-contig-attributes",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/contig-attributes.rq",
+   "repo": "pass",
+   "requirement": "R56",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R56-4.5-contig-attributes",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/contig-attributes.rq",
+   "repo": "pass",
+   "requirement": "R56",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R57-4.5-pedigree-roles",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/pedigree-roles.rq",
+   "repo": "pass",
+   "requirement": "R57",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R57-4.5-pedigree-roles",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/pedigree-roles.rq",
+   "repo": "pass",
+   "requirement": "R57",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R57-4.5-pedigree-roles",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/pedigree-roles.rq",
+   "repo": "pass",
+   "requirement": "R57",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R57-4.5-pedigree-roles",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/pedigree-roles.rq",
+   "repo": "pass",
+   "requirement": "R57",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R58-4.5-pedigree-database",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/pedigree-database.rq",
+   "repo": "pass",
+   "requirement": "R58",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R58-4.5-pedigree-database",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/pedigree-database.rq",
+   "repo": "pass",
+   "requirement": "R58",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R58-4.5-pedigree-database",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/pedigree-database.rq",
+   "repo": "pass",
+   "requirement": "R58",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R58-4.5-pedigree-database",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/pedigree-database.rq",
+   "repo": "pass",
+   "requirement": "R58",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R62-4.5-sites-only",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/sites-only.rq",
+   "repo": "pass",
+   "requirement": "R62",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R62-4.5-sites-only",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/sites-only.rq",
+   "repo": "pass",
+   "requirement": "R62",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R62-4.5-sites-only",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/sites-only.rq",
+   "repo": "pass",
+   "requirement": "R62",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R62-4.5-sites-only",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/sites-only.rq",
+   "repo": "pass",
+   "requirement": "R62",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R61-4.5-number-types",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/number-types.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R61-4.5-number-types",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/number-types.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R61-4.5-number-types",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/number-types.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R61-4.5-number-types",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/number-types.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R61-4.5-number-values",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "BASE",
+     "1",
+     "C"
+    ],
+    [
+     "FRACTION",
+     "1",
+     "0.25"
+    ],
+    [
+     "PAIR",
+     "1",
+     "3"
+    ],
+    [
+     "PAIR",
+     "2",
+     "8"
+    ]
+   ],
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/number-values.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R61-4.5-number-values",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "BASE",
+     "1",
+     "C"
+    ],
+    [
+     "FRACTION",
+     "1",
+     "0.25"
+    ],
+    [
+     "PAIR",
+     "1",
+     "3"
+    ],
+    [
+     "PAIR",
+     "2",
+     "8"
+    ]
+   ],
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/number-values.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R61-4.5-number-values",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "BASE",
+     "1",
+     "C"
+    ],
+    [
+     "FRACTION",
+     "1",
+     "0.25"
+    ],
+    [
+     "PAIR",
+     "1",
+     "3"
+    ],
+    [
+     "PAIR",
+     "2",
+     "8"
+    ]
+   ],
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/number-values.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R61-4.5-number-values",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "BASE",
+     "1",
+     "C"
+    ],
+    [
+     "FRACTION",
+     "1",
+     "0.25"
+    ],
+    [
+     "PAIR",
+     "1",
+     "3"
+    ],
+    [
+     "PAIR",
+     "2",
+     "8"
+    ]
+   ],
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/number-values.rq",
+   "repo": "pass",
+   "requirement": "R61",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R34-4.5-structured-escaping",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/structured-escaping.rq",
+   "repo": "pass",
+   "requirement": "R34",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R34-4.5-structured-escaping",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/structured-escaping.rq",
+   "repo": "pass",
+   "requirement": "R34",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R34-4.5-structured-escaping",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/structured-escaping.rq",
+   "repo": "pass",
+   "requirement": "R34",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R34-4.5-structured-escaping",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/structured-escaping.rq",
+   "repo": "pass",
+   "requirement": "R34",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R65-4.5-info-origin",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/info-origin.rq",
+   "repo": "pass",
+   "requirement": "R65",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R65-4.5-info-origin",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/info-origin.rq",
+   "repo": "pass",
+   "requirement": "R65",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R65-4.5-info-origin",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/info-origin.rq",
+   "repo": "pass",
+   "requirement": "R65",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R65-4.5-info-origin",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/info-origin.rq",
+   "repo": "pass",
+   "requirement": "R65",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R59-4.5-sample-metadata",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/sample-metadata.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R59-4.5-sample-metadata",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/sample-metadata.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R59-4.5-sample-metadata",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/sample-metadata.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R59-4.5-sample-metadata",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/sample-metadata.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R59-4.5-meta-values",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/meta-values.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R59-4.5-meta-values",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/meta-values.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R59-4.5-meta-values",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "expanded",
+   "query": "queries/meta-values.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R59-4.5-meta-values",
+   "converter": "pass",
+   "fixture": "header-audit-v4.5",
+   "profile": "condensed",
+   "query": "queries/meta-values.rq",
+   "repo": "pass",
+   "requirement": "R59",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.1-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.1-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.1-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.1-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.1",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.1"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.2-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.2-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.2-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.2-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.2",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.2"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.3-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.3-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.3-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.3-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.3",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.3"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.4-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.4-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.4-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.4-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.4",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.5-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R51-4.5-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.5-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "expanded",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R51-4.5-filter-definition-links",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "30",
+     "1",
+     "q10",
+     "Quality below ten"
+    ],
+    [
+     "30",
+     "2",
+     "s50",
+     "Sample threshold"
+    ]
+   ],
+   "fixture": "basic-v4.5",
+   "profile": "condensed",
+   "query": "queries/filter-definition-links.rq",
+   "repo": "pass",
+   "requirement": "R51",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R46-4.4-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R46-4.4-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R46-4.4-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R46-4.4-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R31-4.4-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R31-4.4-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R31-4.4-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R31-4.4-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R89-4.4-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-summary.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R89-4.4-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-summary-decode.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R89-4.4-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "expanded",
+   "query": "queries/repeat-summary.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.4"
+  },
+  {
+   "axis": "structure",
+   "case": "R89-4.4-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.4",
+   "profile": "condensed",
+   "query": "queries/repeat-summary.rq",
+   "repo": "fail",
+   "requirement": "R89",
+   "version": "4.4"
+  },
+  {
+   "axis": "preservation",
+   "case": "R46-4.5-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R46-4.5-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R46-4.5-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R46-4.5-repeat-groups",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-allele-groups.rq",
+   "repo": "pass",
+   "requirement": "R46",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R31-4.5-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R31-4.5-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R31-4.5-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R31-4.5-multi-allele-units",
+   "converter": "pass",
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-units.rq",
+   "repo": "pass",
+   "requirement": "R31",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R89-4.5-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-summary.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R89-4.5-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-summary-decode.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R89-4.5-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "cnv_notation",
+     null,
+     null,
+     null,
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ],
+    [
+     "precise_alt2",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "expanded",
+   "query": "queries/repeat-summary.rq",
+   "repo": "pass",
+   "requirement": "R89",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R89-4.5-repeat-summary",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "cnv_notation",
+     "1",
+     "30",
+     "3",
+     "3.9666",
+     "100"
+    ],
+    [
+     "cnv_notation",
+     "2",
+     "30",
+     "0.9666",
+     "3.9666",
+     "100"
+    ],
+    [
+     "figure11",
+     null,
+     null,
+     null,
+     null,
+     "200"
+    ],
+    [
+     "precise_alt1",
+     null,
+     null,
+     null,
+     null,
+     "100"
+    ]
+   ],
+   "fixture": "tandem-repeats-v4.5",
+   "profile": "condensed",
+   "query": "queries/repeat-summary.rq",
+   "repo": "fail",
+   "requirement": "R89",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R27-4.5-local-allele-map",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "1",
+     "0",
+     "0",
+     "G",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "1",
+     "A",
+     "30"
+    ],
+    [
+     "1",
+     "2",
+     "2",
+     "C",
+     "10"
+    ],
+    [
+     "2",
+     "0",
+     "0",
+     "A",
+     "15"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "0",
+     "G",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "2",
+     "C",
+     "30"
+    ],
+    [
+     "1",
+     "2",
+     "4",
+     "<*>",
+     "10"
+    ],
+    [
+     "2",
+     "0",
+     "0",
+     "A",
+     "15"
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-allele-depths.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R27-4.5-local-allele-map",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "1",
+     "2,4",
+     "20,30,10"
+    ],
+    [
+     "2",
+     "3",
+     "15,25"
+    ],
+    [
+     "3",
+     "3",
+     "30,1"
+    ],
+    [
+     "4",
+     ".",
+     "30"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "1",
+     "2,4",
+     "20,30,10"
+    ],
+    [
+     "2",
+     "3",
+     "15,25"
+    ],
+    [
+     "3",
+     "3",
+     "30,1"
+    ],
+    [
+     "4",
+     "",
+     "30"
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "condensed",
+   "query": "queries/local-allele-decode.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R27-4.5-local-allele-map",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "1",
+     "0",
+     "0",
+     "G",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "1",
+     "A",
+     "30"
+    ],
+    [
+     "1",
+     "2",
+     "2",
+     "C",
+     "10"
+    ],
+    [
+     "2",
+     "0",
+     "0",
+     "A",
+     "15"
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "0",
+     "G",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "2",
+     "C",
+     "30"
+    ],
+    [
+     "1",
+     "2",
+     "4",
+     "<*>",
+     "10"
+    ],
+    [
+     "2",
+     "0",
+     "0",
+     "A",
+     "15"
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-allele-depths.rq",
+   "repo": "pass",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R27-4.5-local-allele-map",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "0",
+     "G",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "2",
+     "C",
+     "30"
+    ],
+    [
+     "1",
+     "2",
+     "4",
+     "<*>",
+     "10"
+    ],
+    [
+     "2",
+     "0",
+     "0",
+     "A",
+     "15"
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "condensed",
+   "query": "queries/local-allele-depths.rq",
+   "repo": "fail",
+   "requirement": "R27",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R29-4.5-modification-depths",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "http://purl.obolibrary.org/obo/CHEBI_27551",
+     "0.9",
+     "20",
+     "18"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/modification-depths.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R29-4.5-modification-depths",
+   "converter": "pass",
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/modification-depths-decode.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R29-4.5-modification-depths",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "http://purl.obolibrary.org/obo/CHEBI_27551",
+     "0.9",
+     "20",
+     "18"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "expanded",
+   "query": "queries/modification-depths.rq",
+   "repo": "pass",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R29-4.5-modification-depths",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "S1",
+     "http://purl.obolibrary.org/obo/CHEBI_27551",
+     "0.9",
+     "20",
+     "18"
+    ]
+   ],
+   "fixture": "features-v4.5",
+   "profile": "condensed",
+   "query": "queries/modification-depths.rq",
+   "repo": "fail",
+   "requirement": "R29",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R83-4.5-local-global-equivalence",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "1",
+     "0",
+     "20",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "30",
+     "."
+    ],
+    [
+     "1",
+     "2",
+     "10",
+     "30"
+    ],
+    [
+     "1",
+     "3",
+     null,
+     "."
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "20",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     null,
+     "."
+    ],
+    [
+     "1",
+     "2",
+     "30",
+     "30"
+    ],
+    [
+     "1",
+     "3",
+     null,
+     "."
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-global-equivalence.rq",
+   "repo": "pass",
+   "requirement": "R83",
+   "version": "4.5"
+  },
+  {
+   "axis": "preservation",
+   "case": "R83-4.5-local-global-equivalence",
+   "converter": "pass",
+   "fixture": "local-alleles-v4.5",
+   "profile": "condensed",
+   "query": "queries/local-global-decode.rq",
+   "repo": "pass",
+   "requirement": "R83",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R83-4.5-local-global-equivalence",
+   "converter": "fail",
+   "converterAnswer": [
+    [
+     "1",
+     "0",
+     "20",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     "30",
+     "."
+    ],
+    [
+     "1",
+     "2",
+     "10",
+     "30"
+    ],
+    [
+     "1",
+     "3",
+     null,
+     "."
+    ]
+   ],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "20",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     null,
+     "."
+    ],
+    [
+     "1",
+     "2",
+     "30",
+     "30"
+    ],
+    [
+     "1",
+     "3",
+     null,
+     "."
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "expanded",
+   "query": "queries/local-global-equivalence.rq",
+   "repo": "pass",
+   "requirement": "R83",
+   "version": "4.5"
+  },
+  {
+   "axis": "structure",
+   "case": "R83-4.5-local-global-equivalence",
+   "converter": "fail",
+   "converterAnswer": [],
+   "expectedAnswer": [
+    [
+     "1",
+     "0",
+     "20",
+     "20"
+    ],
+    [
+     "1",
+     "1",
+     null,
+     "."
+    ],
+    [
+     "1",
+     "2",
+     "30",
+     "30"
+    ],
+    [
+     "1",
+     "3",
+     null,
+     "."
+    ]
+   ],
+   "fixture": "local-alleles-v4.5",
+   "profile": "condensed",
+   "query": "queries/local-global-equivalence.rq",
+   "repo": "fail",
+   "requirement": "R83",
+   "version": "4.5"
+  }
+ ],
+ "summary": {
+  "agree": 394,
+  "bothPass": 366,
+  "byOutcome": {
+   "fail/fail": 28,
+   "pass/fail": 178,
+   "pass/pass": 366
+  },
+  "checks": 572,
+  "converterPassRepoNot": [],
+  "fixtures": [
+   "basic-v4.1",
+   "basic-v4.2",
+   "basic-v4.3",
+   "basic-v4.4",
+   "basic-v4.5",
+   "features-v4.5",
+   "header-audit-v4.5",
+   "local-alleles-v4.5",
+   "tandem-repeats-v4.4",
+   "tandem-repeats-v4.5"
+  ],
+  "repoPassConverterNot": [
+   "R09",
+   "R11",
+   "R12",
+   "R13",
+   "R14",
+   "R17",
+   "R20",
+   "R21",
+   "R27",
+   "R28",
+   "R29",
+   "R51",
+   "R61",
+   "R83",
+   "R89"
+  ]
+ }
+}
