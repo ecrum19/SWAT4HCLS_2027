@@ -1,5 +1,0 @@
-W4 integration check: PASS
-  expected 2 rows, observed 2
-    chr1:1 G>C  depth=30  sample=sample  via LAD Number=LR
-    chr1:2 A>T  depth=25  sample=sample  via LAD Number=LR
-  excluded confirmed absent: 3
