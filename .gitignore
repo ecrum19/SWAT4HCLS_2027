@@ -4,9 +4,15 @@
 # scripts, and the small JSON each run writes. Those are the evidence and the
 # means to regenerate it, and they are worth reading in a diff.
 #
-# Stays on the VM: converted graphs, run metrics and LaTeX intermediates. They
-# are large, they are regenerable from the scripts above, and a git history of
-# them is noise. Anything here can be rebuilt by rerunning the pipeline.
+# Also travels, since 2026-09-14: the converted graphs the results were computed
+# from, under w2/graphs/ and w5/graphs/. All 42 of them weigh 352 KB together --
+# they are the direct evidence a reader can point at, and nothing about them is
+# large. Both the discovery run (pre-correction converter) and the final run are
+# kept, because the paper reports a difference between them.
+#
+# Stays on the VM: run metrics, working conversion trees and LaTeX
+# intermediates. The metrics are timing logs rather than evidence, the working
+# trees are regenerable, and a git history of either is noise.
 
 # --- converted RDF and conversion working state -------------------------------
 w2/conv/
@@ -25,6 +31,7 @@ w4/out/
 *.ttl.gz
 *.vcf.gz
 *.bcf
+vcf_core_reviewed/
 
 # --- LaTeX build products -----------------------------------------------------
 .build/
@@ -55,3 +62,12 @@ venv/
 # Every generated JSON under w2/ is a recorded result, not an intermediate.
 !w2/generated/
 !w2/generated/**
+# The graphs each result was computed from. Small, and the evidence itself.
+!w2/graphs/
+!w2/graphs/**
+!w4/generated/
+!w4/generated/**
+!w5/generated/
+!w5/generated/**
+!w5/graphs/
+!w5/graphs/**

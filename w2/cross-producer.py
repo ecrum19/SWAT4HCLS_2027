@@ -14,6 +14,7 @@ coverage/methodology/inputs/cases.json.
 from __future__ import annotations
 
 import json
+import os
 import re
 import sys
 from pathlib import Path
@@ -21,7 +22,14 @@ from pathlib import Path
 import rdflib
 from rdflib import Graph
 
-VOCAB = Path("/Users/eliascrum/PhD_Things/vcf-rdfizer-vocabulary")
+# The vocabulary checkout supplies the fixtures, queries and reviewed expected
+# answers. Override with VCF_CORE_VOCAB when it is not beside this repository.
+VOCAB = Path(os.environ.get(
+    "VCF_CORE_VOCAB",
+    Path(__file__).resolve().parent.parent.parent / "vcf-rdfizer-vocabulary"))
+if not (VOCAB / "coverage/methodology/inputs/cases.json").exists():
+    raise SystemExit(
+        f"no vocabulary checkout at {VOCAB}; set VCF_CORE_VOCAB to one")
 METHOD = VOCAB / "coverage/methodology"
 PROFILES = ("expanded", "condensed")
 
@@ -155,9 +163,12 @@ def main() -> int:
         key = f"{r['repo']}/{r['converter']}"
         summary["byOutcome"][key] = summary["byOutcome"].get(key, 0) + 1
 
+    # A second positional argument names the output file, so a discovery run
+    # against a pre-correction converter cannot overwrite the final results.
+    name = sys.argv[2] if len(sys.argv) > 2 else "cross-producer.json"
     out = Path(__file__).parent / "generated"
     out.mkdir(exist_ok=True)
-    (out / "cross-producer.json").write_text(
+    (out / name).write_text(
         json.dumps({"summary": summary, "results": results}, indent=1, sort_keys=True) + "\n"
     )
     print(json.dumps(summary, indent=1, sort_keys=True))
