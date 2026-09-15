@@ -62,9 +62,12 @@ venv/
 !main_short.pdf
 # One complete run is the evidence; the scratch it was built from is not.
 RQ2/work/
-# RQ1 and RQ3 clone what they evaluate here; the clones are fetched, not stored.
+# RQ1, RQ3 and RQ4 fetch what they evaluate here; the copies are not stored.
 RQ1/work/
 RQ3/work/
+RQ4/work/
+!RQ4/artifacts/
+!RQ4/artifacts/**
 !RQ1/results/
 !RQ1/results/**
 !RQ3/results/
