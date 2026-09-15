@@ -61,11 +61,14 @@ There are **94**, spanning VCF 4.1–4.5. A requirement is a claim about VCF, no
 about the vocabulary — it is written from the specification, so it can name
 something the vocabulary turns out not to support.
 
-**Fixture** — a small, hand-written `.vcf` file that exercises a requirement.
-`basic-v4.1.vcf` is three records; `boundaries-v4.5.vcf` is thirteen. They are
-deliberately tiny and synthetic: each exists to make one behaviour observable,
-not to look like real data. There are **38**, and they are the *only* input to
-graph construction.
+**Fixture** — a small, hand-written `.vcf` file that exercises a requirement. A
+VCF file is header lines beginning `##`, then a column-header line beginning
+`#CHROM`, then one **record** per remaining line: a single variant site, giving
+its position, its reference and alternate alleles, and one column of values per
+sample. `basic-v4.1.vcf` holds three such records; `boundaries-v4.5.vcf` holds
+thirteen. Fixtures are deliberately tiny and synthetic — each exists to make one
+behaviour observable, not to resemble real data. There are **38**, and they are
+the *only* input to graph construction.
 
 **Case** — a requirement, tested at one VCF version, against one fixture. R16 is
 one requirement but five cases, one per version. There are **210**. A case is
