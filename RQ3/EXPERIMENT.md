@@ -1,6 +1,6 @@
 # RQ3 — how the experiment works
 
-> **Does the resulting representation support a reproducible integration task while retaining source context?**
+> **Does the materialized RDF representation support a reproducible integration task while retaining source context?**
 
 ---
 
@@ -17,14 +17,20 @@ moving parts, the harder it is to say which one produced the answer.
 
 ### The one difficulty it is built around
 
-The case study turns on VCF 4.5 **local alleles**, chosen because a correct
-answer is impossible without handling interpretation context properly.
+A demonstration is only worth running if it could have come out wrong. This one
+is built on the place where VCF 4.5 most readily leads a careful reader astray:
+**local alleles**.
 
-In VCF, a `FORMAT` field declared `Number=R` normally has one value per allele:
-the reference allele, then each alternate in the order the record lists them. But
-`LAD` is declared `Number=LR`, which means one value per allele of **that
-sample's own local allele subset**, named by its `LAA` field — not per entry of
-the record's ALT column.
+The difficulty is not that the data are hard to find. It is that the obvious
+reading of them is wrong, and looks right.
+
+A `FORMAT` field declared `Number=R` carries one value per allele of the record:
+the reference first, then each alternate in the order the ALT column lists them.
+Line up values against alleles and you have your answer. But `LAD` is declared
+`Number=LR`, and that single extra letter moves the frame of reference. Its
+values belong to the alleles of **that sample's own local subset**, named in the
+sample's `LAA` field — a subset that may skip alternates the record declares, and
+which differs from one sample to the next.
 
 So answering *"how deep is this alteration in this sample?"* needs three things
 at once:
@@ -33,7 +39,9 @@ at once:
 2. the sample's **`LAA` subset**, and
 3. the allele's **position within that subset**.
 
-Drop any one and the arithmetic still yields an answer — just the wrong one.
+Drop any one of the three and the arithmetic still completes. It simply lines up
+the values against the wrong alleles, and reports a depth that belongs to
+something else.
 
 **That is the whole point.** A wrong implementation does not crash or return
 nothing here. It returns the *same number of rows*, naming different alterations
@@ -119,11 +127,6 @@ Three things must all hold for **PASS**:
 - **The provenance check is shallow.** It verifies the file IRI starts with
   `file://`, not that it names the *right* file. A converter emitting
   `file://wrong.vcf` would pass this check.
-- **The query binds alleles by IRI text** —
-  `STRSTARTS(STR(?altAllele), CONCAT(STR(?record), "/allele/"))` — rather than by
-  following a graph relationship, so it depends on the converter's IRI naming
-  convention. It fails safe: a different layout returns no rows, which fails
-  loudly rather than passing wrongly. (Same pattern as RQ2's round-trip.)
 - **`excludedConfirmed` in the output lists all excluded rows unconditionally.**
   In a PASS run that is accurate, because a returned exclusion would have made
   the run FAIL. In a FAIL run the field would be misleading.
