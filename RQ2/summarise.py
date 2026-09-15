@@ -120,6 +120,10 @@ def main():
         if frt:
             ft = frt.get("totals", {})
             w("")
+            w(f"Every header line, recovered by source line number and compared on key "
+              f"and value: **{ft.get('headerLinesMatched', 0)}/"
+              f"{ft.get('headerLinesChecked', 0)} lines**.")
+            w("")
             w(f"Every INFO entry and non-GT FORMAT subfield, rebuilt from ordered value "
               f"items rather than from a preserved column: "
               f"**{ft.get('matched', 0)}/{ft.get('checked', 0)} values**.")
