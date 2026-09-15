@@ -106,12 +106,23 @@ def main():
 
     if rt:
         t = rt.get("totals", rt)
-        checked = t.get("recordsChecked") or sum(
-            f.get("recordsChecked", 0) for f in rt.get("fixtures", {}).values())
-        matched = t.get("recordsMatched") or sum(
-            f.get("recordsMatched", 0) for f in rt.get("fixtures", {}).values())
-        w(f"## Semantic round-trip\n\n**{matched}/{checked} records** recovered from structured "
-          f"properties alone, expanded profile.\n")
+        checked, matched = t.get("recordsChecked", 0), t.get("recordsMatched", 0)
+        gt_checked, gt_matched = t.get("genotypesChecked", 0), t.get("genotypesMatched", 0)
+        w("## Semantic round-trip")
+        w("")
+        w(f"Rebuilt from structured properties alone, expanded profile: "
+          f"**{matched}/{checked} records** (CHROM, POS, ID, REF, ALT, QUAL, FILTER) and "
+          f"**{gt_matched}/{gt_checked} sample genotypes**.")
+        if rt.get("normalisation"):
+            w("")
+            w(f"_{rt['normalisation']}_")
+        bad = {k: v for k, v in rt.get("fixtures", {}).items()
+               if v.get("recordsMatched") != v.get("recordsChecked")
+               or v.get("genotypesMatched") != v.get("genotypesChecked")}
+        if bad:
+            w("")
+            w(f"Fixtures with a mismatch: {', '.join(sorted(bad))}.")
+        w("")
 
     if emap:
         d = emap["duplicates"]
