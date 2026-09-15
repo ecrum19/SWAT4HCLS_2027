@@ -177,6 +177,30 @@ The case names a query file per profile and axis, read from
 the graph from step 1. There is no timeout, no result limit and no sampling:
 **no query uses `LIMIT`**, so nothing depends on which rows come back first.
 
+**Where the queries came from.** The pipeline is documented in the methodology
+README — pinned specification text → authored source assertions → requirements →
+fixtures → queries versus independent answers — and follows SAMOD (Peroni 2016),
+which pairs a question, a witness, a query and separately authored answers. Each
+requirement anchors to its specification passage by line range and SHA-256, and
+61 of the 94 carry a `testPlan` saying what a test should exercise. Two rules are
+machine-enforced: a structure-axis query may not decode compound strings, and a
+passing query must survive both controls in §2.4.
+
+> **But there is no authoring procedure for the queries themselves.** No README
+> in `queries/`, no rule for turning a requirement into a particular SPARQL
+> pattern. The recorded reasoning is thinner than the `testPlan` count suggests:
+> of 94 `interpretation` fields only 58 are distinct, and 29 are the same
+> boilerplate. The review also weighted them lightly on purpose — for each case
+> it asks whether the *expected answer* follows from the source, while "reused
+> query code needs reading once". Upstream, the source interpretations were
+> AI-authored, which the README discloses, then human-reviewed.
+>
+> **What limits the damage:** the query is not the oracle. Correctness is defined
+> by the expected answer, authored from specification text and checked case by
+> case, so a badly written query fails rather than passes. The practical cost is
+> that someone re-deriving these tests would write different SPARQL with no
+> recorded rationale to compare against.
+
 #### Step 3 — Compare with the answer written in advance
 
 `answers()` (`assess.py:50`) converts every result row to strings and **sorts
@@ -338,7 +362,10 @@ and drop the execution count.
 1. **The text says "three questions" and lists four** (`long-paper/methods.tex`).
 2. **`queryExecutions: 840` is reported without the repeat caveat** in the
    assessment's own summary, which invites the overstatement described in §3.4.
-3. **RQ1 cannot rule out a shared misreading** between the materializer, the
+3. **Query construction is not a reproducible procedure** (§2.3, step 2).
+   Documented as a pipeline, not as a method; `queries/` has no README and a
+   third of requirements carry only boilerplate interpretation.
+4. **RQ1 cannot rule out a shared misreading** between the materializer, the
    queries and the vocabulary — see the box in §2.3, step 1. The evidence that
    it is not happening is indirect (81 emitted terms no query consults) and the
    direct check lives in RQ2, not here. Any claim built on RQ1 alone should be
