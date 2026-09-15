@@ -27,9 +27,11 @@ CONVERTER_TAG="v3.0.3"
 CONVERTER_IMAGE="ecrum19/vcf-rdfizer"
 CONVERTER_DIGEST="sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a"
 
-FIXTURES="basic-v4.1 basic-v4.2 basic-v4.3 basic-v4.4 basic-v4.5
-          header-audit-v4.5 features-v4.5 local-alleles-v4.5
-          tandem-repeats-v4.4 tandem-repeats-v4.5"
+# Fixtures are not listed here. They are derived below from the assessment's own
+# cases.json, so every fixture the assessment tests is replayed against the
+# converter. A hand-kept list silently narrows the comparison as the assessment
+# grows, which is what happened before: ten of the thirty-eight were replayed
+# and the omission was invisible in the reported figures.
 PROFILES="expanded condensed"
 
 # ------------------------------------------------------------- layout --------
@@ -88,6 +90,16 @@ docker tag "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "reproduce-vcf-rdfizer:$CONVERTE
 
 VOCAB="$WORK/vocab"
 FIXDIR="$VOCAB/coverage/methodology/fixtures"
+
+# Every fixture any case refers to, in a stable order.
+FIXTURES="$("$PYTHON" - "$VOCAB" <<'PY'
+import json, pathlib, sys
+cases = json.loads((pathlib.Path(sys.argv[1]) /
+                    "coverage/methodology/inputs/cases.json").read_text())
+print(" ".join(sorted({pathlib.Path(c["fixture"]).stem for c in cases})))
+PY
+)"
+printf '  %s fixtures referenced by the assessment\n' "$(printf '%s' "$FIXTURES" | wc -w | tr -d ' ')"
 
 # ------------------------------------------------------------ environment -----
 say "Recording the environment"
@@ -168,7 +180,7 @@ convert_set() {
   done
 }
 
-say "Converting 10 fixtures x 2 profiles with $CONVERTER_TAG (this is the slow part)"
+say "Converting $(printf '%s' "$FIXTURES" | wc -w | tr -d ' ') fixtures x 2 profiles with $CONVERTER_TAG (this is the slow part)"
 step convert convert_set
 
 # ---------------------------------------------------------------- analyses ----
