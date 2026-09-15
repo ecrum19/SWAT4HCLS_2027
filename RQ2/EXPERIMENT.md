@@ -151,11 +151,63 @@ separately deleting one allele call, each produce exactly one genotype mismatch.
 A check that always passes would be worthless, so this was tested rather than
 assumed.
 
-**`field-round-trip.py`** does for INFO and the non-GT FORMAT subfields what
-`round-trip.py` does for the fixed columns and GT: rebuilds each value from the
-structured layer and compares it with the source. Together the two cover every
-data value on every line. Verified falsifiable — corrupting one INFO value item
-and deleting one FORMAT value each produce exactly one mismatch.
+**`field-round-trip.py`** does the same for the rest of the file: every header
+line, every INFO entry and every non-GT FORMAT subfield. Verified falsifiable —
+corrupting one INFO value item, deleting one FORMAT value, altering one header
+value and deleting one header line each produce exactly one mismatch.
+
+#### Where the scripts are, and what they are allowed to assume
+
+| | |
+| --- | --- |
+| [`RQ2/analysis/round-trip.py`](analysis/round-trip.py) | The seven fixed columns and each sample's GT |
+| [`RQ2/analysis/field-round-trip.py`](analysis/field-round-trip.py) | Header lines, INFO entries, non-GT FORMAT subfields |
+
+Both are run by `RQ2/run.sh` as their own steps, against the converted graphs in
+the run's `graphs/` directory.
+
+**Nothing about the data is hard-coded.** Neither script names a field, a
+fixture, a sample, a contig or an expected value. What to look for comes from the
+source file being compared against; how to find it comes from properties the
+vocabulary declares. Add a fixture with new INFO keys and both scripts pick it up
+with no edit.
+
+Every navigation step is a declared relationship:
+
+| To reach | The scripts follow |
+| --- | --- |
+| a record's alleles | `hasReferenceAllele`, `hasAltAllele`, then `alleleIndex` and `alleleValue` |
+| a sample's genotype | `hasSampleCall` → `hasGenotype` → `hasAlleleCall`, then `callIndex`, `calledAllele`, `isNoCall`, `phaseIndicator` |
+| a field's value | `hasInfoValue` or `hasFormatValue` → `declaredBy` → `fieldId`, then `fieldValue` or `hasValueItem` → `valueIndex`, `itemValue` |
+| a header line | `hasHeaderLine` → `lineIndex`, `headerKey`, `headerValue` |
+
+> **One assumption was hard-coded, and has been removed.** Both `round-trip.py`
+> and RQ3's query previously bound a record to its alleles by matching IRI text —
+> `STRSTARTS(STR(?a), CONCAT(STR(?r), "/allele/"))` — which silently required the
+> converter to mint allele IRIs in one particular shape. They now follow
+> `hasReferenceAllele` and `hasAltAllele`, which the vocabulary declares for
+> exactly this purpose. Removing it changed no result: 109/109, 151/151, and RQ3
+> still returns its two rows. A related fragility went with it — the phasing
+> fallback compared a status by how its name ended rather than by its IRI.
+
+**What is legitimately fixed, because the target is a VCF file.** The scripts
+must know VCF's own lexical conventions to compare against a VCF: that a
+multi-valued field is comma-separated, that `.` means missing, that sample
+subfields are colon-separated, and the order of the fixed columns. These come
+from the specification, not from the graph, and they belong on the source side of
+the comparison — the side being compared *to*.
+
+**What the scripts may not read**, because doing so would make the check
+meaningless: `vcfc:infoRaw`, `vcfc:sampleDataRaw` and `vcfc:genotypeString` all
+hold preserved source text. Reconstructing from them would prove only that a
+string was copied. Checked: across the six SPARQL queries in the two scripts,
+none of the three appears — they occur only in comments saying they are not
+used.
+
+**Not derived from SHACL.** The reconstruction uses the vocabulary's declared
+properties, but nothing here reads the SHACL shapes — those constrain what a
+valid graph looks like and are exercised separately by the vocabulary's own
+validation, not by this comparison.
 
 **`evidence-map.py`** maps requirements to research questions and audits the
 assessment for duplicate checks. It is analysis of RQ1's shape, not a test.

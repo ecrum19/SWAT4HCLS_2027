@@ -46,12 +46,14 @@ SELECT ?r ?pos ?chrom ?id ?ref ?alt ?qual ?filter WHERE {
 """
 # REF and ALT are rebuilt from the ordered allele resources rather than read
 # from a whole-column property, so the check exercises the structured layer.
+# The record reaches its alleles through hasReferenceAllele and hasAltAllele --
+# declared relationships -- rather than by matching the shape of their IRIs.
 ALLELES = """
 PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
-SELECT ?pos ?idx ?value WHERE {
-  ?r vcfc:pos ?pos ; vcfc:hasCall ?c .
+SELECT ?r ?pos ?idx ?value WHERE {
+  ?r vcfc:pos ?pos .
+  { ?r vcfc:hasReferenceAllele ?a } UNION { ?r vcfc:hasAltAllele ?a }
   ?a vcfc:alleleIndex ?idx ; vcfc:alleleValue ?value .
-  FILTER(STRSTARTS(STR(?a), CONCAT(STR(?r), "/allele/")))
 } ORDER BY ?pos ?idx
 """
 # The separator before allele i is that call's own phaseIndicator, which is what
@@ -142,13 +144,13 @@ def main() -> int:
         g = load(nt)
         alleles: dict[str, dict[int, str]] = {}
         for row in g.query(ALLELES):
-            alleles.setdefault(str(row.pos), {})[int(row.idx)] = str(row.value)
+            alleles.setdefault(str(row.r), {})[int(row.idx)] = str(row.value)
         fixed = {}
         for row in g.query(Q):
             pos = str(row.pos)
-            per_pos = alleles.get(pos, {})
-            ref = per_pos.get(0, "")
-            alt = ",".join(per_pos[i] for i in sorted(per_pos) if i >= 1) or "."
+            per_record = alleles.get(str(row.r), {})
+            ref = per_record.get(0, "")
+            alt = ",".join(per_record[i] for i in sorted(per_record) if i >= 1) or "."
             fixed.setdefault(pos, []).append(
                 (str(row.r),
                  [str(row.chrom), pos,
@@ -168,7 +170,7 @@ def main() -> int:
             if row.indicator is not None:
                 sep = str(row.indicator)
             else:  # producer emits no per-call indicator; fall back to the status
-                sep = "|" if str(row.phase).endswith("Phased") else "/"
+                sep = "|" if str(row.phase) == V + "Phased" else "/"
             calls.setdefault(key, []).append((int(row.idx), allele, sep))
 
         checked = matched = 0

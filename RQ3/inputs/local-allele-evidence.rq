@@ -31,9 +31,11 @@ WHERE {
           vcfc:pos ?position ;
           vcfc:ref ?ref ;
           vcfc:hasCall ?call .
+  # The record reaches its alternate alleles through a declared relationship,
+  # not by matching the shape of their IRIs.
+  ?record vcfc:hasAltAllele ?altAllele .
   ?altAllele a vcfc:AltAllele ;
              vcfc:alleleValue ?alt .
-  FILTER(STRSTARTS(STR(?altAllele), CONCAT(STR(?record), "/allele/")))
 
   # --- the sample observation supporting it ---
   ?call vcfc:hasSampleCall ?sampleCall .
