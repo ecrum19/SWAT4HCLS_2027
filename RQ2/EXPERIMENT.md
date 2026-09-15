@@ -138,6 +138,12 @@ separately deleting one allele call, each produce exactly one genotype mismatch.
 A check that always passes would be worthless, so this was tested rather than
 assumed.
 
+**`field-round-trip.py`** does for INFO and the non-GT FORMAT subfields what
+`round-trip.py` does for the fixed columns and GT: rebuilds each value from the
+structured layer and compares it with the source. Together the two cover every
+data value on every line. Verified falsifiable — corrupting one INFO value item
+and deleting one FORMAT value each produce exactly one mismatch.
+
 **`evidence-map.py`** maps requirements to research questions and audits the
 assessment for duplicate checks. It is analysis of RQ1's shape, not a test.
 
@@ -214,43 +220,48 @@ below it.
 
 ### 3.4 Round-trip
 
-**109/109 records** and **151/151 sample genotypes** recovered — every data line
-and every declared genotype across all 38 fixtures.
+Two checks together rebuild almost every value on a VCF data line from the
+structured layer, and compare it with the source.
 
-**How to read this.** Information survives conversion into the structured layer
-and can be read back out of it without touching a preserved source string.
-
-**It is not whole-file reconstruction.** A VCF data line has nine or more
-tab-separated columns:
+| Check | What it rebuilds | Result |
+| --- | --- | ---: |
+| `round-trip.py` | The seven fixed columns, and each sample's GT | **109/109** records, **151/151** genotypes |
+| `field-round-trip.py` | Every INFO entry and every non-GT FORMAT subfield | **400/401** values |
 
 ```
 CHROM  POS  ID  REF  ALT  QUAL  FILTER  INFO  FORMAT  SAMPLE1  SAMPLE2 …
-└──────────── compared (7) ────────────┘  └─┘         └─ only the GT subfield ─┘
-                                           not
-                                         compared
+└──────── round-trip (7 columns) ──────┘  └┬─┘        └───────┬───────┘
+                                           └── field-round-trip ──┘
+                                                (401 values)
 ```
 
-Two things are left out, and they are not small:
+**How to read this.** Information survives conversion into the structured layer
+and can be read back out of it without touching a preserved source string. The
+field check rebuilds a multi-valued field from its ordered value items and joins
+them, recognises a flag by `fieldValueBoolean`, and otherwise reads the field's
+own value. It never reads `infoRaw` or `sampleDataRaw`, the whole preserved
+source columns, because that would make it trivial.
 
-- **INFO**, the eighth column — the annotations, such as
-  `AF=0.25;DP=100;SOMATIC`. Never compared.
-- **The non-GT FORMAT subfields.** `FORMAT` declares what each sample column
-  carries, say `GT:DP:AD`. Only `GT` is rebuilt; `DP` and `AD` are ignored.
+**The one failure is informative.** At position 4 of the local-allele fixture
+`LAA` is an empty list — the source cell is `0/0::30:0`, so the field is present
+and its value is empty. The converter emits a `FormatFieldValue` resource with a
+`declaredBy` link and **no value at all**, so nothing can be read back. That is
+requirement R27 from the cross-producer replay, reached independently by a
+different route, which is some evidence that both checks measure something real.
 
-Across the 38 fixtures that is **172 INFO entries** and **229 other FORMAT
-values** not compared, against the **151 genotypes** that are. So the result is a
-strong claim about each record's identity, position, alleles, quality, filter and
-genotype — and says nothing about whether annotations or depths survive.
+**Still out of scope:** the header lines, and byte-level details such as
+attribute order and line terminators. So this is not byte-for-byte file
+reconstruction — but it is every data value on every line bar one.
 
 Phasing, to avoid a common misreading, *is* compared: it lives inside GT, and the
 `|` or `/` between every pair of alleles must match exactly. Only the optional
 *leading* indicator is normalised away, for the reason in §2.6.
 
-**Why the line is drawn there.** The fixed columns and GT have one fixed shape
-that can be rebuilt generically. INFO and the other FORMAT subfields are typed
-per declaration, so recovering them would mean re-implementing the `Number` and
-`Type` rules — which is exactly what the cross-producer replay tests directly,
-over 840 checks, rather than duplicating here.
+**Why the field check was added.** An earlier version of this document argued
+these fields needed no round-trip because the cross-producer replay covered them.
+That was wrong. The replay runs particular queries for particular requirements;
+it never asks whether every value in a file can be read back. The two checks
+answer different questions, and 401 values had gone unexamined.
 
 ---
 

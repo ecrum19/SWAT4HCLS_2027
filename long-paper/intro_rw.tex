@@ -50,6 +50,8 @@ To futher complicate format versioning, the observations recorded in a VCF must 
 Two files may report the same alteration with different annotations or quality estimates, just as a sample column may refer to a patient specimen, a pooled sample, or a synthetic example. 
 A common representation should therefore preserve both version-specific semantics and the provenance of each observation, without automatically equating VCF records with normalized variants or sample columns with patients.
 
+% TODO: Motivation idea --> complex variant info is interesting for medical and research uses but it requires the attached metadata and ... to be useful. Here we want to model those fields semantically to made semantic VCF data more useful for downstream applications.
+
 Here, we present the VCF Core Vocabulary (\textit{vcfcv})~\cite{vcfc210}.
 The contribution combines source-context preservation, expanded and condensed sample representations, documented alignments, and version-specific artifacts for VCF 4.1--4.5.
 We assess these capabilities through specification-derived queries with expected answers, a replay across separately implemented producers, semantic round-trip checks and an allele-dependent biomedical integration example with recovered provenance.

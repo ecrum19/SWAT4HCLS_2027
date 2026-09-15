@@ -1,6 +1,6 @@
-# Reproduction run 20260915T160036Z
+# Reproduction run 20260915T190900Z
 
-Produced by `sh RQ2/run.sh` on 2026-09-15T16:00:37+00:00, 8 steps, 25s total, 0 failures.
+Produced by `sh RQ2/run.sh` on 2026-09-15T19:09:01+00:00, 9 steps, 26s total, 0 failures.
 
 | Pinned | |
 | --- | --- |
@@ -50,6 +50,10 @@ Requirements exercised: **53**; agreeing on every check: **38**; passing on ever
 Rebuilt from structured properties alone, expanded profile: **109/109 records** (CHROM, POS, ID, REF, ALT, QUAL, FILTER) and **151/151 sample genotypes**.
 
 _A leading phase indicator is removed from the source genotype before comparison: it is lexical, and only genotypeString -- an untouched source string this check does not read -- records whether it was written out._
+
+Every INFO entry and non-GT FORMAT subfield, rebuilt from ordered value items rather than from a preserved column: **400/401 values**.
+
+- `local-alleles-v4.5` FORMAT/LAA[sample] at position 4: expected ``, got `not recovered`
 
 ## Assessment shape
 

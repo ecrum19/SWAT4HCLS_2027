@@ -1,0 +1,207 @@
+{
+ "fixtures": {
+  "adjacency-v4.1": {
+   "checked": 32,
+   "matched": 32,
+   "mismatches": []
+  },
+  "adjacency-v4.2": {
+   "checked": 32,
+   "matched": 32,
+   "mismatches": []
+  },
+  "adjacency-v4.3": {
+   "checked": 32,
+   "matched": 32,
+   "mismatches": []
+  },
+  "basic-v4.1": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "basic-v4.2": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "basic-v4.3": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "basic-v4.4": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "basic-v4.5": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "boundaries-v4.5": {
+   "checked": 28,
+   "matched": 28,
+   "mismatches": []
+  },
+  "breakends-v4.5": {
+   "checked": 2,
+   "matched": 2,
+   "mismatches": []
+  },
+  "contig-insertions-v4.5": {
+   "checked": 18,
+   "matched": 18,
+   "mismatches": []
+  },
+  "features-v4.5": {
+   "checked": 16,
+   "matched": 16,
+   "mismatches": []
+  },
+  "filter-samples-v4.1": {
+   "checked": 3,
+   "matched": 3,
+   "mismatches": []
+  },
+  "filter-samples-v4.2": {
+   "checked": 3,
+   "matched": 3,
+   "mismatches": []
+  },
+  "filter-samples-v4.3": {
+   "checked": 3,
+   "matched": 3,
+   "mismatches": []
+  },
+  "filter-samples-v4.4": {
+   "checked": 3,
+   "matched": 3,
+   "mismatches": []
+  },
+  "filter-samples-v4.5": {
+   "checked": 3,
+   "matched": 3,
+   "mismatches": []
+  },
+  "gvcf-v4.5": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "header-audit-v4.1": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "header-audit-v4.2": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "header-audit-v4.3": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "header-audit-v4.4": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "header-audit-v4.5": {
+   "checked": 7,
+   "matched": 7,
+   "mismatches": []
+  },
+  "local-alleles-v4.5": {
+   "checked": 20,
+   "matched": 19,
+   "mismatches": [
+    {
+     "actual": "not recovered",
+     "expected": "",
+     "field": "FORMAT/LAA[sample]",
+     "pos": "4"
+    }
+   ]
+  },
+  "modifications-v4.5": {
+   "checked": 11,
+   "matched": 11,
+   "mismatches": []
+  },
+  "phase-ordinals-v4.4": {
+   "checked": 7,
+   "matched": 7,
+   "mismatches": []
+  },
+  "phase-ordinals-v4.5": {
+   "checked": 7,
+   "matched": 7,
+   "mismatches": []
+  },
+  "phase-quality-v4.4": {
+   "checked": 9,
+   "matched": 9,
+   "mismatches": []
+  },
+  "phase-quality-v4.5": {
+   "checked": 9,
+   "matched": 9,
+   "mismatches": []
+  },
+  "phase-separation-v4.4": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "phase-separation-v4.5": {
+   "checked": 8,
+   "matched": 8,
+   "mismatches": []
+  },
+  "repeats-v4.5": {
+   "checked": 9,
+   "matched": 9,
+   "mismatches": []
+  },
+  "structural-v4.1": {
+   "checked": 5,
+   "matched": 5,
+   "mismatches": []
+  },
+  "structural-v4.2": {
+   "checked": 5,
+   "matched": 5,
+   "mismatches": []
+  },
+  "structural-v4.3": {
+   "checked": 5,
+   "matched": 5,
+   "mismatches": []
+  },
+  "structural-v4.4": {
+   "checked": 5,
+   "matched": 5,
+   "mismatches": []
+  },
+  "tandem-repeats-v4.4": {
+   "checked": 16,
+   "matched": 16,
+   "mismatches": []
+  },
+  "tandem-repeats-v4.5": {
+   "checked": 15,
+   "matched": 15,
+   "mismatches": []
+  }
+ },
+ "method": "Rebuilt from ordered value items where present, otherwise the field's own value. infoRaw and sampleDataRaw are never read.",
+ "scope": "every INFO entry and every non-GT FORMAT subfield",
+ "totals": {
+  "checked": 401,
+  "matched": 400
+ }
+}
