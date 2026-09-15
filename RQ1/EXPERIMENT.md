@@ -78,10 +78,10 @@ different rule about what counts as an acceptable way to reach the answer.
 | **structure** | Is it there *as graph structure*? | **not** use `REPLACE`, `SUBSTR`, `STRBEFORE` or `STRAFTER` |
 
 **A worked example.** Requirement R18 asks whether sample identity, field
-identity and read depth can be recovered together. In the condensed profile the
+identity, and read depth can be recovered together. In the condensed profile the
 two axes use different queries.
 
-Preservation reaches the packed vector and digs the value out with a regular
+*Preservation* reaches the packed vector and digs the value out with a regular
 expression:
 
 ```sparql
@@ -90,7 +90,7 @@ BIND(CONCAT("^(?:[^\t]*\t){", STR(?sampleIndex - 1), "}([^\t]*).*$") AS ?pattern
 BIND(REPLACE(?packedvalue, ?pattern, "$1") AS ?value)
 ```
 
-It **passes** — the depth genuinely is in the graph. Structure has to follow
+It **passes** — the depth genuinely is in the graph. *Structure* has to follow
 relationships instead:
 
 ```sparql
@@ -112,18 +112,101 @@ is lower than the expanded one in §3.1.
 the same query for both, which is why the 840 executions collapse to 465 distinct
 ones (§3.4).
 
-### 2.3 How one case is scored
+### 2.3 How one case is scored, step by step
 
 A **case** is one requirement, at one VCF version, on one fixture. It is scored
-once per sample profile (expanded, condensed) and once per axis (preservation,
-structure) — so up to four scored results per case:
+once per sample profile and once per axis — up to four results per case. Each of
+the four steps below carries assumptions, and they are what determines whether
+the result means anything.
 
-1. Build a graph from the fixture using the vocabulary's own Python materializer.
-2. Run the query that case names for this profile and axis.
-3. Compare the rows returned with the rows written in advance.
-4. **Pass** only if they match exactly — same rows, same values, same order.
+#### Step 1 — Build a graph from the fixture
 
-There is no partial credit and no tolerance.
+`materialize(fixture, profile, base)` in `scripts/vcf_examples.py` (408 lines)
+reads the VCF as text and builds an in-memory RDF graph. It is not a converter
+and does not claim to be: its own first line is *"Materialize the repository's
+explicit VCF fixtures; not a production converter."*
+
+**How it works.** It splits the file into header lines and data lines, parses
+each `##INFO=<...>`/`##FORMAT=<...>` declaration into a definition, then walks
+each data row emitting resources for the file, header, records, alleles, samples,
+genotypes and field values. Resource IRIs are minted under a base derived from
+the filename, so nothing depends on where the file sits. No reference genome and
+no remote ontology is fetched; everything comes from the fixture text.
+
+**The property that makes this trustworthy: it fails instead of guessing.**
+There are **16 points where it raises an error** rather than emitting something
+approximate. The important ones:
+
+| It refuses to continue when… | Why that matters |
+| --- | --- |
+| an INFO or FORMAT key is used in data but never declared in the header | A converter that silently skipped it would produce a smaller graph and the query would fail for the wrong reason |
+| CHROM is neither a declared contig nor a bracketed assembly contig | Prevents inventing a reference |
+| a sample row has the wrong number of tab-delimited columns | Prevents silent column drift |
+| a structured header has unbalanced quotes or brackets, or duplicate attributes | Prevents a half-parsed declaration |
+| a base-modification key is outside the known alias table | Prevents guessing a ChEBI identifier |
+
+So the failure mode is a **crashed run**, not a quietly incomplete graph. That is
+the single most important design property in step 1.
+
+**Verified, not assumed.** Across all 38 fixtures, every INFO and FORMAT key that
+is both declared and used reaches the graph as a `vcfc:fieldId`. Nothing declared
+and used is dropped.
+
+> **The assumption that could taint everything.** The materializer, the
+> vocabulary and the queries were written by the same people. If the materializer
+> emits exactly the shape the queries look for, a case passes whether or not the
+> shape reflects what VCF actually means. Nothing inside RQ1 fully rules this out.
+>
+> Three things reduce it, and one removes it:
+>
+> - **Expected answers come from the specification**, not the graph, so a wrong
+>   *value* is caught even if the shape is agreed between materializer and query.
+> - **The materializer emits far more than the tests consult.** Across all
+>   fixtures it emits **200 distinct vocabulary terms** while the 79 queries
+>   reference **125** — **81 terms are emitted that no query ever asks for.** It
+>   is modelling the format, not painting the target around the arrow.
+> - **The two controls in §2.4** reject queries that pass without data.
+> - **RQ2 removes it.** A second, independently written producer must answer the
+>   same queries. That, not anything in RQ1, is what makes a shared misreading
+>   detectable.
+
+#### Step 2 — Run the query
+
+The case names a query file per profile and axis, read from
+`coverage/methodology/queries/`. It is run with rdflib's SPARQL engine against
+the graph from step 1. There is no timeout, no result limit and no sampling:
+**no query uses `LIMIT`**, so nothing depends on which rows come back first.
+
+#### Step 3 — Compare with the answer written in advance
+
+`answers()` (`assess.py:50`) converts every result row to strings and **sorts
+both sides** before comparing. Its own comment states the rule: *"Compare bags,
+not sets: extra rows and duplicate answers also fail the case."*
+
+So the comparison is a **multiset**: an extra row fails, a missing row fails, a
+duplicated row fails — but **the order rows come back in is not compared.**
+
+> **Why discarding row order is safe here, and how it is handled.** Several
+> requirements are explicitly about order — R07 asks whether records can be
+> retrieved *in source order*. Those are not tested by row sequence. They project
+> the ordinal as a **value**: R07's query selects `?i ?pos` where `?i` is
+> `vcfc:recordIndex`, and its expected answer is
+> `[['1','10'], ['2','20'], ['3','30']]`. A wrong index changes a value, and the
+> multiset comparison catches it. Order is tested as data, which is the right
+> way round — it does not depend on the query engine's iteration order.
+>
+> 22 of the 79 queries carry an `ORDER BY`. Since results are sorted afterwards
+> and no query uses `LIMIT`, those clauses have **no effect on the outcome**.
+> They are readability, not semantics.
+
+#### Step 4 — Decide
+
+**Pass** only if the two multisets are equal: same rows, same values, same
+multiplicities. No partial credit, no tolerance, no numeric comparison — every
+value is compared as a string, so `30` and `30.0` are different answers.
+
+**Then the result is aggregated** by `status()` (§2.6), which requires *every*
+case for a requirement/version/profile to pass before it counts as demonstrated.
 
 ### 2.4 The two controls that stop a test passing for the wrong reason
 
@@ -173,7 +256,11 @@ they are a floor, not a ceiling.
   line matches the version the case claims (`assess.py:173`).
 - **Untested requirements are included** in every denominator. This is the
   opposite of an exclusion and is the single most important scoring decision.
-- No numeric thresholds, tolerances or sampling are used anywhere in RQ1.
+- **Row order is not compared** (§2.3, step 3). Ordering requirements project the
+  ordinal as a value instead.
+- **All values are compared as strings.** `30` and `30.0` are different answers.
+- No numeric thresholds, tolerances, timeouts, result limits or sampling are used
+  anywhere in RQ1.
 
 ### 2.8 Things a reviewer should know
 
@@ -251,3 +338,8 @@ and drop the execution count.
 1. **The text says "three questions" and lists four** (`long-paper/methods.tex`).
 2. **`queryExecutions: 840` is reported without the repeat caveat** in the
    assessment's own summary, which invites the overstatement described in §3.4.
+3. **RQ1 cannot rule out a shared misreading** between the materializer, the
+   queries and the vocabulary — see the box in §2.3, step 1. The evidence that
+   it is not happening is indirect (81 emitted terms no query consults) and the
+   direct check lives in RQ2, not here. Any claim built on RQ1 alone should be
+   read with that in mind.
