@@ -31,6 +31,8 @@ if not (VOCAB / "coverage/methodology/inputs/cases.json").exists():
     raise SystemExit(
         f"no vocabulary checkout at {VOCAB}; set VCF_CORE_VOCAB to one")
 METHOD = VOCAB / "coverage/methodology"
+sys.path.insert(0, str(VOCAB / "scripts"))
+from vcf_examples import materialize  # noqa: E402  (needs VOCAB on sys.path first)
 PROFILES = ("expanded", "condensed")
 
 # assess.py's rule: a structural query may not decode a compound literal.
@@ -79,6 +81,33 @@ def normalize(rows):
     return sorted([[strip(v) for v in row] for row in rows], key=encoded)
 
 
+def materialized(stem: str, profile: str) -> Graph:
+    """Build the materializer's graph now, and check the committed one matches.
+
+    Reading generated/witnesses/*.nt instead would compare against a *record* of
+    what the materializer produces rather than against the materializer, and a
+    stale record would go unnoticed here. So the graph is built live, which is
+    also what assess.py does, and the committed witness is then used as a
+    freshness assertion rather than as the input.
+    """
+    graph = materialize(
+        METHOD / "fixtures" / f"{stem}.vcf", profile,
+        f"urn:vcf-coverage:{stem}:{profile}",
+    )
+    witness = METHOD / f"generated/witnesses/{stem}-{profile}.nt"
+    if witness.is_file():
+        recorded = Graph()
+        recorded.parse(str(witness), format="nt")
+        if set(recorded) != set(graph):
+            raise SystemExit(
+                f"{witness.relative_to(VOCAB)} is stale: it does not match what the "
+                f"materializer produces from {stem}.vcf now. Re-run the vocabulary's "
+                f"own assessment (npm run methodology:build) before trusting a "
+                f"cross-producer comparison."
+            )
+    return graph
+
+
 def load(path: Path) -> Graph | None:
     """Read one witness. The converter always gzips its N-Triples output."""
     g = Graph()
@@ -105,10 +134,9 @@ def main() -> int:
         key = (producer, f"{stem}-{profile}")
         if key not in graphs:
             if producer == "repo":
-                path = METHOD / f"generated/witnesses/{stem}-{profile}.nt"
+                graphs[key] = materialized(stem, profile)
             else:
-                path = converted_root / profile / stem / f"{stem}.nt"
-            graphs[key] = load(path)
+                graphs[key] = load(converted_root / profile / stem / f"{stem}.nt")
         return graphs[key]
 
     results = []

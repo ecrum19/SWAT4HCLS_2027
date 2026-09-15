@@ -93,15 +93,28 @@ producers legitimately mint resource IRIs under different base IRIs.
 > a namespace error.** It did not cause any of the divergences reported below —
 > those all failed on missing properties — but the limitation is real.
 
-### 2.5 One assumption the experiment makes silently
+### 2.5 Where the materializer's side comes from
 
-The materializer side is read from **committed** witness files in the vocabulary
-repository, not re-materialized during the run. If those files were stale, the
-comparison would be against out-of-date data and nothing here would notice.
+The materializer's graph is **built during the run**, by calling the same
+`materialize()` function RQ1 uses, on the same fixture, with the same base IRI.
+So both sides of every comparison are produced by running a program, not by
+reading a file someone committed earlier.
 
-For this analysis they are current — verified by re-materializing five fixtures in both profiles
-and comparing — and RQ1's `assess.py check` detects staleness. But **RQ2 does not
-verify it**, and relies on RQ1 having been run.
+This was not always so. An earlier version read the recorded witness files in
+`generated/witnesses/`, which meant comparing against a *record* of what the
+materializer produces rather than against the materializer — and a stale record
+would have gone unnoticed, quietly changing what the reported figures mean.
+
+The committed witnesses are still used, but as a **check rather than an input**:
+after building a graph the script compares it with the recorded witness and
+**aborts** if they differ, naming the file and telling you to rebuild the
+vocabulary's own assessment. Verified by deleting one triple from a witness: the
+run stops with exit code 1 and that message, rather than reporting numbers from
+mismatched inputs.
+
+Switching from recorded to live graphs changed no result — 840 checks, the same
+693 / 102 / 45 split, the same 15 divergent requirements — which is what should
+happen when the records were current.
 
 ### 2.6 Other useful analyses
 
@@ -253,16 +266,6 @@ different route, which is some evidence that both checks measure something real.
 attribute order and line terminators. So this is not byte-for-byte file
 reconstruction — but it is every data value on every line bar one.
 
-Phasing, to avoid a common misreading, *is* compared: it lives inside GT, and the
-`|` or `/` between every pair of alleles must match exactly. Only the optional
-*leading* indicator is normalised away, for the reason in §2.6.
-
-**Why the field check was added.** An earlier version of this document argued
-these fields needed no round-trip because the cross-producer replay covered them.
-That was wrong. The replay runs particular queries for particular requirements;
-it never asks whether every value in a file can be read back. The two checks
-answer different questions, and 401 values had gone unexamined.
-
 ---
 
 ## Open issues
@@ -275,5 +278,6 @@ answer different questions, and 401 values had gone unexamined.
    Both are now keyed by record identity.
 2. **The round-trip and the RQ3 query both bind alleles by IRI text.** Fails safe,
    but it couples the check to one converter's naming convention.
-3. **RQ2 assumes RQ1's committed witnesses are current** without checking (§2.5).
-   A freshness assertion would close this.
+3. ~~RQ2 assumes RQ1's committed witnesses are current without checking.~~
+   **Fixed.** The materializer's side is built during the run, and the committed
+   witness is now a freshness assertion that aborts on a mismatch (§2.5).
