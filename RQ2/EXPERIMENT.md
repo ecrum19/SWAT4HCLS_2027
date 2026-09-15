@@ -295,11 +295,23 @@ structured layer, and compare it with the source.
 | `field-round-trip.py` | Every INFO entry and every non-GT FORMAT subfield | **400/401** values |
 
 ```
-CHROM  POS  ID  REF  ALT  QUAL  FILTER  INFO  FORMAT  SAMPLE1  SAMPLE2 …
-└──────── round-trip (7 columns) ──────┘  └┬─┘        └───────┬───────┘
-                                           └── field-round-trip ──┘
-                                                (401 values)
+##fileformat=VCFv4.5                            ┐
+##contig=<ID=chr1,length=100>                   │  431 header lines
+##INFO=<ID=AF,Number=A,Type=Float,...>          │  field-round-trip
+##FORMAT=<ID=GT,Number=1,Type=String,...>       ┘
+#CHROM POS ID REF ALT QUAL FILTER INFO FORMAT S1 S2   ← not compared directly
+chr1   10  .  A   G   60   PASS   AF=0.5 GT:DP 0/1:12 …   ┐
+chr1   20  .  C   T   .    q10    .      GT:DP ./.:.  …   │  109 data lines
+└────────── round-trip ───────────┘ └─┬─┘ └──────┬─────┘  ┘
+   109 × 7 fixed columns               │         │
+   + 151 sample genotypes              └─ field-round-trip ─┘
+                                          401 INFO and non-GT FORMAT values
 ```
+
+The `#CHROM` line is the one part with no direct comparison. Its sample names are
+checked indirectly: the genotype check reads them from that line and looks each
+one up by `sampleId`, so a wrong or missing name makes the lookup fail. Its
+fixed-column names are not checked at all.
 
 **How to read this.** Information survives conversion into the structured layer
 and can be read back out of it without touching a preserved source string. The
