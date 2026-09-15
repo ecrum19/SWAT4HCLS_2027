@@ -252,25 +252,48 @@ passing query must survive both controls in §2.5.
 > structure. They were written with AI assistance and reviewed by human
 > reviewers.
 >
-> What guides a query is the requirement's **`interpretation`** — a prose field
-> in `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json` that bridges the specification passage and the test. The `anchors` field says *where* the rule is (file, line range, SHA-256); the
-> `interpretation` says *how to read it* and therefore what a test must show. R27
-> has a full one: "Map local allele indices back to the record's global ALT
-> alleles… where `LAA=2,4` on a four-ALT record means…".
-> 
->Across the 94 requirements these fields fall into three groups:
-> 
->| | Count | What it says |
+> What is supposed to guide a query is the requirement's **`interpretation`** — a
+> prose field in
+> `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json`. Its partner
+> field `anchors` says *where* the rule is (file, line range, SHA-256);
+> `interpretation` says *how that passage was read*, and therefore what a test has
+> to show. It is the written record of a decision someone made.
+>
+> **When it is filled in, it is checkable.** R27's reads, in part:
+>
+> > "Map local allele indices back to the record's global ALT alleles… where
+> > `LAA=2,4` on a four-ALT record makes the mapping non-identity, plus a REF-only
+> > row with an empty `LAA`. The earlier `features-v4.5.vcf` case uses `LAA=1,2`
+> > on a two-ALT record and is retained, but its mapping is the identity and
+> > **demonstrates nothing about LAA on its own**."
+>
+> A reader can hold that against the query and the fixture and ask whether each
+> claim is true. It even records a *weakness*: one of its own cases proves
+> nothing, and says so.
+>
+> **When it is generic, there is nothing to hold the query against.** R16 — "Can
+> `Number=A` values be associated with the correct ALT allele?" — has only:
+> *"Demonstrate this information capability using the listed finite examples;
+> review its source interpretation and test adequacy."* That is an instruction to
+> a reviewer, not a record of a decision, and it would fit any of the 94
+> requirements unchanged. Meanwhile R16's query hardcodes position 10 and the
+> field `AF`. Why that position, why that field, why two alleles and not three?
+> Nothing says. A reviewer cannot confirm the query matches the intent; they have
+> to go back to the specification and work the intent out again — reconstructing
+> the test rather than checking it.
+>
+> Across the 94 requirements:
+>
+> | | Count | Effect on a reviewer |
 > | --- | ---: | --- |
-> | Requirement-specific reasoning | 56 | Genuine guidance, like R27 above |
-> | Generic | 29 | "Demonstrate this information capability using the listed finite examples" — true, but it would fit any requirement |
-> | Explicit `Unassessed:` marker | 9 | Not reasoning at all: a flag that no test exists yet, and that no conclusion about the vocabulary follows |
-> 
->So for 29 requirements the recorded path from specification text to SPARQL is
-> generic, and a reader cannot check the query against stated intent. The 9
-> unassessed markers are honest bookkeeping rather than a gap.
-> 
->Crucially, **the query is not the oracle.** Correctness is defined by the
+> | Specific, like R27 | 56 | Can verify the query against a stated intent |
+> | Generic, like R16 | 29 | Must re-derive the intent from the specification |
+> | `Unassessed:` marker | 9 | Nothing to check — the flag correctly says no test exists |
+>
+> The 9 markers are not a gap; they are the assessment declaring an absence
+> rather than hiding it. The 29 are the real cost.
+>
+> Crucially, **the query is not the oracle.** Correctness is defined by the
 > expected answer, authored from specification text and checked case by case, so
 > a badly written query fails rather than passes.
 
