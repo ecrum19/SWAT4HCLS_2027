@@ -49,6 +49,12 @@ The script `RQ2/run.sh` clones the vocabulary (`v2.1.2`) and the converter (`v3.
 from GitHub, pulls the converter's container image **by digest** so a moved tag
 cannot change what executes, converts the fixtures, then runs four analyses.
 
+Checkouts land in `.artifacts/<name>-<tag>/` at the repository root and are shared
+with RQ1 and RQ3, so running all three fetches each repository once rather than
+once per question. The tag is part of the directory name, so changing a pin
+fetches a fresh checkout instead of reusing the previous one. Every pinned
+artifact and digest is listed in [PINS.md](../PINS.md).
+
 Every step is recorded in `RQ2/runs/<timestamp>/steps.jsonl` with its exit code and
 duration, and its output in `logs/`.
 
