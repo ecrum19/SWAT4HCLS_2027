@@ -347,16 +347,31 @@ that its value was the empty list. Reconstructing the source cell from it gives
 Two things this is **not**. It is not a representation gap: the vocabulary can
 express the empty value, and the materializer does. And it is not a failure that
 propagates — `LAD`'s value item still carries its `forAllele` link on this
-record, so the allele-dependent reading that RQ3 depends on is unaffected.
+record.
 
 What is genuinely lost is the distinction between *present and empty* and
 *present without a value*. The structured layer hints at emptiness by having no
 `LocalAlleleSet` for this sample where the other records have one, but that is an
 absence rather than an assertion, and absence is ambiguous with "not computed".
 
-This is requirement **R27** from the cross-producer replay, reached here by an
-independent route — two checks landing on the same defect from different
-directions.
+This is requirement **R27**, reached here by an independent route — two checks
+landing on the same defect from different directions.
+
+R27 is defined in
+[`RQ1/methodology/inputs/requirements.json`](../RQ1/methodology/inputs/requirements.json),
+copied from the vocabulary release at `coverage/methodology/inputs/requirements.json`:
+
+| | |
+| --- | --- |
+| Question | *Can local allele indices map to global record alleles?* |
+| Area, versions | Genotype; VCF 4.5 only |
+| Specification anchor | VCF 4.5, lines 184–248, pinned by SHA-256 in [`sources.lock.json`](../RQ1/methodology/sources.lock.json) |
+| Cases | `R27-4.5-local-alleles`, `R27-4.5-local-allele-map` |
+| Fixtures | `local-alleles-v4.5.vcf`, `features-v4.5.vcf` |
+
+Its queries and expected answers sit under those two case identifiers in
+[`RQ1/methodology/inputs/cases.json`](../RQ1/methodology/inputs/cases.json), and
+its outcome for each producer is in this run's `results/cross-producer.json`.
 
 **Header lines are covered too.** Each `##` line is recovered by its own source
 line number and compared on both its key and its verbatim right-hand side, so the
