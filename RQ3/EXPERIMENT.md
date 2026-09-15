@@ -92,24 +92,66 @@ work, not about the biology.
 
 ---
 
-## 2. The code, and what to check before trusting it
+## 2. The code, how it works, and what it tells us
 
-### 2.1 What runs
+### 2.1 Reproducible workflow for replicating results
 
-`sh RQ3/run.sh`:
+```sh
+sh RQ3/run.sh
+```
 
-1. Clones the vocabulary (`v2.1.2`) and converter (`v3.0.3`) from GitHub, pulls
-   the container image **by digest**.
-2. Converts `local-alleles-v4.5.vcf` in the **expanded** profile.
-3. Loads that graph together with `inputs/annotations.ttl`.
-4. Runs `inputs/local-allele-evidence.rq`.
-5. Compares the result with `inputs/expected.json`.
+One command, and it needs no local copy of anything: `git`, `docker`, and
+`python3` with `rdflib`. It runs in about two minutes, most of that conversion.
 
-No local checkout of anything is needed.
+**1 — Fetch what is being evaluated.** The vocabulary is cloned at tag `v2.1.2`
+and the converter at `v3.0.3`, into `.artifacts/` at the repository root, shared
+with RQ1 and RQ2 so each is fetched once however many questions you run. The
+converter's container image is pulled **by digest**
+(`sha256:31f1361b…`) rather than by tag, so a tag moved later cannot silently
+change what executes. The resolved commit of each is printed and recorded.
 
-**Why expanded only:** the query walks per-sample value resources. The condensed
-profile stores those as vectors, so the query would find nothing — a profile
-limitation (see RQ2 §3.3), not a result about local alleles.
+**2 — Convert the fixture.** `local-alleles-v4.5.vcf` is taken from the cloned
+vocabulary — not from a copy in this directory, so it is the released fixture —
+and converted in the **expanded** profile with compression and secondary
+representations turned off, leaving plain N-Triples. The result is a graph of
+roughly 1,400 triples describing one file, four sites written twice over, one
+sample and its genotypes.
+
+> **Why expanded only.** The query walks per-sample value resources: a sample
+> call, its `LAD` field, that field's ordered value items. The condensed profile
+> stores the same information as vectors instead, so those resources do not
+> exist and the query would return nothing. That would be a fact about the
+> profile (RQ2 §3.3), not about local alleles, so the case study avoids the
+> confound by using one profile and saying so.
+
+**3 — Assemble the graph to query.** `check.py` loads the converted graph and
+[`inputs/annotations.ttl`](inputs/annotations.ttl) into a single in-memory graph.
+This is the whole of the "integration": two independently produced sources of
+statements, sharing no identifiers, placed side by side so that a query can try
+to relate them.
+
+**4 — Run the query.**
+[`inputs/local-allele-evidence.rq`](inputs/local-allele-evidence.rq) joins the
+two, applies the depth threshold, and projects the answer together with the
+evidence for it — the source file, the sample, the field and the declaration that
+gives the field its cardinality.
+
+**5 — Compare with answers written beforehand.** The result is checked against
+[`inputs/expected.json`](inputs/expected.json), on three conditions described in
+§2.5: the rows match exactly, each excluded alteration is confirmed absent
+individually, and every row carries source provenance.
+
+**What you are left with**, in `RQ3/results/`:
+
+| | |
+| --- | --- |
+| `integration.json` | Observed rows, expected rows, the comparison, and the confirmed exclusions |
+| `check.txt` | What the check printed |
+| `local-alleles-v4.5.nt.gz` | The converted graph itself, ~12 KB, so the query can be re-run or varied without converting anything |
+| `run.json` | Machine, toolchain versions, and the exact commits and image digest used |
+
+Re-running reuses an existing conversion rather than repeating it, so iterating
+on the query costs seconds. Delete `RQ3/work/` to force a clean conversion.
 
 ### 2.2 How the join is made
 
