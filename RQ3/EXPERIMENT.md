@@ -15,6 +15,40 @@ RQ3 is one small end-to-end case study. It deliberately does **not** try to be a
 realistic clinical workflow, because a large demonstration proves less: the more
 moving parts, the harder it is to say which one produced the answer.
 
+### Why local alleles are worth caring about
+
+Local alleles exist because of cohort sequencing. When thousands of samples are
+called together, a single position accumulates every alternate allele seen in
+*anyone* — while any individual usually carries one or two. Without local
+alleles each sample must still carry a value for every allele at the site, and
+genotype likelihoods grow quadratically: three values for two alleles, 210 for
+twenty, 5050 for a hundred. Multiply that by a large cohort and the file becomes
+impractical.
+
+VCF 4.5's answer is to let each sample name the alleles that are actually
+relevant to it, in `LAA`, and give its depths and likelihoods against that
+shorter list. The saving is real, and so is the cost: the numbers in a sample's
+column no longer line up with the record's ALT column.
+
+The question this case study asks — *is this alteration actually supported by
+reads in this sample?* — is the first one asked of any candidate variant, because
+read depth is what separates a real observation from a sequencing artefact. Get
+the allele mapping wrong in a local-allele file and you attribute one alteration's
+read support to a different alteration at the same position. The depth you report
+is a real number, measured from real reads; it simply belongs to the wrong
+change. Nothing about it looks anomalous, which is why it would survive review.
+
+The specification anticipates exactly this. Having set out the encoding, it
+recommends that libraries *"provide an API in which local allele encoding can be
+abstracted away from the API consumer and values accessed through their
+corresponding non-local key"* — an acknowledgement that hand-decoding this is
+error-prone and should be done once, properly, rather than by every consumer.
+Representing it in the graph is the same argument by another route.
+
+That is the motivation for choosing this difficulty. It is **not** a claim about
+the data used below, which is synthetic and carries no biological meaning: the
+fixture exists to make the failure mode observable, not to describe a genome.
+
 ### The one difficulty it is built around
 
 A demonstration is only worth running if it could have come out wrong. This one
