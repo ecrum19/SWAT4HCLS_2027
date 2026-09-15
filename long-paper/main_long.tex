@@ -54,8 +54,10 @@ Expanded sample calls expose individual values, whereas condensed, sample-ordere
 Version-specific registries and validation profiles address VCF 4.1--4.5, including 122 reserved INFO and FORMAT declarations for VCF 4.5. 
 A curated assessment records representation evidence for all 104 inventoried logical-model constructs and enforcement evidence for 87, and a set of 123 curated alignments documents connections to existing variation models and reference ontologies. 
 We evaluate the vocabulary with executed checks rather than term counts. 
-A specification-derived assessment of 94 requirements over VCF 4.1--4.5 supplies queries and expected answers authored in advance; replaying the 39 requirements that a ten-fixture subset exercises over graphs from a second, separately implemented producer gives agreement on 536 of 572 checks, 508 of them passing for both, with no divergence attributable to a representation gap. 
-A semantic round-trip recovers the fixed columns and genotypes of all 35 records, in the expanded profile, from structured properties alone, and one integration example answers an allele-dependent question under VCF 4.5 local alleles with checked answers and recovered provenance. 
+A specification-derived assessment of 94 requirements over VCF 4.1--4.5 supplies queries and expected answers authored in advance. 
+Replaying all of it over graphs from a second, separately implemented producer --- every fixture, every case that has a test --- gives 840 checks, 693 passing for both producers. 
+The 102 checks where they differ span 15 requirements, and examining each shows that none arises from the vocabulary being unable to express something: every absent property is one the release declares and the converter does not yet write. 
+A semantic round-trip recovers the fixed columns and genotypes of all 109 records, in the expanded profile, from structured properties alone, and one integration example answers an allele-dependent question under VCF 4.5 local alleles with checked answers and recovered provenance. 
 The replay also found a silent correctness defect in local-allele handling that per-producer testing had not, which we report as evidence for keeping representational mechanism, implementation and correctness apart. 
 We then discuss how this foundation could support reusable conversion engines, traceable links to biomedical resources, and SPARQL queries combining genomic observations with medically relevant information.
 \end{abstract}
@@ -77,7 +79,7 @@ Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration
 
 VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
 It combines reuse of existing models, explicit source structure, alternative sample representations and version-specific artifacts for VCF 4.1--4.5. 
-All 104 constructs in the curated VCF 4.5 inventory are represented, and the claims that matter have been executed rather than asserted: the specification-derived checks agree across a second producer on 536 of 572 replayed checks with no divergence traceable to the vocabulary, all 35 records round-trip through structured properties, and one integration example returns answers authored in advance together with their source provenance.
+All 104 constructs in the curated VCF 4.5 inventory are represented, and the claims that matter have been executed rather than asserted: the specification-derived checks were replayed in full across a second producer, 693 of 840 passing for both with no divergence traceable to the vocabulary, all 109 records round-trip through structured properties, and one integration example returns answers authored in advance together with their source provenance.
 
 The remaining work is specific rather than general. 
 Evidence is absent for 41 of the 94 requirements, concentrated in structural-variant fields, and thinner than we would like for allele-dependent values in particular; three structured accessors are not yet implemented in the cited converter; one QUAL datatype question is an interpretation the vocabulary deliberately leaves open; and the per-sample condensed profile cannot yet answer the hardest missingness question. 

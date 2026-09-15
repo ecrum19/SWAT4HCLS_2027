@@ -132,8 +132,8 @@ Enforcement within that inventory & 87/104 & A stated requirement is checked for
 Reserved Number/Type rows & 333/333 & Extracted declarations match the version-specific artifacts. \\
 Demonstrated preservation, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Both profiles; expanded structure has the same counts. Condensed structure is reported separately in Table~\ref{tab:requirement-results}. \\
 Distinct executed checks & 465 & Non-repeated query/answer/fixture checks within each case and profile, not independent requirements. \\
-Cross-producer replay & 508/572 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
-Semantic round-trip & 35/35 records & Fixed columns and genotypes recovered from structured properties alone. \\
+Cross-producer replay & 693/840 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
+Semantic round-trip & 109/109 records & Fixed columns and genotypes recovered from structured properties alone. \\
 Recorded full validation run & 21 fixtures & These examples pass the implemented validation layers. \\
 \bottomrule
 \end{tabularx}
@@ -149,26 +149,56 @@ The assessment above builds its witness graphs with the vocabulary repository's 
 The two programs share an author but no code: one materializes graphs from a Python fixture builder, the other from RML mappings and streaming emitters. 
 Independence here therefore means independent implementations, not independent authorship, and the check is correspondingly weaker than third-party reproduction.
 
-We replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer: ten fixtures spanning VCF 4.1--4.5 and the difficult decisions above, each converted in both profiles, giving 572 checks over 143 cases and 39 requirements. 
-The producers agree on 536 checks and both pass on 508; 34 requirements agree on every check and 28 of those pass throughout. 
-Every check they agree on by both failing is a condensed-profile structure query, the documented storage trade-off.
+We replayed the existing queries, against the existing reviewed expected answers, over graphs produced by VCF-RDFizer. 
+Every fixture the assessment uses is converted in both sample profiles --- all 38 of them, not a selection --- so each of the 53 requirements that has a test is exercised against both producers. 
+That gives 840 checks --- the same 840 query executions the assessment itself performs, now performed twice over, once per producer.
+Of them, \textbf{693 pass for both producers} and \textbf{45 fail for both}. 
+The 45 are all condensed-profile structure queries, the storage trade-off Section~\ref{sec:profiles} describes: both producers answer them the same way, and that way is ``no''.
 
-The check earned its keep during development, when an earlier converter bound \term{Number=LA} and \term{Number=LR} items to allele indices positionally, ignoring the sample's \texttt{LAA} subset: a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} landed on alleles 0, 1 and 2 instead of 0, 2 and 4 --- plausible, well-formed values on the wrong alleles, which no existing test caught because every existing test ran against the other producer. 
-Release 3.0.3 resolves local alleles correctly, and the requirements exercising them pass for both producers here. 
-Five requirements still diverge: a QUAL datatype the vocabulary deliberately leaves open, three structured accessors the converter has not built (one of them the condensed-vector decoding path), and one empty-list encoding convention. 
-None is a case of the vocabulary being unable to express something --- across all 572 checks, zero divergences trace to a representation gap.
+\textbf{On 102 checks, spanning 15 requirements, the materializer answers and the converter does not.} 
+No check goes the other way. 
+Because the paper's claim is about the vocabulary rather than about one program, what matters is why the converter is silent, so we examined every one.
+
+\begin{table}[htbp]
+\caption{Why the converter fails a check the materializer passes. Every requirement is accounted for; the right-hand column is what would have to change to close it.}
+\label{tab:divergence}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}p{0.30\linewidth}cX@{}}
+\toprule
+Cause & Reqs. & What is missing \\
+\midrule
+A declared term the converter does not emit & 12 & The query asks for a property the vocabulary defines and the converter never writes, so the query matches nothing. Twenty such properties, covering percent-encoded text, padding, gVCF reference blocks, breakend mates, sample-level filter codes, per-allele phase sets, base-modification strand and allele indices, and the per-item layer for fixed-size value lists. \\
+A decomposition that stops early & 1 & Tandem repeats: the summary row is emitted, the per-allele components are not. \\
+A datatype the vocabulary leaves open & 1 & QUAL. The materializer writes \term{vcfc:VCFFloat}, the converter \term{xsd:decimal}; both satisfy the shape, and only a query projecting \term{DATATYPE()} can tell them apart. \\
+An encoding convention & 1 & An empty local-allele list, written \texttt{""} by one producer and \texttt{"."} by the other. \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+Table~\ref{tab:divergence} gives the result that matters: \textbf{none of the 15 is a case of the vocabulary being unable to express something.} 
+All twenty of the absent properties are declared in the cited release; the converter simply does not write them yet. 
+The remaining three are a partial decomposition, a datatype the vocabulary deliberately permits two ways, and a difference in how an empty list is spelled. 
+So across all 840 checks, zero divergences trace to a representation gap --- but twelve of the fifteen do trace to work the converter has not done, which bounds what an implementation claim can say.
+
+This check earned its keep during development. 
+An earlier converter bound \term{Number=LA} and \term{Number=LR} items to allele indices positionally, ignoring the sample's \texttt{LAA} subset: a depth list of \texttt{20,30,10} under \texttt{LAA=2,4} landed on alleles 0, 1 and 2 instead of 0, 2 and 4 --- plausible, well-formed values on the wrong alleles, which no existing test caught because every existing test ran against the other producer. 
+Release 3.0.3 resolves local alleles correctly, and the requirements exercising them pass for both producers here.
 
 A complementary check recovers logical content rather than comparing query answers. 
-Across the same ten fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
-All 35 records are recovered, with three bounds, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
+Across the same 38 fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
+All 109 records are recovered, with three bounds, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
 It is not whole-file reconstruction.
 
 \paragraph{Where the two sample profiles agree.}
 Because every case runs in both profiles, the profile claim can be stated precisely rather than asserted. 
-The profiles return the same outcome on 252 of 286 comparable checks, and the 34 disagreements fall on nine requirements, every one reading a FORMAT-scoped value: genotype structure, trailing-field missingness, sample-local allele and base-modification items, and repeat components. 
-Record-level file, header, declaration and allele questions agree on every check in both profiles. 
-The supported claim is therefore that the profiles are equivalent for file, header, record and record-level allele questions and divergent by design wherever a query walks per-sample resources. 
-Two of the nine are local-allele requirements, so this paper's headline feature is among those a condensed graph answers less completely.
+The profiles return the same outcome on 352 of 420 comparable checks. 
+The 68 disagreements fall on 15 requirements, and they share one property: every one reads data held inside a sample --- either a FORMAT value or a genotype. 
+Questions about the file, its header, a record or an allele agree on every check in both profiles.
+
+That is the trade-off working as designed rather than a defect. 
+The condensed profile stores sample values as vectors instead of as one resource per sample and field, so a query written to walk per-sample resources finds nothing there; recovering the same value requires decoding the vector, which these queries deliberately do not do. 
+The supported claim is therefore narrower than ``the profiles are equivalent'': they agree for file, header, record and allele questions, and diverge by design wherever a query descends into a sample. 
+Three of the 15 concern local alleles and base modifications, so the features this paper highlights are among those a condensed graph answers less completely.
 
 \paragraph{Answers to the three questions.}
 RQ1 is answered for the 53 of 94 requirements with at least one executed case, the great majority passing. 
