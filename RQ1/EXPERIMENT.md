@@ -42,16 +42,72 @@ return. Those rows come from reading the VCF text and the fixture, never from
 running anything.
 
 **Every test must be capable of failing.** Two automatic controls enforce this,
-described in §2.4. Without them, a query that returns a constant would "pass".
+described in §2.5. Without them, a query that returns a constant would "pass".
 
 ---
 
 ## 2. The code, and what to check before trusting it
 
-### 2.1 What runs
+### 2.1 The words this section uses
+
+Six terms do most of the work. They are easy to confuse because several sound
+like plain English but mean something narrow here.
+
+**Requirement** — one thing the VCF specification requires, rewritten as a
+question that has a checkable answer. *"Can `Number=A` values be associated with
+the correct ALT allele?"* is requirement R16. Each is anchored to the exact
+passage it came from, by line range and SHA-256 of the pinned specification file.
+There are **94**, spanning VCF 4.1–4.5. A requirement is a claim about VCF, not
+about the vocabulary — it is written from the specification, so it can name
+something the vocabulary turns out not to support.
+
+**Fixture** — a small, hand-written `.vcf` file that exercises a requirement.
+`basic-v4.1.vcf` is three records; `boundaries-v4.5.vcf` is thirteen. They are
+deliberately tiny and synthetic: each exists to make one behaviour observable,
+not to look like real data. There are **38**, and they are the *only* input to
+graph construction.
+
+**Case** — a requirement, tested at one VCF version, against one fixture. R16 is
+one requirement but five cases, one per version. There are **210**. A case is
+what carries a query and an expected answer; it is the unit that gets scored.
+
+**Query** — the SPARQL that tries to retrieve the answer from the graph. Stored
+in `queries/`, named by the case. One query is often shared by several cases.
+
+**Expected answer** — the rows that query *should* return, written down by a
+person reading the specification and the fixture, **before the query is run**.
+This is the oracle: correctness is defined here, not by the query and not by the
+graph. If a query is badly written it returns the wrong rows and the case fails.
+
+**Witness** — the RDF graph built from a fixture, against which the query runs.
+Also called a materialised graph. One per (fixture, profile) pair, so 76 in
+total; they are written to `generated/witnesses/` as a record of what was
+actually queried.
+
+Two more that describe *how* a thing is tested rather than *what*:
+
+**Profile** — which of the vocabulary's two sample encodings the graph uses.
+**Expanded** gives each sample's value its own resource. **Condensed** packs
+sample values into vectors, for cohort-scale data. Every case is tested in both.
+
+**Axis** — which standard of evidence the case is judged by: whether the
+information is retrievable *at all* (preservation), or retrievable *as graph
+structure* (structure). §2.3 works through an example, because this is the one
+that most often gets misread.
+
+And four words used for outcomes:
+
+| Outcome | Meaning |
+| --- | --- |
+| **demonstrated** | Every case for that requirement/version/profile passed. |
+| **partial** | Some passed, some did not. |
+| **not-demonstrated** | Cases exist and none passed. |
+| **unassessed** | No test has been written yet. **Counts against the score**, rather than being excluded from it. |
+
+### 2.2 What runs
 
 `sh RQ1/run.sh` clones the vocabulary from GitHub at tag `v2.1.2`, then runs
-three scripts **inside that clone**:
+three scripts **inside that cloned repository**:
 
 | Script | What it does |
 | --- | --- |
@@ -66,11 +122,11 @@ different location would report every requirement as unreviewed — an artefact 
 where files sit, not a finding. `run.sh` first compares all 138 copied files
 against the tag and refuses to run if any has drifted.
 
-### 2.2 What an "axis" is
+### 2.3 The two axes, with a worked example
 
-Every requirement is tested **twice against the same graph**, under two different
-standards of evidence. That is what an axis is: not a different question, but a
-different rule about what counts as an acceptable way to reach the answer.
+Every requirement is tested **twice against the same graph**, once per axis. The
+difference is not the question but the rule about what counts as an acceptable
+way to reach the answer.
 
 | Axis | The question | The query may… |
 | --- | --- | --- |
@@ -112,12 +168,11 @@ is lower than the expanded one in §3.1.
 the same query for both, which is why the 840 executions collapse to 465 distinct
 ones (§3.4).
 
-### 2.3 How one case is scored, step by step
+### 2.4 How one case is scored, step by step
 
-A **case** is one requirement, at one VCF version, on one fixture. It is scored
-once per sample profile and once per axis — up to four results per case. Each of
-the four steps below carries assumptions, and they are what determines whether
-the result means anything.
+Each case is scored once per profile and once per axis — up to four results.
+Every step below carries assumptions, and those are what decide whether the
+result means anything.
 
 #### Step 1 — Build a graph from the fixture
 
@@ -165,7 +220,7 @@ and used is dropped.
 >   fixtures it emits **200 distinct vocabulary terms** while the 79 queries
 >   reference **125** — **81 terms are emitted that no query ever asks for.** It
 >   is modelling the format, not painting the target around the arrow.
-> - **The two controls in §2.4** reject queries that pass without data.
+> - **The two controls in §2.5** reject queries that pass without data.
 > - **RQ2 removes it.** A second, independently written producer must answer the
 >   same queries. That, not anything in RQ1, is what makes a shared misreading
 >   detectable.
@@ -184,7 +239,7 @@ which pairs a question, a witness, a query and separately authored answers. Each
 requirement anchors to its specification passage by line range and SHA-256, and
 61 of the 94 carry a `testPlan` saying what a test should exercise. Two rules are
 machine-enforced: a structure-axis query may not decode compound strings, and a
-passing query must survive both controls in §2.4.
+passing query must survive both controls in §2.5.
 
 > **But there is no authoring procedure for the queries themselves.** No README
 > in `queries/`, no rule for turning a requirement into a particular SPARQL
@@ -232,7 +287,7 @@ value is compared as a string, so `30` and `30.0` are different answers.
 **Then the result is aggregated** by `status()` (§2.6), which requires *every*
 case for a requirement/version/profile to pass before it counts as demonstrated.
 
-### 2.4 The two controls that stop a test passing for the wrong reason
+### 2.5 The two controls that stop a test passing for the wrong reason
 
 Both are in `run_query()` (`assess.py:55`). Both *raise an error* rather than
 quietly recording a weaker result — a test that cannot fail is treated as a
@@ -252,20 +307,6 @@ test a property but do not actually depend on it.
 > vocabulary data — not that it depends on every property it names. The code says
 > so itself: *"This checks data dependence; it is not a semantic proof."*
 
-### 2.5 Definitions you need to read the numbers
-
-| Term | Meaning |
-| --- | --- |
-| **Requirement** | One thing the VCF specification requires, written down as a question. 94 of them across VCF 4.1–4.5. |
-| **Case** | One requirement tested at one VCF version against one fixture. 210 of them, each scored per profile and per axis. |
-| **Axis** | One of two standards of evidence applied to the same question — see §2.2. |
-| **Profile — expanded** | Each sample's value is its own resource. |
-| **Profile — condensed** | Sample values are stored as vectors, for cohort-scale data. |
-| **demonstrated** | Every case for that requirement/version/profile passed. |
-| **partial** | Some passed, some did not. |
-| **not-demonstrated** | Cases exist and none passed. |
-| **unassessed** | No test has been written yet. **Counts against the score.** |
-
 ### 2.6 Scoring rule, stated plainly
 
 `status()` (`assess.py:41`) gives **no fractional credit** and **never drops an
@@ -275,12 +316,12 @@ they are a floor, not a ceiling.
 
 ### 2.7 Exclusions and thresholds actually in force
 
-- **Structure-axis string-decoding ban** (§2.2). Enforced by raising an error.
+- **Structure-axis string-decoding ban** (§2.3). Enforced by raising an error.
 - **Version gating.** A case is rejected unless its fixture's `##fileformat`
   line matches the version the case claims (`assess.py:173`).
 - **Untested requirements are included** in every denominator. This is the
   opposite of an exclusion and is the single most important scoring decision.
-- **Row order is not compared** (§2.3, step 3). Ordering requirements project the
+- **Row order is not compared** (§2.4, step 3). Ordering requirements project the
   ordinal as a value instead.
 - **All values are compared as strings.** `30` and `30.0` are different answers.
 - No numeric thresholds, tolerances, timeouts, result limits or sampling are used
@@ -362,11 +403,11 @@ and drop the execution count.
 1. **The text says "three questions" and lists four** (`long-paper/methods.tex`).
 2. **`queryExecutions: 840` is reported without the repeat caveat** in the
    assessment's own summary, which invites the overstatement described in §3.4.
-3. **Query construction is not a reproducible procedure** (§2.3, step 2).
+3. **Query construction is not a reproducible procedure** (§2.4, step 2).
    Documented as a pipeline, not as a method; `queries/` has no README and a
    third of requirements carry only boilerplate interpretation.
 4. **RQ1 cannot rule out a shared misreading** between the materializer, the
-   queries and the vocabulary — see the box in §2.3, step 1. The evidence that
+   queries and the vocabulary — see the box in §2.4, step 1. The evidence that
    it is not happening is indirect (81 emitted terms no query consults) and the
    direct check lives in RQ2, not here. Any claim built on RQ1 alone should be
    read with that in mind.
