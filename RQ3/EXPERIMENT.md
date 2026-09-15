@@ -101,7 +101,7 @@ sh RQ3/run.sh
 ```
 
 One command, and it needs no local copy of anything: `git`, `docker`, and
-`python3` with `rdflib`. It runs in about two minutes, most of that conversion.
+`python3` with `rdflib`.
 
 **1 — Fetch what is being evaluated.** The vocabulary is cloned at tag `v2.1.2`
 and the converter at `v3.0.3`, into `.artifacts/` at the repository root, shared
@@ -139,7 +139,7 @@ gives the field its cardinality.
 **5 — Compare with answers written beforehand.** The result is checked against
 [`inputs/expected.json`](inputs/expected.json), on three conditions described in
 §2.5: the rows match exactly, each excluded alteration is confirmed absent
-individually, and every row carries source provenance.
+individually, and every row's provenance names the converted fixture.
 
 **What you are left with**, in `RQ3/results/`:
 
@@ -196,13 +196,14 @@ Three things must all hold for **PASS**:
 2. **Every excluded alteration is absent by identity** — each of the three
    flagged-but-excluded alterations is checked individually. Absence must be for
    the stated reason, not because the query returned nothing.
-3. **Provenance is present** — every returned row carries a source file IRI.
+3. **Provenance identifies the right file** — every returned row must cite a
+   source file whose IRI names the fixture that was actually converted, and all
+   rows must cite the same one. The fixture name comes from the path the check
+   was given, so the anchor is outside the graph: a graph cannot satisfy this by
+   being internally consistent.
 
 ### 2.6 Weaknesses a reviewer should know
 
-- **The provenance check is shallow.** It verifies the file IRI starts with
-  `file://`, not that it names the *right* file. A converter emitting
-  `file://wrong.vcf` would pass this check.
 - **`excludedConfirmed` in the output lists all excluded rows unconditionally.**
   In a PASS run that is accurate, because a returned exclusion would have made
   the run FAIL. In a FAIL run the field would be misleading.
@@ -272,5 +273,8 @@ why the declaration, the local allele set and the allele ordinal have to be
    `Number=LR` positionally and record both results. That needs a second
    converter version, which the current single-version design deliberately
    excludes — so this is a trade-off to confirm rather than a defect.
-2. **The provenance check should verify the file identity**, not just the IRI
-   scheme (§2.6). A one-line change.
+2. ~~The provenance check should verify the file identity, not just the IRI
+   scheme.~~ **Fixed.** It now requires every row to cite a file whose IRI names
+   the converted fixture, and all rows to cite the same one (§2.5). Verified by
+   rewriting the source-file IRI to `file://some-other-file.vcf`: the old check
+   passed it, the new one fails with exit code 1.

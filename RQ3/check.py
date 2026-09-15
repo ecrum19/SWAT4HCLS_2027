@@ -61,10 +61,23 @@ def main() -> int:
                 f"excluded {row['contig']}:{row['position']} {row['ref']}>{row['alt']} "
                 f"was returned with depth {hit[0]['depth']}"
             )
-    # Provenance has to be recoverable, not merely present.
+    # Provenance has to identify the right file, not merely look like a file IRI.
+    # The anchor is outside the graph: the name of the fixture actually converted,
+    # taken from the path this check was given. Containment rather than an exact
+    # IRI keeps the test from depending on how a producer shapes its identifiers.
+    fixture = rdf_path.name
+    for suffix in (".gz", ".nt", ".ttl"):          # not split(".")[0]: the
+        if fixture.endswith(suffix):               # fixture name contains dots
+            fixture = fixture[: -len(suffix)]      # of its own, as in v4.5
+    cited = {r["file"] for r in observed}
     for r in observed:
-        if not r["file"].startswith("file://"):
-            problems.append(f"row {r['position']} {r['alt']} has no source file")
+        if fixture not in r["file"]:
+            problems.append(
+                f"row {r['position']} {r['alt']} cites {r['file'] or '<nothing>'}, "
+                f"which does not identify the converted fixture {fixture}"
+            )
+    if len(cited) > 1:
+        problems.append(f"rows cite more than one source file: {sorted(cited)}")
 
     report = {
         "status": "PASS" if not problems else "FAIL",
