@@ -32,6 +32,7 @@ def main():
 
     final = load(run, "cross-producer.json")
     rt = load(run, "round-trip.json")
+    frt = load(run, "field-round-trip.json")
     emap = load(run, "evidence-map.json")
     prof = load(run, "example-profiles.json")
 
@@ -116,6 +117,20 @@ def main():
         if rt.get("normalisation"):
             w("")
             w(f"_{rt['normalisation']}_")
+        if frt:
+            ft = frt.get("totals", {})
+            w("")
+            w(f"Every INFO entry and non-GT FORMAT subfield, rebuilt from ordered value "
+              f"items rather than from a preserved column: "
+              f"**{ft.get('matched', 0)}/{ft.get('checked', 0)} values**.")
+            fbad = {k: v for k, v in frt.get("fixtures", {}).items()
+                    if v.get("matched") != v.get("checked")}
+            if fbad:
+                w("")
+                for k, v in sorted(fbad.items()):
+                    for m in v.get("mismatches", []):
+                        w(f"- `{k}` {m['field']} at position {m['pos']}: "
+                          f"expected `{m['expected']}`, got `{m['actual']}`")
         bad = {k: v for k, v in rt.get("fixtures", {}).items()
                if v.get("recordsMatched") != v.get("recordsChecked")
                or v.get("genotypesMatched") != v.get("genotypesChecked")}

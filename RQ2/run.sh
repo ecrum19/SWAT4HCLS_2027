@@ -197,6 +197,7 @@ export RESULTS_DIR="$RUN/results"
 
 step cross-producer "$PYTHON" "$HERE/analysis/cross-producer.py" "$WORK/converted" cross-producer.json
 step round-trip     "$PYTHON" "$HERE/analysis/round-trip.py"     "$WORK/converted"
+step field-round-trip "$PYTHON" "$HERE/analysis/field-round-trip.py" "$WORK/converted"
 
 step evidence-map sh -c \
   "\"$PYTHON\" \"$HERE/analysis/evidence-map.py\" \"$VOCAB\" \"$RUN/results/cross-producer.json\" \
