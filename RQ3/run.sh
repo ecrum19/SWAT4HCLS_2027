@@ -33,30 +33,38 @@ FIXTURE="local-alleles-v4.5"
 PROFILE="expanded"
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(cd "$HERE/.." && pwd)"
 WORK="${1:-$HERE/work}"
+# Pinned checkouts are shared by every RQ script and cached at the repository
+# root, so running RQ1 then RQ2 then RQ3 fetches each repository once rather
+# than once per question. The tag is part of the directory name: bumping a pin
+# fetches a fresh checkout instead of silently reusing the old one.
+ARTIFACTS="${ARTIFACTS:-$REPO/.artifacts}"
+VOCAB="$ARTIFACTS/vcf-core-vocabulary-$VOCAB_TAG"
+RDFIZER="$ARTIFACTS/VCF-RDFizer-$CONVERTER_TAG"
 OUT="$HERE/results"
 PYTHON="${PYTHON:-python3}"
 
 say() { printf '\n\033[1m==> %s\033[0m\n' "$*"; }
 
-mkdir -p "$WORK" "$OUT"
+mkdir -p "$WORK" "$OUT" "$ARTIFACTS"
 
 # ------------------------------------------------------------------ fetch ----
 say "Fetching pinned artifacts"
-[ -d "$WORK/vocab/.git" ]   || git clone --quiet --depth 1 --branch "$VOCAB_TAG"     "$VOCAB_REPO"   "$WORK/vocab"
-[ -d "$WORK/rdfizer/.git" ] || git clone --quiet --depth 1 --branch "$CONVERTER_TAG" "$RDFIZER_REPO" "$WORK/rdfizer"
+[ -d "$VOCAB/.git" ]   || git clone --quiet --depth 1 --branch "$VOCAB_TAG"     "$VOCAB_REPO"   "$VOCAB"
+[ -d "$RDFIZER/.git" ] || git clone --quiet --depth 1 --branch "$CONVERTER_TAG" "$RDFIZER_REPO" "$RDFIZER"
 docker pull --quiet "$CONVERTER_IMAGE@$CONVERTER_DIGEST" > /dev/null
 docker tag "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "rq3-vcf-rdfizer:$CONVERTER_TAG" > /dev/null
-printf '  vocabulary %s at %s\n' "$VOCAB_TAG"     "$(git -C "$WORK/vocab"   rev-parse --short HEAD)"
-printf '  converter  %s at %s\n' "$CONVERTER_TAG" "$(git -C "$WORK/rdfizer" rev-parse --short HEAD)"
+printf '  vocabulary %s at %s\n' "$VOCAB_TAG"     "$(git -C "$VOCAB"   rev-parse --short HEAD)"
+printf '  converter  %s at %s\n' "$CONVERTER_TAG" "$(git -C "$RDFIZER" rev-parse --short HEAD)"
 
 # -------------------------------------------------------------- conversion ---
 GRAPH="$WORK/converted/$PROFILE/$FIXTURE/$FIXTURE.nt.gz"
 if [ ! -f "$GRAPH" ]; then
   say "Converting $FIXTURE.vcf ($PROFILE profile)"
   mkdir -p "$WORK/in"
-  cp "$WORK/vocab/coverage/methodology/fixtures/$FIXTURE.vcf" "$WORK/in/"
-  "$PYTHON" "$WORK/rdfizer/vcf_rdfizer.py" -m full -i "$WORK/in/$FIXTURE.vcf" \
+  cp "$VOCAB/coverage/methodology/fixtures/$FIXTURE.vcf" "$WORK/in/"
+  "$PYTHON" "$RDFIZER/vcf_rdfizer.py" -m full -i "$WORK/in/$FIXTURE.vcf" \
     --sample-representation "$PROFILE" --representations none --rdf-compression none \
     --no-progress --quiet -I rq3-vcf-rdfizer -v "$CONVERTER_TAG" -o "$WORK/converted/$PROFILE"
 else
@@ -69,8 +77,8 @@ say "Joining the annotations and checking the answers"
 RESULTS_DIR="$OUT" "$PYTHON" "$HERE/check.py" "$GRAPH" | tee "$OUT/check.txt"
 
 # ------------------------------------------------------------- provenance ----
-"$PYTHON" - "$VOCAB_TAG" "$(git -C "$WORK/vocab" rev-parse HEAD)" \
-             "$CONVERTER_TAG" "$(git -C "$WORK/rdfizer" rev-parse HEAD)" \
+"$PYTHON" - "$VOCAB_TAG" "$(git -C "$VOCAB" rev-parse HEAD)" \
+             "$CONVERTER_TAG" "$(git -C "$RDFIZER" rev-parse HEAD)" \
              "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "$FIXTURE" "$PROFILE" <<'PY' > "$OUT/run.json"
 import datetime, json, platform, sys
 

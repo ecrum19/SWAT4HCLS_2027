@@ -21,14 +21,20 @@ VOCAB_REPO="https://github.com/ecrum19/vcf-core-vocabulary.git"
 VOCAB_TAG="v2.1.2"
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
+REPO="$(cd "$HERE/.." && pwd)"
 WORK="${1:-$HERE/work}"
-VOCAB="$WORK/vcf-core-vocabulary"
+# Pinned checkouts are shared by every RQ script and cached at the repository
+# root, so running RQ1 then RQ2 then RQ3 fetches each repository once rather
+# than once per question. The tag is part of the directory name: bumping a pin
+# fetches a fresh checkout instead of silently reusing the old one.
+ARTIFACTS="${ARTIFACTS:-$REPO/.artifacts}"
+VOCAB="$ARTIFACTS/vcf-core-vocabulary-$VOCAB_TAG"
 OUT="$HERE/results"
 PYTHON="${PYTHON:-python3}"
 
 say() { printf '\n\033[1m==> %s\033[0m\n' "$*"; }
 
-mkdir -p "$WORK" "$OUT"
+mkdir -p "$WORK" "$OUT" "$ARTIFACTS"
 
 # ------------------------------------------------------------------ fetch ----
 say "Fetching $VOCAB_TAG from GitHub"

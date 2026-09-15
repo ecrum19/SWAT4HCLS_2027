@@ -38,10 +38,15 @@ PROFILES="expanded condensed"
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/.." && pwd)"
 WORK="${1:-$HERE/work}"
+# Pinned checkouts are shared by every RQ script and cached at the repository
+# root, so running RQ1 then RQ2 then RQ3 fetches each repository once rather
+# than once per question. The tag is part of the directory name: bumping a pin
+# fetches a fresh checkout instead of silently reusing the old one.
+ARTIFACTS="${ARTIFACTS:-$REPO/.artifacts}"
 STAMP="$(date -u +%Y%m%dT%H%M%SZ)"
 RUN="$HERE/runs/$STAMP"
 
-mkdir -p "$WORK" "$RUN"/{logs,results,graphs}
+mkdir -p "$WORK" "$ARTIFACTS" "$RUN"/{logs,results,graphs}
 STEPS="$RUN/steps.jsonl"
 : > "$STEPS"
 
@@ -81,14 +86,15 @@ clone_at() {  # clone_at <repo> <tag> <dir>
   git -C "$3" rev-parse HEAD > /dev/null
 }
 
-step vocab-checkout   clone_at "$VOCAB_REPO"   "$VOCAB_TAG"     "$WORK/vocab"
-step rdfizer-checkout clone_at "$RDFIZER_REPO" "$CONVERTER_TAG" "$WORK/rdfizer"
+step vocab-checkout   clone_at "$VOCAB_REPO"   "$VOCAB_TAG"     "$ARTIFACTS/vcf-core-vocabulary-$VOCAB_TAG"
+step rdfizer-checkout clone_at "$RDFIZER_REPO" "$CONVERTER_TAG" "$ARTIFACTS/VCF-RDFizer-$CONVERTER_TAG"
 step image-pull       docker pull --quiet "$CONVERTER_IMAGE@$CONVERTER_DIGEST"
 
 # Tag the pulled digest so the wrapper, which takes image+version, can find it.
 docker tag "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "reproduce-vcf-rdfizer:$CONVERTER_TAG" >/dev/null
 
-VOCAB="$WORK/vocab"
+VOCAB="$ARTIFACTS/vcf-core-vocabulary-$VOCAB_TAG"
+RDFIZER="$ARTIFACTS/VCF-RDFizer-$CONVERTER_TAG"
 FIXDIR="$VOCAB/coverage/methodology/fixtures"
 
 # Every fixture any case refers to, in a stable order.
@@ -103,6 +109,7 @@ printf '  %s fixtures referenced by the assessment\n' "$(printf '%s' "$FIXTURES"
 
 # ------------------------------------------------------------ environment -----
 say "Recording the environment"
+export VOCAB_DIR="$VOCAB" RDFIZER_DIR="$RDFIZER"
 "$PYTHON" - "$RUN" "$WORK" "$VOCAB_TAG" "$CONVERTER_TAG" \
              "$CONVERTER_IMAGE@$CONVERTER_DIGEST" <<'PY' > "$RUN/env.json"
 import json, os, platform, subprocess, sys, datetime
@@ -148,17 +155,17 @@ env = {
         "vocabulary": {
             "repository": "https://github.com/ecrum19/vcf-core-vocabulary",
             "tag": vtag,
-            "commit": git(os.path.join(work, "vocab"), "rev-parse", "HEAD"),
+            "commit": git(os.environ["VOCAB_DIR"], "rev-parse", "HEAD"),
         },
         "converter": {
             "repository": "https://github.com/ecrum19/VCF-RDFizer",
             "tag": ctag,
-            "commit": git(os.path.join(work, "rdfizer"), "rev-parse", "HEAD"),
+            "commit": git(os.environ["RDFIZER_DIR"], "rev-parse", "HEAD"),
             "image": cimg,
         },
     },
     "specifications": json.loads(
-        open(os.path.join(work, "vocab", "coverage/methodology/sources.lock.json")).read()),
+        open(os.path.join(os.environ["VOCAB_DIR"], "coverage/methodology/sources.lock.json")).read()),
 }
 json.dump(env, sys.stdout, indent=1, sort_keys=True)
 print()
@@ -172,7 +179,7 @@ convert_set() {
   for f in $FIXTURES; do
     for p in $PROFILES; do
       [ -f "$out/$p/$f/$f.nt.gz" ] && continue
-      "$PYTHON" "$WORK/rdfizer/vcf_rdfizer.py" -m full -i "$out/in/$f.vcf" \
+      "$PYTHON" "$RDFIZER/vcf_rdfizer.py" -m full -i "$out/in/$f.vcf" \
         --sample-representation "$p" --representations none --rdf-compression none \
         --no-progress --quiet -I reproduce-vcf-rdfizer -v "$CONVERTER_TAG" -o "$out/$p" \
         || return 1
@@ -200,7 +207,7 @@ mkdir -p "$WORK/example"
 cp "$REPO/coverage/synthetic.vcf" "$WORK/example/"
 for p in $PROFILES; do
   [ -f "$WORK/example/$p/synthetic/synthetic.nt.gz" ] && continue
-  step "convert-example-$p" "$PYTHON" "$WORK/rdfizer/vcf_rdfizer.py" \
+  step "convert-example-$p" "$PYTHON" "$RDFIZER/vcf_rdfizer.py" \
     -m full -i "$WORK/example/synthetic.vcf" --sample-representation "$p" \
     --representations none --rdf-compression none --no-progress --quiet \
     -I reproduce-vcf-rdfizer -v "$CONVERTER_TAG" -o "$WORK/example/$p"
