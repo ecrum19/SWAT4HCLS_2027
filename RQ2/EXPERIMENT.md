@@ -99,11 +99,11 @@ The materializer side is read from **committed** witness files in the vocabulary
 repository, not re-materialized during the run. If those files were stale, the
 comparison would be against out-of-date data and nothing here would notice.
 
-They are current — verified by re-materializing five fixtures in both profiles
+For this analysis they are current — verified by re-materializing five fixtures in both profiles
 and comparing — and RQ1's `assess.py check` detects staleness. But **RQ2 does not
 verify it**, and relies on RQ1 having been run.
 
-### 2.6 The other three analyses
+### 2.6 Other useful analyses
 
 **`round-trip.py`** rebuilds VCF columns from the RDF alone and compares them
 with the source file, to test that information survives the round trip through
@@ -218,10 +218,39 @@ below it.
 and every declared genotype across all 38 fixtures.
 
 **How to read this.** Information survives conversion into the structured layer
-and can be read back out of it without touching a preserved source string. It is
-not whole-file reconstruction: INFO and the non-GT FORMAT subfields are out of
-scope, and the leading-phase-indicator character is normalised away for the
-reason in §2.6.
+and can be read back out of it without touching a preserved source string.
+
+**It is not whole-file reconstruction.** A VCF data line has nine or more
+tab-separated columns:
+
+```
+CHROM  POS  ID  REF  ALT  QUAL  FILTER  INFO  FORMAT  SAMPLE1  SAMPLE2 …
+└──────────── compared (7) ────────────┘  └─┘         └─ only the GT subfield ─┘
+                                           not
+                                         compared
+```
+
+Two things are left out, and they are not small:
+
+- **INFO**, the eighth column — the annotations, such as
+  `AF=0.25;DP=100;SOMATIC`. Never compared.
+- **The non-GT FORMAT subfields.** `FORMAT` declares what each sample column
+  carries, say `GT:DP:AD`. Only `GT` is rebuilt; `DP` and `AD` are ignored.
+
+Across the 38 fixtures that is **172 INFO entries** and **229 other FORMAT
+values** not compared, against the **151 genotypes** that are. So the result is a
+strong claim about each record's identity, position, alleles, quality, filter and
+genotype — and says nothing about whether annotations or depths survive.
+
+Phasing, to avoid a common misreading, *is* compared: it lives inside GT, and the
+`|` or `/` between every pair of alleles must match exactly. Only the optional
+*leading* indicator is normalised away, for the reason in §2.6.
+
+**Why the line is drawn there.** The fixed columns and GT have one fixed shape
+that can be rebuilt generically. INFO and the other FORMAT subfields are typed
+per declaration, so recovering them would mean re-implementing the `Number` and
+`Type` rules — which is exactly what the cross-producer replay tests directly,
+over 840 checks, rather than duplicating here.
 
 ---
 
