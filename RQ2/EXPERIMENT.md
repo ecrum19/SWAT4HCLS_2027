@@ -256,12 +256,43 @@ them, recognises a flag by `fieldValueBoolean`, and otherwise reads the field's
 own value. It never reads `infoRaw` or `sampleDataRaw`, the whole preserved
 source columns, because that would make it trivial.
 
-**The one failure is informative.** At position 4 of the local-allele fixture
-`LAA` is an empty list — the source cell is `0/0::30:0`, so the field is present
-and its value is empty. The converter emits a `FormatFieldValue` resource with a
-`declaredBy` link and **no value at all**, so nothing can be read back. That is
-requirement R27 from the cross-producer replay, reached independently by a
-different route, which is some evidence that both checks measure something real.
+**The one failure, in detail.** It is the `LAA` field of the only record whose
+local-allele list is empty — record 4 of `local-alleles-v4.5.vcf`:
+
+```
+FORMAT: GT:LAA:LAD:LPL
+sample: 0/0::30:0
+             ↑ LAA is present, and its value is the empty list
+```
+
+`LAA` names the alternate alleles that are *local* to this sample. An empty list
+is meaningful, not missing: it says this sample's local alleles are the reference
+only, which is consistent with its genotype of `0/0`.
+
+The two producers disagree about how to say that:
+
+| | What it emits for this field |
+| --- | --- |
+| Materializer | the field resource, `declaredBy`, and `fieldValue ""` |
+| Converter | the field resource and `declaredBy` — **and no value triple at all** |
+
+So the converter's graph records that `LAA` was declared for this sample, but not
+that its value was the empty list. Reconstructing the source cell from it gives
+`0/0:?:30:0`.
+
+Two things this is **not**. It is not a representation gap: the vocabulary can
+express the empty value, and the materializer does. And it is not a failure that
+propagates — `LAD`'s value item still carries its `forAllele` link on this
+record, so the allele-dependent reading that RQ3 depends on is unaffected.
+
+What is genuinely lost is the distinction between *present and empty* and
+*present without a value*. The structured layer hints at emptiness by having no
+`LocalAlleleSet` for this sample where the other records have one, but that is an
+absence rather than an assertion, and absence is ambiguous with "not computed".
+
+This is requirement **R27** from the cross-producer replay, reached here by an
+independent route — two checks landing on the same defect from different
+directions.
 
 **Header lines are covered too.** Each `##` line is recovered by its own source
 line number and compared on both its key and its verbatim right-hand side, so the
