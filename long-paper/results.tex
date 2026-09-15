@@ -133,7 +133,7 @@ Reserved Number/Type rows & 333/333 & Extracted declarations match the version-s
 Demonstrated preservation, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Both profiles; expanded structure has the same counts. Condensed structure is reported separately in Table~\ref{tab:requirement-results}. \\
 Distinct executed checks & 465 & Non-repeated query/answer/fixture checks within each case and profile, not independent requirements. \\
 Cross-producer replay & 693/840 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
-Semantic round-trip & 109/109 records & Fixed columns and genotypes recovered from structured properties alone. \\
+Semantic round-trip & 109/109 records, 151/151 genotypes & Fixed columns and sample genotypes recovered from structured properties alone. \\
 Recorded full validation run & 21 fixtures & These examples pass the implemented validation layers. \\
 \bottomrule
 \end{tabularx}
@@ -186,8 +186,14 @@ Release 3.0.3 resolves local alleles correctly, and the requirements exercising 
 
 A complementary check recovers logical content rather than comparing query answers. 
 Across the same 38 fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
-All 109 records are recovered, with three bounds, all by design: INFO and the non-GT FORMAT subfields are out of scope; the check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing; and in the local-allele fixture, where each site is written once locally and once globally, matching on position confirms one recovery per site rather than both. 
-It is not whole-file reconstruction.
+All 109 records are recovered, together with all 151 sample genotypes.
+
+Three bounds, all by design. 
+INFO and the non-GT FORMAT subfields are out of scope. 
+The check runs on expanded-profile graphs only, since decoding a condensed vector needs the accessor requirement R21 identifies as missing. 
+And one normalisation is applied to the genotype: VCF 4.4 onwards permits a leading phase indicator, so that \texttt{|0|1} and \texttt{0|1} describe the same phasing, and the vocabulary records that difference as lexical rather than semantic --- \term{phaseIndicator} carries the effective first indicator, and only the preserved source string says whether it was written out. 
+Reproducing that character would therefore require reading the very string this check avoids, so a genotype differing only by it counts as recovered; allele order, missing calls, ploidy and every indicator between a pair must match exactly. 
+This is not whole-file reconstruction.
 
 \paragraph{Where the two sample profiles agree.}
 Because every case runs in both profiles, the profile claim can be stated precisely rather than asserted. 

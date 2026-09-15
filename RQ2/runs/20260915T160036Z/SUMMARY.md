@@ -1,6 +1,6 @@
-# Reproduction run 20260915T114210Z
+# Reproduction run 20260915T160036Z
 
-Produced by `sh RQ2/run.sh` on 2026-09-15T11:42:16+00:00, 10 steps, 1014s total, 0 failures.
+Produced by `sh RQ2/run.sh` on 2026-09-15T16:00:37+00:00, 8 steps, 25s total, 0 failures.
 
 | Pinned | |
 | --- | --- |
@@ -47,7 +47,9 @@ Requirements exercised: **53**; agreeing on every check: **38**; passing on ever
 
 ## Semantic round-trip
 
-**109/109 records** recovered from structured properties alone, expanded profile.
+Rebuilt from structured properties alone, expanded profile: **109/109 records** (CHROM, POS, ID, REF, ALT, QUAL, FILTER) and **151/151 sample genotypes**.
+
+_A leading phase indicator is removed from the source genotype before comparison: it is lexical, and only genotypeString -- an untouched source string this check does not read -- records whether it was written out._
 
 ## Assessment shape
 

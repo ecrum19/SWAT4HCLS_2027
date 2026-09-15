@@ -118,18 +118,34 @@ verify it**, and relies on RQ1 having been run.
 with the source file, to test that information survives the round trip through
 structured properties rather than through a preserved raw string.
 
-> **Two limits, one of them a discrepancy you should act on.**
->
-> - The script binds alleles to records by **matching IRI text** —
->   `STRSTARTS(STR(?a), CONCAT(STR(?r), "/allele/"))` — not by following a graph
->   relationship. It therefore depends on the converter's IRI naming convention.
->   It fails safe (a different layout yields empty REF/ALT and a reported
->   mismatch, not a false pass), but it is not a structural test.
-> - **The genotype is reconstructed and then never compared.** `calls` is built
->   from the GT query and used only to count groups. The comparison covers seven
->   fixed columns: CHROM, POS, ID, REF, ALT, QUAL, FILTER. The script's own scope
->   string and the manuscript both say GT is included. **It is not.** See Open
->   issues.
+**What it compares.** Seven fixed columns — CHROM, POS, ID, REF, ALT, QUAL,
+FILTER — plus the GT subfield of every sample column. Genotypes are rebuilt from
+ordered `GenotypeAlleleCall` resources using `callIndex`, `calledAllele`,
+`isNoCall` and the per-call `phaseIndicator`. The per-call indicator is what
+allows a mixed genotype such as `0|1/2` to be reconstructed; a single
+genotype-level phasing status could not express it.
+
+> **One named normalisation, and why it is not a cheat.** VCF 4.4 onwards allows
+> a leading phase indicator: `|0|1` and `0|1` describe the same phasing. The
+> vocabulary treats that difference as lexical rather than semantic —
+> `phaseIndicator` is defined as carrying "the effective first indicator when
+> omitted in the source", and only `genotypeString` records whether it was
+> written out. Since `genotypeString` is a preserved source string this check
+> must not read, the leading character is not recoverable structurally. The
+> comparison therefore removes it from the source genotype first. Allele order,
+> missing calls, ploidy and every indicator between a pair must still match
+> exactly.
+
+> **One limit that remains.** The script binds alleles to records by **matching
+> IRI text** — `STRSTARTS(STR(?a), CONCAT(STR(?r), "/allele/"))` — not by
+> following a graph relationship, so it depends on the converter's IRI naming
+> convention. It fails safe: a different layout yields empty REF/ALT and a
+> reported mismatch, not a false pass.
+
+**Verified falsifiable.** Flipping one `phaseIndicator` from `/` to `|`, and
+separately deleting one allele call, each produce exactly one genotype mismatch.
+A check that always passes would be worthless, so this was tested rather than
+assumed.
 
 **`evidence-map.py`** maps requirements to research questions and audits the
 assessment for duplicate checks. It is analysis of RQ1's shape, not a test.
@@ -207,21 +223,25 @@ below it.
 
 ### 3.4 Round-trip
 
-**109/109 records** recovered — every data line across all 38 fixtures.
+**109/109 records** and **151/151 sample genotypes** recovered — every data line
+and every declared genotype across all 38 fixtures.
 
-**How to read this.** It covers the seven fixed columns only (§2.6). It is not
-whole-file reconstruction: INFO and the non-GT FORMAT subfields are out of scope,
-and — contrary to the current wording — genotypes are not compared either.
+**How to read this.** Information survives conversion into the structured layer
+and can be read back out of it without touching a preserved source string. It is
+not whole-file reconstruction: INFO and the non-GT FORMAT subfields are out of
+scope, and the leading-phase-indicator character is normalised away for the
+reason in §2.6.
 
 ---
 
 ## Open issues
 
-1. **The round-trip does not check genotypes, but says it does.** `round-trip.py`
-   builds the genotype and never compares it; the manuscript and the script's own
-   scope string both claim GT is recovered. Either compare it (the data is
-   already queried — this is a small change) or remove GT from the stated scope.
-   **Until one of those happens, the paper overstates this result.**
+1. ~~The round-trip does not check genotypes, but says it does.~~ **Fixed.** It
+   now compares all 151 sample genotypes; 151/151 recover. Fixing it also
+   exposed a keying bug in the check itself: records and genotypes were keyed by
+   position, so the local-allele fixture — which writes each site twice — merged
+   two records' genotypes and produced `2/2/2/2` where the source said `2/2`.
+   Both are now keyed by record identity.
 2. **The round-trip and the RQ3 query both bind alleles by IRI text.** Fails safe,
    but it couples the check to one converter's naming convention.
 3. **`cross-producer.py`'s docstring contradicts the data** about expected answers

@@ -37,6 +37,19 @@ These complementary purposes motivate a distinction between representing an obse
 Our aim is therefore not simply to establish that VCF can be represented in RDF, but to provide a version-aware representation that combines broad representation of the source format with explicit connections to existing genomic models.
 Such a target would allow conversion and querying approaches to develop without repeatedly defining application-specific interpretations of VCF structure, as has been done in the past.
 
+% TODO: fix where this paragraph fits
+\subsection{Why version and source context matter}
+
+VCF format has been evolving since its first public release in 2011.
+At the time of writing, the specifications are maintained by the Global Alliance for Genomics and Health (GA4GH) \cite{ga4gh2016federated} with versions 4.1--4.5 hosted on a GA4GH-maintained github repository~\cite{ga4gh_hts_specs}.
+The most current specification is VCF v4.5 and was released February 25, 2026~\cite{vcf45}.
+VCF 4.1--4.5 share the basic structures described above but differ in supported declarations and constraints~\cite{htsspecs,vcf45}. 
+For example, later versions introduce new ways to describe variants and their associated metadata, while also refining how existing fields should be interpreted. 
+% TODO: This section below need revision
+To futher complicate format versioning, the observations recorded in a VCF must remain distinguishable from the biological entities they describe. 
+Two files may report the same alteration with different annotations or quality estimates, just as a sample column may refer to a patient specimen, a pooled sample, or a synthetic example. 
+A common representation should therefore preserve both version-specific semantics and the provenance of each observation, without automatically equating VCF records with normalized variants or sample columns with patients.
+
 Here, we present the VCF Core Vocabulary (\textit{vcfcv})~\cite{vcfc210}.
 The contribution combines source-context preservation, expanded and condensed sample representations, documented alignments, and version-specific artifacts for VCF 4.1--4.5.
 We assess these capabilities through specification-derived queries with expected answers, a replay across separately implemented producers, semantic round-trip checks and an allele-dependent biomedical integration example with recovered provenance.
