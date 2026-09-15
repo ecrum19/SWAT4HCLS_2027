@@ -46,7 +46,7 @@ described in §2.5. Without them, a query that returns a constant would "pass".
 
 ---
 
-## 2. The code, and what to check before trusting it
+## 2. The code, how it works, and what it tells us
 
 ### 2.1 The words this section uses
 
@@ -74,7 +74,7 @@ the *only* input to graph construction.
 one requirement but five cases, one per version. There are **210**. A case is
 what carries a query and an expected answer; it is the unit that gets scored.
 
-**Query** — the SPARQL algebra that tries to retrieve the answer from the RDF (graphical) representation of the VCF fixture. One query is often shared by several cases.
+**Query** — the SPARQL algebra that tries to retrieve the answer from a Witness (the RDF representation of a VCF fixture). One query is often shared by several cases.
 
 **Expected answer** — what that query *should* return, written down by a person
 reading the specification and the fixture, **before the query is run**.
@@ -88,47 +88,43 @@ per record. R16 selects `?index ?value ?allele` and expects two rows of three �
 10, one per alternate allele.
 
 That second example is the point: **rows are not records.** One record can
-produce many rows, or none, depending on what the query asks for.
-
-The expected answer is the oracle: correctness is defined here, not by the query
-and not by the graph. A badly written query returns the wrong rows, so the case
-fails rather than passes.
+produce many rows, or none, depending on what the query asks for. The expected answer is the <u>oracle</u>: correctness is defined here, not by the query and not by the graph. 
 
 **Witness** — the RDF graph built from a fixture, against which the query runs.
 Also called a materialised graph. One per (fixture, profile) pair, so 76 in
-total; they are written to `generated/witnesses/` as a record of what was
+total; they are written to `vcf-core-vocabulary/coverage/methodology/generated/witnesses/` as a record of what was
 actually queried.
 
 Two more that describe *how* a thing is tested rather than *what*:
 
 **Profile** — which of the vocabulary's two sample encodings the graph uses.
-**Expanded** gives each sample's value its own resource. **Condensed** packs
+*Expanded* gives each sample's value its own resource. *Condensed* packs
 sample values into vectors, for cohort-scale data. Every case is tested in both.
 
 **Axis** — which standard of evidence the case is judged by: whether the
 information is retrievable *at all* (preservation), or retrievable *as graph
-structure* (structure). §2.3 works through an example, because this is the one
-that most often gets misread.
+structure* (structure). §2.3 works through an example, because this is not terribly intuitive.
 
 And four words used for outcomes:
 
 | Outcome | Meaning |
 | --- | --- |
 | **demonstrated** | Every case for that requirement/version/profile passed. |
-| **partial** | Some passed, some did not. |
+| **partial** | Some cases passed, some did not. |
 | **not-demonstrated** | Cases exist and none passed. |
-| **unassessed** | No test has been written yet. **Counts against the score**, rather than being excluded from it. |
+| **unassessed** | No test (i.e. witness + oracle + query) has been written yet. **Counts against the score**, rather than being excluded from it. |
 
-### 2.2 What runs
+### 2.2 Reproducible workflow for replicating results
 
-`sh RQ1/run.sh` clones the vocabulary from GitHub at tag `v2.1.2`, then runs
-three scripts **inside that cloned repository**:
+The script `RQ1/run.sh` mediates the reproduction of RQ1 assessments. 
+
+Note: one of the first steps clones the vocabulary (with its artifacts referred to using the path `vcf-core-vocabulary/`) from GitHub at tag `v2.1.2`, then runs three scripts **inside that cloned repository**:
 
 | Script | What it does |
 | --- | --- |
-| `methodology/scripts/assess.py check` | The specification-derived assessment (`methodology/`) |
-| `vcf45-inventory/report.py` | The construct inventory (`vcf45-inventory/`) |
-| `vcf45-inventory/check_serialization.py` | Byte-level source rules, reported separately |
+| `vcf-core-vocabulary/coverage/methodology/scripts/assess.py check` | The specification-derived assessment (`methodology/`) |
+| `vcf-core-vocabulary/coverage/vcf45-inventory/report.py` | The construct inventory (`vcf45-inventory/`) |
+| `vcf-core-vocabulary/coverage/vcf45-inventory/check_serialization.py` | Byte-level source rules, reported separately |
 
 **It runs the clone, not the copies in this directory.** `assess.py` identifies
 its inputs by their path *relative to the repository root* and the recorded
@@ -222,56 +218,64 @@ the single most important design property in step 1.
 is both declared and used reaches the graph as a `vcfc:fieldId`. Nothing declared
 and used is dropped.
 
-> **The assumption that could taint everything.** The materializer, the
-> vocabulary and the queries were written by the same people. If the materializer
+> **A Note.** The materializer, the vocabulary, and the queries were written by the same people. If the materializer
 > emits exactly the shape the queries look for, a case passes whether or not the
 > shape reflects what VCF actually means. Nothing inside RQ1 fully rules this out.
->
-> Three things reduce it, and one removes it:
->
-> - **Expected answers come from the specification**, not the graph, so a wrong
+> 
+>Four steps taken to reduce the bias:
+> 
+>- **Expected answers come from the specification**, not the graph, so a wrong
 >   *value* is caught even if the shape is agreed between materializer and query.
 > - **The materializer emits far more than the tests consult.** Across all
 >   fixtures it emits **200 distinct vocabulary terms** while the 79 queries
 >   reference **125** — **81 terms are emitted that no query ever asks for.** It
 >   is modelling the format, not painting the target around the arrow.
 > - **The two controls in §2.5** reject queries that pass without data.
-> - **RQ2 removes it.** A second, independently written producer must answer the
->   same queries. That, not anything in RQ1, is what makes a shared misreading
+> - **RQ2 compares results using a separately implemented converter.** A second, independently written producer (that utilizes RML for conversion) is asked the same queries. Thus, conversions containing a misrepresentation are more
 >   detectable.
 
-#### Step 2 — Run the query
+#### Step 2 — Query Execution
 
 The case names a query file per profile and axis, read from
-`coverage/methodology/queries/`. It is run with rdflib's SPARQL engine against
+`vcf-core-vocabulary/coverage/methodology/queries/`. It is run with rdflib's SPARQL engine against
 the graph from step 1. There is no timeout, no result limit and no sampling:
 **no query uses `LIMIT`**, so nothing depends on which rows come back first.
 
-**Where the queries came from.** The pipeline is documented in the methodology
-README — pinned specification text → authored source assertions → requirements →
-fixtures → queries versus independent answers — and follows SAMOD (Peroni 2016),
-which pairs a question, a witness, a query and separately authored answers. Each
+**Where the queries came from.** The pipeline is documented in `vcf-core-vocabulary/coverage/methodology/README.md`. The workflow: pinned specification text → authored source assertions → requirements →
+fixtures → queries versus independent answers. This assessment strategy was adapted from methods described by SAMOD (Peroni 2016), which pairs a question, a witness, a query, and separately authored answers. Each
 requirement anchors to its specification passage by line range and SHA-256, and
 61 of the 94 carry a `testPlan` saying what a test should exercise. Two rules are
 machine-enforced: a structure-axis query may not decode compound strings, and a
 passing query must survive both controls in §2.5.
 
-> **But there is no authoring procedure for the queries themselves.** No README
-> in `queries/`, no rule for turning a requirement into a particular SPARQL
-> pattern. The recorded reasoning is thinner than the `testPlan` count suggests:
-> of 94 `interpretation` fields only 58 are distinct, and 29 are the same
-> boilerplate. The review also weighted them lightly on purpose — for each case
-> it asks whether the *expected answer* follows from the source, while "reused
-> query code needs reading once". Upstream, the source interpretations were
-> AI-authored, which the README discloses, then human-reviewed.
+> **Query development note.** The queries are purposely simple and similar in
+> structure. They were written with AI assistance and reviewed by human
+> reviewers.
 >
-> **What limits the damage:** the query is not the oracle. Correctness is defined
-> by the expected answer, authored from specification text and checked case by
-> case, so a badly written query fails rather than passes. The practical cost is
-> that someone re-deriving these tests would write different SPARQL with no
-> recorded rationale to compare against.
+> What guides a query is the requirement's **`interpretation`** — a prose field
+> in `requirements.json` that bridges the specification passage and the test. The
+> `anchors` field says *where* the rule is (file, line range, SHA-256); the
+> `interpretation` says *how to read it* and therefore what a test must show. R27
+> has a full one: "Map local allele indices back to the record's global ALT
+> alleles… where `LAA=2,4` on a four-ALT record means…".
+>
+> Across the 94 requirements these fields fall into three groups:
+>
+> | | Count | What it says |
+> | --- | ---: | --- |
+> | Requirement-specific reasoning | 56 | Genuine guidance, like R27 above |
+> | Generic | 29 | "Demonstrate this information capability using the listed finite examples" — true, but it would fit any requirement |
+> | Explicit `Unassessed:` marker | 9 | Not reasoning at all: a flag that no test exists yet, and that no conclusion about the vocabulary follows |
+>
+> So for 29 requirements the recorded path from specification text to SPARQL is
+> generic, and a reader cannot check the query against stated intent. The 9
+> unassessed markers are honest bookkeeping rather than a gap.
+>
+> Crucially, **the query is not the oracle.** Correctness is defined by the
+> expected answer, authored from specification text and checked case by case, so
+> a badly written query fails rather than passes.
 
-#### Step 3 — Compare with the answer written in advance
+#### Step 3 — Compare with the oracle extracted from the VCF specification
 
 `answers()` (`assess.py:50`) converts every result row to strings and **sorts
 both sides** before comparing. Its own comment states the rule: *"Compare bags,
@@ -419,8 +423,9 @@ and drop the execution count.
 2. **`queryExecutions: 840` is reported without the repeat caveat** in the
    assessment's own summary, which invites the overstatement described in §3.4.
 3. **Query construction is not a reproducible procedure** (§2.4, step 2).
-   Documented as a pipeline, not as a method; `queries/` has no README and a
-   third of requirements carry only boilerplate interpretation.
+   Documented as a pipeline, not as a method; `queries/` has no README, and 29
+   of 94 requirements carry a generic `interpretation` that would fit any
+   requirement, so their queries cannot be checked against a stated intent.
 4. **RQ1 cannot rule out a shared misreading** between the materializer, the
    queries and the vocabulary — see the box in §2.4, step 1. The evidence that
    it is not happening is indirect (81 emitted terms no query consults) and the
