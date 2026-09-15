@@ -252,26 +252,38 @@ passing query must survive both controls in §2.5.
 > structure. They were written with AI assistance and reviewed by human
 > reviewers.
 >
-> What is supposed to guide a query is the requirement's **`interpretation`** — a
-> prose field in
-> `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json`. Its partner
+> What is supposed to guide a query is a requirement's **`interpretation`** — a
+> prose field in `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json`. Its partner
 > field `anchors` says *where* the rule is (file, line range, SHA-256);
 > `interpretation` says *how that passage was read*, and therefore what a test has
 > to show. It is the written record of a decision someone made.
+> 
+> **When it is filled in, it is checkable.** R56 asks whether a contig's URL and
+> descriptive attributes stay attached to the right contig — a contig being one
+> reference sequence, such as a chromosome. Its whole interpretation is:
 >
-> **When it is filled in, it is checkable.** R27's reads, in part:
+> > "Use two contigs with distinct URL, md5, assembly and species attributes;
+> > retrieve IDs and attribute key/value pairs. Checking the checksum algorithm
+> > is outside scope."
 >
-> > "Map local allele indices back to the record's global ALT alleles… where
-> > `LAA=2,4` on a four-ALT record makes the mapping non-identity, plus a REF-only
-> > row with an empty `LAA`. The earlier `features-v4.5.vcf` case uses `LAA=1,2`
-> > on a two-ALT record and is retained, but its mapping is the identity and
-> > **demonstrates nothing about LAA on its own**."
+> Two sentences, and a reader can check every claim against the fixture:
 >
-> A reader can hold that against the query and the fixture and ask whether each
-> claim is true. It even records a *weakness*: one of its own cases proves
-> nothing, and says so.
+> - *Two contigs* — the fixture declares `chr1` and `chr2`. One contig could not
+>   show that attributes stay with the right ID, because there would be nothing
+>   to mix them up with.
+> - *Distinct attributes* — `one.fa` against `two.fa`, `build-one` against
+>   `build-two`. If the query attached chr2's URL to chr1 the answer would
+>   visibly change; identical values would hide exactly the error being tested.
+> - *Eight expected rows* — two contigs times four attributes, which is what the
+>   expected answer contains.
+> - *Checksum algorithm out of scope* — and the md5 values in the fixture are
+>   plainly fake (`aaaa…`, `bbbb…`). The test checks that a checksum reaches the
+>   right contig, never that it is correct.
 >
-> **When it is generic, there is nothing to hold the query against.** R16 — "Can
+> That last line is what a good interpretation does: it states a limit, so nobody
+> later reads this requirement as evidence that checksums were validated.
+>
+>**When it is generic, there is nothing to hold the query against.** R16 — "Can
 > `Number=A` values be associated with the correct ALT allele?" — has only:
 > *"Demonstrate this information capability using the listed finite examples;
 > review its source interpretation and test adequacy."* That is an instruction to
@@ -281,19 +293,19 @@ passing query must survive both controls in §2.5.
 > Nothing says. A reviewer cannot confirm the query matches the intent; they have
 > to go back to the specification and work the intent out again — reconstructing
 > the test rather than checking it.
->
-> Across the 94 requirements:
->
-> | | Count | Effect on a reviewer |
+> 
+>Across the 94 requirements:
+> 
+>| | Count | Effect on a reviewer |
 > | --- | ---: | --- |
-> | Specific, like R27 | 56 | Can verify the query against a stated intent |
+> | Specific, like R56 | 56 | Can verify the query against a stated intent |
 > | Generic, like R16 | 29 | Must re-derive the intent from the specification |
 > | `Unassessed:` marker | 9 | Nothing to check — the flag correctly says no test exists |
->
-> The 9 markers are not a gap; they are the assessment declaring an absence
+> 
+>The 9 markers are not a gap; they are the assessment declaring an absence
 > rather than hiding it. The 29 are the real cost.
->
-> Crucially, **the query is not the oracle.** Correctness is defined by the
+> 
+>Crucially, **the query is not the oracle.** Correctness is defined by the
 > expected answer, authored from specification text and checked case by case, so
 > a badly written query fails rather than passes.
 
