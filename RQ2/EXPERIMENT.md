@@ -8,9 +8,9 @@
 
 RQ1 shows that the vocabulary can express what VCF requires. It does this using
 graphs built by the vocabulary repository's **own** materializer — a Python
-script in the same repository as the vocabulary, written by the same people.
+script in the same repository that models vocabulary terms to specific fields of the VCF file using RDFLib graph objects.
 
-That leaves an obvious hole. If the queries, the expected answers and the graphs
+That leaves an obvious hole. If the queries, the expected answers, and the graphs
 all come from one codebase, a shared misunderstanding passes every test. The
 result would mean *"this repository is internally consistent"*, which is not what
 the paper wants to claim.
@@ -28,44 +28,33 @@ and the interesting question is *which*.
 
 > **An honesty note the paper also makes.** The two programs share an author.
 > They share no code, so this catches implementation mistakes — but it is weaker
-> than reproduction by an unrelated group, and should not be described as
+> than reproduction by an unrelated group, and should not be described as "truly"
 > independent replication.
 
-### Why the profile comparison rides along
+### Why the profile comparison is also considered
 
 VCF Core offers two ways to store sample data: **expanded** (one resource per
 sample and field) and **condensed** (vectors, for cohort-scale data). The
 documentation claims these are alternatives, not a full and a reduced version.
 Because every case already runs in both profiles, testing that claim costs
-nothing extra — and it is the only place the claim is actually checked.
+nothing extra — and it enables the claim to actually be tested.
 
 ---
 
-## 2. The code, and what to check before trusting it
+## 2. The code, how it works, and what it tells us
 
-### 2.1 What runs
+### 2.1 Reproducible workflow for replicating results
 
-`sh RQ2/run.sh` clones the vocabulary (`v2.1.2`) and the converter (`v3.0.3`)
+The script `RQ2/run.sh` clones the vocabulary (`v2.1.2`) and the converter (`v3.0.3`)
 from GitHub, pulls the converter's container image **by digest** so a moved tag
 cannot change what executes, converts the fixtures, then runs four analyses.
 
-Every step is recorded in `runs/<timestamp>/steps.jsonl` with its exit code and
+Every step is recorded in `RQ2/runs/<timestamp>/steps.jsonl` with its exit code and
 duration, and its output in `logs/`.
 
-### 2.2 Which fixtures — and why this used to be wrong
+### 2.2 Which fixtures are converted
 
-**All 38 fixtures the assessment refers to**, in both profiles: 76 conversions.
-
-The fixture list is **not written down**. `run.sh` derives it at run time from
-the assessment's own case register, so a fixture added upstream is included
-automatically.
-
-> **This is a correction, not a feature.** An earlier version of this experiment
-> carried a hand-written list of ten fixtures. It covered 143 of 210 cases and 39
-> of the 53 requirements that have tests — and nothing in the reported numbers
-> revealed that the other 28 fixtures had been skipped. Widening to all 38 raised
-> the divergent-requirement count from 5 to 15. Ten real disagreements were
-> hidden by the narrow list. The derived list exists so that cannot recur.
+**All 38 fixtures from RQ1**, in both profiles: 76 VCF-RDFizer generated witnesses (38 expanded and 38 condensed).
 
 ### 2.3 How one check is scored (`analysis/cross-producer.py`)
 

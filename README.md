@@ -69,9 +69,10 @@ execute from this bundle on their own. The fixtures and the recorded
 
 ## Reproducing the results
 
-The evidence is split by research question, and each directory runs on its own. Both
-fetch what they evaluate from GitHub at a pinned revision, so neither needs a local
-checkout of the vocabulary or the converter.
+The evidence is split by research question, and each directory runs on its own.
+All fetch what they evaluate from GitHub at a pinned revision, so none needs a
+local checkout of the vocabulary or the converter; the checkouts are shared
+between them. [PINS.md](PINS.md) lists every pinned artifact and its digest.
 
 [RQ1/](RQ1/README.md) — *does VCF Core preserve the intended meaning of the constructs
 it supports?* The specification-derived assessment (94 requirements over 210 cases) and
