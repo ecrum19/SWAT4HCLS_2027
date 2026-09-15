@@ -39,11 +39,10 @@ never added to the first.
 **Expected answers are written before the query runs.** Each test case pairs a
 SPARQL query with the answer rows a reader of the specification says it should
 return. Those rows come from reading the VCF text and the fixture, never from
-running anything. If you write the expected answer by running the query, you are
-testing that the code is consistent with itself.
+running anything.
 
 **Every test must be capable of failing.** Two automatic controls enforce this,
-described in §2.3. Without them, a query that returns a constant would "pass".
+described in §2.4. Without them, a query that returns a constant would "pass".
 
 ---
 
@@ -56,8 +55,8 @@ three scripts **inside that clone**:
 
 | Script | What it does |
 | --- | --- |
-| `methodology/scripts/assess.py check` | The specification-derived assessment |
-| `vcf45-inventory/report.py` | The construct inventory |
+| `methodology/scripts/assess.py check` | The specification-derived assessment (`methodology/`) |
+| `vcf45-inventory/report.py` | The construct inventory (`vcf45-inventory/`) |
 | `vcf45-inventory/check_serialization.py` | Byte-level source rules, reported separately |
 
 **It runs the clone, not the copies in this directory.** `assess.py` identifies
@@ -67,18 +66,66 @@ different location would report every requirement as unreviewed — an artefact 
 where files sit, not a finding. `run.sh` first compares all 138 copied files
 against the tag and refuses to run if any has drifted.
 
-### 2.2 How one case is scored
+### 2.2 What an "axis" is
 
-For one requirement, one VCF version, one sample profile, one axis:
+Every requirement is tested **twice against the same graph**, under two different
+standards of evidence. That is what an axis is: not a different question, but a
+different rule about what counts as an acceptable way to reach the answer.
+
+| Axis | The question | The query may… |
+| --- | --- | --- |
+| **preservation** | Is the information still there at all? | do anything, including pulling apart a packed string |
+| **structure** | Is it there *as graph structure*? | **not** use `REPLACE`, `SUBSTR`, `STRBEFORE` or `STRAFTER` |
+
+**A worked example.** Requirement R18 asks whether sample identity, field
+identity and read depth can be recovered together. In the condensed profile the
+two axes use different queries.
+
+Preservation reaches the packed vector and digs the value out with a regular
+expression:
+
+```sparql
+?vectorvalue vcfc:declaredBy/vcfc:fieldId "DP" ; vcfc:encodedValues ?packedvalue .
+BIND(CONCAT("^(?:[^\t]*\t){", STR(?sampleIndex - 1), "}([^\t]*).*$") AS ?pattern)
+BIND(REPLACE(?packedvalue, ?pattern, "$1") AS ?value)
+```
+
+It **passes** — the depth genuinely is in the graph. Structure has to follow
+relationships instead:
+
+```sparql
+?r vcfc:hasCall/vcfc:hasSampleCall ?s .
+?s vcfc:forSample/vcfc:sampleName ?name ; vcfc:hasFormatValue ?v .
+?v vcfc:declaredBy/vcfc:fieldId "DP" ; vcfc:fieldValue ?value
+```
+
+The condensed profile has no per-sample resources to walk, so this returns
+nothing and **fails**. Same graph, same question: one axis says the information
+survived, the other says it survived only as characters inside a string.
+
+**Why this distinction earns its place.** Without it, a vocabulary that dumped
+each VCF line into a single literal would score 100% on preservation — the
+outcome the paper argues against. It is also the only reason the condensed column
+is lower than the expanded one in §3.1.
+
+45 of the 210 cases use genuinely different queries per axis. The other 165 use
+the same query for both, which is why the 840 executions collapse to 465 distinct
+ones (§3.4).
+
+### 2.3 How one case is scored
+
+A **case** is one requirement, at one VCF version, on one fixture. It is scored
+once per sample profile (expanded, condensed) and once per axis (preservation,
+structure) — so up to four scored results per case:
 
 1. Build a graph from the fixture using the vocabulary's own Python materializer.
-2. Run the case's SPARQL query against it.
+2. Run the query that case names for this profile and axis.
 3. Compare the rows returned with the rows written in advance.
 4. **Pass** only if they match exactly — same rows, same values, same order.
 
 There is no partial credit and no tolerance.
 
-### 2.3 The two controls that stop a test passing for the wrong reason
+### 2.4 The two controls that stop a test passing for the wrong reason
 
 Both are in `run_query()` (`assess.py:55`). Both *raise an error* rather than
 quietly recording a weaker result — a test that cannot fail is treated as a
@@ -98,14 +145,13 @@ test a property but do not actually depend on it.
 > vocabulary data — not that it depends on every property it names. The code says
 > so itself: *"This checks data dependence; it is not a semantic proof."*
 
-### 2.4 Definitions you need to read the numbers
+### 2.5 Definitions you need to read the numbers
 
 | Term | Meaning |
 | --- | --- |
 | **Requirement** | One thing the VCF specification requires, written down as a question. 94 of them across VCF 4.1–4.5. |
-| **Case** | One requirement tested at one VCF version against one fixture. 210 of them. |
-| **Axis — preservation** | Can the information be got back at all? |
-| **Axis — structure** | Can it be got back *as graph structure*, without picking apart a compound string? A structure query that uses `REPLACE`, `SUBSTR`, `STRBEFORE` or `STRAFTER` is rejected outright. |
+| **Case** | One requirement tested at one VCF version against one fixture. 210 of them, each scored per profile and per axis. |
+| **Axis** | One of two standards of evidence applied to the same question — see §2.2. |
 | **Profile — expanded** | Each sample's value is its own resource. |
 | **Profile — condensed** | Sample values are stored as vectors, for cohort-scale data. |
 | **demonstrated** | Every case for that requirement/version/profile passed. |
@@ -113,23 +159,23 @@ test a property but do not actually depend on it.
 | **not-demonstrated** | Cases exist and none passed. |
 | **unassessed** | No test has been written yet. **Counts against the score.** |
 
-### 2.5 Scoring rule, stated plainly
+### 2.6 Scoring rule, stated plainly
 
 `status()` (`assess.py:41`) gives **no fractional credit** and **never drops an
 untested requirement from the denominator**. A requirement with no test scores
 zero rather than being excluded. This is why the headline percentages look low:
 they are a floor, not a ceiling.
 
-### 2.6 Exclusions and thresholds actually in force
+### 2.7 Exclusions and thresholds actually in force
 
-- **Structure-axis string-decoding ban** (§2.4). Enforced by raising an error.
+- **Structure-axis string-decoding ban** (§2.2). Enforced by raising an error.
 - **Version gating.** A case is rejected unless its fixture's `##fileformat`
   line matches the version the case claims (`assess.py:173`).
 - **Untested requirements are included** in every denominator. This is the
   opposite of an exclusion and is the single most important scoring decision.
 - No numeric thresholds, tolerances or sampling are used anywhere in RQ1.
 
-### 2.7 Things a reviewer should know
+### 2.8 Things a reviewer should know
 
 - **The review fingerprint ignores version stamps.** `evidence()` blanks
   `owl:versionInfo` and `owl:versionIRI` before hashing, so a release bump does
