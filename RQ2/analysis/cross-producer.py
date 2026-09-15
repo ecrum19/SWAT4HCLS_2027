@@ -51,11 +51,20 @@ def answers(graph: Graph, query: str):
 def normalize(rows):
     """Compare answer *values*, not the IRIs the two producers happen to mint.
 
-    Both producers use a file:// base, but they name intermediate resources
-    differently (#call/1/... versus #record/1/...). A query that projects an
-    IRI would otherwise disagree for a reason that carries no meaning. Literal
-    answers -- which is what every expected answer in cases.json is made of --
-    are compared verbatim.
+    Both producers use a file:// base but name intermediate resources
+    differently (#call/1/... versus #record/1/...), so a query projecting such an
+    IRI would disagree for a reason that carries no meaning. Literals are
+    compared verbatim; an IRI carrying a fragment is reduced to that fragment.
+
+    Of the 5419 values in cases.json's expected answers, 360 are IRIs. All of
+    them are stable external or vocabulary identifiers rather than minted
+    resources -- 248 vcfc: terms, 44 FALDO strand classes, 20 ChEBI identifiers
+    and ~50 example.org URLs from the fixtures -- so reducing them costs nothing
+    the comparison needs. It does cost one thing: of those 360, the 292 that
+    carry a fragment are compared by fragment alone, so a producer emitting
+    `wrongnamespace#FloatType` would pass. This check cannot detect a namespace
+    error. Every divergence it has reported failed on an absent property, not on
+    a namespace, but the limit is real.
     """
     def strip(v):
         if v is None:

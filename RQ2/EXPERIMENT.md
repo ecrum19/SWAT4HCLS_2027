@@ -66,7 +66,7 @@ duration, and its output in `logs/`.
 
 For each case × axis × profile:
 
-1. Load the **materializer's** graph and the **converter's** graph.
+1. Load the **materializer's** graph (from RQ1) and the **converter's** graph (from VCF-RDFizer).
 2. Run the same query on both.
 3. Compare each result against the expected answer written in advance.
 4. Record one of four outcomes.
@@ -79,25 +79,21 @@ For each case × axis × profile:
 | `fail/pass` | The converter answered and the materializer did not. |
 
 The expected answer is **never re-derived** — it is read from the reviewed
-register. This experiment adds a producer; it does not add an oracle.
+register (from RQ1). The RQ2 experiment adds a producer (VCF-RDFizer); it does not add an oracle.
 
 ### 2.4 The comparison rule, and its one real weakness
 
 `normalize()` (`cross-producer.py:50`) compares answer *values*. For IRIs with a
 fragment it keeps the fragment and discards the part before `#`, because the two
-producers legitimately mint resource IRIs under different bases.
+producers legitimately mint resource IRIs under different base IRIs.
 
 > **Weakness worth knowing.** 360 of 5419 expected values are IRIs, and 292 of
 > those have fragments, so they are compared by fragment alone. A converter that
 > emitted `wrongnamespace#FloatType` would still pass. **This check cannot detect
 > a namespace error.** It did not cause any of the divergences reported below —
 > those all failed on missing properties — but the limitation is real.
->
-> The script's docstring claims *"every expected answer in cases.json is made of
-> literals."* That is **incorrect**; 7% are IRIs. The code is right, the comment
-> is wrong.
 
-### 2.5 One assumption the script makes silently
+### 2.5 One assumption the experiment makes silently
 
 The materializer side is read from **committed** witness files in the vocabulary
 repository, not re-materialized during the run. If those files were stale, the
@@ -239,7 +235,5 @@ reason in §2.6.
    Both are now keyed by record identity.
 2. **The round-trip and the RQ3 query both bind alleles by IRI text.** Fails safe,
    but it couples the check to one converter's naming convention.
-3. **`cross-producer.py`'s docstring contradicts the data** about expected answers
-   being all literals (§2.4).
-4. **RQ2 assumes RQ1's committed witnesses are current** without checking (§2.5).
+3. **RQ2 assumes RQ1's committed witnesses are current** without checking (§2.5).
    A freshness assertion would close this.
