@@ -239,6 +239,7 @@ structured layer, and compare it with the source.
 | Check | What it rebuilds | Result |
 | --- | --- | ---: |
 | `round-trip.py` | The seven fixed columns, and each sample's GT | **109/109** records, **151/151** genotypes |
+| `field-round-trip.py` | Every header line | **431/431** lines |
 | `field-round-trip.py` | Every INFO entry and every non-GT FORMAT subfield | **400/401** values |
 
 ```
@@ -262,9 +263,16 @@ and its value is empty. The converter emits a `FormatFieldValue` resource with a
 requirement R27 from the cross-producer replay, reached independently by a
 different route, which is some evidence that both checks measure something real.
 
-**Still out of scope:** the header lines, and byte-level details such as
-attribute order and line terminators. So this is not byte-for-byte file
-reconstruction — but it is every data value on every line bar one.
+**Header lines are covered too.** Each `##` line is recovered by its own source
+line number and compared on both its key and its verbatim right-hand side, so the
+header is reconstructed line for line, in order. All 431 across the 38 fixtures
+match.
+
+**Still out of scope:** byte-level details — how a structured header's attributes
+are ordered inside the line, and the line terminators. The methodology
+deliberately does not score attribute order, because VCF 4.4 and 4.5 state that
+implementations must not rely on it. So this is not byte-for-byte file
+reconstruction, but it is every header line and every data value bar one.
 
 ---
 

@@ -1,9 +1,8 @@
 #!/usr/bin/env python3
-"""Recover every INFO and FORMAT value from converter RDF and compare it.
+"""Recover everything round-trip.py leaves out, and compare it with the source.
 
-round-trip.py covers the fixed columns and the genotype. This covers what it
-leaves out: every INFO entry and every non-GT FORMAT subfield, which together are
-the majority of the data on a VCF line.
+round-trip.py covers the fixed columns and the genotype. This covers the rest of
+the file: every header line, every INFO entry, and every non-GT FORMAT subfield.
 
 Recovery is structural. A multi-valued field is rebuilt from its ordered value
 items (valueIndex + itemValue) and joined with commas; a flag is recognised by
@@ -37,6 +36,17 @@ SELECT ?pos ?key ?value ?flag ?item ?itemIndex WHERE {
   OPTIONAL { ?f vcfc:fieldValueBoolean ?flag }
   OPTIONAL { ?f vcfc:hasValueItem ?vi . ?vi vcfc:valueIndex ?itemIndex ; vcfc:itemValue ?item }
 }
+"""
+
+# Header lines carry their key, their verbatim right-hand side, and their source
+# position, so a header round-trip is a line-for-line comparison in order.
+HEADERS = """
+PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
+SELECT ?lineIndex ?key ?value WHERE {
+  ?h a vcfc:VCFHeader ; vcfc:hasHeaderLine ?l .
+  ?l vcfc:lineIndex ?lineIndex ; vcfc:headerKey ?key .
+  OPTIONAL { ?l vcfc:headerValue ?value }
+} ORDER BY ?lineIndex
 """
 
 FORMAT = """
@@ -87,6 +97,18 @@ def rebuild(entry):
     return None
 
 
+def source_headers(vcf: Path):
+    """[(index, key, value)] for each ## line, in file order."""
+    out = []
+    # lineIndex in the graph is the file's own 1-based line number.
+    for i, line in enumerate(vcf.read_text(encoding="utf-8").splitlines(), start=1):
+        if not line.startswith("##"):
+            continue
+        key, sep, value = line[2:].partition("=")
+        out.append((i, key, value if sep else None))
+    return out
+
+
 def source_fields(vcf: Path):
     """[(pos, {info key: value}, {sample: {format key: value}})] from the file."""
     samples, rows = [], []
@@ -119,7 +141,7 @@ def main() -> int:
     root = Path(sys.argv[1])
     report = {
         "fixtures": {},
-        "scope": "every INFO entry and every non-GT FORMAT subfield",
+        "scope": "every header line, every INFO entry and every non-GT FORMAT subfield",
         "method": "Rebuilt from ordered value items where present, otherwise the "
                   "field's own value. infoRaw and sampleDataRaw are never read.",
     }
@@ -132,8 +154,24 @@ def main() -> int:
         info_graph = collect(g, INFO, ("pos", "key"))
         fmt_graph = collect(g, FORMAT, ("pos", "sample", "key"))
 
-        checked = matched = 0
+        # --- header lines -------------------------------------------------
+        recovered_headers = {}
+        for row in g.query(HEADERS):
+            recovered_headers[int(row.lineIndex)] = (
+                str(row.key), None if row.value is None else str(row.value))
+        h_checked = h_matched = 0
         mismatches = []
+        for index, key, value in source_headers(vcf):
+            h_checked += 1
+            got = recovered_headers.get(index)
+            if got == (key, value):
+                h_matched += 1
+            else:
+                mismatches.append({"line": index, "field": f"##{key}",
+                                   "expected": value, "actual": (got or ("not recovered",))[-1]})
+
+        # --- INFO and FORMAT values ----------------------------------------
+        checked = matched = 0
         for pos, info, fmt in source_fields(vcf):
             for key, want in info.items():
                 checked += 1
@@ -152,12 +190,17 @@ def main() -> int:
                     else:
                         mismatches.append({"pos": pos, "field": f"FORMAT/{key}[{sample}]",
                                            "expected": want, "actual": got or "not recovered"})
-        report["fixtures"][stem] = {"checked": checked, "matched": matched,
-                                    "mismatches": mismatches[:8]}
+        report["fixtures"][stem] = {
+            "headerLinesChecked": h_checked, "headerLinesMatched": h_matched,
+            "checked": checked, "matched": matched,
+            "mismatches": mismatches[:8]}
 
     total = sum(f["checked"] for f in report["fixtures"].values())
     ok = sum(f["matched"] for f in report["fixtures"].values())
-    report["totals"] = {"checked": total, "matched": ok}
+    h_total = sum(f["headerLinesChecked"] for f in report["fixtures"].values())
+    h_ok = sum(f["headerLinesMatched"] for f in report["fixtures"].values())
+    report["totals"] = {"checked": total, "matched": ok,
+                        "headerLinesChecked": h_total, "headerLinesMatched": h_ok}
 
     out_dir = Path(os.environ.get("RESULTS_DIR", Path.cwd()))
     out_dir.mkdir(parents=True, exist_ok=True)
@@ -165,8 +208,11 @@ def main() -> int:
         json.dumps(report, indent=1, sort_keys=True) + "\n")
     print(json.dumps(report["totals"], indent=1))
     for stem, f in sorted(report["fixtures"].items()):
-        flag = "" if f["matched"] == f["checked"] else "   <-- mismatch"
-        print(f"  {stem:24} {f['matched']}/{f['checked']}{flag}")
+        clean = (f["matched"] == f["checked"]
+                 and f["headerLinesMatched"] == f["headerLinesChecked"])
+        print(f"  {stem:24} headers {f['headerLinesMatched']}/{f['headerLinesChecked']}"
+              f"   fields {f['matched']}/{f['checked']}"
+              f"{'' if clean else '   <-- mismatch'}")
     return 0
 
 
