@@ -253,25 +253,24 @@ passing query must survive both controls in §2.5.
 > reviewers.
 >
 > What guides a query is the requirement's **`interpretation`** — a prose field
-> in `requirements.json` that bridges the specification passage and the test. The
-> `anchors` field says *where* the rule is (file, line range, SHA-256); the
+> in `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json` that bridges the specification passage and the test. The `anchors` field says *where* the rule is (file, line range, SHA-256); the
 > `interpretation` says *how to read it* and therefore what a test must show. R27
 > has a full one: "Map local allele indices back to the record's global ALT
 > alleles… where `LAA=2,4` on a four-ALT record means…".
->
-> Across the 94 requirements these fields fall into three groups:
->
-> | | Count | What it says |
+> 
+>Across the 94 requirements these fields fall into three groups:
+> 
+>| | Count | What it says |
 > | --- | ---: | --- |
 > | Requirement-specific reasoning | 56 | Genuine guidance, like R27 above |
 > | Generic | 29 | "Demonstrate this information capability using the listed finite examples" — true, but it would fit any requirement |
 > | Explicit `Unassessed:` marker | 9 | Not reasoning at all: a flag that no test exists yet, and that no conclusion about the vocabulary follows |
->
-> So for 29 requirements the recorded path from specification text to SPARQL is
+> 
+>So for 29 requirements the recorded path from specification text to SPARQL is
 > generic, and a reader cannot check the query against stated intent. The 9
 > unassessed markers are honest bookkeeping rather than a gap.
->
-> Crucially, **the query is not the oracle.** Correctness is defined by the
+> 
+>Crucially, **the query is not the oracle.** Correctness is defined by the
 > expected answer, authored from specification text and checked case by case, so
 > a badly written query fails rather than passes.
 
