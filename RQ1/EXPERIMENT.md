@@ -61,26 +61,38 @@ There are **94**, spanning VCF 4.1–4.5. A requirement is a claim about VCF, no
 about the vocabulary — it is written from the specification, so it can name
 something the vocabulary turns out not to support.
 
-**Fixture** — a small, hand-written `.vcf` file that exercises a requirement. A
+**Fixture** — a small, spec-compliant `.vcf` file that exercises a requirement. A
 VCF file is header lines beginning `##`, then a column-header line beginning
 `#CHROM`, then one **record** per remaining line: a single variant site, giving
 its position, its reference and alternate alleles, and one column of values per
 sample. `basic-v4.1.vcf` holds three such records; `boundaries-v4.5.vcf` holds
-thirteen. Fixtures are deliberately tiny and synthetic — each exists to make one
-behaviour observable, not to resemble real data. There are **38**, and they are
+thirteen records. Fixtures are deliberately tiny and synthetic — each exists to make a targeted
+behavior observable, not to resemble real data. There are **38**, and they are
 the *only* input to graph construction.
 
-**Case** — a requirement, tested at one VCF version, against one fixture. R16 is
+**Case** — a requirement, tested at one VCF version (i.e. VCF v4.1), against one fixture. R16 is
 one requirement but five cases, one per version. There are **210**. A case is
 what carries a query and an expected answer; it is the unit that gets scored.
 
-**Query** — the SPARQL that tries to retrieve the answer from the graph. Stored
-in `queries/`, named by the case. One query is often shared by several cases.
+**Query** — the SPARQL algebra that tries to retrieve the answer from the RDF (graphical) representation of the VCF fixture. One query is often shared by several cases.
 
-**Expected answer** — the rows that query *should* return, written down by a
-person reading the specification and the fixture, **before the query is run**.
-This is the oracle: correctness is defined here, not by the query and not by the
-graph. If a query is badly written it returns the wrong rows and the case fails.
+**Expected answer** — what that query *should* return, written down by a person
+reading the specification and the fixture, **before the query is run**.
+
+A SPARQL `SELECT` returns a small table. Each **row** is one way the query's
+pattern matched the graph, and each column is one of the variables the query
+asked for. So an expected answer is a list of lists. R07 selects `?i ?pos` and
+expects three rows of two columns — `[['1','10'], ['2','20'], ['3','30']]` — one
+per record. R16 selects `?index ?value ?allele` and expects two rows of three —
+`[['0','0.25','C'], ['1','0.5','G']]` — both from a *single* record at position
+10, one per alternate allele.
+
+That second example is the point: **rows are not records.** One record can
+produce many rows, or none, depending on what the query asks for.
+
+The expected answer is the oracle: correctness is defined here, not by the query
+and not by the graph. A badly written query returns the wrong rows, so the case
+fails rather than passes.
 
 **Witness** — the RDF graph built from a fixture, against which the query runs.
 Also called a materialised graph. One per (fixture, profile) pair, so 76 in
