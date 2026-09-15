@@ -133,7 +133,7 @@ Reserved Number/Type rows & 333/333 & Extracted declarations match the version-s
 Demonstrated preservation, by version & 32/69, 34/72, 35/74, 38/83, 51/91 & Both profiles; expanded structure has the same counts. Condensed structure is reported separately in Table~\ref{tab:requirement-results}. \\
 Distinct executed checks & 465 & Non-repeated query/answer/fixture checks within each case and profile, not independent requirements. \\
 Cross-producer replay & 693/840 & Checks on which the vocabulary's materializer and the cited converter agree and both pass. \\
-Semantic round-trip & 109/109 records, 151/151 genotypes, 400/401 field values & Fixed columns, sample genotypes, INFO entries and FORMAT subfields recovered from structured properties alone. \\
+Semantic round-trip & 109/109 records, 151/151 genotypes, 431/431 header lines, 400/401 field values & Fixed columns, sample genotypes, header lines, INFO entries and FORMAT subfields recovered from structured properties alone. \\
 Recorded full validation run & 21 fixtures & These examples pass the implemented validation layers. \\
 \bottomrule
 \end{tabularx}
@@ -187,7 +187,7 @@ Release 3.0.3 resolves local alleles correctly, and the requirements exercising 
 A complementary check recovers logical content rather than comparing query answers. 
 Across the same 38 fixtures we reconstruct CHROM, POS, ID, REF, ALT, QUAL, FILTER and the GT subfield from the RDF alone: REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources, GT from ordered \term{GenotypeAlleleCall} resources with their phasing status, so no untouched source string serves as a shortcut. 
 All 109 records are recovered, together with all 151 sample genotypes. 
-A companion check does the same for the fields the first leaves out --- every INFO entry and every non-GT FORMAT subfield, rebuilt from ordered value items rather than from a preserved column --- and recovers \textbf{400 of 401 values}. 
+A companion check does the same for the rest of the file: all \textbf{431 header lines}, recovered by source line number and compared on key and value, and every INFO entry and non-GT FORMAT subfield, rebuilt from ordered value items rather than from a preserved column, of which \textbf{400 of 401} recover. 
 The exception is an empty \texttt{Number=LA} list, where the converter emits the field as a resource but gives it no value; that is requirement R27 above, reached by a second route.
 
 Three bounds, all by design. 

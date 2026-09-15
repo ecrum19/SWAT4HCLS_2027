@@ -2,121 +2,169 @@
  "fixtures": {
   "adjacency-v4.1": {
    "checked": 32,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 32,
    "mismatches": []
   },
   "adjacency-v4.2": {
    "checked": 32,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 32,
    "mismatches": []
   },
   "adjacency-v4.3": {
    "checked": 32,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 32,
    "mismatches": []
   },
   "basic-v4.1": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "basic-v4.2": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "basic-v4.3": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "basic-v4.4": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "basic-v4.5": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "boundaries-v4.5": {
    "checked": 28,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 28,
    "mismatches": []
   },
   "breakends-v4.5": {
    "checked": 2,
+   "headerLinesChecked": 7,
+   "headerLinesMatched": 7,
    "matched": 2,
    "mismatches": []
   },
   "contig-insertions-v4.5": {
    "checked": 18,
+   "headerLinesChecked": 8,
+   "headerLinesMatched": 8,
    "matched": 18,
    "mismatches": []
   },
   "features-v4.5": {
    "checked": 16,
+   "headerLinesChecked": 29,
+   "headerLinesMatched": 29,
    "matched": 16,
    "mismatches": []
   },
   "filter-samples-v4.1": {
    "checked": 3,
+   "headerLinesChecked": 6,
+   "headerLinesMatched": 6,
    "matched": 3,
    "mismatches": []
   },
   "filter-samples-v4.2": {
    "checked": 3,
+   "headerLinesChecked": 6,
+   "headerLinesMatched": 6,
    "matched": 3,
    "mismatches": []
   },
   "filter-samples-v4.3": {
    "checked": 3,
+   "headerLinesChecked": 6,
+   "headerLinesMatched": 6,
    "matched": 3,
    "mismatches": []
   },
   "filter-samples-v4.4": {
    "checked": 3,
+   "headerLinesChecked": 6,
+   "headerLinesMatched": 6,
    "matched": 3,
    "mismatches": []
   },
   "filter-samples-v4.5": {
    "checked": 3,
+   "headerLinesChecked": 6,
+   "headerLinesMatched": 6,
    "matched": 3,
    "mismatches": []
   },
   "gvcf-v4.5": {
    "checked": 8,
+   "headerLinesChecked": 10,
+   "headerLinesMatched": 10,
    "matched": 8,
    "mismatches": []
   },
   "header-audit-v4.1": {
    "checked": 8,
+   "headerLinesChecked": 15,
+   "headerLinesMatched": 15,
    "matched": 8,
    "mismatches": []
   },
   "header-audit-v4.2": {
    "checked": 8,
+   "headerLinesChecked": 16,
+   "headerLinesMatched": 16,
    "matched": 8,
    "mismatches": []
   },
   "header-audit-v4.3": {
    "checked": 8,
+   "headerLinesChecked": 19,
+   "headerLinesMatched": 19,
    "matched": 8,
    "mismatches": []
   },
   "header-audit-v4.4": {
    "checked": 8,
+   "headerLinesChecked": 19,
+   "headerLinesMatched": 19,
    "matched": 8,
    "mismatches": []
   },
   "header-audit-v4.5": {
    "checked": 7,
+   "headerLinesChecked": 18,
+   "headerLinesMatched": 18,
    "matched": 7,
    "mismatches": []
   },
   "local-alleles-v4.5": {
    "checked": 20,
+   "headerLinesChecked": 11,
+   "headerLinesMatched": 11,
    "matched": 19,
    "mismatches": [
     {
@@ -129,79 +177,109 @@
   },
   "modifications-v4.5": {
    "checked": 11,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 11,
    "mismatches": []
   },
   "phase-ordinals-v4.4": {
    "checked": 7,
+   "headerLinesChecked": 9,
+   "headerLinesMatched": 9,
    "matched": 7,
    "mismatches": []
   },
   "phase-ordinals-v4.5": {
    "checked": 7,
+   "headerLinesChecked": 9,
+   "headerLinesMatched": 9,
    "matched": 7,
    "mismatches": []
   },
   "phase-quality-v4.4": {
    "checked": 9,
+   "headerLinesChecked": 9,
+   "headerLinesMatched": 9,
    "matched": 9,
    "mismatches": []
   },
   "phase-quality-v4.5": {
    "checked": 9,
+   "headerLinesChecked": 9,
+   "headerLinesMatched": 9,
    "matched": 9,
    "mismatches": []
   },
   "phase-separation-v4.4": {
    "checked": 8,
+   "headerLinesChecked": 7,
+   "headerLinesMatched": 7,
    "matched": 8,
    "mismatches": []
   },
   "phase-separation-v4.5": {
    "checked": 8,
+   "headerLinesChecked": 7,
+   "headerLinesMatched": 7,
    "matched": 8,
    "mismatches": []
   },
   "repeats-v4.5": {
    "checked": 9,
+   "headerLinesChecked": 16,
+   "headerLinesMatched": 16,
    "matched": 9,
    "mismatches": []
   },
   "structural-v4.1": {
    "checked": 5,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 5,
    "mismatches": []
   },
   "structural-v4.2": {
    "checked": 5,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 5,
    "mismatches": []
   },
   "structural-v4.3": {
    "checked": 5,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 5,
    "mismatches": []
   },
   "structural-v4.4": {
    "checked": 5,
+   "headerLinesChecked": 12,
+   "headerLinesMatched": 12,
    "matched": 5,
    "mismatches": []
   },
   "tandem-repeats-v4.4": {
    "checked": 16,
+   "headerLinesChecked": 16,
+   "headerLinesMatched": 16,
    "matched": 16,
    "mismatches": []
   },
   "tandem-repeats-v4.5": {
    "checked": 15,
+   "headerLinesChecked": 15,
+   "headerLinesMatched": 15,
    "matched": 15,
    "mismatches": []
   }
  },
  "method": "Rebuilt from ordered value items where present, otherwise the field's own value. infoRaw and sampleDataRaw are never read.",
- "scope": "every INFO entry and every non-GT FORMAT subfield",
+ "scope": "every header line, every INFO entry and every non-GT FORMAT subfield",
  "totals": {
   "checked": 401,
+  "headerLinesChecked": 431,
+  "headerLinesMatched": 431,
   "matched": 400
  }
 }
