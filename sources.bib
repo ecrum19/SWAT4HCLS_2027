@@ -67,6 +67,14 @@
   year = {2017}, month = jul,
   url = {https://www.w3.org/TR/2017/REC-shacl-20170720/}
 }
+@techreport{sparql2013,
+  author = {{World Wide Web Consortium}},
+  editor = {Harris, Steve and Seaborne, Andy},
+  title = {{SPARQL} 1.1 Query Language},
+  institution = {World Wide Web Consortium}, type = {W3C Recommendation},
+  year = {2013}, month = mar,
+  url = {https://www.w3.org/TR/2013/REC-sparql11-query-20130321/}
+}
 @misc{gvar,
   key = {gvar},
   year = {n.d.},
@@ -91,6 +99,71 @@
   institution = {World Wide Web Consortium}, type = {W3C Recommendation},
   year = {2013}, month = apr,
   url = {https://www.w3.org/TR/2013/REC-prov-o-20130430/}
+}
+
+@misc{janssen2020sparqlinggenomics,
+  author       = {Janssen, Roel and {UMC Utrecht Genetics}},
+  title        = {{SPARQLing} genomics},
+  year         = {2020},
+  howpublished = {Version 0.99.11. Open-source software},
+  url          = {https://gitlab.com/roelj/sparqling-genomics},
+  note         = {Ontologies, RDF generators and a query interface for genomics; GPL-3.0. Released 19 June 2020}
+}
+
+@article{niu2022interop,
+  author  = {Niu, Yi Nian and Roberts, Eric G. and Denisko, Danielle and Hoffman, Michael M.},
+  title   = {Assessing and assuring interoperability of a genomics file format},
+  journal = {Bioinformatics},
+  volume  = {38},
+  number  = {13},
+  pages   = {3327--3336},
+  year    = {2022},
+  doi     = {10.1093/bioinformatics/btac327},
+  url     = {https://doi.org/10.1093/bioinformatics/btac327}
+}
+
+@inproceedings{bishop2005conformance,
+  author    = {Bishop, Steve and Fairbairn, Matthew and Norrish, Michael and Sewell, Peter and Smith, Michael and Wansbrough, Keith},
+  title     = {Rigorous specification and conformance testing techniques for network protocols, as applied to {TCP}, {UDP}, and sockets},
+  booktitle = {Proceedings of the 2005 Conference on Applications, Technologies, Architectures, and Protocols for Computer Communications ({SIGCOMM})},
+  pages     = {265--276},
+  year      = {2005},
+  publisher = {ACM},
+  doi       = {10.1145/1080091.1080123},
+  url       = {https://doi.org/10.1145/1080091.1080123}
+}
+
+@inproceedings{andrejev2012scisparql,
+  author    = {Andrejev, Andrej and Risch, Tore},
+  title     = {Scientific {SPARQL}: Semantic Web Queries over Scientific Data},
+  booktitle = {2012 {IEEE} 28th International Conference on Data Engineering Workshops ({ICDEW})},
+  pages     = {5--10},
+  year      = {2012},
+  month     = apr,
+  publisher = {IEEE},
+  doi       = {10.1109/ICDEW.2012.67},
+  url       = {https://doi.org/10.1109/ICDEW.2012.67}
+}
+
+@article{garrison2022vcflib,
+  author  = {Garrison, Erik and Kronenberg, Zev N. and Dawson, Eric T. and Pedersen, Brent S. and Prins, Pjotr},
+  title   = {A spectrum of free software tools for processing the {VCF} variant call format: vcflib, bio-vcf, cyvcf2, hts-nim and slivar},
+  journal = {PLOS Computational Biology},
+  volume  = {18},
+  number  = {5},
+  pages   = {e1009123},
+  year    = {2022},
+  doi     = {10.1371/journal.pcbi.1009123},
+  url     = {https://doi.org/10.1371/journal.pcbi.1009123}
+}
+
+@misc{ocg2026,
+  author = {Crum, Elias},
+  title = {{Ontology Companion Generator (OCG)}},
+  year = {2026},
+  howpublished = {Version 1.4.0. Open-source software},
+  url = {https://github.com/ecrum19/ocg/tree/8963aa4},
+  note = {{MIT} licence; released 1 September 2026. Documentation at \url{https://ecrum19.github.io/ocg/}}
 }
 
 @misc{vcfc210,
@@ -205,7 +278,7 @@
   pages = {170--174}, doi = {10.1038/ng.3774}
 }
 
-
+% Methods grounding
 @article{lot2022,
   author = {Poveda-Villal{\'o}n, Mar{\'i}a and Fern{\'a}ndez-Izquierdo, Alba and Fern{\'a}ndez-L{\'o}pez, Mariano and Garc{\'i}a-Castro, Ra{\'u}l},
   title = {{LOT}: An industrial oriented ontology engineering framework},
@@ -215,15 +288,18 @@
   year = {2022},
   doi = {10.1016/j.engappai.2022.104755}
 }
-
 @inproceedings{samod2016,
-  author = {Peroni, Silvio},
-  title = {A Simplified Agile Methodology for Ontology Development},
-  booktitle = {OWLED--ORE 2016},
-  year = {2016},
-  url = {https://essepuntato.it/papers/samod-owled2016.html}
+  author    = {Peroni, Silvio},
+  title     = {A Simplified Agile Methodology for Ontology Development},
+  booktitle = {OWL: Experiences and Directions -- Reasoner Evaluation},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {10161},
+  pages     = {55--69},
+  publisher = {Springer},
+  address   = {Cham},
+  year      = {2017},
+  doi       = {10.1007/978-3-319-54627-8_5}
 }
-
 @techreport{epo2020,
   author = {Costetchi, Eugeniu},
   title = {{eProcurement Ontology Architecture and Formalisation Specifications, Version 1.0}},
@@ -231,11 +307,71 @@
   year = {2020},
   url = {https://docs.ted.europa.eu/epo-home/REFePO_Arch_Design.html}
 }
+@inproceedings{suarezfigueroa2009orsd,
+  author    = {Su{\'a}rez-Figueroa, Mari Carmen and G{\'o}mez-P{\'e}rez, Asunci{\'o}n and Villaz{\'o}n-Terrazas, Boris},
+  title     = {How to Write and Use the Ontology Requirements Specification Document},
+  booktitle = {On the Move to Meaningful Internet Systems: OTM 2009},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {5871},
+  pages     = {966--982},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  year      = {2009},
+  doi       = {10.1007/978-3-642-05151-7_16}
+}
+@article{gomezperez2001evaluation,
+  author  = {G{\'o}mez-P{\'e}rez, Asunci{\'o}n},
+  title   = {Evaluation of Ontologies},
+  journal = {International Journal of Intelligent Systems},
+  volume  = {16},
+  number  = {3},
+  pages   = {391--409},
+  year    = {2001},
+  doi     = {10.1002/1098-111X(200103)16:3<391::AID-INT1014>3.0.CO;2-2}
+}
+@incollection{sabou2012ontologyevaluation,
+  author    = {Sabou, Marta and Fernandez, Miriam},
+  title     = {Ontology (Network) Evaluation},
+  booktitle = {Ontology Engineering in a Networked World},
+  editor    = {Su{\'a}rez-Figueroa, Mari Carmen and G{\'o}mez-P{\'e}rez, Asunci{\'o}n and Motta, Enrico and Gangemi, Aldo},
+  pages     = {193--212},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  year      = {2012},
+  doi       = {10.1007/978-3-642-24794-1_9}
+}
+@inproceedings{blomqvist2012ontologytesting,
+  author    = {Blomqvist, Eva and Seil Sepour, Azam and Presutti, Valentina},
+  title     = {Ontology Testing: Methodology and Tool},
+  booktitle = {Knowledge Engineering and Knowledge Management},
+  series    = {Lecture Notes in Computer Science},
+  volume    = {7603},
+  pages     = {216--226},
+  publisher = {Springer},
+  address   = {Berlin, Heidelberg},
+  year      = {2012},
+  doi       = {10.1007/978-3-642-33876-2_20}
+}
+@article{wisniewski2019competencyquestions,
+  author  = {Wi{\'s}niewski, Dawid and Potoniec, Jedrzej and {\L}awrynowicz, Agnieszka and Keet, C. Maria},
+  title   = {Analysis of Ontology Competency Questions and Their Formalizations in {SPARQL-OWL}},
+  journal = {Journal of Web Semantics},
+  volume  = {59},
+  pages   = {100534},
+  year    = {2019},
+  doi     = {10.1016/j.websem.2019.100534}
+}
+@inproceedings{gruninger1995methodology,
+  author    = {Gr{\"u}ninger, Michael and Fox, Mark S.},
+  title     = {Methodology for the Design and Evaluation of Ontologies},
+  booktitle = {Proceedings of the Workshop on Basic Ontological Issues in Knowledge Sharing, IJCAI-95},
+  address   = {Montreal, Canada},
+  year      = {1995},
+  url       = {https://www.eil.utoronto.ca/wp-content/uploads/enterprise-modelling/papers/gruninger-ijcai95.pdf}
+}
 
 
-% Added for the general healthcare introduction and revised VCF motivation.
-% Citation metadata checked against publisher and authoritative bibliographic records.
-
+% general healthcare introduction / motivation
 @article{smith2007obo,
   author = {Smith, Barry and Ashburner, Michael and Rosse, Cornelius and Bard, Jonathan and Bug, William and Ceusters, Werner and Goldberg, Louis J. and Eilbeck, Karen and Ireland, Amelia and Mungall, Christopher J. and {The OBI Consortium} and Leontis, Neocles and Rocca-Serra, Philippe and Ruttenberg, Alan and Sansone, Susanna-Assunta and Scheuermann, Richard H. and Shah, Nigam and Whetzel, Patricia L. and Lewis, Suzanna},
   title = {The {OBO Foundry}: coordinated evolution of ontologies to support biomedical data integration},
@@ -371,4 +507,45 @@
   number  = {6291},
   pages   = {1278--1280},
   doi     = {10.1126/science.aaf6162}
+}
+@article{katayama2019biohackathon,
+  author  = {Katayama, Toshiaki and Kawashima, Shuichi and Micklem, Gos and Kawano, Shin and Kim, Jin-Dong and Kocbek, Simon and Okamoto, Shinobu and Wang, Yue and Wu, Hongyan and Yamaguchi, Atsuko and others},
+  title   = {BioHackathon series in 2013 and 2014: improvements of semantic interoperability in life science data and services},
+  journal = {F1000Research},
+  volume  = {8},
+  pages   = {1677},
+  year    = {2019},
+  doi     = {10.12688/f1000research.18238.1},
+  url     = {https://doi.org/10.12688/f1000research.18238.1}
+}
+@article{mitsuhashi2022togovar,
+  author  = {Mitsuhashi, Nobutaka and Toyo-oka, Licht and Katayama, Toshiaki and Kawashima, Minae and Kawashima, Shuichi and Miyazaki, Kazunori and Takagi, Toshihisa},
+  title   = {{TogoVar}: A comprehensive Japanese genetic variation database},
+  journal = {Human Genome Variation},
+  volume  = {9},
+  pages   = {44},
+  year    = {2022},
+  doi     = {10.1038/s41439-022-00222-9},
+  url     = {https://doi.org/10.1038/s41439-022-00222-9}
+}
+@article{prasanna2025variantkg,
+  author  = {Prasanna, Shivika and Kumar, Ajay and Rao, Deepthi and Simoes, Eduardo J. and Rao, Praveen},
+  title   = {A scalable tool for analyzing genomic variants of humans using knowledge graphs and graph machine learning},
+  journal = {Frontiers in Big Data},
+  volume  = {7},
+  pages   = {1466391},
+  year    = {2025},
+  doi     = {10.3389/fdata.2024.1466391},
+  url     = {https://doi.org/10.3389/fdata.2024.1466391}
+}
+@article{larmande2025agrold,
+  author  = {Larmande, Pierre and Pittolat, Bertrand and Tando, Ndomassi and Pomie, Yann and Happi Happi, Bill Gates and Guignon, Valentin and Ruiz, Manuel},
+  title   = {{AgroLD}: a knowledge graph for the plant sciences},
+  journal = {BMC Genomic Data},
+  volume  = {26},
+  number  = {Suppl 1},
+  pages   = {73},
+  year    = {2025},
+  doi     = {10.1186/s12863-025-01359-6},
+  url     = {https://doi.org/10.1186/s12863-025-01359-6}
 }

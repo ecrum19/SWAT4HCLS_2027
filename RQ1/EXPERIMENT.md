@@ -299,7 +299,7 @@ passing query must survive both controls in §2.5.
 >| | Count | Effect on a reviewer |
 > | --- | ---: | --- |
 > | Specific, like R56 | 56 | Can verify the query against a stated intent |
-> | Generic, like R16 | 29 | Must re-derive the intent from the specification |
+> | Generic, like R16 | 29 | Must re-derive the intent from the specification (future work) |
 > | `Unassessed:` marker | 9 | Nothing to check — the flag correctly says no test exists |
 > 
 >The 9 markers are not a gap; they are the assessment declaring an absence
@@ -331,7 +331,7 @@ duplicated row fails — but **the order rows come back in is not compared.**
 > and no query uses `LIMIT`, those clauses have **no effect on the outcome**.
 > They are readability, not semantics.
 
-#### Step 4 — Decide
+#### Step 4 — Outcome Decisions
 
 **Pass** only if the two multisets are equal: same rows, same values, same
 multiplicities. No partial credit, no tolerance, no numeric comparison — every
@@ -357,8 +357,7 @@ test a property but do not actually depend on it.
 
 > **Read this limit carefully.** The deletion loop stops at the *first* property
 > whose removal changes the answer. So it proves the query depends on **some**
-> vocabulary data — not that it depends on every property it names. The code says
-> so itself: *"This checks data dependence; it is not a semantic proof."*
+> vocabulary data — not that it depends on every property it names. 
 
 ### 2.6 Scoring rule, stated plainly
 
@@ -422,7 +421,7 @@ nothing. That is a storage trade-off, not a loss of information.
 
 ### 3.2 What the number is not
 
-- **Not a conformance claim.** The assessment's own label: *"Coverage of
+- **Not a conformance claim.** The assessmentis explicetly labelled: *"Coverage of
   registered information requirements; specification completeness not
   established."*
 - **Not comparable to the 104/104 inventory below.** Different denominators
@@ -446,22 +445,4 @@ against it".
 `queryExecutions` reports **840**. That is the nominal count: 210 cases × 2 axes
 × 2 profiles. But 165 of the 210 cases run the *identical* query and expected
 answer on both axes, so **375 of those 840 are repeats and only 465 are
-distinct** (see `RQ2/analysis/evidence-map.py`). Quote 465, or quote 210 cases
-and drop the execution count.
-
----
-
-## Open issues
-
-1. **The text says "three questions" and lists four** (`long-paper/methods.tex`).
-2. **`queryExecutions: 840` is reported without the repeat caveat** in the
-   assessment's own summary, which invites the overstatement described in §3.4.
-3. **Query construction is not a reproducible procedure** (§2.4, step 2).
-   Documented as a pipeline, not as a method; `queries/` has no README, and 29
-   of 94 requirements carry a generic `interpretation` that would fit any
-   requirement, so their queries cannot be checked against a stated intent.
-4. **RQ1 cannot rule out a shared misreading** between the materializer, the
-   queries and the vocabulary — see the box in §2.4, step 1. The evidence that
-   it is not happening is indirect (81 emitted terms no query consults) and the
-   direct check lives in RQ2, not here. Any claim built on RQ1 alone should be
-   read with that in mind.
+distinct** (see `RQ2/analysis/evidence-map.py`).

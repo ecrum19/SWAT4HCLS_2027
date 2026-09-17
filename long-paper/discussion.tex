@@ -1,35 +1,137 @@
 % !TeX root = main_long.tex
+
 \section{Discussion}
 \label{sec:discussion}
 
-\subsection{Connecting source observations to biomedical knowledge}
+% Flow
+% The basis of the assessment of COVERAGE + what we found (why we did RQ1 + 2)
+% An interpretation of how we can fill the gaps and improve these numbers
 
-VCF Core can make more of the evidence already present in a VCF file available to semantic applications. It retains observations and their interpretation context, while other models describe specimens, patients, diseases, treatments and biological variation. These layers can develop independently when their relationships are explicit.
+% How we found this assessment can strengthen/assess independent converter implementations (RQ2)
 
-Two laboratories reporting the same alteration in separate files could, after reference-aware normalization, link to a common variation description while each retains its own quality values, sample identities and provenance --- so a disease association attaches to the description once rather than being copied into every source record, and a revised interpretation can be retrieved alongside the original observations. PROV, FALDO and the published alignments are starting points; the normalization and instance mappings themselves remain to be implemented and evaluated.
+% Why VCF core is useful --> RQ3 and how its preliminary findings are exciting (and why we chose this example)
 
-Sample identity needs the same separation. In a tumour/normal analysis two columns may be different specimens from one patient, and treating column names as patient identifiers destroys that distinction. An integration layer can link each \term{VCFSample} to its specimen and both specimens to the patient through a biomedical model such as HERO-Genomics~\cite{cazzaro2025hero}; VCF Core preserves the source side without replacing the clinical one.
+% Where vcf core fits among other models (RQ4)
 
-\subsection{A shared target for conversion engines}
+% future work and call for independent testing / review
 
-A reusable vocabulary also separates conversion strategy from representation decisions. A clinical site converting one sample for inspection and a research group converting a cohort can choose different sample profiles --- expanded values for direct annotation, condensed vectors with selective expansion for scale --- while retaining the same file, header and record model rather than growing incompatible vocabularies per workload. A pipeline spanning VCF 4.2 and 4.5 data can likewise select the registry and validation overlay from \term{fileFormat} instead of silently imposing the newest cardinality on an older declaration.
 
-That suggests an evaluation order for future work: compare recovered source values and query answers first, as Section~\ref{sec:crossproducer} does, and only then measure conversion time, peak memory, serialized size and loading cost. Section~\ref{sec:profiles} is explicit that the profiles trade query granularity rather than demonstrated storage savings, and the present results do not establish which implementation is most efficient.
 
-\subsection{SPARQL questions that combine genomic and clinical evidence}
+\subsection{Assessing VCF Core's coverage of VCF meaning}
+\label{sec:summary}
+
+This study assesses whether VCF Core makes the information needed to interpret VCF observations available for reuse in RDF.
+For this purpose, coverage must consider whether a consumer can recover the intended meaning of an observation, including the declaration, allele ordering, and sample context on which it depends.
+Preserving a field as text is useful for source recovery, but does not establish that these relationships are available to a graph query~\cite{gomezperez2001evaluation,sabou2012ontologyevaluation}.
+RQ1 therefore assessed both preservation and structured retrieval against specification-derived \emph{requirements}, while RQ2 examined whether those answers could also be obtained from a separately implemented converter.
+The design of both follows established ontology-engineering practice: \emph{requirements} were specified as questions with checkable answers~\cite{gruninger1995methodology,suarezfigueroa2009orsd,lot2022}, operationalized as executable \emph{queries} paired with independently authored \emph{expected answers}~\cite{blomqvist2012ontologytesting,wisniewski2019competencyquestions}, and organized after SAMOD's pairing of a question, a \emph{witness} graph, a \emph{query} and separately authored answers~\cite{samod2016}.
+Together, these assessments connect the vocabulary's declared capabilities to observable behaviour.
+
+The results support broad representation with incomplete demonstrated coverage.
+All 104 constructs in the curated VCF 4.5 inventory have a documented representation, and 87 also have validation rules expressed as SHACL shapes~\cite{shacl2017}.
+However, the executed assessment reaches only 53 of the 94 registered \emph{requirements} across VCF specification versions.
+For VCF 4.5 specifically, 51 of 91 applicable \emph{requirements} are demonstrated in the \textit{expanded} profile, giving 56.0\% coverage under the stated scoring rules (Table~\ref{tab:requirement-results}).
+All of RQ1's \textit{expanded}-profile tests pass, while unassessed \emph{requirements} remain in the denominator.
+These findings establish that the tested relationships can be represented and retrieved, but the remaining uncovered specification rules require further assessment.
+
+The lower \textit{condensed}-profile scores have a different explanation.
+Both profiles preserve the tested information, but sample-ordered vectors require decoding before individual values can be queried.
+Consequently, the profiles agree on all tested questions about files, headers, records, and alleles, while direct sample-level retrieval differs.
+This distinction matters when choosing a representation: the \textit{expanded} profile supports queries that follow individual sample observations, whereas the \textit{condensed} profile retains those observations in a form requiring an additional access step.
+Coverage is therefore meaningful only in relation to both the information required and the way an application needs to retrieve it.
+
+\subsection{Extending demonstrated coverage}
+
+The clearest opportunity to improve the coverage figures is to extend the evidence for unassessed \emph{requirements}.
+The 41 \emph{requirements} without tests include structural-variant fields and version-dependent interpretation rules, for which a term inventory alone provides limited assurance.
+For VCF 4.5, 37 of the 40 unassessed \emph{requirements} await planned \emph{fixtures} and \emph{queries}; R45 needs clarification of its interpretation, and R67--R68 require systematic coverage of reserved INFO and FORMAT keys.
+This gives a concrete development agenda: construct examples that isolate each rule, establish their expected answers from the specification, and test them across the versions in which the rule applies~\cite{samod2016,blomqvist2012ontologytesting}.
+The same process should extend validation beyond the 87 constructs with enforcement evidence, particularly for structural variation and genotype constraints.
+
+While developing the cataloge of VCF specification \emph{requirements}, we identified flaws in the specification's provided examples.
+Deriving executable questions exposed inconsistencies in published examples and in the relationship between declarations and prose, including the CNL/CNP cardinality issue described in Section~\ref{sec:evidence}.
+These findings show how vocabulary assessment can contribute to specification maintenance: an executable example makes an ambiguous interpretation concrete enough to discuss and revise.
+This mirrors experience elsewhere: rigorous, executable specifications of network protocols exposed defects in the standards themselves~\cite{bishop2005conformance}, and a conformance assessment of a genomics file format found that widely used tools disagreed about it~\cite{niu2022interop}.
+Comparable recommendations have been made for VCF in plant genomics, where reuse was impeded less by missing data than by unstated formatting conventions~\cite{beier2022fairvcf}.
+
+The present evidence is also shaped by the availability of specification examples.
+Rules with clear examples were easier to turn into tests, so the demonstrated subset should not be treated as representative of all VCF complexity.
+Additional allele-dependent examples, difficult boundary cases, and files from different production pipelines are needed to determine whether the same mechanisms remain sufficient beyond the current fixtures.
+
+\subsection{A reusable assessment for conversion engines}
+
+RQ2 shows that the assessment can guide converter development as well as evaluate the vocabulary.
+Reusing the same \emph{fixtures}, \emph{queries} and \emph{expected answers} across two implementations produced 693 checks passing for both and 102 disagreements across 15 \emph{requirements}.
+The remaining 45 checks failed for both because they requested sample-level structure absent from the \textit{condensed} profile.
+Examining the disagreements identified specific implementation choices and omissions: twelve affected \emph{requirements} depend on declared properties the converter does not emit, while the others concern incomplete tandem-repeat decomposition, a permitted datatype difference and an empty-value encoding convention.
+None of the observed disagreements required extending the vocabulary to express the requested information.
+
+More significantly, an earlier RQ2 assessment detected a local-allele error that the converter's existing tests had missed.
+For \texttt{LAA=2,4}, the converter associated three depth values with global alleles 0, 1 and 2 instead of 0, 2 and 4.
+The values remained well formed, but were attached to the wrong alleles.
+Testing against answers established from the specification exposed this error and led to its correction.
+Similarly, our semantic round-trip testing provides a complementary check, recovering all tested fixed columns and genotypes, along with 400 of 401 INFO and non-GT FORMAT fields.
+Its one mismatch exposed a lost distinction between an empty local-allele list and a field without a value.
+These findings demonstrate why value recovery and allele association should accompany validation of graph structure.
+
+A shared vocabulary makes these checks reusable across conversion strategies.
+Implementers can develop streaming, mapping-based, or materializing converters~\cite{penha2017vcf2rdf,mitsuhashi2022togovar,larmande2025agrold,garrison2022vcflib} against the same representation and evaluate their outputs with the same questions.
+Users can then assess a converter against the fields and sample profile their application requires before comparing runtime, memory use or graph size.
+
+\subsection{Integrating observations with external knowledge}
+
+RQ3 demonstrates an example of the practical value of representing VCF information using a semantic model like VCF Core --- when observations are joined to statements produced outside of the file.
+We chose local alleles because they make the dependence on interpretation context particularly clear.
+A record can list alternate alleles observed across a cohort, while an individual sample's \texttt{LAA} identifies a subset of those alleles.
+Values in \texttt{LAD}, declared with \texttt{Number=LR}, refer to the reference allele and that sample-specific subset.
+Retrieving depth for an externally annotated alteration therefore requires the field declaration, the sample's local mapping, and the corresponding record allele.
+The VCF specification recommends abstracting local-allele encoding within libraries~\cite{vcf45}; VCF Core makes the resolved relationship available to graph consumers through \term{forAllele}.
+
+The example returned the two expected alterations with their supporting depths and source context.
+A positional interpretation also returned two rows with provenance, but attached those depths to different alterations.
+Thus, neither the result count nor the availability of provenance was sufficient to establish a correct answer.
+The useful contribution is that a query can follow an explicit allele relationship while combining source observations with external annotations, without reimplementing the local-allele decoding rule.
+This creates a practical point of reuse: the interpretation can be implemented and checked during conversion, then used by multiple downstream queries.
+
+These preliminary results are encouraging because the example demonstrates a case in which the structure of the VCF representation directly affects which alterations satisfy the query. 
+It therefore illustrates a useful capability of the vocabulary: relationships that are implicit in the source file can be made explicit and queried together.
+At the same time, this is only a small proof-of-concept. 
+The input contains four synthetic sites and one sample, and the annotations carry no biological or clinical meaning. 
+The join also assumes a shared reference assembly and exact agreement in the written coordinates and alleles. 
+The example therefore demonstrates a useful property of the representation, not a mature clinical use case or an alternative to existing variant interpretation workflows.
+
+
+\subsection{VCF Core among existing models}
+
+The comparison in RQ4 clarifies where this contribution fits within existing genomic models.
+For the inspected ontologies (see table~\ref{tab:models}), all exhibit limitations that complicate their use for VCF file data representation on common VCF usecases~\cite{baran2015gfvo,cazzaro2025hero,kawashima2023gvo,penha2017vcf2rdf}.
+VCF Core brings these concerns together: declarations, version information, ordered alleles, sample values, and missingness are represented within a shared model of source observations.
+For the tested \textit{expanded} representations, this context can be retrieved through graph relationships.
+
+This role is complementary to models of biological variation and clinical information.
+For example, observations from two laboratories could retain their own quality values, sample context, and provenance while linking, after normalization, to a common variation description such as one defined using GA4GH VRS~\cite{wagner2021vrs}.
+Similarly, a clinical model such as HERO-Genomics~\cite{cazzaro2025hero} could connect VCF sample columns to specimens and patients without treating a source column identifier as a patient identifier.
+Neighbouring representations such as Med2RDF and the \emph{gvar} schema describe overlapping subject matter and are candidates for the same treatment~\cite{med2rdf,gvar}.
+VCF Core's reuse of PROV, DCAT, SO and FALDO~\cite{prov2013,eilbeck2005so,bolleman2016faldo}, together with its 123 curated alignments, recorded in SSSOM and expressed with SKOS mapping predicates~\cite{matentzoglu2022sssom,skos2009}, provides starting points for these connections.
+Those alignments are deliberately graded rather than uniform --- 57 \term{skos:exactMatch}, 40 \term{skos:closeMatch}, 16 \term{skos:relatedMatch} and 10 \term{skos:narrowMatch} --- so fewer than half assert equivalence, and the set locates related terms in other vocabularies rather than establishing identity between instances.
+
+The comparison remains specific to source interpretation.
+Its nine criteria reflect the problems VCF Core was designed to address, and the verdicts were assigned through ontology inspection, not direct usage.
+Review by those models' maintainers would strengthen both the comparison and the proposed connections between them, following the community-review practice established in ontology consortia~\cite{smith2007obo}.
+
+\subsection{Future work and independent evaluation}
 \label{sec:clinicalqueries}
 
-Section~\ref{sec:integration} established the pattern at the smallest scale that requires it: an external annotation joined to sample-level evidence, with the answer depending on interpretation context that the representation retains. 
-The questions below extend that pattern to clinical settings. 
-They are proposed research scenarios and \emph{not} evaluated workflows: unlike the example in Section~\ref{sec:integration}, none has been executed, and each requires additional biomedical data, reviewed instance mappings and appropriate access controls. 
-SPARQL provides the query structure; it does not supply missing interpretation or establish that a returned result is clinically actionable.
+Future integration studies should test whether preserving this context improves the reliability and reuse of queries over real genomic and biomedical data.
+Relevant scenarios include tracing a pharmacogenomic interpretation to its supporting observations~\cite{lee2022cpic,pharmcatmethods}, combining rare-disease candidates with phenotype and gene--disease information~\cite{hpo,putman2024monarch}, and linking tumour observations to curated therapeutic evidence~\cite{griffith2017civic}.
+These remain proposed research workflows.
+Each requires additional biomedical models, independently reviewed mappings, and explicit relationships between samples, specimens and patients.
+The contribution to evaluate is whether VCF Core makes the source evidence easier to retrieve and verify within those workflows.
 
-\paragraph{Three questions.}
-A \emph{pharmacogenomic} review asks which patients with an active clopidogrel prescription have an externally established CYP2C19 phenotype relevant to a guideline for their indication, and which source observations support that assessment; the CPIC guideline shows why phenotype and indication both matter~\cite{lee2022cpic}, and a workflow such as PharmCAT separates variant processing, allele matching and clinical interpretation~\cite{pharmcatmethods} --- steps that must not collapse into reading one genotype token as a metabolizer phenotype. 
-A \emph{rare-disease} investigation asks which candidate alterations lie in genes associated with diseases sharing the patient's recorded phenotypic features, joining specimen-linked calls to normalized alterations, gene associations and phenotype descriptions such as HPO~\cite{hpo}; its governing constraint is that a row absent from a variant-only VCF is not evidence that a parent is homozygous reference. 
-An \emph{oncology} review asks which alterations detected in a tumour have curated therapeutic evidence for the patient's cancer type, joining a resource such as CIViC~\cite{griffith2017civic} to normalized alterations and retrieving tumour and normal calls through their specimen links; a missing normal call likewise remains missing evidence, not proof of tumour specificity.
+Practical evaluation should also compare the two sample profiles on realistic cohort data, measuring conversion cost, storage, loading, and query execution alongside answer correctness.
+The current examples do not establish performance at scale, and the round-trip and integration results apply only to the \textit{expanded} profile.
+Investigating how to interpret \textit{condensed} data using same context as \textit{expanded} representations using SPARQL extensions such as in SciSPARQL~\cite{andrejev2012scisparql} is another avenue of future work that could reduce graph size and complexity.
 
-Each reaches its sample-level evidence through the same declaration-to-value path that Section~\ref{sec:integration} executes, and each needs clinical assertions from an application schema that is not part of VCF Core. 
-The vocabulary retains the observations; completeness, segregation and therapeutic interpretation require evidence it does not carry.
-
-These scenarios could be implemented over a materialized graph or, where source interfaces and authorization permit, through federated SPARQL as demonstrated in related work~\cite{bodrug2025semantic}. Availability of RDF and vocabulary alignments alone does not guarantee complete or performant answers. Future experiments should evaluate answer correctness, instance-link accuracy, provenance recovery and source availability before making claims about medical utility or query speed. The opportunity is to investigate these questions against a common representation instead of repeatedly reconstructing VCF semantics within each application.
+Independent testing is essential to strengthen the evidence presented in this work.
+We invite RDF developers to critically review the VCF Core vocabulary structure and conversion implementations, and VCF and ontology maintainers to review the \emph{requirement} interpretations, \emph{expected answers}, and model-comparison verdicts, in the collaborative style of community curation events~\cite{katayama2019biohackathon,bh25}.
+New fixtures, counterexamples, and disputed interpretations would directly improve both the vocabulary presented here and encourage greater VCF specification improvements that could have wide-ranging impacts on the field of genomics in general.

@@ -35,7 +35,7 @@ A run writes one self-contained directory under `runs/`, named by UTC timestamp:
 
 ## The four checks
 
-**`cross-producer.py`** replays the vocabulary's own specification-derived
+**`cross-producer.py`** re-executes the vocabulary's own specification-derived
 assessment over graphs the converter produced. The queries and expected answers
 are not re-derived: it reuses the reviewed ones from the vocabulary repository,
 and reports where the two producers agree. This is what distinguishes *the

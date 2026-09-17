@@ -263,18 +263,3 @@ why the declaration, the local allele set and the allele ordinal have to be
   normalised or VRS-identified variation.
 - One fixture shows local alleles resolve correctly **here**, not in general.
 - No performance or scale claim follows from it.
-
----
-
-## Open issues
-
-1. **The "wrong answer" comparison is derived, not executed.** It would be
-   stronger to run the query against output from a converter that reads
-   `Number=LR` positionally and record both results. That needs a second
-   converter version, which the current single-version design deliberately
-   excludes — so this is a trade-off to confirm rather than a defect.
-2. ~~The provenance check should verify the file identity, not just the IRI
-   scheme.~~ **Fixed.** It now requires every row to cite a file whose IRI names
-   the converted fixture, and all rows to cite the same one (§2.5). Verified by
-   rewriting the source-file IRI to `file://some-other-file.vcf`: the old check
-   passed it, the new one fails with exit code 1.

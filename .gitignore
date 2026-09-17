@@ -29,6 +29,7 @@
 *.vcf.gz
 *.bcf
 vcf_core_reviewed/
+archive/
 
 # --- LaTeX build products -----------------------------------------------------
 .build/
@@ -79,3 +80,5 @@ RQ4/work/
 # The archived earlier runs, kept only so old commits stay interpretable.
 !archive/
 !archive/**
+
+review/

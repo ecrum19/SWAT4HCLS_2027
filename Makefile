@@ -48,5 +48,5 @@ distclean: clean
 zip: $(PDFS)
 	rm -f $(ZIP)
 	zip -r $(ZIP) main_short.tex main_short.pdf long-paper sources.bib Makefile README.md \
-	  template coverage -x '*.DS_Store' '*/generated/.*'
+	  PINS.md template coverage RQ1 RQ2 RQ3 RQ4 -x '*.DS_Store' '*/generated/.*'
 	@echo "Wrote $(ZIP)"

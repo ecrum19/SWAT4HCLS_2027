@@ -60,7 +60,7 @@ tell whether an artifact has changed since. Re-fetch with `sh RQ4/fetch.sh`.
 | GFVO `gfvo.xml` | 154,699 | `62924be2797db1e90a648d1423abb1a83a22f2f0bceab7fb0835e3686091af97` |
 | HERO-Genomics `hero_genomics.ttl` | 478,157 | `6c03ce2d3554fff0bb092b37f4f01249436925fcf0677569821a8ec0af791c47` |
 | GVO (content-negotiated Turtle) | 11,815 | `651d1a3431b1282485e061f0c6e62d552876a426a847909991691b551acef53d` |
-| VCF2RDF term listing | 41,433 | `9fc2fdc5c87974e93e903937c22c9aa21641300d789b09153de9daea4e06cbb7` |
+| VCF2RDF term pages (58, listed in `RQ4/artifacts/vcf2rdf-terms.tsv`) | 8,623 | `45ea479214383e81372ca2d2ef4f41caf5209ed240cb40d81d9f9d34fbd7c9b5` |
 
 These four are the least stable things on this page: they are third-party pages
 fetched live, with no release tags to hold them still. GVO is served over plain

@@ -44,7 +44,7 @@ file?" — rather than "does it model files well?"
 
 ### 2.1 This one is read, not run
 
-RQ1–RQ3 execute code. **RQ4 is a person reading four published artifacts.** There
+RQ1–RQ3 execute code. **RQ4 is performed by a person reading four published artifacts.** There
 is no script that produces the verdicts, and no automated check that they are
 right. That is a real difference in evidential strength and is why this section
 is reported separately.
@@ -55,7 +55,10 @@ What *can* be automated is whether a reader is looking at the same artifacts:
 sh RQ4/fetch.sh
 ```
 
-retrieves all four and records a SHA-256 for each in `artifacts/digests.tsv`. It
+retrieves all four and records a SHA-256 for each in `artifacts/digests.tsv`. For
+VCF2RDF it additionally resolves every term page and records its public URL,
+HTTP status and digest in `artifacts/vcf2rdf-terms.tsv`, so each cited term can
+be opened and read rather than taken on trust. It
 scores nothing and never fails on a mismatch — a changed digest is information,
 not an error.
 
@@ -69,7 +72,7 @@ makes the contrast informative rather than arbitrary.
 | **GFVO** | `gfvo.xml`, BioInterchange/Ontologies `master` | Ontology inspected |
 | **HERO-Genomics** | `hero_genomics.ttl` (4102 triples; 112 classes, 86 object properties, 81 datatype properties) | Ontology inspected |
 | **GVO** | `genome-variation.org/resource/gvo`, `owl:versionInfo` 2021-11-18 | Ontology inspected |
-| **VCF2RDF** | `diegopenhanut/vcf-resources` `gh-pages`, 59 published term pages under `v4_2/` | Term set inspected; **converter behaviour taken from the paper, not observed** |
+| **VCF2RDF** | 58 published term pages under [`v4_2/`](https://diegopenhanut.github.io/vcf-resources/v4_2/), each a browsable page; URLs and digests in `RQ4/artifacts/vcf2rdf-terms.tsv` | Term set inspected; **converter behaviour taken from the paper, not observed** |
 
 **GA4GH VRS is deliberately not scored.** It describes computable variation
 identity rather than a source file. Scoring it against file-format criteria would
@@ -80,7 +83,7 @@ manufacture a contrast its authors never sought.
 | # | Can a consumer… |
 | --- | --- |
 | F1 | trace a record back to the file it came from? |
-| F2 | read a declaration's ID, Number and Type as data, rather than re-parsing a header string? |
+| F2 | read a declaration's ID, Number, and Type as data, rather than re-parsing a header string? |
 | F3 | read which VCF version the file declares? |
 | F4 | address ALT allele *n* by index, so a genotype integer resolves to an allele? |
 | F5 | separate ploidy, ordered allele calls and phasing? |
@@ -112,10 +115,6 @@ manufacture a contrast its authors never sought.
   second opinion and no adjudication procedure.
 - **VCF2RDF's column is half-inspected.** Its *term set* was read; its *converter
   output* was not. What its graphs actually contain is taken from the paper.
-- **The artifacts move.** HERO's ontology was not at the URL first recorded — the
-  original note kept the host but not the path, and re-fetching 404'd until the
-  path was found again. `fetch.sh` and the digest file exist so this is
-  detectable rather than silent.
 - **A model could have been misread.** The mitigation is that every verdict names
   the term or absence it rests on, so a disagreeing reader can check the specific
   claim rather than the conclusion.
@@ -153,10 +152,8 @@ F2 is S.
 
 **VCF2RDF is the instructive case, and it corrected an earlier verdict.** Reading
 the paper alone suggested a term-free isomorphic mapping. The published artifact
-shows otherwise: 59 dereferenceable term pages including `Number`, `Type` and
-`Description`. **F2 is therefore E, not C** — an earlier draft had this wrong
-because it rested on the paper rather than the artifact. But with no allele-index
-term, a consumer must still split the value list and count ALT alleles by
+shows otherwise: 58 dereferenceable term pages including `Number`, `Type` and
+`Description`. But with no allele-index term, a consumer must still split the value list and count ALT alleles by
 re-reading a literal. *Having the declaration is necessary and, alone,
 insufficient.*
 
@@ -187,18 +184,3 @@ for individual fields, or declared for the header and left unbound for the data.
 **Not supported:** that any of these models *could not* represent these things.
 "Requires additional conventions" is a statement about what an inspected artifact
 establishes, never about what a model's community could build.
-
----
-
-## Open issues
-
-1. **The manuscript says "three questions" and then lists four**
-   (`long-paper/methods.tex`). RQ4 is one of them.
-2. **Single-reader verdicts with no second opinion** (§2.6). Cheap mitigation: have
-   a second reader score the nine criteria blind and record disagreements.
-3. **VCF2RDF's converter output has never been inspected** — only its term set.
-   The column is half-evidenced and says so, but running the tool on one fixture
-   would settle it.
-4. **`review/W1-COMPARISON.md` recorded hosts rather than full URLs**, which is why
-   HERO could not be re-fetched from the record. `RQ4/artifacts/digests.tsv` now
-   carries exact URLs and digests; the older note should point at it.

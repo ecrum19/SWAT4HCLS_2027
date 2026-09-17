@@ -1,147 +1,229 @@
 % !TeX root = main_long.tex
-% RESTRUCTURED: procedures, evaluated artifacts and operational definitions only.
+% RESTRUCTURED: one subsection per research question, following the
+% EXPERIMENT.md records in RQ1/, RQ2/, RQ3/ and RQ4/. Outcomes belong in Results.
 \section{Methods}
 \label{sec:methods}
 
-\subsection{Assessment objectives, evaluated artifacts, and essential model}
+\subsection{Research questions and evidence standard}
 \label{sec:design}
 
-The assessment undertaken in this study addressed three questions.
-\textbf{RQ1:} Does VCF Core preserve the intended meaning of the VCF constructs it claims to support?
-\textbf{RQ2:} Do the version-specific artifacts and alternative sample profiles behave as documented?
-\textbf{RQ3:} Does the resulting representation support a reproducible integration task while retaining source context?
-\textbf{RQ4:} How does VCF Core relate to other existing VCF semantic models?
+Our four research questions (RQ1--RQ4) are designed to assess the vocabulary's ability to preserve the meaning of VCF constructs, to support independent implementations, to integrate with other data sources, and to compare with existing models.
+Coverage claims are easy to overstate because three different measurements are routinely reported as one number, so we keep them apart: \emph{a requirement exists} when a term, rule or documented pattern is available, \emph{an example instantiates it} when a \emph{fixture} shows it in use, and \emph{behaviour is independently checked} when an executed \emph{query} agrees with an \emph{expected answer} authored from the specification before that \emph{query} is run.
+Only the third supports a correctness claim, and only within what was tested.
+All methodology described in RQ1-RQ3 adapt established competency-question, \emph{requirements}-specification, and ontology-testing practices from academic publications cited below.
+RQ4 asks a different kind of question --- whether our \textit{vcfcv} contribution was needed at all --- and is answered by inspection rather than experimentation.
+All procedures, code, and pinned environments are publicly available at \url{https://github.com/ecrum19/SWAT4HCLS_2027}, one directory per question, each with an \path{EXPERIMENT.md} file recording its detailed design, executed steps, stated weaknesses, and results interpretation.
 
-We address RQ1 and RQ2 by testing the vocabulary against requirements drawn from the VCF specifications followed by checking whether the same expected results are obtained from converter-generated RDF. 
-A separate biomedically-motivated integration case study addresses RQ3.
-To address RQ4, we conduct a comparative representation assessment of existing semantic models that model VCF contents and identify how they relate to the terms provided by VCF Core.
-
-All methods described below, code used to execute them, and environments necessary to reproduce them are available in the git repository \url{https://github.com/ecrum19/SWAT4HCLS_2027}.
-
-
-\subsection{Extracting VCF constructs, rules, and meanings into the VCF Core Vocabulary and Accompanying SHACL rule-sets (RQ1)}
-
-VCF Core was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}.
-Successive revisions combined Claude Opus 5 and GPT-6 Astra assistance with expert human review to extract VCF constructs, field meanings, rules and representation constraints from the VCF 4.1--4.5 specifications~\cite{htsspecs,vcf45}.
-The extracted interpretations informed vocabulary terms and relationships, version-specific field definitions, and accompanying SHACL constraints; human review guided their acceptance and revision.
-Two complementary assessments tracked this development: an initial empirical inventory of VCF 4.5 constructs, followed by a specification-derived assessment of information requirements across VCF 4.1--4.5~\cite{htsspecs}.
-
-\paragraph{Initial empirical inventory.}
-The first assessment, which helped guide VCF Core vocabulary deveopment, is available for reproducability in the git repository directory \path{RQ1/vcf45-inventory/}.
-The inventory organized 104 curated logical-model constructs by specification area and linked each to vocabulary terms and available evidence.
-The evidence distinguished materialized example graphs, SHACL shapes or decoded checks, regression probes that reject violating graphs, and executed queries with fixed expected answers.
-For each construct, human and agentic reviewers recorded three separate judgements: whether its information was \emph{preserved}, whether it was \emph{structured} for retrieval through graph patterns without parsing a literal, and whether a validation rule \emph{enforced} a stated requirement.
-Representation was classified as \textit{full} when both preservation and structure held, \textit{partial} when only preservation held, and \textit{absent} otherwise; enforcement earned no additional representation credit.
-The reporting script [\path{RQ1/vcf45-inventory/report.py}]recomputed these classifications and totals, checked cited vocabulary terms and query paths, and incorporated recorded validation results.
-Byte-level serialization checks were reported separately from logical-model coverage.
-
-\paragraph{Specification extraction and requirement registration.}
-A more complete assessment of vocabulary completeness, recorded in \path{RQ1/methodology/}, began with local copies of the VCF 4.1--4.5 LaTeX specifications, identified by source URLs and verified against SHA-256 digests in \path{RQ1/methodology/sources.lock.json}.
-A bounded text reader partitioned each complete source into section intervals, retaining tables, examples and changelogs for review, and separately extracted explicit reserved INFO/FORMAT Number/Type declarations.
-Semantic interpretation remained an authored, reviewed step: passage-level assertions recorded source line ranges, requirement links, exclusions, ambiguities and remaining test gaps in \path{RQ1/methodology/inputs/source-assertions.json}.
-The requirement register recorded stable identifiers, retrieval questions, applicable versions, interpretations and hashed source anchors; missing capabilities identified during the source audit expanded the register from 50 to 94 requirements.
-The scope covered source identity, field meaning, version context, ordering and missingness.
-Binary encoding, compression, indexing, producer estimation algorithms and general invalid-input rejection were excluded from this retrieval assessment.
-
-\paragraph{Human review of interpretations and test evidence.}
-The review record documents two preparatory agent passes followed by human review and acceptance by author Elias Crum.
-Review examined source meaning, version applicability, proposed RDF patterns, expected answers, and the adequacy of the linked cases.
-This process distinguished normative rules from inconsistent examples, recorded reasoned corrections, and identified cases that required reviewer-authored fixtures.
-For example, a local-allele test whose indices made the mapping trivial was supplemented with a non-identity allele subset; inconsistent phase-set examples were corrected with the rationale recorded.
-Where the source supplied no defensible expected answer, the limitation remained explicit.
-\path{RQ1/methodology/REVIEW-REPORT.md} and \path{RQ1/methodology/inputs/review.json} preserve these decisions, including reviewer attribution, dates, rationales, and evidence fingerprints; agent-authored interpretations are identified separately from human acceptance.
-
-\paragraph{Executable retrieval tests.}
-Each case linked a registered requirement and VCF version to a fixture, a SPARQL query and expected answer rows authored from the source interpretation and fixture before query execution.
-Reused fixtures retained origin records; reviewer corrections, and newly authored examples were documented in the review evidence.
-The vocabulary repository's Python fixture materializer 
-% TODO: provide direct path / link here
-generated RDF in expanded and condensed profiles, which the assessment queried with RDFLib % TODO: add citation.
-Preservation tests could explicitly decode compound VCF literals, whereas structure tests required access through RDF properties and indices.
-The runner compared answer rows including their multiplicities, rejected queries that returned the expected answer on an empty graph, and required every passing query to change its answer when at one or more referenced VCF Core predicate(s) was deleted.
-It also checked that emitted vocabulary terms were declared and that object and datatype properties had the appropriate resource or literal values.
-These controls tested data dependence and representation consistency; they did not establish unrestricted conversion correctness or comprehensive SHACL enforcement.
-
-\paragraph{Coverage and progress measures.}
-Requirements were scored separately for each applicable VCF version, sample profile, and retrieval axis.
-A requirement was \emph{demonstrated} only when all its supplied tests passed, \emph{partial} when some passed, \emph{not demonstrated} when tested but none passed, and \emph{unassessed} when no test was supplied.
-The numerator counted demonstrated requirements with equal weight; the denominator retained all applicable registered requirements, including unassessed ones, without fractional credit.
-Alongside these scores, the source audit exposed assertions with targeted cases, partial evidence, or no targeted case, since a passing requirement-level example need not exercise every linked assertion.
-Comparison of extracted Number/Type declarations with the versioned RDF registries was an additional consistency check, limited to explicit declarations rather than all field meanings.
-The two assessments therefore measured different populations and their percentages were not combined; neither established complete specification coverage.
-
-\paragraph{Reproducible assessment artifacts.}
-Pinned specifications and authored assertions, requirements, fixtures, queries and expected answers were kept separate from generated reports and RDF witnesses~\cite{vcfc210}.
-With the repository dependencies installed, the specification-derived assessment runs offline: \texttt{npm run methodology:build} regenerates the evidence, \texttt{npm run methodology:check} recomputes it without writing and detects stale outputs, and \texttt{npm run methodology:test} exercises the assessment's safeguards.
-Adding \texttt{-- --require-reviewed} to the check command also requires current recorded acceptance of the requirements and source audit.
-Provenance records input hashes and the RDFLib version; changes to substantive hashed evidence invalidate requirement acceptance, while release-version metadata alone is normalized before hashing.
-For the initial inventory, \texttt{npm run coverage:report} runs the separate byte checks and regenerates the report; its summary of SHACL fixture results reads the recorded validation output, while \texttt{npm run validate:force} reruns the complete validation suite.
-
-VCF Core retains a file, its header declarations, records, and sample observations as distinct resources (Figure~\ref{fig:model}).
-A \term{VariantCall} groups the observations associated with a record rather than identifying an additional source-file line.
-File-scoped identifiers and provenance distinguish observations even when they concern the same alteration.
-A \term{VCFSample} identifies a source column, not automatically a patient or specimen.
-Direct reuse of PROV and DCAT supports source descriptions, while SO and FALDO provide connections to alteration and location models~\cite{prov2013,eilbeck2005so,bolleman2016faldo,vcfc210}.
-These connections do not perform variant normalization or establish instance identity across files.
-
-Field definitions are separate from their occurrence in a file header, and values can link to the declaration needed to interpret them.
-Lexical values, typed accessors and explicit missingness remain distinguishable; ordered allele resources retain the relationship between allele indices and sequence alternatives.
-These mechanisms are the objects of assessment, rather than evidence of correct conversion by themselves.
-
-
-
-
-\paragraph{Evaluated artifacts.}
-\label{sec:implementation}
-The assessment used VCF Core 2.1.2 together with its accompanying vocabulary files, version-specific definitions, validation rules, mappings and test data~\cite{vcfc210}.
-
-Every check was run twice, once per producer, and both results were recorded.
-The first run used RDF built from the test fixtures by the vocabulary repository's own Python materializer.
-The second used RDF produced from the same fixtures by VCF-RDFizer 3.0.3~\cite{vcfrConverter2026}, which is an unrelated implementation: it converts through RML mappings executed by RMLStreamer rather than by constructing triples in Python.
-Naming both producers matters, because a check passing under one says nothing about the other, and the difference between them is the object of study in Section~\ref{sec:crossproducer}.
-
-\textbf{The second run covers the whole assessment, not a subset.}
-Each of the 38 fixtures the assessment refers to is converted in both sample profiles, so every case that has a test is replayed and every requirement it exercises is compared.
-The fixture set is not written down in the reproduction script; it is derived at run time from the assessment's own case register, so a fixture added to the assessment is replayed automatically rather than being silently left out.
-The full outcome of every check is recorded --- both producers' results for every case, version, profile and retrieval axis, not only the cases where they differ --- so a reader can confirm the reported totals rather than take them on trust.
-An earlier version of this evaluation replayed ten of the 38 fixtures; that narrower comparison is superseded and is not reported here.
-The producers share an author but not implementation code; this is an implementation cross-check, not independent third-party reproduction.
-
-\paragraph{The evaluated converter release.}
-Every figure reported here comes from VCF-RDFizer \textbf{3.0.3} (\texttt{be658a2}), run from the published image pinned by digest \texttt{sha256:31f1361b}.
-Requirements that diverge between the two producers are listed individually with their per-check outcomes in the run's result files, so no total has to be inferred from another.
-
-\paragraph{Reproducing all results.}
-One command regenerates all experimental data in this paper:
-
-\begin{quote}\ttfamily sh reproduce/run.sh\end{quote}
-
-\noindent It fetches the vocabulary at \texttt{v2.1.2} and both converter releases at their tags, pulls the two container images by digest, converts the ten fixtures in both sample profiles with each release, runs every analysis, and writes one self-contained run directory.
-That directory holds the machine description and toolchain versions (\texttt{env.json}), every command executed with its exit code and duration (\texttt{steps.jsonl}), the per-step output (\texttt{logs/}), the converted graphs each result was computed from (\texttt{graphs/}), the result files (\texttt{results/}) and a summary.
-The run reported here took 616~seconds over 15 steps with no failures. % TODO: re-run the pipeline and record time
-
-Provenance that a reader would otherwise have to reconstruct is recorded by the run itself: the pinned specification revisions with their SHA-256 digests, the fixture set, the SPARQL engine that executes every coverage, round-trip and integration query (rdflib~7.6.0), the SHACL validator (pySHACL) with the ontology graph loaded and RDFS inference enabled, and the container image digests.
-The SHACL configuration is not incidental --- without the ontology graph and RDFS inference, \term{sh:class} constraints cannot see the vocabulary's subclass axioms and conforming data reports violations, so the validator is run the way the vocabulary's own test suite runs it.
-
-
-\paragraph{Representation needed for the assessment.}
-VCF Core retains a file, its header declarations, records and sample observations as distinct resources (Figure~\ref{fig:model}).
-A \term{VariantCall} groups the observations associated with a record rather than identifying an additional source-file line.
-File-scoped identifiers and provenance distinguish observations even when they concern the same alteration.
-A \term{VCFSample} identifies a source column, not automatically a patient or specimen.
-Direct reuse of PROV and DCAT supports source descriptions, while SO and FALDO provide connections to alteration and location models~\cite{prov2013,eilbeck2005so,bolleman2016faldo,vcfc210}.
-These connections do not perform variant normalization or establish instance identity across files.
-
-Field definitions are separate from their occurrence in a file header, and values can link to the declaration needed to interpret them.
-Lexical values, typed accessors and explicit missingness remain distinguishable; ordered allele resources retain the relationship between allele indices and sequence alternatives.
-These mechanisms are the objects of assessment, rather than evidence of correct conversion by themselves.
-% AUTHOR_ADD [A06]: Add two or three factual sentences about the development
-% process actually followed: specification extraction, selection of reused terms,
-% design review and revision. Identify the people or roles involved and any recorded
-
+\subsection{The representation under assessment}
 \label{sec:profiles}
-The expanded profile exposes individual sample calls and FORMAT values through graph patterns.
-The condensed profile stores sample-ordered vectors with an explicit definition, encoding and payload; the \term{VCFTextVector} encoding retains tab-separated values in sample order.
-Both retain file, header and record context, but accessing an individual condensed cell requires decoding.
-VCF 4.1--4.5 share the model while selecting version-specific registries and validation overlays from the file's declared version~\cite{htsspecs,vcf45,vcfc210}.
-This separates representation choices from the version-dependent rules tested below.
+
+VCF Core was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}, combining Claude Opus 5 and GPT-6 Astra assistance with expert human review to extract constructs, field meanings, and constraints from VCF 4.1--4.5 specifications into vocabulary terms, version-specific field definitions, and SHACL shapes~\cite{htsspecs,vcf45}.
+The resulting model keeps a file, its header declarations, its records, and its sample observations as distinct resources, with field definitions separate from their occurrence in a header and each value linked to the declaration needed to interpret it (Figure~\ref{fig:model}); PROV and DCAT are reused for source descriptions, and SO and FALDO connect to alteration and location models without normalizing variants or asserting instance identity across files~\cite{prov2013,eilbeck2005so,bolleman2016faldo,vcfc210}.
+VCF Core is deliberately a semantic vocabulary rather than an axiomatized ontology: it declares classes, properties, domains, ranges and a shallow subclass hierarchy with documented definitions, and carries no OWL restrictions, cardinality, disjointness or inverse axioms.
+Cardinality and value rules are instead expressed as SHACL shapes~\cite{shacl2017}, because a field's declared \term{Number} constrains what a conformant file may contain rather than licensing inferences about what a graph must entail.
+For more information about the vocabulary's design and contents, an interactive companion applicaiton, \href{https://ecrum19.github.io/vcf-core-vocabulary/}{VCF Core Vocabulary Explorer}, was created for users to browse the terms, their definitions, and their relationships using the open source tool Ontology Companion Generator v1.4.0~\cite{ocg2026}.
+
+Within VCF Core, two \emph{sample profiles} can encode the same VCF sample column data differently.
+The \textit{expanded} profile gives each sample's value for each field its own resource, reachable by graph pattern; the \textit{condensed} profile stores sample-ordered vectors for dramatically reducing the number of triples produced in cohort-scale multi-sample VCF files, its \term{VCFTextVector} encoding retaining tab-separated values in sample order, so reaching one cell requires decoding.
+Both retain the same file, header and record context, and VCF 4.1--4.5 share one model, selecting version-specific registries and validation overlays from the file's declared \term{fileFormat}~\cite{htsspecs,vcf45,vcfc210}.
+Every RQ1 \emph{case} runs in both profiles; the round-trip and the integration study use the \textit{expanded} profile only, for reasons given below.
+
+\begin{figure}[htbp]
+\centering
+\begin{tikzpicture}[x=1mm,y=1mm,
+  box/.style={draw,rounded corners=1pt,align=center,font=\small,inner sep=4pt},
+  edge/.style={-{Stealth[length=4pt]},thin},
+  lab/.style={font=\scriptsize\ttfamily,fill=white,inner sep=1pt,align=center}]
+\node[box] (file) at (17,0) {VCFFile};
+\node[box] (header) at (72,0) {VCFHeader};
+\node[box] (line) at (128,0) {HeaderLine};
+\node[box] (record) at (17,-16) {VCFRecord};
+\node[box] (call) at (17,-32) {VariantCall};
+\node[box] (definition) at (128,-16) {FieldDefinition};
+\node[box] (sample) at (72,-32) {SampleCall};
+\node[box] (value) at (128,-32) {FormatFieldValue};
+\node[box] (matrix) at (72,-48) {CohortCallMatrix};
+\node[box] (vector) at (128,-48) {FormatValueVector};
+\draw[edge] (file) -- node[lab,above] {hasHeader} (header);
+\draw[edge] (header) -- node[lab,above] {hasHeaderLine} (line);
+\draw[edge] (file) -- node[lab,left] {hasRecord} (record);
+\draw[edge] (record) -- node[lab,left] {hasCall} (call);
+\draw[edge] (definition) -- node[lab,right] {declaredOnLine} (line);
+\draw[edge] (call) -- node[lab,above] {hasSampleCall} (sample);
+\draw[edge] (sample) -- node[lab,above] {hasFormatValue} (value);
+\draw[edge] (call.south) |- node[lab,above,pos=0.68] {hasCallMatrix} (matrix);
+\draw[edge] (matrix) -- node[lab,above] {hasFormat\\ValueVector} (vector);
+\draw[edge,dashed] (value) -- node[lab,right] {declaredBy} (definition);
+\draw[edge,dashed] (vector.east) -- ++(7,0) |- (definition.east);
+\end{tikzpicture}
+\caption{Selected VCF Core relationships that retain implicit VCF format information; prefixes omitted. 
+A \term{VariantCall} groups a record's observations rather than naming an extra source line, and a \term{VCFSample} identifies a source column. 
+The two profiles differ only below \term{VariantCall}: \textit{expanded} defines a \term{SampleCall} and \term{FormatFieldValue} per sample and field, \textit{condensed} defines a \term{CohortCallMatrix} of sample-ordered vectors. 
+Dashed edges reach the declaration giving a value its type and cardinality.}
+\label{fig:model}
+\end{figure}
+
+\subsection{RQ1: two assessments, from opposite directions}
+\label{sec:m-rq1}
+
+A semantic vocabulary, intended to represent a logical source, can contain faults in two primary dimensions~\cite{gomezperez2001evaluation}, and one test cannot easily catch both.
+It can be \emph{missing something} (\textbf{completeness}): the logical source (i.e. the VCF specification) defines \emph{requirements} that are not represented in the vocabulary.
+It can also \emph{define a term not represented in the logical source} (\textbf{conciseness}): the vocabulary contains terms that do not correspond to \emph{requirements} dictated by the logical source.
+To assess both of these fault dimensions, we run two complementary assessments, one going from the specification to the vocabulary~\cite{sabou2012ontologyevaluation} and the other going from the vocabulary to the specification.
+We performed and reported the results of these tests separately.
+
+\subsubsection{Specification-derived \emph{requirements} (specification $\rightarrow$ vocabulary).}
+This assessment (\path{RQ1/methodology/}) starts from local copies of the VCF 4.1--4.5 \LaTeX{} specifications, verified against SHA-256 digests; a script partitions each into section intervals and extracts the explicit reserved INFO/FORMAT Number/Type declarations, while interpreting the prose is an authored, reviewed step recorded per passage with its source line range.
+A \emph{requirement} is a term or rule defined by the specification, expressed as a question with a checkable answer, following established ontology-engineering approaches that use questions to define and test \emph{requirements}~\cite{gruninger1995methodology,suarezfigueroa2009orsd,lot2022}.
+For example, R16 (found in \path{RQ1/methodology/inputs/requirements.json}) asks whether values declared with \term{Number=A} can be associated with the correct ALT allele. 
+Each \emph{requirement} also records the exact specification passage from which it was derived, identified by its line range and file SHA-256 digest.
+Because \emph{requirements} are written from the specification, one can name something the vocabulary turns out not to support.
+Binary encoding, compression, indexing, producer estimation algorithms and general invalid-input rejection were deemed out of scope for this assessment.
+The design adapts SAMOD, which pairs a question, a \emph{witness} graph, a \emph{query}, and separately authored answers~\cite{samod2016}.
+
+\paragraph{Terminology.}
+Five terms carry this assessment, and several sound like plain English but are narrower here; \emph{requirement} is defined above and \emph{sample profile} in Section~\ref{sec:profiles}.
+
+\begin{description}
+\setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}
+\item[Fixture] A small, spec-compliant VCF file designed to make one or more VCF \emph{requirements} observable rather than to resemble real data. \emph{Fixtures} are the only input to graph construction.
+\item[Witness] The RDF graph materialized from one \emph{fixture} in one profile, against which \emph{queries} run.
+\item[Case] One \emph{requirement}, at one VCF version, against one \emph{fixture}. For instance, R16 is one \emph{requirement}, but is assessed over five \emph{cases} (5 VCF version over one \emph{fixture}).
+\item[Query] The SPARQL algebra~\cite{sparql2013} that attempts to retrieve an answer from a \emph{witness}. One \emph{query} often serves several \emph{cases}.
+\item[Expected answer] (Referred to as an \emph{oracle}) The rows that a particular \emph{query} should return, authored by a person from the VCF specification and the \emph{fixture} \emph{before} it is run.
+This process was performed following established approaches that operationalize ontology \emph{requirements} as executable \emph{queries} with test data and expected results~\cite{blomqvist2012ontologytesting,wisniewski2019competencyquestions}. 
+\end{description}
+
+\emph{Queries} were drafted with the same AI assistance as the vocabulary and reviewed by a human; the \emph{expected answers} were primarily obtained from examples within the VCF specificaitons themselves and implemented by the authors.
+Answers are compared as multisets after sorting both sides, so an extra, missing or duplicated row fails while row order is not --- \emph{requirements} that are \emph{about} order project the ordinal as a value instead.
+All values are compared as strings, so \texttt{30} and \texttt{30.0} differ, and a \emph{case} is rejected unless its \emph{fixture}'s \term{\#\#fileformat} line matches the version it claims.
+
+\paragraph{Two retrieval axes.}
+Every \emph{case} is tested twice against the same graph, with the same question, under different rules about what counts as an acceptable route to the answer.
+A \emph{preservation} \emph{query} may do anything, including pulling a value out of a packed string; a \emph{structure} \emph{query} may not use \term{REPLACE}, \term{SUBSTR}, \term{STRBEFORE} or \term{STRAFTER}, and must follow declared relationships instead, a ban enforced by raising an error.
+Without the distinction a vocabulary that dumped each VCF line into one literal would score perfectly on \emph{preservation}; it is also the only reason the \textit{condensed} profile scores lower, since that profile has no per-sample resources for a \emph{structure} \emph{query} to walk.
+
+\paragraph{Two controls that stop a test passing for the wrong reason.}
+The \emph{empty-graph control} rejects a \emph{case} whose \emph{query} returns the \emph{expected answer} against an empty graph, catching answers baked into the \emph{query} text.
+The \emph{predicate-deletion control} removes, in turn, each vocabulary property the \emph{query} mentions and rejects the \emph{case} unless at least one deletion changes the answer; it stops at the first property whose removal matters, so it proves the \emph{query} depends on \emph{some} vocabulary data, not on every property it names.
+
+\paragraph{Scoring.}
+\emph{Requirements} are scored separately per applicable version, profile and axis, and are \emph{demonstrated} only when every \emph{case} for them passes, \emph{partial} when some pass, \emph{not demonstrated} when \emph{cases} exist and none pass, and \emph{unassessed} when no test has been written.
+The numerator counts demonstrated \emph{requirements} at equal weight; the denominator retains every applicable \emph{requirement}, \emph{including unassessed ones}, with no fractional credit, so untested \emph{requirements} score zero rather than leaving the denominator and the percentages in Section~\ref{sec:evidence} are a floor rather than a ceiling.
+
+\paragraph{Graph construction, and the bias it introduces.}
+RQ1's \emph{witness} graphs are built by the vocabulary repository's own \href{https://github.com/ecrum19/vcf-core-vocabulary/blob/main/scripts/vcf_examples.py}{Python materializer}, which reads a \emph{fixture} as text and emits resources for the file, header, records, alleles, samples, genotypes and field values.
+It is not a converter and does not claim to be; its relevant property is that it fails rather than guesses so incomplete graphs are not likely.
+The materializer, the vocabulary, and the \emph{queries} share authors, so a shape agreed between materializer and \emph{query} could pass whether or not it reflects what VCF means.
+Four features of the design bound that risk: a wrong \emph{value} still fails, because the answers come from the specification; the materializer emits 200 distinct vocabulary terms against the 79 \emph{queries}' 125 references, leaving 81 emitted terms no \emph{query} asks for; the two controls reject tests that pass without data; and RQ2 puts the same questions to a separately implemented producer.
+
+\subsubsection{Curated construct inventory (vocabulary $\rightarrow$ specification).}
+The second assessment evaluates the vocabulary against a curated inventory of 104 logical constructs defined in the VCF 4.5 specification (\path{RQ1/vcf45-inventory/}). 
+Each construct in \path{RQ1/vcf45-inventory/inventory.json} is grouped by specification area and linked to the vocabulary terms and evidence intended to represent it. 
+This follows established ontology-evaluation approaches in which a vocabulary is assessed against an external reference~\cite{gomezperez2001evaluation,sabou2012ontologyevaluation}.
+For each construct, reviewers recorded three separate judgments: whether the relevant information was \emph{preserved}, whether it was \emph{structured} so that it could be retrieved through graph patterns without parsing a literal value, and whether a validation rule \emph{enforced} the corresponding specification \emph{requirement}.
+Representation was classified as \emph{full} when both preservation and structure were demonstrated, \emph{partial} when the information was preserved but not structurally represented, and \emph{absent} otherwise. 
+Enforcement was assessed separately and did not contribute to the representation score. 
+
+\subsection{RQ2: assessment over graphs generated by an independent RDF converter}
+\label{sec:m-rq2}
+
+RQ2 asks whether two documented claims hold: that the version-specific artifacts behave as documented, and that the two \emph{sample profiles} do.
+Each is tested by different means.
+The first is a comparison of tables.
+Every VCF version predefines a set of INFO and FORMAT fields together with the \term{Number} and \term{Type} each must carry, and VCF Core records these in a \emph{registry} for each version.
+We extract those declarations from the specification texts and check them against the matching registry.
+This compares the vocabulary directly against the specification, so its results are reported alongside RQ1's.
+
+The second claim is tested by an \emph{independent RDF converter comparison}: RQ1's assessment run a second time with exactly one thing changed.
+The \emph{fixtures}, the \emph{queries}, and the \emph{expected answers} are RQ1's, reused unchanged; only the program that turns a VCF file into RDF is different.
+Any difference in the outcome is therefore attributable to that program, and not to a difference in what was asked.
+The second program is VCF-RDFizer 3.0.3 (\texttt{be658a2}), run from its published container image pinned by digest \texttt{sha256:31f1361b}; it builds graphs by executing RML mappings with RMLStreamer, rather than constructing triples in Python as RQ1's materializer does~\cite{vcfrConverter2026}.
+Where the two programs agree, a claim about the vocabulary rests on two implementations instead of one; where they disagree, at least one of them is wrong, and the useful question is which.
+
+The programs share an author, but the tool's RML-based conversion strategy is completely independent of RQ1-related Python conversions.
+Thus, the comparison is designed to catch implementation mistakes and is not presented as independent replication by an unrelated group.
+Crucially, RQ2 does not make any changes to \emph{queries} or \emph{oracles}.
+
+\paragraph{Scope and scoring.}
+All \emph{fixtures} are converted in both profiles, so every \emph{case} that has a test is reassessed on the graph generated from the \emph{independent RDF converter} and all \emph{requirements} the \emph{cases} exercise are compared; the \emph{fixture} set is derived at run time from the \emph{case} register rather than listed in the script.
+Each \emph{case}, axis, and profile yields one of four outcomes --- both pass, materializer passes and converter fails, materializer fails and converter passes, or both fail --- and every outcome is recorded, not only the disagreements.
+The materializer's side is \emph{built during the run} by calling the same function RQ1 uses; the committed \emph{witness} files serve as a guard rather than an input, and the run aborts naming the file if a rebuilt graph differs from its record.
+One comparison rule is a real weakness: because the two producers legitimately mint resource IRIs under different bases, an IRI with a fragment is compared by its fragment alone, so a producer emitting the right fragment under a wrong namespace would pass.
+Since every \emph{case} already runs in both profiles, the documented claim that the profiles are alternatives rather than a full and a reduced version is tested at no extra cost, by comparing their outcomes \emph{case} by \emph{case}.
+
+\paragraph{Semantic round-trip.}
+A complementary check recovers logical content instead of comparing \emph{query} answers: it rebuilds VCF columns from the RDF alone and compares them with the source file.
+One script (\path{RQ2/analysis/round-trip.py}) rebuilds the seven fixed columns (CHROM, POS, ID, REF, ALT, QUAL, FILTER) and every sample's GT, taking REF and ALT from ordered \term{alleleIndex}/\term{alleleValue} resources and genotypes from ordered \term{GenotypeAlleleCall} resources with their per-call \term{phaseIndicator}.
+A second script (\path{RQ2/analysis/field-round-trip.py}) does the same for every header line, recovered by its own source line number and compared on key and verbatim value, and for every INFO entry and non-GT FORMAT subfield, rebuilt from ordered value items.
+Neither names a field, \emph{fixture}, sample, contig or expected value: what to look for comes from the source file, how to find it from properties the vocabulary declares.
+Both are forbidden the preserved-source properties \term{infoRaw}, \term{sampleDataRaw} and \term{genotypeString}, since reconstructing from those would prove only that a string had been copied; their absence from all six \emph{queries} was checked rather than assumed.
+Both were verified falsifiable: flipping one \term{phaseIndicator}, deleting one allele call, corrupting one INFO item, deleting one FORMAT value, altering one header value and deleting one header line each produce exactly one mismatch.
+One normalization is applied and named: from VCF 4.4 a leading phase indicator is permitted, so \texttt{|0|1} and \texttt{0|1} describe the same phasing, which the vocabulary treats as lexical --- only the preserved source string records whether it was written out, so reproducing the character would mean reading the very string this check avoids.
+It is therefore removed before comparison, while allele order, missing calls, ploidy and every indicator between a pair must still match exactly.
+The round-trip runs on \textit{expanded}-profile graphs only, because decoding a \textit{condensed} vector needs an accessor the converter does not yet emit (R21).
+
+No sampling, thresholds or tolerances are used in RQ1 or RQ2; comparison is exact equality throughout.
+A separate script (\path{RQ2/analysis/profile-figures.py}) checks that every vocabulary term the converter emits is declared in the cited release, resolved against the \emph{git tag} rather than the working tree, so an uncommitted edit cannot flatter the result.
+
+\subsection{RQ3: an integration case study under local alleles}
+\label{sec:m-rq3}
+
+RQ1 and RQ2 stay inside the VCF world, and neither shows the representation is \emph{useful} --- that someone can join it to statements produced elsewhere and get a trustworthy answer.
+RQ3 is one small end-to-end case study, deliberately not a realistic clinical workflow: the more moving parts a demonstration has, the harder it is to say which one produced the answer.
+
+\paragraph{Set-up.}
+The \emph{fixture} \path{local-alleles-v4.5.vcf} was hand-crafted in the VCF Core Vocabulary repository and converted in the \textit{expanded} profile, resulting in roughly 1{,}400 triples describing one file with four sites written twice --- once with local alleles and once globally --- one sample and its genotypes.
+The \textit{expanded} profile is used alone because the \emph{query} walks per-sample value resources the \textit{condensed} profile does not materialize.
+The converted graph and a hand-crafted local \textit{annotation snapshot} (\path{RQ3/inputs/annotations.ttl}) are then loaded into one in-memory graph: two independently produced sets of statements, sharing no identifiers, placed side by side so a \emph{query} can attempt to integrate them.
+The \textit{annotation snapshot} holds five flagged alterations, invented and labelled as such in the file, and held locally rather than fetched from a live service so the example returns a deterministic answer.
+
+\paragraph{The \emph{Query}.}
+The \textit{annotation snapshot} names an alteration by four literals --- contig, position, reference allele, alternate allele --- and the \emph{query} matches those against the graph (Listing~\ref{lst:localallele}).
+No shared identifier is minted in advance, so the join rule is visible in the \emph{query} text rather than hidden inside an IRI someone generated earlier; a pre-minted link would assume the answer.
+Three assumptions are made prior to the \emph{query}: that both sides describe the same reference assembly, unchecked against the VCF's \term{\#\#reference} line; that an alteration is its as-written REF/ALT pair at a position, with no normalization or VRS identifier, so the join would not survive a differently written representation of the same change; and that \term{sample} is a VCF sample column, not a patient.
+
+\begin{lstlisting}[caption={The integration \emph{query}'s graph pattern, abridged: the annotation join on four literals, the declaration supplying the cardinality, and the depth reached through \term{forAllele}, which resolves the \texttt{Number=LR} frame of reference so the \emph{query} never handles the \texttt{LAA} indirection itself. Omitted: prefixes, the projection, the file/record/sample-call path, and the \texttt{FILTER} on depth.},label={lst:localallele}]
+?annotation a ex:FlaggedAlteration ; ex:contig ?contig ; ex:position ?position ;
+            ex:referenceAllele ?ref ; ex:alternateAllele ?alt .
+?record vcfc:chrom ?contig ; vcfc:pos ?position ; vcfc:ref ?ref ;
+        vcfc:hasAltAllele ?altAllele .
+?altAllele a vcfc:AltAllele ; vcfc:alleleValue ?alt .
+?field vcfc:declaredBy ?declaration ; vcfc:hasValueItem ?item .
+?declaration vcfc:fieldId "LAD" ; vcfc:fieldNumber ?number .
+?item vcfc:forAllele ?altAllele ; vcfc:itemValue ?depth .
+\end{lstlisting}
+
+\paragraph{Pass conditions and thresholds.}
+Three conditions must all hold.
+The observed rows must equal the expected rows --- authored from the \emph{fixture} text before the \emph{query} was run --- across all eight projected fields, and not by count, because a positional misreading of \texttt{Number=LR} returns the same number of rows.
+Each of the three flagged-but-excluded alterations must be confirmed absent \emph{individually}, so absence is for the stated reason rather than because the \emph{query} returned nothing.
+And every returned row must cite a source file whose IRI names the \emph{fixture} actually converted, all rows citing the same one; the \emph{fixture} name comes from the path the check was given, so this anchor sits outside the graph and cannot be met by internal consistency.
+The settings in force are a threshold of \texttt{LAD >= 20}, chosen so that the correct reading and a positional misreading select \emph{different} alterations rather than as a clinical threshold, and restrictions to the single \texttt{Number=LR} field \texttt{LAD} and to the five flagged alterations; depth is compared as text, so \texttt{"30"} and \texttt{"30.0"} would differ.
+
+\subsection{RQ4: comparison to other VCF semantic models}
+\label{sec:m-rq4}
+
+RQ1--RQ3 test VCF Core against the VCF specification, and none of them says whether it was worth building: if an existing model already did this, the contribution would be redundant.
+RQ4 therefore addresses: for each of nine questions a user might ask of a VCF graph, can the model's published artifact answer it, and on what evidence?
+
+\paragraph{Criteria and verdicts.}
+The nine criteria (Table~\ref{tab:models}) are retrieval questions phrased so that inspecting an artifact provides an answer.
+Each cell receives one of three verdicts: \textbf{E}, explicitly represented, where the artifact provides a documented representation meeting the criterion; \textbf{C}, representable with additional conventions the model does not itself establish; \textbf{S}, outside the model's stated scope.
+\textbf{S is a first-class verdict and not a defect}: a model built to type genomic variation is not deficient for lacking header terms, and the scale exists to separate \emph{cannot} from \emph{was never trying to}.
+
+\paragraph{Assessment made through author disgression.}
+Unlike RQ1--RQ3, RQ4 is performed through the inspection of the four published artifacts.
+A script \path{RQ4/fetch.sh} retrieves all four artifacts locally and records a SHA-256 for each.
+The four inspected models each state a \emph{different} purpose, which is what makes the contrast informative: GFVO (\path{gfvo.xml}), HERO-Genomics (\path{hero_genomics.ttl}), GVO (its published ontology, \term{owl:versionInfo} 2021-11-18) and VCF2RDF (its 58 published term pages under \path{RQ4/artifacts/vcf2rdf-terms.tsv}, each resolving to a browsable page)~\cite{baran2015gfvo,cazzaro2025hero,kawashima2023gvo,penha2017vcf2rdf}.
+GA4GH VRS is deliberately not scored: it describes computable variation identity rather than a source file, so scoring it against file-format criteria would manufacture a contrast its authors never sought~\cite{wagner2021vrs}.
+Only published artifacts were considered and every cell was settled by inspection.
+
+\subsection{Evaluated artifacts and reproduction}
+\label{sec:reproduction}
+
+All results use VCF Core 2.1.2~\cite{vcfc210} and, where a converter is involved, VCF-RDFizer 3.0.3~\cite{vcfrConverter2026}; both are tagged, so every figure comes from a released artifact rather than a working branch.
+Each question runs on its own --- \path{RQ1/run.sh}, \path{RQ2/run.sh}, \path{RQ3/run.sh} --- cloning what it evaluates at a pinned tag into a shared \path{.artifacts/} directory and pulling the converter image by digest. 
+\path{SWAT4HCLS_2027/PINS.md} lists every pinned artifact and digest.
+RQ1 deliberately runs the scripts \emph{inside} the clone rather than the copies committed here.
+Each run writes a self-contained directory holding the machine description and toolchain versions, every command with its exit code and duration, the per-step output, the converted graphs, the result files and a summary; recorded provenance includes the pinned specification revisions with their digests, the \emph{fixture} set, the SPARQL engine used for every \emph{query} (rdflib~7.6.0) and the container image digests.

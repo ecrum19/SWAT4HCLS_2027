@@ -2,4 +2,4 @@ artifact	url	bytes	sha256
 gfvo.xml	https://raw.githubusercontent.com/BioInterchange/Ontologies/master/gfvo.xml	154699	62924be2797db1e90a648d1423abb1a83a22f2f0bceab7fb0835e3686091af97
 hero.ttl	https://hereditary.dei.unipd.it/ontology/genomics/schema/hero_genomics.ttl	478157	6c03ce2d3554fff0bb092b37f4f01249436925fcf0677569821a8ec0af791c47
 gvo.ttl	http://genome-variation.org/resource/gvo	11815	651d1a3431b1282485e061f0c6e62d552876a426a847909991691b551acef53d
-vcf2rdf-terms.json	https://api.github.com/repos/diegopenhanut/vcf-resources/git/trees/HEAD?recursive=1	41433	9fc2fdc5c87974e93e903937c22c9aa21641300d789b09153de9daea4e06cbb7
+vcf2rdf-terms.tsv	https://diegopenhanut.github.io/vcf-resources/v4_2/	8623	45ea479214383e81372ca2d2ef4f41caf5209ed240cb40d81d9f9d34fbd7c9b5

@@ -28,9 +28,9 @@ CONVERTER_IMAGE="ecrum19/vcf-rdfizer"
 CONVERTER_DIGEST="sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a"
 
 # Fixtures are not listed here. They are derived below from the assessment's own
-# cases.json, so every fixture the assessment tests is replayed against the
+# cases.json, so every fixture the assessment tests is re-executed against the
 # converter. A hand-kept list silently narrows the comparison as the assessment
-# grows, which is what happened before: ten of the thirty-eight were replayed
+# grows, which is what happened before: ten of the thirty-eight were re-executed
 # and the omission was invisible in the reported figures.
 PROFILES="expanded condensed"
 

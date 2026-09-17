@@ -308,10 +308,11 @@ chr1   20  .  C   T   .    q10    .      GT:DP ./.:.  …   │  109 data lines
                                           401 INFO and non-GT FORMAT values
 ```
 
-The `#CHROM` line is the one part with no direct comparison. Its sample names are
-checked indirectly: the genotype check reads them from that line and looks each
-one up by `sampleId`, so a wrong or missing name makes the lookup fail. Its
-fixed-column names are not checked at all.
+The `#CHROM` line is the only part with no direct comparison, and nothing
+file-specific rides on it. Its sample names are still verified — the genotype
+check looks each one up by `sampleId`, so a name the graph does not carry
+recovers no genotype — and its fixed-column names are constants the
+specification mandates verbatim in every valid VCF.
 
 **How to read this.** Information survives conversion into the structured layer
 and can be read back out of it without touching a preserved source string. The
@@ -359,7 +360,7 @@ landing on the same defect from different directions.
 
 R27 is defined in
 [`RQ1/methodology/inputs/requirements.json`](../RQ1/methodology/inputs/requirements.json),
-copied from the vocabulary release at `coverage/methodology/inputs/requirements.json`:
+copied from the vocabulary release at `vcf-core-vocabulary/coverage/methodology/inputs/requirements.json`:
 
 | | |
 | --- | --- |
@@ -373,7 +374,7 @@ Its queries and expected answers sit under those two case identifiers in
 [`RQ1/methodology/inputs/cases.json`](../RQ1/methodology/inputs/cases.json), and
 its outcome for each producer is in this run's `results/cross-producer.json`.
 
-**Header lines are covered too.** Each `##` line is recovered by its own source
+**Header lines are tested.** Each `##` line is recovered by its own source
 line number and compared on both its key and its verbatim right-hand side, so the
 header is reconstructed line for line, in order. All 431 across the 38 fixtures
 match.
@@ -383,19 +384,3 @@ are ordered inside the line, and the line terminators. The methodology
 deliberately does not score attribute order, because VCF 4.4 and 4.5 state that
 implementations must not rely on it. So this is not byte-for-byte file
 reconstruction, but it is every header line and every data value bar one.
-
----
-
-## Open issues
-
-1. ~~The round-trip does not check genotypes, but says it does.~~ **Fixed.** It
-   now compares all 151 sample genotypes; 151/151 recover. Fixing it also
-   exposed a keying bug in the check itself: records and genotypes were keyed by
-   position, so the local-allele fixture — which writes each site twice — merged
-   two records' genotypes and produced `2/2/2/2` where the source said `2/2`.
-   Both are now keyed by record identity.
-2. **The round-trip and the RQ3 query both bind alleles by IRI text.** Fails safe,
-   but it couples the check to one converter's naming convention.
-3. ~~RQ2 assumes RQ1's committed witnesses are current without checking.~~
-   **Fixed.** The materializer's side is built during the run, and the committed
-   witness is now a freshness assertion that aborts on a mismatch (§2.5).
