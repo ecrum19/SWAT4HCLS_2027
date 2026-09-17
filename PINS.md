@@ -68,8 +68,6 @@ HTTP only, and HERO's ontology has already moved once.
 
 ## What is not pinned
 
-- **The machine.** Recorded per run, not fixed. The Python, rdflib, pySHACL and
-  Docker versions differ between the VM and a laptop, and each run says which it
-  used.
+- **The machine.** Recorded per run, not fixed. 
 - **The image's internal toolchain**, as above.
 - **Nothing is version-pinned by tag alone** anywhere in the pipeline.

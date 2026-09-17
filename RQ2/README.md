@@ -63,5 +63,3 @@ specification requirements, not realistic data volumes. Nothing here measures
 conversion throughput, and no annotation in the integration example carries
 biological or clinical meaning.
 
-Earlier, superseded runs are in [`../archive/`](../archive), and nothing in the
-paper cites them.

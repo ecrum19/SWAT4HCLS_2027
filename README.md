@@ -7,9 +7,6 @@ Two versions of one manuscript, plus the evidence behind them.
 | [main_short.tex](main_short.tex) | Five-page ongoing-work paper | 5 | 7 | 5 |
 | [long-paper/main_long.tex](long-paper/main_long.tex) | Full paper | **19** | 24 | **12** |
 
-**The full paper is over its limit by seven pages of main matter.** Reducing it is
-outstanding editorial work, not a build problem.
-
 ## Build
 
 ```sh
@@ -50,16 +47,4 @@ its exit code and duration, the converted graphs and the results; the run the pa
 cites is in [RQ2/runs/](RQ2/runs/).
 
 [coverage/](coverage/README.md) holds the fixtures behind the short paper's worked
-example. [archive/](archive/README.md) holds superseded runs that nothing cites.
-
-## Review status
-
-This is a working draft. Substantive human review of the scientific claims, the curated
-coverage verdicts, the alignment judgements and the AI-use declaration remains editorial
-work before submission; a successful compile establishes neither venue compliance nor
-publication readiness.
-
-The curated assessment claims 104/104 inventoried logical-model constructs under its
-stated rubric. The specification-derived 4.1–4.5 assessment is provisional, and neither
-establishes complete VCF conformance. The worked example checks one small synthetic
-record and must not be described as a general conversion benchmark.
+example.

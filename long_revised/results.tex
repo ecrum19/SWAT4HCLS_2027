@@ -1,0 +1,157 @@
+% !TeX root = main_long.tex
+\section{Results}
+\label{sec:coverage}
+
+\subsection{RQ1: coverage of VCF constructs and meaning}
+\label{sec:evidence}
+
+\paragraph{Declarations and assessment corpus.}
+All \textbf{333} explicit reserved Number/Type declarations extracted from VCF 4.1--4.5 match the version registries, with no missing or differing row.
+VCF 4.5's registry contains 122 reserved definitions: 51 INFO and 71 FORMAT, including three parameterized base-modification families.
+These are different populations: the comparison includes only explicit, comparable declarations, while older specifications also define reserved keys in prose without complete Number/Type information.
+Agreement is therefore weighted towards VCF 4.3--4.5 and does not settle declaration--prose inconsistencies, such as CNL/CNP declaring \texttt{Number=G} while describing copy-number ordering.
+
+The source audit yielded \textbf{94 requirements}, \textbf{38 fixtures}, \textbf{210 cases}, and \textbf{79 distinct queries}, linked to specification passages and expected answers.
+Nine fixtures reproduce published specification examples exactly; the others are minimal files instantiating stated rules.
+Availability of defensible examples influenced test selection, leaving the demonstrated subset uneven across the specification.
+Interpretation statements also vary in specificity: 56 are requirement-specific, 29 generic, and nine explicitly unassessed.
+During our review we identified inconsistent specification examples, including three issues (such as \href{https://github.com/samtools/hts-specs/issues/869}{hts-specs\#869}\footnote{\url{https://github.com/samtools/hts-specs/issues/869}}) reported to the maintainers and one previously reported issue, documented in the experimental repository.
+Where an interpretation could be established, affected requirements were scored; unresolved cases remained unassessed and counted against coverage.
+
+\paragraph{Executed coverage.}
+The 210 cases exercise \textbf{53 of 94 requirements} in at least one applicable version; 41 have no registered test.
+All 210 preservation tests passed in each profile, as did all 210 expanded-structure tests.
+Condensed structure passed 165 and failed 45 tests, all concerning sample-level FORMAT access held in vectors rather than individual resources.
+Every passing case rejected the empty-graph control and changed its answer under at least one referenced-predicate deletion.
+Table~\ref{tab:requirement-results} reports requirements rather than cases, separately by applicable VCF version.
+
+\begin{table}[htbp]
+\centering
+\caption{
+  Demonstrated requirements by VCF version, sample profile, and retrieval axis. 
+  Each Demonstrated column assesses the same $N$ applicable requirements: demonstrated $+$ ND $+$ U $=N$, with percentages calculated over $N$. 
+  U denotes untested requirements; ND denotes tested failures and is nonzero only for condensed structure ($^\dagger$). 
+  No requirement was partially demonstrated.
+}
+\label{tab:requirement-results}
+\small
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrrrrrrr@{}}
+\toprule
+ & & \multicolumn{4}{c}{Demonstrated} & & \\
+\cmidrule(lr){3-6}
+ & & \multicolumn{2}{c}{\emph{preservation}} & \multicolumn{2}{c}{\emph{structure}} & & \\
+\cmidrule(lr){3-4} \cmidrule(lr){5-6}
+VCF & $N$ & \textit{expanded} & \textit{condensed} & \textit{expanded} & \textit{condensed} & ND$^{\dagger}$ & U \\
+\midrule
+4.1 & 69 & 32 (46.4\%) & 32 (46.4\%) & 32 (46.4\%) & 26 (37.7\%) &  6 & 37 \\
+4.2 & 72 & 34 (47.2\%) & 34 (47.2\%) & 34 (47.2\%) & 28 (38.9\%) &  6 & 38 \\
+4.3 & 74 & 35 (47.3\%) & 35 (47.3\%) & 35 (47.3\%) & 29 (39.2\%) &  6 & 39 \\
+4.4 & 83 & 38 (45.8\%) & 38 (45.8\%) & 38 (45.8\%) & 31 (37.3\%) &  7 & 45 \\
+4.5 & 91 & 51 (56.0\%) & 51 (56.0\%) & 51 (56.0\%) & 37 (40.7\%) & 14 & 40 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+For VCF 4.5, 51 of 91 requirements (56.0\%) are demonstrated in the expanded profile.
+Of the 40 unassessed requirements, 37 await fixtures and queries, one requires further interpretation, and two require coverage of all reserved INFO and FORMAT keys.
+Thus, most missing coverage reflects absent tests; the tested structural failures concern the condensed sample representation.
+The corresponding expanded tests pass, demonstrating that those values can be expressed structurally within VCF Core.
+
+\paragraph{Curated inventory.}
+All \textbf{104} inventoried VCF 4.5 logical constructs were classified as preserved and structured; \textbf{87} additionally had a rule enforcing a stated requirement~\cite{vcfc210}.
+Enforcement was less complete for headers, lexical rules, genotypes, and structural variation.
+Evidence included queries, regression probes, shapes or decoded checks, and materialized fixtures.
+These are curated representation judgments supported by different evidence types, rather than 104 independently executed retrieval tests.
+
+\subsection{RQ2: behaviour across producers and profiles}
+\label{sec:crossproducer}
+
+Re-executing the 210 cases on two axes and two profiles gives \textbf{840 checks}: \textbf{693 pass for both producers}, \textbf{45 fail for both}, and \textbf{102 differ} across 15 requirements.
+Every disagreement is a materializer pass and converter failure; none shows the inverse.
+The 45 shared failures are condensed-structure queries requiring per-sample resources.
+Of the 53 exercised requirements, 38 agree on every check and 32 pass on every check.
+Inspection of each disagreement identifies the causes in Table~\ref{tab:divergence}.
+No observed divergence requires a representational mechanism absent from the pinned vocabulary; every missing property is already declared.
+
+\begin{table}[htbp]
+\caption{Causes of disagreement across 15 requirements.}
+\label{tab:divergence}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}>{\raggedright\arraybackslash}p{0.29\linewidth}c>{\raggedright\arraybackslash}X@{}}
+\toprule
+Cause & Reqs. & Finding \\
+\midrule
+Unemitted properties & 12 & Twenty declared properties absent, including accessors for gVCF blocks, breakend mates, and allele indices. \\
+Incomplete decomposition & 1 & Tandem-repeat summary emitted without per-allele components. \\
+Permitted datatype difference & 1 & QUAL uses \term{vcfc:VCFFloat} or \term{xsd:decimal}; both satisfy the shape but differ under \term{DATATYPE()}. \\
+Encoding convention & 1 & Different handling of an empty local-allele list (R27). \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+An earlier comparison also exposed a silent local-allele error missed by the converter's existing tests.
+It associated \term{Number=LA} and \term{Number=LR} values with record alleles positionally instead of resolving the sample's local subset.
+Under \texttt{LAA=2,4}, depths \texttt{20,30,10} belong to global alleles 0, 2, and 4, but were attached to 0, 1, and 2.
+That defect and eight further divergences were repaired~\cite{vcfrConverter2026}.
+In the evaluated release, all local-allele requirements pass for both producers on expanded-profile checks; the condensed-profile R27 divergence remains.
+
+\paragraph{Semantic round-trip and profile comparison.}
+Across 38 fixtures, reconstruction from structured properties recovers the seven fixed columns of all \textbf{109 records}, all \textbf{151 sample genotypes}, all \textbf{431 header lines}, and \textbf{400 of 401} INFO entries and non-GT FORMAT subfields.
+The exception is an empty \texttt{LAA} list: the materializer writes an empty value, while the converter emits the field without a value triple.
+This loses the distinction between a present, empty list, meaning reference-only local alleles, and a field without a value.
+The round-trip therefore reaches R27 through a complementary check.
+The associated \texttt{LAD} item retains its \term{forAllele} link, so the error does not remove that depth association.
+
+\label{sec:profilesresult}
+The sample profiles agree on \textbf{352 of 420} case-and-axis comparisons.
+All 68 disagreements concern FORMAT values or genotypes within samples, spanning 15 requirements.
+Questions about files, headers, records, and alleles agree throughout.
+The profiles therefore agree above the sample level, while the condensed vectors require decoding that direct structural queries do not perform.
+
+\subsection{RQ3: integration with retained source context}
+\label{sec:integration}
+
+The query returns exactly the two expected alterations: \texttt{chr1:1~G>C} at depth 30 and \texttt{chr1:2~A>T} at depth 25.
+Each is traced to its file, record, sample, and the FORMAT declaration defining \texttt{LAD}'s cardinality, and every row identifies the file actually converted.
+All three expected exclusions are confirmed individually: \texttt{chr1:1~G>A}, \texttt{chr1:2~A>C}, and \texttt{chr1:3~C>G} are outside the respective local-allele subsets; the last would also fail the depth threshold under the positional reading.
+
+A positional interpretation of \texttt{Number=LR} also returns two rows with provenance, but associates the depths with \texttt{chr1:1~G>A} and \texttt{chr1:2~A>C} instead.
+Thus, plausible values, the expected row count, and provenance can coexist with incorrect allele associations.
+Two exclusions change only when the sample-specific \texttt{LAA} mapping is resolved.
+This counterexample was defined from the fixture and specification rule before query execution; it illustrates the consequence of the rule, rather than measuring an error in a particular converter.
+The result demonstrates the utility of local-allele-aware representation for this synthetic example, with no claim of clinical relevance or correctness across all VCF data.
+
+\subsection{RQ4: relation to existing VCF semantic models}
+\label{sec:models}
+
+Table~\ref{tab:models} summarizes the inspected artifacts.
+HERO-Genomics and GVO retain INFO as one literal through \term{hero:vcfInfo} and \term{gvo:info}, requiring consumers to parse the text and supply interpretation rules~\cite{cazzaro2025hero,kawashima2023gvo}.
+GFVO directly models field meanings such as \term{AlleleCount} and \term{MappingQuality}, but leaves the declaration mechanism outside its scope~\cite{baran2015gfvo}.
+VCF2RDF publishes declaration terms, including \term{Number}, \term{Type}, and \term{Description}, but no allele-index term, so allele association requires additional conventions~\cite{penha2017vcf2rdf}.
+GVO's predominantly S verdicts reflect its focus on classifying biological variation rather than representing source-file relationships.
+
+\begin{table}[htbp]
+\caption{Support in inspected artifacts: E, explicitly represented; C, requiring additional conventions; S, outside stated scope. These are inspection judgments about VCF interpretation context.}
+\label{tab:models}
+\centering\small
+\begin{tabularx}{\linewidth}{@{}Xccccc@{}}
+\toprule
+Can a consumer\ldots & VCF Core & GFVO & HERO & GVO & VCF2RDF \\
+\midrule
+F1\quad trace a record to its file & E & E & E & S & C \\
+F2\quad read declaration ID, Number, and Type & E & S & S & S & E \\
+F3\quad read the declared VCF version & E & S & S & S & C \\
+F4\quad address ALT allele $n$ by index & E & C & C & S & C \\
+F5\quad separate ploidy, allele calls, and phasing & E & C & C & S & C \\
+F6\quad get a (sample, field) value unsplit & E & C & C & S & C \\
+F7\quad bind a \texttt{Number=A/R/G} item to its allele & E & C & C & S & C \\
+F8\quad distinguish explicit \texttt{.} from unstated & E & S & C & C & C \\
+F9\quad identify the sample encoding & E & S & S & S & S \\
+\bottomrule
+\end{tabularx}
+\end{table}
+
+VCF Core's distinguishing role is the explicit representation of source interpretation context: declarations, version rules, allele indices, and sample scope.
+These findings concern the published artifacts and do not show that other models cannot support the same information through extensions.
+Separately, VCF Core provides \textbf{123 curated alignments} \footnote{\url{https://github.com/ecrum19/vcf-core-vocabulary/tree/main/mappings}}, recorded in SSSOM with SKOS predicates: 57 exact, 40 close, 16 related, and ten narrow matches~\cite{matentzoglu2022sssom,skos2009}.
+These graded term mappings support connections to other models without establishing identity between instances.
