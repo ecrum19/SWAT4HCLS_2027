@@ -1,6 +1,6 @@
 # RQ4 — how the assessment works
 
-> **How does VCF Core relate to other existing VCF semantic models?**
+> **How does VCF Core compare to other existing VCF semantic models at answering nine usage-oriented information-retrieval questions from VCF data?**
 
 ---
 

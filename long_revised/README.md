@@ -1,6 +1,6 @@
-# Shortened long paper
+# Full paper
 
-This directory contains a separate shortened manuscript based on the current `long-paper/` version and its length-reduction plan. All edits and build outputs are confined to `long_revised/`.
+This directory contains the full manuscript, shortened to the twelve-page limit from the earlier long draft. It is self-contained: all sources, template assets, edits and build outputs live in `long_revised/`.
 
 ## Files and build
 
@@ -12,7 +12,6 @@ This directory contains a separate shortened manuscript based on the current `lo
 - `figures/requirement-coverage.pdf`: vector coverage figure used in RQ1, with SVG and PNG counterparts for reuse.
 - `scripts/requirement-coverage.py`: generates the coverage figure from `../RQ1/results/summary.json`, checking the profile counts before plotting.
 - `discussion.tex`: discussion and future work.
-- `review-todo.md`: reviewer comments, concise change notes, current source lines, and author-review items.
 - `sources.bib`, `ceurart.cls`, `cc-by.pdf`, `ceur-ws-logo.pdf`: copied bibliography and template assets, allowing this directory to build independently.
 
 From the repository root:
@@ -22,6 +21,6 @@ make -C long_revised
 make -C long_revised pages
 ```
 
-Or run `make` inside this directory. Builds use `latexmk`, pdfLaTeX, and BibTeX, place intermediates in `.build/`, and export `main_long.pdf` here. They do not invoke the root Makefile or rebuild either original paper. The `pages` target reports the page containing the `endofmain` marker, after acknowledgments and the AI declaration and before references.
+Or run `make` inside this directory. Builds use `latexmk`, pdfLaTeX, and BibTeX, place intermediates in `.build/`, and export `main_long.pdf` here. There is no repository-level Makefile; `short_paper/` builds separately in the same way. The `pages` target reports the page containing the `endofmain` marker, after acknowledgments and the AI declaration and before references.
 
 The normal paper build uses the supplied figure PDF. To regenerate PDF, SVG, and PNG versions after changing the results or plot, run `make -C long_revised figures` from the repository root, then rebuild the paper. Figure generation requires Python with Matplotlib and the recorded RQ1 results; use `PYTHON=/path/to/python` to select an interpreter.

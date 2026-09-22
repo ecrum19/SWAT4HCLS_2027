@@ -1,6 +1,6 @@
 # RQ1 — how the experiment works
 
-> **Does VCF Core preserve the intended meaning of the VCF constructs it claims to support?**
+> **Does VCF Core preserve and represent everything defined in the VCF specification (including file and header context, allele-dependent field values, sample genotypes and phasing, version-specific constructs, etc.)?**
 
 Two separate tests answer this, from opposite directions. Read §1 for why, §2 for
 how the code works and where it could mislead you, §3 for what the numbers mean.

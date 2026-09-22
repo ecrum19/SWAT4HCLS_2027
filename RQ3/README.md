@@ -1,4 +1,4 @@
-# RQ3 — does the representation support a reproducible integration task while retaining source context?
+# RQ3 — can VCF graphs integrate VCF data with external data while retaining source context?
 
 One end-to-end case study, bounded to a single difficulty, answered with
 answers written down before the query was run.

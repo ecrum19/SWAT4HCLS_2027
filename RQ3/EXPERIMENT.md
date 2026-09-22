@@ -1,6 +1,6 @@
 # RQ3 — how the experiment works
 
-> **Does the materialized RDF representation support a reproducible integration task while retaining source context?**
+> **Can VCF graphs enable the integration of VCF data with external data while retaining the initial VCF file, record, sample, and declaration context to answer a complex question?**
 
 ---
 
