@@ -1,0 +1,66 @@
+% !TeX root = main_long.tex
+\section{RQ3: integration with external data}
+\subsection{Method}
+\label{sec:m-rq3}
+
+RQ3 asks which externally flagged alterations have sufficient sample depth and which source observations support the answer.
+As Listing~\ref{lst:vcf-example} illustrates, \texttt{LAD} values follow the sample's \texttt{LAA} subset rather than the full \texttt{ALT} list.
+The full experiment uses four synthetic sites represented both locally and globally, with one sample, converted in the expanded profile; the listing retains two local records and only the fields and alleles needed for the illustrated joins.
+Its graph is combined with a separately authored local snapshot of five invented, flagged alterations, sharing no identifiers.
+The graph pattern in Listing~\ref{lst:localallele} joins them on contig, position, reference allele, and alternate allele, then retrieves supporting depth through \term{forAllele}.
+This assumes the same reference assembly, unchecked against the VCF reference declaration, and identical as-written alleles without normalization or VRS identification.
+The sample identifies a VCF column, not a patient.
+
+\begin{lstlisting}[float=htbp,caption={Graph-pattern excerpt from the integration query's \term{WHERE} clause. Prefix declarations, \term{SELECT}, filtering, and provenance retrieval are omitted.},label={lst:localallele}]
+# 1. the flagged alteration, from the external annotation snapshot
+?annotation a ex:FlaggedAlteration ; ex:contig ?contig ; ex:position ?position ;
+            ex:referenceAllele ?ref ; ex:alternateAllele ?alt .
+# 2. the same alteration as written in the VCF file
+?record vcfc:chrom ?contig ; vcfc:pos ?position ; vcfc:ref ?ref ;
+        vcfc:hasCall ?call ; vcfc:hasAltAllele ?altAllele .
+?altAllele vcfc:alleleValue ?alt .
+# 3. that sample's LAD value, and the declaration giving its cardinality
+?call vcfc:hasSampleCall/vcfc:hasFormatValue ?field .
+?field vcfc:declaredBy [ vcfc:fieldId "LAD" ; vcfc:fieldNumber ?number ] ;
+       vcfc:hasValueItem ?item .
+# 4. the depth for THIS allele, via the sample's own local allele set
+?item vcfc:forAllele ?altAllele ; vcfc:itemValue ?depth .
+\end{lstlisting}
+
+The complete query in \path{RQ3/inputs/local-allele-evidence.rq} selects \texttt{LAD >= 20}, distinguishing correct allele-depth joins from positional misreading while retaining source context.
+Expected rows, authored before execution, are compared across eight answer fields. 
+The ninth, the source file, is checked against the converted input path.
+Each of the three excluded alterations is checked individually.
+The example concerns only \texttt{Number=LR} \texttt{LAD}.
+Its annotations have no biological meaning and are held locally for deterministic execution.
+
+\subsection{Results}
+\label{sec:integration}
+
+The query returns exactly the two expected alterations: \texttt{chr1:1~G>C} at depth 30 and \texttt{chr1:2~A>T} at depth 25.
+Each retains the correct file, record, sample, and FORMAT declaration context.
+Table~\ref{tab:local-allele-example} follows these joins for the two-record example.
+For \texttt{chr1:1~G>C}, the annotation's four location and allele values identify the record's C allele, and \term{forAllele} leads to depth 30 (Figure~\ref{fig:model}).
+For \texttt{G>A}, the same location matches, but no LAD item points to A, so the query excludes it.
+
+\begin{table}[htbp]
+\centering
+\caption{Joining four flagged alterations to the two-record example. A dash means no LAD value for that allele, not zero depth. All numeric values pass the threshold of 20, but the two interpretations return different alterations.}
+\label{tab:local-allele-example}
+\small
+\begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lrr@{}}
+\toprule
+Flagged alteration & Through \term{forAllele} & By ALT position (incorrect) \\
+\midrule
+\texttt{chr1:1 G>C} & 30 & --- \\
+\texttt{chr1:1 G>A} & --- & 30 \\
+\texttt{chr1:2 A>T} & 25 & --- \\
+\texttt{chr1:2 A>C} & --- & 25 \\
+\bottomrule
+\end{tabular*}
+\end{table}
+
+The full experiment also confirms exclusion of \texttt{chr1:3~C>G}, outside the local subset and below threshold even under positional reading.
+The incorrect interpretation still returns two plausible rows with provenance.
+This counterexample was defined from the fixture and specification before execution; it illustrates the rule, rather than measuring a converter error.
+The result is limited to this synthetic example, with no claim of clinical relevance or correctness across all VCF data.

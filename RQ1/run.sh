@@ -18,7 +18,7 @@
 set -euo pipefail
 
 VOCAB_REPO="https://github.com/ecrum19/vcf-core-vocabulary.git"
-VOCAB_TAG="v2.1.2"
+VOCAB_TAG="v2.1.3"
 
 HERE="$(cd "$(dirname "$0")" && pwd)"
 REPO="$(cd "$HERE/.." && pwd)"

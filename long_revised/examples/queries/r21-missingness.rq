@@ -1,0 +1,16 @@
+# R21: an explicitly missing field value must stay distinguishable from a
+# trailing field that the sample omits altogether.
+#
+# The query the manuscript describes in prose, in full. Run against the
+# expanded-profile witness graph of ../example.vcf, record POS=4, where
+# S1 writes "./.:.:." and S2 writes "0/0". OPTIONAL retains the row for S2, so
+# an omitted LAD leaves ?raw unbound rather than dropping the sample.
+PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
+SELECT ?sample ?raw WHERE {
+  ?record vcfc:pos 4 ; vcfc:hasCall/vcfc:hasSampleCall ?call .
+  ?call vcfc:sampleId ?sample .
+  OPTIONAL {
+    ?call vcfc:hasFormatValue ?field .
+    ?field vcfc:declaredBy/vcfc:fieldId "LAD" ; vcfc:fieldValue ?raw .
+  }
+} ORDER BY ?sample

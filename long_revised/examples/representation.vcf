@@ -1,0 +1,9 @@
+##fileformat=VCFv4.5
+##reference=https://example.org/reference.fa
+##contig=<ID=chr1,length=1000>
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=LAA,Number=.,Type=Integer,Description="Local ALT indices">
+##FORMAT=<ID=LAD,Number=LR,Type=Integer,Description="Local read depths">
+#CHROM	POS	ID	REF	ALT	QUAL	FILTER	INFO	FORMAT	sample
+chr1	1	.	G	A,C	.	.	.	GT:LAA:LAD	2/2:2:20,30
+chr1	2	.	A	C,G,T	.	.	.	GT:LAA:LAD	0/3:3:15,25

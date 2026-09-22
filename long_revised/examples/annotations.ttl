@@ -1,0 +1,44 @@
+# Reduced annotation snapshot for the RQ3 join table (Table 4).
+#
+# EVERY ASSERTION HERE IS SYNTHETIC. No clinical or biological claim is made or
+# implied. Taken from RQ3/inputs/annotations.ttl, keeping the four alterations
+# that Table 4 tabulates and dropping the fifth (chr1:3 C>G), whose record is not
+# part of the reduced two-record example. The dropped row is the one the full
+# experiment notes does not discriminate between the two readings; the two
+# expected answers are unchanged.
+#
+# The mapping rule is deliberately NOT baked into these IRIs. An annotation names
+# an alteration by (contig, position, reference allele, alternate allele) as plain
+# literals, and the query joins on those, so the rule is inspectable in the query
+# rather than hidden in a pre-minted link.
+
+@prefix ex:   <https://example.org/annotations#> .
+@prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#> .
+@prefix so:   <http://purl.obolibrary.org/obo/SO_> .
+@prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
+
+ex:AnnotationSet a ex:Set ;
+  rdfs:label "RQ3 synthetic annotation snapshot (reduced)"@en ;
+  rdfs:comment "Four alterations flagged for review. Synthetic: not derived from any database."@en ;
+  ex:assembly "https://example.org/reference.fa" ;
+  ex:snapshotDate "2026-09-13"^^xsd:date .
+
+# Two of these have local-allele read depth in the fixture and two do not. That
+# spread is what makes the expected answer depend on resolving Number=LR through
+# the sample's own LAA subset rather than positionally.
+
+ex:alt-1 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 1 ; ex:referenceAllele "G" ; ex:alternateAllele "C" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:1 G>C"@en .
+
+ex:alt-2 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 1 ; ex:referenceAllele "G" ; ex:alternateAllele "A" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:1 G>A"@en .
+
+ex:alt-3 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 2 ; ex:referenceAllele "A" ; ex:alternateAllele "T" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:2 A>T"@en .
+
+ex:alt-4 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
+  ex:contig "chr1" ; ex:position 2 ; ex:referenceAllele "A" ; ex:alternateAllele "C" ;
+  ex:alterationType so:0001483 ; rdfs:label "chr1:2 A>C"@en .

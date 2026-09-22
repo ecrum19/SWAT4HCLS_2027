@@ -1,0 +1,20 @@
+Assessment check: 94 requirements, 210 cases; 0 human reviews pending.
+Declared terms: 467  annotationProperty=8, class=78, datatype=5, datatypeProperty=111, namedIndividual=189, objectProperty=75, ontologyHeader=1
+Reserved keys (4.5): 122 (INFO 51, FORMAT 71)
+Per-version registries: VCFv4.1=40, VCFv4.2=40, VCFv4.3=67, VCFv4.4=78, VCFv4.5=122
+External reuse: 5 terms in axioms; 45 alignment targets (chebi 10, faldo 3, geno 3, hero 6, so 15, vrs 8)
+Alignments asserted: 123 SSSOM mappings (48 also inline, 75 module-only) -> gvo 39, so 22, hero 17, vrs 15, gfvo 14, chebi 10, med2rdf 3, geno 2, faldo 1
+Third-party sets (SWAT4HCLS 2025 BioHackathon, genomic variation RDF representations): 116 mappings in 4 sets gigwa=30, hero=25, med2rdf=50, sembeacon=11
+Logical model: 104/104 full (100.0%), 0 partial, 0 absent
+  evidence tiers: fixture=12, probe=23, query=7, shape=62; query-backed=14; enforced=87
+Source serialization (separate axis, no vocabulary term by design): 17/17 fixtures pass; terminators CRLF, LF
+  File and header structure                   20/20  full
+  Field declaration attributes                 8/8   full
+  Type and arity value sets                   14/14  full
+  Lexical and encoding rules                   7/7   full
+  Fixed fields and allele structure           18/18  full
+  FORMAT and genotype                         21/21  full
+  Structural variation, repeats, gVCF         16/16  full
+Validation fixtures: 21/21 passed, 0 violations, 0 warnings
+
+Inventory term check: all cited terms are declared.

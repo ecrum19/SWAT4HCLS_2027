@@ -1,0 +1,17 @@
+{
+ "machine": {
+  "arch": "arm64",
+  "system": "macOS-26.6.2-arm64-arm-64bit-Mach-O"
+ },
+ "ranAt": "2026-09-22T11:53:17+00:00",
+ "tooling": {
+  "pyshacl": null,
+  "python": "3.14.2",
+  "rdflib": "7.6.0"
+ },
+ "vocabulary": {
+  "commit": "8a5f23ae552f519f1a14a9370e6d9d3f14934027",
+  "repository": "https://github.com/ecrum19/vcf-core-vocabulary",
+  "tag": "v2.1.3"
+ }
+}

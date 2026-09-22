@@ -17,7 +17,7 @@ set -euo pipefail
 
 # ---------------------------------------------------------------- pins --------
 VOCAB_REPO="https://github.com/ecrum19/vcf-core-vocabulary.git"
-VOCAB_TAG="v2.1.2"
+VOCAB_TAG="v2.1.3"
 
 RDFIZER_REPO="https://github.com/ecrum19/VCF-RDFizer.git"
 

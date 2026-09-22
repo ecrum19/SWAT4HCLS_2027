@@ -1,0 +1,14 @@
+# R27: "Can local allele indices map to global record alleles?"
+#
+# Listing 2 of the manuscript, in full. Run against the expanded-profile witness
+# graph of ../example.vcf. Each LAD value item is reached structurally,
+# without decoding the sample string, and resolves to the global allele that the
+# sample's own LAA subset selects.
+PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
+SELECT ?pos ?sample ?index ?global ?allele ?depth WHERE {
+  ?record vcfc:pos ?pos ; vcfc:hasCall/vcfc:hasSampleCall ?call .
+  ?call vcfc:sampleId ?sample ; vcfc:hasFormatValue ?field .
+  ?field vcfc:declaredBy/vcfc:fieldId "LAD" ; vcfc:hasValueItem ?item .
+  ?item vcfc:valueIndex ?index ; vcfc:itemValue ?depth ; vcfc:forAllele ?a .
+  ?a vcfc:alleleIndex ?global ; vcfc:alleleValue ?allele .
+} ORDER BY ?pos ?sample ?index

@@ -1,165 +1,129 @@
 % !TeX root = main_long.tex
-\section{Methods}
+\section{VCF Core representation}
 \label{sec:methods}
 
-\subsection{Representation and assessment design}
 \label{sec:design}
 \label{sec:profiles}
 
-VCF Core was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}, using AI-assisted drafting and expert human review to derive terms, field definitions, and constraints from VCF 4.1--4.5~\cite{htsspecs,vcf45}.
-It represents files, header declarations, records, and sample observations as distinct resources, linking each field value to the declaration needed to interpret it (Figure~\ref{fig:model}).
-A \term{VariantCall} groups a record's observations, while a \term{VCFSample} identifies a source column; field definitions remain separate from their occurrence in a header.
-PROV and DCAT support source descriptions, while SO and FALDO connect to alteration and location models without asserting normalized variant identity across files~\cite{prov2013,eilbeck2005so,bolleman2016faldo}.
 VCF Core is a semantic vocabulary with classes, properties, declared domains and ranges, and a shallow subclass hierarchy; it carries no OWL restrictions, cardinality, disjointness, or inverse axioms.
 Value and cardinality constraints are expressed as SHACL shapes~\cite{shacl2017}.
-Terms and relationships can be browsed in the \href{https://ecrum19.github.io/vcf-core-vocabulary/}{VCF Core Vocabulary Explorer}\footnote{\url{https://ecrum19.github.io/vcf-core-vocabulary/}}~\cite{ocg2026}.
+The vocabulary was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}, using AI-assisted drafting and author review to derive terms, field definitions, and constraints from VCF 4.1--4.5~\cite{htsspecs,vcf45}.
+Terms and relationships can be browsed in the \href{https://ecrum19.github.io/vcf-core-vocabulary/}{VCF Core Vocabulary Explorer}~\cite{ocg2026}.
 
-Two \emph{sample profiles} provide alternative representations.
-The \textit{expanded} profile gives each sample's field value its own resource; the \textit{condensed} profile stores sample-ordered vectors whose individual values require decoding.
-Both retain the same file, header, and record context, selecting version-specific registries and validation overlays from \term{fileFormat}~\cite{vcfc210}.
-Our assessment distinguishes a documented representation, an example instantiating it, and an executed query agreeing with an expected answer.
-Only the last establishes correctness within the tested scope; artifact inspection provides a separate basis for RQ4.
+Listing~\ref{lst:vcf-example} shows a minimal VCF example illustrating the structure and typical field values contained in a VCF file.
+The header declares a version, reference, contig, and three sample field definitions: genotype (\texttt{GT}), local alternate-allele indices (\texttt{LAA}), and local read depths (\texttt{LAD}).
+The \texttt{FORMAT} column determines the identity of items within the colon-separated sample values, which two sample columns, \texttt{S1} and \texttt{S2}, then supply.
+Unspecified VCF fields are shown as dots; trailing sample subfields may also be dropped entirely, as \texttt{S2} does on line 11.
+
+\begin{lstlisting}[
+  float=htbp,
+  columns=fixed,
+  basewidth={\dimexpr\linewidth/81\relax},
+  numbers=left,
+  numberstyle=\tiny,
+  numbersep=8pt,
+  caption={Four-record, two-sample VCF example (\texttt{example.vcf}), with columns aligned for display.},
+  label={lst:vcf-example}
+]
+##fileformat=VCFv4.5
+##reference=https://example.org/reference.fa
+##contig=<ID=chr1,length=1000>
+##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
+##FORMAT=<ID=LAA,Number=.,Type=Integer,Description="Local ALT indices">
+##FORMAT=<ID=LAD,Number=LR,Type=Integer,Description="Local read depths">
+#CHROM POS ID REF ALT   QUAL FILTER INFO FORMAT     S1          S2
+chr1   1   .  G   T     .    .      .    GT:LAA:LAD 0/1:1:18,22 0/0:1:21,0
+chr1   2   .  G   A,C   .    .      .    GT:LAA:LAD 2/2:2:20,30 0/1:1:12,9
+chr1   3   .  A   C,G,T .    .      .    GT:LAA:LAD 0/3:3:15,25 0/1:1:11,7
+chr1   4   .  T   C     .    .      .    GT:LAA:LAD ./.:.:.     0/0
+\end{lstlisting}
+
+Figure~\ref{fig:model} shows how VCF Core models the fields of Listing~\ref{lst:vcf-example}, in three steps marked on the figure.
+\stepmark{1} A \term{VCFFile} represents \texttt{example.vcf} and links to its \term{VCFHeader} (lines 1--6) and four \term{VCFRecord} resources (lines 8--11).
+The header contains \term{HeaderLine} resources; a \term{FORMATHeaderLine} is also a \term{FieldDefinition}, supplying a field's identifier, type, and cardinality, as \texttt{LAD} does on line 6.
+\stepmark{2} Each record describes a location and alleles; line 8 declares one \texttt{ALT} allele, \texttt{ALT=T}, modelled as a single \term{AltAllele}.
+\stepmark{3} Its \term{VariantCall} groups field values and sample observations, and a \term{SampleCall} describes the values within the column named \texttt{S1} on line 7.
+
+The first record is deliberately simple for \texttt{S1}: \texttt{GT=0/1} calls "G" and "T", and \texttt{LAA=1} selects the only \texttt{ALT} allele.
+The declaration \texttt{Number=LR} means that \texttt{LAD=18,22} gives depth for the \texttt{REF} allele "G" followed by that local \texttt{ALT} allele "T"~\cite{vcf45}.
+VCF Core represents "22" as a \term{FieldValueItem} linked through \term{forAllele} to "T", and through its \term{FormatFieldValue} to the declaration and sample observation.
+
 
 \begin{figure}[htbp]
 \centering
 \begin{tikzpicture}[x=1mm,y=1mm,
   box/.style={draw,rounded corners=1pt,align=center,font=\small,inner sep=4pt},
+  expanded/.style={box,fill=blue!10},
+  condensed/.style={box,fill=orange!30},
   edge/.style={-{Stealth[length=4pt]},thin},
   lab/.style={font=\scriptsize\ttfamily,fill=white,inner sep=1pt,align=center}]
-\node[box] (file) at (17,0) {VCFFile};
-\node[box] (header) at (72,0) {VCFHeader};
-\node[box] (line) at (128,0) {HeaderLine};
-\node[box] (record) at (17,-16) {VCFRecord};
-\node[box] (call) at (17,-32) {VariantCall};
-\node[box] (definition) at (128,-16) {FieldDefinition};
-\node[box] (sample) at (72,-32) {SampleCall};
-\node[box] (value) at (128,-32) {FormatFieldValue};
-\node[box] (matrix) at (72,-48) {CohortCallMatrix};
-\node[box] (vector) at (128,-48) {FormatValueVector};
+\node[box] (file) at (17,0) {VCFFile\\\scriptsize\texttt{example.vcf}};
+\node[box] (header) at (72,0) {VCFHeader\\\scriptsize lines 1--6};
+\node[box] (line) at (128,0) {FORMATHeaderLine\\\scriptsize\texttt{LAD, Number=LR}\\\scriptsize line 6};
+\node[box] (record) at (17,-18) {VCFRecord\\\scriptsize line 8};
+\node[box] (allele) at (72,-18) {AltAllele\\\scriptsize\texttt{alleleValue "T"}\\\scriptsize line 8, \texttt{ALT}[1]};
+\node[expanded] (item) at (128,-18) {FieldValueItem\\\scriptsize\texttt{itemValue 22}\\\scriptsize line 8, \texttt{LAD}[2]};
+\node[box] (call) at (17,-36) {VariantCall};
+\node[expanded] (sample) at (72,-36) {SampleCall\\\scriptsize\texttt{sampleId "S1"}\\\scriptsize line 7};
+\node[expanded] (value) at (128,-36) {FormatFieldValue\\\scriptsize\texttt{fieldValue "18,22"}\\\scriptsize line 8, \texttt{LAD}};
+\node[condensed] (matrix) at (72,-54) {CohortCallMatrix};
+\node[condensed] (vector) at (128,-54) {FormatValueVector\\\scriptsize\texttt{encodedValues "18,22"}\\\scriptsize line 8, \texttt{LAD}};
+\node[anchor=east] at ([xshift=-2mm]file.west) {\stepmark{1}};
+\node[anchor=east] at ([xshift=-2mm]record.west) {\stepmark{2}};
+\node[anchor=east] at ([xshift=-2mm]call.west) {\stepmark{3}};
 \draw[edge] (file) -- node[lab,above] {hasHeader} (header);
 \draw[edge] (header) -- node[lab,above] {hasHeaderLine} (line);
 \draw[edge] (file) -- node[lab,left] {hasRecord} (record);
 \draw[edge] (record) -- node[lab,left] {hasCall} (call);
-\draw[edge] (definition) -- node[lab,right] {declaredOnLine} (line);
+\draw[edge] (record) -- node[lab,above] {hasAltAllele} (allele);
+\draw[edge] (item) -- node[lab,above] {forAllele} (allele);
+\draw[edge] (value) -- node[lab,right] {hasValueItem} (item);
 \draw[edge] (call) -- node[lab,above] {hasSampleCall} (sample);
 \draw[edge] (sample) -- node[lab,above] {hasFormatValue} (value);
 \draw[edge] (call.south) |- node[lab,above,pos=0.68] {hasCallMatrix} (matrix);
 \draw[edge] (matrix) -- node[lab,above] {hasFormat\\ValueVector} (vector);
-\draw[edge,dashed] (value) -- node[lab,right] {declaredBy} (definition);
-\draw[edge,dashed] (vector.east) -- ++(7,0) |- (definition.east);
+\draw[edge,dashed] (vector.east) -- (158,-54) |- (line.east);
+\draw[dashed,thin] (value.east) -- (158,-36);
+\node[lab,rotate=90] at (158,-23) {declaredBy};
 \end{tikzpicture}
-\caption{Selected VCF Core relationships. Expanded calls expose individual sample values; condensed calls hold sample-ordered vectors. Both retain file, record, and declaration context. Dashed links identify the declaration supplying a value's type and cardinality.}
+\caption{
+  Selected resources for the first record (line 8) of Listing~\ref{lst:vcf-example}, walked through in steps \stepmark{1}--\stepmark{3}. 
+  Purple nodes are \textit{expanded}-profile resources, orange \textit{condensed}. 
+  Depth 22 is explicitly associated with allele T in the \textit{expanded} profile. 
+  \texttt{LAA} has no node of its own because its resolution is already applied in \term{forAllele}. 
+  The two dashed links show that both profiles resolve to the same \term{FieldDefinition}. 
+  Records on lines 9--11, column \texttt{S2}, other fields, alleles, and header lines are omitted.
+  }
 \label{fig:model}
 \end{figure}
 
-\subsection{RQ1: specification-derived assessment and curated inventory}
-\label{sec:m-rq1}
+VCF Core provides two \emph{sample profiles} for representing sample-level observations.
+In the \emph{expanded} profile, each sample value is represented as its own RDF resource. 
+In the \emph{condensed} profile, values are stored as sample-ordered vectors, avoiding per-sample field resources but requiring decoding to access an individual value.
 
-We assess correspondence between VCF specificaiton and VCF Core in both directions: from specification requirements to their \textit{vcfcv} representation, and from the vocabulary to a curated inventory of source constructs.
-These approaches have prescedent in previous ontology assessment studies~\cite{gomezperez2001evaluation,sabou2012ontologyevaluation}.
-The first assessment starts from pinned, digest-verified VCF 4.1--4.5 specifications.
-A \emph{requirement} expresses a specification rule extracted as a question with a checkable answer, following competency-question and requirements-specification established practices~\cite{gruninger1995methodology,suarezfigueroa2009orsd,lot2022}.
-For example, R16 asks: ``Can \term{Number=A} values be associated with the correct ALT allele?''
-Requirements retain links to their source passages.
-We deemed binary encoding, compression, indexing, producer estimation algorithms, and general invalid-input rejection are outside the scope of this assessment.
+The difference is primarily one of scale for multi-sample VCF files (as used in cohort studies such as~\cite{1000genomes2015global}). 
+\[
+\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{samples}}N_{\mathrm{FORMAT}}\right)}_{\text{(E) Expanded}}
+\qquad
+\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{FORMAT}}\right)}_{\text{(C) Condensed}} .
+\]
 
-\paragraph{Cases and expected answers.}
-A \emph{case} pairs one requirement and VCF version with a \emph{fixture}: a small VCF file designed to expose the rule.
-The fixture is materialized into a \emph{witness} graph and queried using SPARQL~\cite{sparql2013}.
-Each case has an \emph{expected answer} authored from the specification and fixture before query execution, adapting SAMOD and executable ontology-testing approaches~\cite{samod2016,blomqvist2012ontologytesting,wisniewski2019competencyquestions}.
-Queries were drafted with AI assistance and reviewed by a human.
-Expected answers primarily draw on specification examples.
-Answers are compared as multisets of string-valued rows, so missing, extra, or duplicated rows fail, and ordering is tested by projecting ordinals.
-Thus, values such as \texttt{30} and \texttt{30.0} remain distinct.
-The fixture's declared VCF version must match its case.
+For illustration, a VCF with \(1{,}000\) variants (rows) across \(2{,}500\) samples (sample columns) using the \texttt{FORMAT} column \texttt{GT:LAA:LAD} from above, would produce approximately \(1.1\times10^{8}\) sample-related statements in expanded profile (e), and approximately \(3.05\times10^{4}\) in condensed profile (c).
+For datasets containing millions of variants and thousands of samples, reducing the number of triples by several orders of magnitude using the condensed profile can substantially decrease graph size and make storage and usage more practical.
+Importantly, both profiles preserve the same underlying values, the trade-off is direct queryability. 
+Expanded graphs support SPARQL access to individual sample values and their relationships, while condensed graphs require a decoding step before those values can be queried individually.
+In the condensed profile, values are stored inside vector literals and recovered using the corresponding FORMAT definition and sample ordering, see \href{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}{github docs} for more detail\footnote{\url{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}}.
+Both profiles retain the same file, header, and record context, including version-specific registries and validation overlays selected from \term{fileFormat}~\cite{vcfc210}.
 
-\paragraph{Retrieval, controls, and scoring.}
-Each case runs in both sample profiles on two axes.
-\emph{Preservation} permits decoding values from literals, whereas \emph{structure} requires graph relationships and prohibits the string-decomposition functions \term{REPLACE}, \term{SUBSTR}, \term{STRBEFORE}, and \term{STRAFTER}.
-An empty-graph control rejects queries that return the expected answer without data.
-A predicate-deletion control requires the answer to change after deleting at least one referenced property; it establishes dependence on some vocabulary data, rather than on every property mentioned.
-Requirements are scored per applicable version, profile, and axis as demonstrated when all cases pass, partial when some pass, not demonstrated when all fail, and unassessed when no case exists.
-Only demonstrated requirements enter the numerator; all applicable requirements, including unassessed ones, remain in the denominator with equal weight.
 
-The VCF Core vocabulary repository's \href{https://github.com/ecrum19/vcf-core-vocabulary/blob/main/scripts/vcf_examples.py}{Python materializer}\footnote{\url{https://github.com/ecrum19/vcf-core-vocabulary/blob/main/scripts/vcf_examples.py}} builds witnesses from fixtures.
-The materializer, vocabulary, and queries share authors, so a common misunderstanding remains possible despite separately authored answers and the inclusion of controls.
-RQ2 therefore applies the same assessment to a separate set of witnesses generated an indepentent implementation to mitigate this potential flaw.
-Separately, reserved INFO/FORMAT Number/Type declarations are extracted from the specification texts and compared with the corresponding version registries.
-This tests explicit declarations, independently of prose interpretation.
-
-\paragraph{Curated inventory.}
-The second assessment links 104 VCF 4.5 logical constructs to vocabulary terms and supporting evidence.
-Reviewers classify whether information is preserved, structurally retrievable, and enforced by a validation rule.
-These evaluation approaches have also been used to assess semantic ontologies in past studies~\cite{gomezperez2001evaluation,sabou2012ontologyevaluation}.
-Representation is full when both preservation and structure are supported, partial when only preservation is supported, and absent otherwise.
-Enforcement is recorded separately and does not contribute to the representation score.
-These curated judgments complement the executed VCF specificaiton requirement tests.
-
-\subsection{RQ2: comparison with an independent RDF converter}
-\label{sec:m-rq2}
-
-We re-execute all RQ1 cases against witness graphs generated by VCF-RDFizer 3.0.3~\cite{vcfrConverter2026}, keeping fixtures, queries, and expected answers unchanged.
-This converter executes RML mappings with RMLStreamer, whereas the \textit{vcfcv} materializer constructs triples via a Python script.
-The programs share an author, so the comparison tests separate implementations without constituting replication by an unrelated group.
-Every fixture is converted in both profiles, and both producers' graphs are generated during the run.
-For each case, axis, and profile, we record whether both pass, either producer alone passes, or both fail.
-We also compare the two profiles case by case.
-Because producers mint different resource bases, fragment-bearing IRIs are compared by fragment alone; a wrong namespace with the correct fragment could therefore escape detection.
-
-\paragraph{Semantic round-trip.}
-A complementary check reconstructs the seven fixed columns, sample genotypes, header lines, INFO entries, and non-GT FORMAT values from structured RDF properties and compares them with the source.
-Use of the preserved-source properties \term{infoRaw}, \term{sampleDataRaw}, and \term{genotypeString} are forbidden.
-Deliberate alterations or deletions of genotype, field, and header data verify that mismatches are detected.
-A leading phase indicator is normalized because VCF 4.4-5 permits equivalent forms such as \texttt{|0|1} and \texttt{0|1}; allele order, missing calls, ploidy, and intervening phase indicators must still match exactly.
-The check uses only expanded graphs because condensed decoding requires an accessor the converter does not yet emit.
-RQ1 and RQ2 use exact comparison, without sampling or tolerance thresholds.
-
-\subsection{RQ3: integration under local alleles}
-\label{sec:m-rq3}
-
-RQ3 tests whether the representation supports a reproducible join to external statements while retaining source context.
-A synthetic VCF contains four sites represented both locally and globally, with one sample, and is converted in the expanded profile.
-Its graph is combined in memory with a separately authored local snapshot of five invented, flagged alterations.
-The two inputs share no identifiers.
-Listing~\ref{lst:localallele} joins them on contig, position, reference allele, and alternate allele, then retrieves supporting depth through \term{forAllele}.
-This assumes the same reference assembly, unchecked against the VCF reference declaration, and identical as-written alleles without normalization or VRS identification.
-The sample identifies a VCF column, not a patient.
-
-\begin{lstlisting}[caption={The integration \emph{query}, abridged; \term{forAllele} resolves the \term{Number=LR} frame of reference.},label={lst:localallele}]
-# 1. the flagged alteration, from the external annotation snapshot
-?annotation a ex:FlaggedAlteration ; ex:contig ?contig ; ex:position ?position ;
-            ex:referenceAllele ?ref ; ex:alternateAllele ?alt .
-# 2. the same alteration as written in the VCF file
-?record vcfc:chrom ?contig ; vcfc:pos ?position ; vcfc:ref ?ref ;
-        vcfc:hasCall ?call ; vcfc:hasAltAllele ?altAllele .
-?altAllele vcfc:alleleValue ?alt .
-# 3. that sample's LAD value, and the declaration giving its cardinality
-?call vcfc:hasSampleCall/vcfc:hasFormatValue ?field .
-?field vcfc:declaredBy [ vcfc:fieldId "LAD" ; vcfc:fieldNumber ?number ] ;
-       vcfc:hasValueItem ?item .
-# 4. the depth for THIS allele, via the sample's own local allele set
-?item vcfc:forAllele ?altAllele ; vcfc:itemValue ?depth .
-\end{lstlisting}
-
-The query selects flagged alterations with \texttt{LAD >= 20}, a threshold chosen to distinguish correct local-allele interpretation from positional misreading.
-Please note, this example was chosen semi-arbitratily and does not exhibit clinical significance.
-Expected rows are authored before execution and compared exactly across all eight projected fields, rather than by row count.
-Each of the three excluded alterations is checked individually, and every returned row must cite the file actually converted, verified against the input path.
-The example is restricted to the \texttt{Number=LR} field \texttt{LAD}; its annotations have no biological meaning and are held locally for deterministic execution.
-
-\subsection{RQ4: comparison with existing models}
-\label{sec:m-rq4}
-
-One reviewer inspected published artifacts for GFVO, HERO-Genomics, GVO, and VCF2RDF against nine retrieval criteria (Table~\ref{tab:models})~\cite{baran2015gfvo,cazzaro2025hero,kawashima2023gvo,penha2017vcf2rdf}.
-Verdicts are \textbf{E}, explicitly represented; \textbf{C}, representable with additional conventions; and \textbf{S}, outside stated scope.
-The criteria concern VCF interpretation context, and S denotes a difference of purpose rather than a defect.
-Artifact digests identify the inspected versions; VCF2RDF's terms were inspected, while converter behaviour was taken from its paper rather than execution.
-GA4GH VRS is not scored because it addresses computable variation identity rather than source-file representation~\cite{wagner2021vrs}.
-This assessment measures documented support, not the capabilities of extensions or applications built around these models.
+\subsection{Assessment design}
+Each research question adapts an established practice.
+RQ1 states each specification rule as a question with a checkable answer~\cite{gruninger1995methodology} and tests it after SAMOD~\cite{samod2016}, while its curated inventory evaluates the vocabulary against an external frame of reference~\cite{gomezperez2001evaluation}.
+RQ2 adapts conformance testing, executing the same specification-derived tests against independent implementations, as done in other fields~\cite{bishop2005conformance} and for tools reading one genomics format~\cite{niu2022interop}.
+RQ3 and RQ4 are task-based and comparative evaluations, judging the representation by whether it supports an external task and against related models through their published artifacts~\cite{sabou2012ontologyevaluation}.
 
 \paragraph{Evaluated artifacts and reproduction.}
 \label{sec:reproduction}
-All results use released VCF Core 2.1.2~\cite{vcfc210} and VCF-RDFizer 3.0.3, with the latter's container pinned by digest.
-The \href{https://github.com/ecrum19/SWAT4HCLS_2027}{experimental repository}\footnote{\url{https://github.com/ecrum19/SWAT4HCLS_2027}} provides requirements, fixtures, queries, expected answers, per-RQ procedures, run scripts, and pinned artifacts in \path{PINS.md}.
-All references to "local" files or results can be found in the experimental repository listed above.
-Runs record specification digests, commands, graphs, results, and environment information, including the dependency rdflib~7.6.0 for query execution.
+All results use VCF Core v2.1.3~\cite{vcfc210} and VCF-RDFizer v3.0.3, with the latter's container pinned by digest.
+The \href{https://github.com/ecrum19/SWAT4HCLS_2027}{experimental repository}\footnote{\url{https://github.com/ecrum19/SWAT4HCLS_2027}} provides the referenced files, requirements, fixtures, queries, expected answers, per-RQ procedures, and pinned versions and digests in \path{PINS.md}.
+Runs record specification digests, commands, graphs, results, and environments, including rdflib~7.6.0 for query execution.

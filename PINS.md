@@ -13,7 +13,7 @@ right and this page is stale.
 
 | | Version | Commit | Used by |
 | --- | --- | --- | --- |
-| [vcf-core-vocabulary](https://github.com/ecrum19/vcf-core-vocabulary) | `v2.1.2` | `3f06d188fe1ae72d0841bee45307a392cb3744d4` | RQ1, RQ2, RQ3 |
+| [vcf-core-vocabulary](https://github.com/ecrum19/vcf-core-vocabulary) | `v2.1.3` | `8a5f23ae552f519f1a14a9370e6d9d3f14934027` | RQ1, RQ2, RQ3 |
 | [VCF-RDFizer](https://github.com/ecrum19/VCF-RDFizer) | `v3.0.3` | `be658a288b70b7a236dc45d40978b295f8c216b6` | RQ2, RQ3 |
 
 Both are cloned once into `.artifacts/<name>-<tag>/` and shared by all three

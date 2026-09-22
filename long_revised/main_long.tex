@@ -8,6 +8,7 @@
 \usetikzlibrary{arrows.meta,positioning}
 \usepackage{xurl}
 \newcommand{\term}[1]{\texttt{#1}}
+\newcommand{\stepmark}[1]{\textcircled{\scriptsize #1}}
 \lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,
   keepspaces=true,showstringspaces=false,frame=single,
   aboveskip=6pt,belowskip=6pt}
@@ -52,7 +53,7 @@ In the Variant Call Format (VCF), overlooking version rules, field declarations,
 % Need: Why something needed to be done at all
 Existing semantic models leave parts of this context to application-specific conventions, limiting what users can retrieve and integrate without the loss of context.
 % Task: What was undertaken to address the need
-We developed VCF Core, a vocabulary that makes this context explicit and provides version-specific representations for VCF 4.1--4.5, allowing data to be interpreted according to their declared specification.
+We developed VCF Core, a vocabulary that makes this context explicit and provides version-specific representations for VCF 4.1--4.5, allowing data to be interpreted according to its declared specification.
 % Object: What the present document does or covers
 This paper evaluates VCF Core's specification conformance, robustness, and practical utility through four research questions.
 Our reproducible workflow combines competency questions, specification-derived tests, negative controls, cross-implementation comparisons, and semantic round-tripping, with explicit expected answers and transparent reporting of passing, failing, and untested requirements.
@@ -63,7 +64,7 @@ A synthetic integration experiment further demonstrates that standard SPARQL que
 % Conclusion: What the findings mean for the audience
 These findings show how explicit VCF semantics make operations otherwise dependent on format-specific code available through native graph relationships, providing a tested foundation for reusable conversion and querying.
 % Perspectives: What the future holds, beyond this work
-The accompanying workflow can be adapted to other specification-based vocabularies, while independent testing and application to biomedical datasets can extend the evidence for VCF Core and guide its adoption.
+By making VCF interpretation context explicit and reusable, VCF Core provides a semantic bridge from source observations to interoperable biomedical knowledge, reducing the need for each downstream system to reimplement VCF-specific logic and providing a common foundation for genomic data integration, querying, and reuse.
 \end{abstract}
 \begin{keywords}
 Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration\sep SHACL
@@ -81,19 +82,22 @@ Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration
 
 \section{Conclusion}
 
-VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them.
-The assessment demonstrates structured retrieval for the tested requirements, reuse across two separately implemented producers, and an allele-dependent integration task with checked answers and source provenance.
-The remaining gaps concern untested requirements, incomplete converter support, and evaluation beyond synthetic examples.
-By making declarations, allele relationships, and sample context explicit, the vocabulary allows conversion engines and downstream queries to reuse the same interpretation rules while connecting source observations to biomedical models.
-We invite independent review and testing to extend the evidence for this resource and clarify where further development is needed.
+VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
+Our assessments demonstrate structured retrieval for the tested requirements, consistent use across two independently implemented producers, and a checked allele-dependent integration example with preserved provenance.
 
-\begin{acknowledgments}
-Project funding provided from the Research Foundation -- Flanders (FWO) (SB Fellowship 1S27825N).
-Ruben Taelman is a postdoctoral fellow of the Research Foundation -- Flanders (FWO) (1202124N).
-\end{acknowledgments}
+Remaining work includes untested requirements, incomplete converter support, and evaluation on realistic datasets and workflows. 
+By making field declarations, allele relationships, and sample context explicit, VCF Core enables converters and downstream applications to reuse the same interpretation rules while linking source observations to broader biomedical models. 
+We welcome further review, testing, and contributions to strengthen the resource.
 
+
+% \begin{acknowledgments}
+% Project funding provided from the Research Foundation -- Flanders (FWO) (SB Fellowship 1S27825N).
+% Ruben Taelman is a postdoctoral fellow of the Research Foundation -- Flanders (FWO) (1202124N).
+% \end{acknowledgments}
+
+% AUTHOR REVIEW R17: reconfirm this disclosure after reviewing the revised manuscript and the documented query-review scope.
 \section*{Declaration on Generative AI}
-GPT-6 Astra (OpenAI) and Claude Opus 5 (Anthropic) assisted with the development of the VCF Core Vocabulary, the scripts used throughout this study, the initial writing of SPARQL queries used for testing, and the refinement of manuscript figures and text. The authors reviewed all AI outputs, all code generated by AI models, and all AI manuscript revisions to the manuscript. The authors take full responsibility for all content, tools, repositories, and paper contents.
+GPT-6 Astra (OpenAI) and Claude Opus 5 (Anthropic) assisted with vocabulary development, assessment scripts, initial SPARQL query drafts, and proof-reading manuscript figure captions and text. The authors reviewed all AI outputs and take full responsibility for the manuscript, experiments, tools, and repositories.
 
 \label{endofmain}
 

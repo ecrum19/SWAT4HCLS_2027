@@ -5,9 +5,15 @@ This directory contains a separate shortened manuscript based on the current `lo
 ## Files and build
 
 - `main_long.tex`: master document, abstract, conclusion, acknowledgments, and AI declaration.
-- `intro_rw.tex`, `methods.tex`, `results.tex`, `discussion.tex`: shortened sections.
+- `intro_rw.tex`: introduction, research questions, and related work.
+- `methods.tex`: vocabulary representation and shared assessment design.
+- `examples/`: tab-delimited counterparts of the printed fixtures, plus the three queries behind Listings 2 and 3 and the R21 worked case, in full; see `examples/README.md`. `example.vcf` backs Listing 1, Figure 1 and RQ1's worked cases; `representation.vcf` and `annotations.ttl` back RQ3's join table; `queries/` holds Listing 2, the R21 query, and Listing 3's source query. Reduced from the existing local-allele fixtures, without changing the experiment inputs.
+- `results.tex`: includes `rq1.tex` through `rq4.tex`, each pairing its method with its results.
+- `figures/requirement-coverage.pdf`: vector coverage figure used in RQ1, with SVG and PNG counterparts for reuse.
+- `scripts/requirement-coverage.py`: generates the coverage figure from `../RQ1/results/summary.json`, checking the profile counts before plotting.
+- `discussion.tex`: discussion and future work.
+- `review-todo.md`: reviewer comments, concise change notes, current source lines, and author-review items.
 - `sources.bib`, `ceurart.cls`, `cc-by.pdf`, `ceur-ws-logo.pdf`: copied bibliography and template assets, allowing this directory to build independently.
-- `companion-notes.md`: relocated audit details, implementation mechanics, secondary counts, and source links; not part of the submission PDF.
 
 From the repository root:
 
@@ -17,3 +23,5 @@ make -C long_revised pages
 ```
 
 Or run `make` inside this directory. Builds use `latexmk`, pdfLaTeX, and BibTeX, place intermediates in `.build/`, and export `main_long.pdf` here. They do not invoke the root Makefile or rebuild either original paper. The `pages` target reports the page containing the `endofmain` marker, after acknowledgments and the AI declaration and before references.
+
+The normal paper build uses the supplied figure PDF. To regenerate PDF, SVG, and PNG versions after changing the results or plot, run `make -C long_revised figures` from the repository root, then rebuild the paper. Figure generation requires Python with Matplotlib and the recorded RQ1 results; use `PYTHON=/path/to/python` to select an interpreter.

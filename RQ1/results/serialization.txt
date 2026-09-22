@@ -1,0 +1,1 @@
+Source serialization: 17/17 fixtures satisfy the VCF 4.5 byte requirements; terminators exercised: CRLF, LF.
