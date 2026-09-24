@@ -1,0 +1,404 @@
+@prefix ex: <file://example.vcf#> .
+@prefix vcfc: <https://w3id.org/vcf-core/vocab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file://example.vcf> a vcfc:VCF45File,
+        vcfc:VCFFile ;
+    vcfc:fileFormat "VCFv4.5" ;
+    vcfc:hasHeader ex:header ;
+    vcfc:hasRecord <file://example.vcf#record/1>,
+        <file://example.vcf#record/2>,
+        <file://example.vcf#record/3> ;
+    vcfc:hasSampleSet ex:samples ;
+    vcfc:referenceGenome "https://example.org/reference.fa" ;
+    vcfc:representationProfile vcfc:CondensedRepresentation .
+
+<file://example.vcf#call/1> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasCallMatrix <file://example.vcf#call/1/matrix> ;
+    vcfc:hasFormatKey <file://example.vcf#call/1/formatKey/1>,
+        <file://example.vcf#call/1/formatKey/2>,
+        <file://example.vcf#call/1/formatKey/3> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/1/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/1/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/1/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+<file://example.vcf#call/1/matrix> a vcfc:CohortCallMatrix ;
+    vcfc:appliesToSampleSet ex:samples ;
+    vcfc:hasFormatValueVector <file://example.vcf#call/1/matrix/fmt/GT>,
+        <file://example.vcf#call/1/matrix/fmt/LAA>,
+        <file://example.vcf#call/1/matrix/fmt/LAD> ;
+    vcfc:sampleDataRaw "2/2:2:20,30	0/1:1:12,9" .
+
+<file://example.vcf#call/1/matrix/fmt/GT> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:encodedValues "2/2	0/1" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/1/matrix/fmt/LAA> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:encodedValues "2	1" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/1/matrix/fmt/LAD> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:encodedValues "20,30	12,9" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/2> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasCallMatrix <file://example.vcf#call/2/matrix> ;
+    vcfc:hasFormatKey <file://example.vcf#call/2/formatKey/1>,
+        <file://example.vcf#call/2/formatKey/2>,
+        <file://example.vcf#call/2/formatKey/3> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/2/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/2/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/2/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+<file://example.vcf#call/2/matrix> a vcfc:CohortCallMatrix ;
+    vcfc:appliesToSampleSet ex:samples ;
+    vcfc:hasFormatValueVector <file://example.vcf#call/2/matrix/fmt/GT>,
+        <file://example.vcf#call/2/matrix/fmt/LAA>,
+        <file://example.vcf#call/2/matrix/fmt/LAD> ;
+    vcfc:sampleDataRaw "0/3:3:15,25	0/1:1:11,7" .
+
+<file://example.vcf#call/2/matrix/fmt/GT> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:encodedValues "0/3	0/1" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/2/matrix/fmt/LAA> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:encodedValues "3	1" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/2/matrix/fmt/LAD> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:encodedValues "15,25	11,7" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/3> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasCallMatrix <file://example.vcf#call/3/matrix> ;
+    vcfc:hasFormatKey <file://example.vcf#call/3/formatKey/1>,
+        <file://example.vcf#call/3/formatKey/2>,
+        <file://example.vcf#call/3/formatKey/3> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/3/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/3/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/3/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+<file://example.vcf#call/3/matrix> a vcfc:CohortCallMatrix ;
+    vcfc:appliesToSampleSet ex:samples ;
+    vcfc:hasFormatValueVector <file://example.vcf#call/3/matrix/fmt/GT>,
+        <file://example.vcf#call/3/matrix/fmt/LAA>,
+        <file://example.vcf#call/3/matrix/fmt/LAD> ;
+    vcfc:sampleDataRaw "./.:.:.	0/0" .
+
+<file://example.vcf#call/3/matrix/fmt/GT> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:encodedValues "./.	0/0" ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/3/matrix/fmt/LAA> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:encodedValues ".	." ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+<file://example.vcf#call/3/matrix/fmt/LAD> a vcfc:FormatValueVector ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:encodedValues ".	." ;
+    vcfc:valueEncoding vcfc:VCFTextVector .
+
+ex:header a vcfc:VCFHeader ;
+    vcfc:hasColumnHeader <file://example.vcf#header/columns> ;
+    vcfc:hasHeaderLine <file://example.vcf#header/line/1>,
+        <file://example.vcf#header/line/2>,
+        <file://example.vcf#header/line/3>,
+        <file://example.vcf#header/line/4>,
+        <file://example.vcf#header/line/5>,
+        <file://example.vcf#header/line/6> .
+
+<file://example.vcf#header/columns> a vcfc:ColumnHeaderLine ;
+    vcfc:hasGenotypeColumns <file://example.vcf#samples/S1>,
+        <file://example.vcf#samples/S2> .
+
+<file://example.vcf#header/line/1> a vcfc:FileFormatHeaderLine ;
+    vcfc:headerKey "fileformat" ;
+    vcfc:headerValue "VCFv4.5" ;
+    vcfc:lineIndex 1 .
+
+<file://example.vcf#header/line/2> a vcfc:ReferenceHeaderLine ;
+    vcfc:headerKey "reference" ;
+    vcfc:headerValue "https://example.org/reference.fa" ;
+    vcfc:lineIndex 2 .
+
+<file://example.vcf#header/line/3/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "chr1" .
+
+<file://example.vcf#header/line/3/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "length" ;
+    vcfc:attributeValue "1000" .
+
+<file://example.vcf#header/line/4/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "GT" .
+
+<file://example.vcf#header/line/4/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "1" .
+
+<file://example.vcf#header/line/4/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "String" .
+
+<file://example.vcf#header/line/4/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Genotype" .
+
+<file://example.vcf#header/line/5/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "LAA" .
+
+<file://example.vcf#header/line/5/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "." .
+
+<file://example.vcf#header/line/5/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "Integer" .
+
+<file://example.vcf#header/line/5/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Local ALT indices" .
+
+<file://example.vcf#header/line/6/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "LAD" .
+
+<file://example.vcf#header/line/6/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "LR" .
+
+<file://example.vcf#header/line/6/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "Integer" .
+
+<file://example.vcf#header/line/6/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Local read depths" .
+
+<file://example.vcf#record/1> a vcfc:VCFRecord ;
+    vcfc:alt "A,C" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/1/allele/1>,
+        <file://example.vcf#record/1/allele/2> ;
+    vcfc:hasCall <file://example.vcf#call/1> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/1/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/1/allele/0> ;
+    vcfc:pos 1 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 1 ;
+    vcfc:ref "G" .
+
+<file://example.vcf#record/1/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "G" .
+
+<file://example.vcf#record/1/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "A" .
+
+<file://example.vcf#record/1/allele/2> a vcfc:AltAllele ;
+    vcfc:alleleIndex 2 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#record/1/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#record/2> a vcfc:VCFRecord ;
+    vcfc:alt "C,G,T" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/2/allele/1>,
+        <file://example.vcf#record/2/allele/2>,
+        <file://example.vcf#record/2/allele/3> ;
+    vcfc:hasCall <file://example.vcf#call/2> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/2/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:pos 2 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 2 ;
+    vcfc:ref "A" .
+
+<file://example.vcf#record/2/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "A" .
+
+<file://example.vcf#record/2/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#record/2/allele/2> a vcfc:AltAllele ;
+    vcfc:alleleIndex 2 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "G" .
+
+<file://example.vcf#record/2/allele/3> a vcfc:AltAllele ;
+    vcfc:alleleIndex 3 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "T" .
+
+<file://example.vcf#record/2/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#record/3> a vcfc:VCFRecord ;
+    vcfc:alt "C" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/3/allele/1> ;
+    vcfc:hasCall <file://example.vcf#call/3> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/3/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/3/allele/0> ;
+    vcfc:pos 3 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 3 ;
+    vcfc:ref "T" .
+
+<file://example.vcf#record/3/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "T" .
+
+<file://example.vcf#record/3/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#record/3/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#samples/S1> a vcfc:VCFSample ;
+    vcfc:sampleIndex 1 ;
+    vcfc:sampleName "S1" .
+
+<file://example.vcf#samples/S2> a vcfc:VCFSample ;
+    vcfc:sampleIndex 2 ;
+    vcfc:sampleName "S2" .
+
+<file://example.vcf#header/line/3> a vcfc:ContigHeaderLine ;
+    vcfc:contigId "chr1" ;
+    vcfc:contigLength 1000 ;
+    vcfc:hasAttribute <file://example.vcf#header/line/3/attribute/1>,
+        <file://example.vcf#header/line/3/attribute/2> ;
+    vcfc:headerKey "contig" ;
+    vcfc:headerValue "<ID=chr1,length=1000>" ;
+    vcfc:lineIndex 3 .
+
+ex:samples a vcfc:SampleSet ;
+    vcfc:hasSample <file://example.vcf#samples/S1>,
+        <file://example.vcf#samples/S2> .
+
+<file://example.vcf#header/line/4> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldDescription "Genotype" ;
+    vcfc:fieldId "GT" ;
+    vcfc:fieldNumber "1" ;
+    vcfc:fieldNumberInteger 1 ;
+    vcfc:fieldType vcfc:StringType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/4/attribute/1>,
+        <file://example.vcf#header/line/4/attribute/2>,
+        <file://example.vcf#header/line/4/attribute/3>,
+        <file://example.vcf#header/line/4/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=GT,Number=1,Type=String,Description=\"Genotype\">" ;
+    vcfc:lineIndex 4 .
+
+<file://example.vcf#header/line/5> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldArity vcfc:ArityVariable ;
+    vcfc:fieldDescription "Local ALT indices" ;
+    vcfc:fieldId "LAA" ;
+    vcfc:fieldNumber "." ;
+    vcfc:fieldType vcfc:IntegerType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/5/attribute/1>,
+        <file://example.vcf#header/line/5/attribute/2>,
+        <file://example.vcf#header/line/5/attribute/3>,
+        <file://example.vcf#header/line/5/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=LAA,Number=.,Type=Integer,Description=\"Local ALT indices\">" ;
+    vcfc:lineIndex 5 .
+
+<file://example.vcf#header/line/6> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldArity vcfc:ArityPerLocalAllele ;
+    vcfc:fieldDescription "Local read depths" ;
+    vcfc:fieldId "LAD" ;
+    vcfc:fieldNumber "LR" ;
+    vcfc:fieldType vcfc:IntegerType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/6/attribute/1>,
+        <file://example.vcf#header/line/6/attribute/2>,
+        <file://example.vcf#header/line/6/attribute/3>,
+        <file://example.vcf#header/line/6/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=LAD,Number=LR,Type=Integer,Description=\"Local read depths\">" ;
+    vcfc:lineIndex 6 .

@@ -88,7 +88,7 @@ manufacture a contrast its authors never sought.
 | F4 | address ALT allele *n* by index, so a genotype integer resolves to an allele? |
 | F5 | separate ploidy, ordered allele calls and phasing? |
 | F6 | get the value for (sample, field) without splitting a `:`-joined cell? |
-| F7 | associate a `Number=A/R/G` list item with the allele it belongs to? |
+| F7 | associate a `Number=A/R` list item with the allele it belongs to? |
 | F8 | distinguish an explicit `.` from "not stated"? |
 | F9 | tell from the graph which sample encoding was used? |
 
@@ -143,7 +143,8 @@ manufacture a contrast its authors never sought.
 align to `vcfc:infoRaw` — the whole INFO column as a single string. So the
 information survives, but every INFO-derived question requires re-parsing that
 string *and* supplying the cardinality rule from outside the graph. That is why
-F7 is C rather than E for both.
+F7 is C rather than E for HERO. GVO is S instead: it has no allele resources at
+all for a value to attach to (§3.3).
 
 **GFVO made the opposite choice.** It models particular field *meanings* as
 first-class concepts — `AlleleCount`, `Coverage`, `MappingQuality`. That answers
@@ -156,6 +157,29 @@ shows otherwise: 58 dereferenceable term pages including `Number`, `Type` and
 `Description`. But with no allele-index term, a consumer must still split the value list and count ALT alleles by
 re-reading a literal. *Having the declaration is necessary and, alone,
 insufficient.*
+
+### F7 excludes `Number=G`, and why
+
+F7 originally read "`Number=A/R/G`". Internal review (2026-09-23) pointed out
+that `Number=G` values index the *possible genotypes*, not alleles, so grouping
+them with per-allele lists conflated two interpretations. F7 now covers only
+`Number=A/R`, which are genuinely per allele; its verdicts are unchanged because
+every one of them rested on the allele case.
+
+The genotype half was re-inspected against the same artifacts (digests
+re-verified against `artifacts/digests.tsv`) before being set aside:
+
+| Model | Genotype-indexed values | Would score |
+| --- | --- | :-: |
+| VCF Core | `vcfc:forGenotypeIndex` records each item's position; nothing links the item to the alleles of that genotype, so decoding an index to, say, `0/1` needs the VCF ordering rule outside the graph. Requirement R37 (decoding into the arbitrary-ploidy ordering) is unassessed. | C |
+| GFVO | `gfvo:Likelihood` exists "for use with GL and GP", but only the untyped `refersTo` could point it at a `gfvo:Genotype`, which GFVO defines as an allele string with no enumeration of possible genotypes. | C |
+| HERO | No FORMAT or sample-column representation; a genotype-indexed value survives only inside the `hero:vcfInfo` literal. Its VRS-style `Genotype` class is not linked to any value. | C |
+| GVO | No genotype or likelihood terms and no object properties. | S |
+| VCF2RDF | `FORMAT_ID_PL`, `FORMAT_ID_GL` and `FORMAT_ID_GP` term pages and a generic `Number` term, but no genotype-index term or enumeration. | C |
+
+VCF Core would therefore score C, not E, on a genotype criterion. Rather than
+add a tenth criterion, the manuscript states this limitation in the RQ4 method
+text and points to R37, the requirement that would test it.
 
 ### 3.3 Why GVO's column is almost all S
 

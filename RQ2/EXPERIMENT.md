@@ -270,6 +270,41 @@ against the tag. The converter simply does not write them yet.
 work. With five divergences that was a footnote. With fifteen it is a real limit
 on what can be said about the implementation, as opposed to the vocabulary.
 
+#### Future work: not every divergence is a converter limitation
+
+Raised in internal review (2026-09-23) and deliberately **not yet acted on**; the
+paper still reports the figures above. Recorded here so the reasoning is not lost.
+
+- **The QUAL row is a test that is stricter than the model.** R11 asks only
+  whether numeric and explicitly missing QUAL can be distinguished, but its
+  expected answer pins the numeric datatype to `vcfc:VCFFloat` through
+  `DATATYPE()`. The vocabulary's QUAL shape permits `vcfc:VCFFloat`,
+  `xsd:decimal`, `xsd:double` and `xsd:float`. The converter writes
+  `"60"^^xsd:decimal`, `"."^^vcfc:Null` and `"5"^^xsd:decimal` for
+  `basic-v4.5`, so its values and the missing-versus-numeric distinction are
+  correct. R11 alone accounts for **20 of the 102** divergent checks: all 20 of
+  its checks, on both axes and in both profiles.
+- **Planned fix.** Let R11's expected answer accept any numeric datatype the
+  shape permits while still requiring `vcfc:Null` for the missing value. Make
+  the change upstream in `vcf-core-vocabulary/coverage/methodology/`, record the
+  reason in R11's `interpretation`, re-copy the assessment into `RQ1/`, and
+  re-run this experiment. Expected outcome, unconfirmed until re-run: 82
+  divergent checks across 14 requirements.
+- **Review consequence.** This is an evidence change, so it withdraws R11's
+  recorded acceptance, which must be re-signed; follow the precedent under
+  `acceptanceMaintenance` in `RQ1/methodology/inputs/review.json`. Because the
+  change raises agreement, the paper should state that the test was relaxed to
+  the model's permitted datatypes rather than report the new figure silently.
+- **Reclassify the table by consequence, not mechanism.** Separate *information
+  absent* (the 12 unemitted-property requirements and the incomplete tandem-repeat
+  decomposition) from *permitted alternatives* (QUAL) and *convention
+  differences*. The local-allele defect repaired before `v3.0.3`, a value
+  attached to the wrong allele, belongs in its own category, since it is the
+  only kind that silently yields a wrong answer.
+- **Triage the empty local-allele list.** Decide whether writing `""` versus `"."`
+  for an empty `LAA` is permitted by the model or is a converter defect; that
+  decides which category R27's single divergent check belongs to.
+
 ### 3.3 Sample profiles
 
 The profiles return the same outcome on **352 of 420** comparable checks. All 68

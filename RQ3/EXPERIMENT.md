@@ -103,17 +103,22 @@ sh RQ3/run.sh
 One command, and it needs no local copy of anything: `git`, `docker`, and
 `python3` with `rdflib`.
 
-**1 — Fetch what is being evaluated.** The vocabulary is cloned at tag `v2.1.2`
+**1 — Fetch what is being evaluated.** The vocabulary is cloned at tag `v2.1.3`
 and the converter at `v3.0.3`, into `.artifacts/` at the repository root, shared
 with RQ1 and RQ2 so each is fetched once however many questions you run. The
 converter's container image is pulled **by digest**
 (`sha256:31f1361b…`) rather than by tag, so a tag moved later cannot silently
 change what executes. The resolved commit of each is printed and recorded.
 
-**2 — Convert the fixture.** `local-alleles-v4.5.vcf` is taken from the cloned
-vocabulary — not from a copy in this directory, so it is the released fixture —
-and converted in the **expanded** profile with compression and secondary
-representations turned off, leaving plain N-Triples. The result is a graph of
+**2 — Check, then convert, the fixture.** The input is
+[`inputs/local-alleles-v4.5.vcf`](inputs/local-alleles-v4.5.vcf), kept here so
+that every input of the experiment lives in `RQ3/`. It is a copy of the fixture
+released with the vocabulary (`coverage/methodology/fixtures/` at `v2.1.3`), and
+`run.sh` compares the two byte for byte before converting: if they differ the run
+stops, so the experiment cannot silently run on an edited fixture. The fixture's
+SHA-256 is recorded in `results/run.json`. VCF-RDFizer then converts it in the
+**expanded** profile with compression and secondary representations turned off,
+leaving plain N-Triples. The result is a graph of
 roughly 1,400 triples describing one file, four sites written twice over, one
 sample and its genotypes.
 

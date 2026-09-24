@@ -1,4 +1,4 @@
-# RQ1 — does VCF Core preserve and represent everything defined in the VCF specification?
+# RQ1 — to what extent does VCF Core preserve and represent the VCF specification?
 
 Two independent assessments answer that question, both copied here from
 [`ecrum19/vcf-core-vocabulary`](https://github.com/ecrum19/vcf-core-vocabulary)

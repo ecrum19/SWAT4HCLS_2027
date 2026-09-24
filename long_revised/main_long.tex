@@ -9,6 +9,9 @@
 \usepackage{xurl}
 \newcommand{\term}[1]{\texttt{#1}}
 \newcommand{\stepmark}[1]{\textcircled{\scriptsize #1}}
+% A step mark inside a fixed-column listing: zero width so columns stay aligned,
+% shifted half a column so it centres in the gap it is placed in.
+\newcommand{\lstmark}[1]{\makebox[0pt]{\hspace{\dimexpr\linewidth/81\relax}\stepmark{#1}}}
 \lstset{basicstyle=\small\ttfamily,breaklines=true,columns=fullflexible,
   keepspaces=true,showstringspaces=false,frame=single,
   aboveskip=6pt,belowskip=6pt}
@@ -55,16 +58,14 @@ Existing semantic models leave parts of this context to application-specific con
 % Task: What was undertaken to address the need
 We developed VCF Core, a vocabulary that makes this context explicit and provides version-specific representations for VCF 4.1--4.5, allowing data to be interpreted according to its declared specification.
 % Object: What the present document does or covers
-This paper evaluates VCF Core's specification conformance, robustness, and practical utility through four research questions.
+This paper evaluates VCF Core's specification coverage, robustness, and practical utility.
 Our reproducible workflow combines competency questions, specification-derived tests, negative controls, cross-implementation comparisons, and semantic round-tripping, with explicit expected answers and transparent reporting of passing, failing, and untested requirements.
 % Findings: What the work done yielded or revealed
-The specification-derived assessment identifies and demonstrates both preservation and direct structural retrieval in all 210 expanded-profile cases, exercising 53 of 94 registered specification requirements.
-Cross-implementation testing exposed a silent allele-association error missed by a pre-existing VCF-RDF converter's tests and guided its correction.
+VCF Core offers two sample profiles: expanded which gives each VCF sample value its own resource, and condensed which stores sample values in compact vectors.
+The specification-derived assessment demonstrates preservation in all 210 test cases in both profiles, and direct structural retrieval in all 210 expanded and 165 condensed cases, exercising 53 of 94 registered VCF specification requirements.
 A synthetic integration experiment further demonstrates that standard SPARQL queries can correctly join local-allele evidence to external annotations while retaining source provenance, without application-specific decoding.
-% Conclusion: What the findings mean for the audience
-These findings show how explicit VCF semantics make operations otherwise dependent on format-specific code available through native graph relationships, providing a tested foundation for reusable conversion and querying.
-% Perspectives: What the future holds, beyond this work
-By making VCF interpretation context explicit and reusable, VCF Core provides a semantic bridge from source observations to interoperable biomedical knowledge, reducing the need for each downstream system to reimplement VCF-specific logic and providing a common foundation for genomic data integration, querying, and reuse.
+% Conclusion & Perspectives: What we found and how it imacts the future, beyond this work
+By making VCF interpretation context explicit through native graph relationships, VCF Core turns operations otherwise dependent on format-specific code into reusable semantic structures, providing a foundation for conversion and querying while enabling the incorporation of source observations with broader biomedical knowledge.
 \end{abstract}
 \begin{keywords}
 Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration\sep SHACL
@@ -83,7 +84,7 @@ Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration
 \section{Conclusion}
 
 VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
-Our assessments demonstrate structured retrieval for the tested requirements, consistent use across two independently implemented producers, and a checked allele-dependent integration example with preserved provenance.
+Our assessments demonstrate structured retrieval for the tested requirements, agreement between two independently implemented producers on 738 of 840 checks, with the remaining differences traced to properties the converter does not yet emit.
 
 Remaining work includes untested requirements, incomplete converter support, and evaluation on realistic datasets and workflows. 
 By making field declarations, allele relationships, and sample context explicit, VCF Core enables converters and downstream applications to reuse the same interpretation rules while linking source observations to broader biomedical models. 
@@ -97,7 +98,7 @@ We welcome further review, testing, and contributions to strengthen the resource
 
 % AUTHOR REVIEW R17: reconfirm this disclosure after reviewing the revised manuscript and the documented query-review scope.
 \section*{Declaration on Generative AI}
-GPT-6 Astra (OpenAI) and Claude Opus 5 (Anthropic) assisted with vocabulary development, assessment scripts, initial SPARQL query drafts, and proof-reading manuscript figure captions and text. The authors reviewed all AI outputs and take full responsibility for the manuscript, experiments, tools, and repositories.
+Claude Opus 5~\cite{anthropic2026claudeopus5} and GPT-6 Astra~\cite{openai2026gpt6astra} assisted with vocabulary development, drafting the RQ1 requirements, assessment scripts, initial SPARQL query drafts, and proof-reading manuscript figure captions and text. The authors reviewed all AI outputs and take full responsibility for the manuscript, experiments, tools, and repositories.
 
 \label{endofmain}
 

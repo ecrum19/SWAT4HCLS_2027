@@ -1,9 +1,9 @@
-# Pinned annotation snapshot for the W4 integration example.
+# Pinned annotation snapshot for the RQ3 integration experiment.
 #
 # EVERY ASSERTION HERE IS SYNTHETIC. No clinical or biological claim is made or
 # implied. The alteration coordinates are those of the synthetic fixture
-# coverage/methodology/fixtures/local-alleles-v4.5.vcf in the vcf-core-vocabulary
-# repository, which is itself authored, not observed.
+# RQ3/inputs/local-alleles-v4.5.vcf, a verified copy of the fixture released with
+# the vcf-core-vocabulary repository, which is itself authored, not observed.
 #
 # Why a local snapshot rather than a live endpoint: the example must produce the
 # same answer on rerun. A federated query against a resource that can change
@@ -24,7 +24,7 @@
 @prefix xsd:  <http://www.w3.org/2001/XMLSchema#> .
 
 ex:AnnotationSet a ex:Set ;
-  rdfs:label "W4 synthetic annotation snapshot"@en ;
+  rdfs:label "RQ3 synthetic annotation snapshot"@en ;
   rdfs:comment "Five alterations flagged for review. Synthetic: not derived from any database."@en ;
   ex:assembly "https://example.org/reference.fa" ;
   ex:snapshotDate "2026-09-13"^^xsd:date .
@@ -33,7 +33,7 @@ ex:AnnotationSet a ex:Set ;
 # Two of these have local-allele read depth in the fixture and two do not; the
 # fifth is below the depth threshold. That spread is deliberate: it is what makes
 # the expected answer depend on resolving Number=LR correctly rather than
-# positionally. See W4-INTEGRATION.md.
+# positionally. See RQ3/EXPERIMENT.md.
 
 ex:alt-1 a ex:FlaggedAlteration ; ex:inSet ex:AnnotationSet ;
   ex:contig "chr1" ; ex:position 1 ; ex:referenceAllele "G" ; ex:alternateAllele "C" ;

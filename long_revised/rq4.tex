@@ -7,6 +7,7 @@
 Published artifacts for GFVO, HERO-Genomics, GVO, and VCF2RDF were inspected against nine retrieval criteria (Table~\ref{tab:models})~\cite{baran2015gfvo,cazzaro2025hero,kawashima2023gvo,penha2017vcf2rdf}.
 Verdicts are \textbf{E}, explicitly represented; \textbf{C}, representable with additional conventions; and \textbf{S}, outside stated scope.
 The criteria concern VCF interpretation context, and S denotes a difference of purpose rather than a defect.
+F7 covers only per-allele lists: \texttt{Number=G} values index possible genotypes, and although VCF Core records each item's genotype index, decoding it into alleles relies on the specification's ordering and is untested (requirement R37).
 Artifact digests identify the inspected versions. 
 VCF2RDF's terms were inspected, while converter behaviour was taken from its paper rather than execution.
 GA4GH VRS is not scored because it addresses computable variation identity rather than source-file representation~\cite{wagner2021vrs}.
@@ -36,7 +37,7 @@ F3\quad read the declared VCF version & E & S & S & S & C \\
 F4\quad address ALT allele $n$ by index & E & C & C & S & C \\
 F5\quad separate ploidy, allele calls, and phasing & E & C & C & S & C \\
 F6\quad get a (sample, field) value unsplit & E & C & C & S & C \\
-F7\quad bind a \texttt{Number=A/R/G} item to its allele & E & C & C & S & C \\
+F7\quad bind a \texttt{Number=A/R} item to its allele & E & C & C & S & C \\
 F8\quad distinguish explicit \texttt{.} from unstated & E & S & C & C & C \\
 F9\quad identify the sample encoding & E & S & S & S & S \\
 \bottomrule

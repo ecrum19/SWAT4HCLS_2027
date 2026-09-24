@@ -7,13 +7,14 @@
 
 VCF Core is a semantic vocabulary with classes, properties, declared domains and ranges, and a shallow subclass hierarchy; it carries no OWL restrictions, cardinality, disjointness, or inverse axioms.
 Value and cardinality constraints are expressed as SHACL shapes~\cite{shacl2017}.
-The vocabulary was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}, using AI-assisted drafting and author review to derive terms, field definitions, and constraints from VCF 4.1--4.5~\cite{htsspecs,vcf45}.
+The vocabulary was developed iteratively from the earlier VCF-RDFizer vocabulary~\cite{crum2025semantifying}, using AI-assisted drafting~\cite{anthropic2026claudeopus5,openai2026gpt6astra} and author review to derive terms, field definitions, and constraints from VCF 4.1--4.5~\cite{htsspecs,vcf45}.
 Terms and relationships can be browsed in the \href{https://ecrum19.github.io/vcf-core-vocabulary/}{VCF Core Vocabulary Explorer}~\cite{ocg2026}.
 
 Listing~\ref{lst:vcf-example} shows a minimal VCF example illustrating the structure and typical field values contained in a VCF file.
 The header declares a version, reference, contig, and three sample field definitions: genotype (\texttt{GT}), local alternate-allele indices (\texttt{LAA}), and local read depths (\texttt{LAD}).
 The \texttt{FORMAT} column determines the identity of items within the colon-separated sample values, which two sample columns, \texttt{S1} and \texttt{S2}, then supply.
-Unspecified VCF fields are shown as dots; trailing sample subfields may also be dropped entirely, as \texttt{S2} does on line 11.
+Unspecified VCF fields are shown as dots.
+Trailing sample subfields may also be dropped entirely, as \texttt{S2} does on line 10.
 
 \begin{lstlisting}[
   float=htbp,
@@ -22,31 +23,33 @@ Unspecified VCF fields are shown as dots; trailing sample subfields may also be 
   numbers=left,
   numberstyle=\tiny,
   numbersep=8pt,
-  caption={Four-record, two-sample VCF example (\texttt{example.vcf}), with columns aligned for display.},
+  escapeinside={(*}{*)},
+  caption={Three-record, two-sample VCF example (\texttt{example.vcf}), with columns aligned for display.},
   label={lst:vcf-example}
 ]
-##fileformat=VCFv4.5
+##fileformat=VCFv4.5  
 ##reference=https://example.org/reference.fa
 ##contig=<ID=chr1,length=1000>
 ##FORMAT=<ID=GT,Number=1,Type=String,Description="Genotype">
 ##FORMAT=<ID=LAA,Number=.,Type=Integer,Description="Local ALT indices">
-##FORMAT=<ID=LAD,Number=LR,Type=Integer,Description="Local read depths">
-#CHROM POS ID REF ALT   QUAL FILTER INFO FORMAT     S1          S2
-chr1   1   .  G   T     .    .      .    GT:LAA:LAD 0/1:1:18,22 0/0:1:21,0
-chr1   2   .  G   A,C   .    .      .    GT:LAA:LAD 2/2:2:20,30 0/1:1:12,9
-chr1   3   .  A   C,G,T .    .      .    GT:LAA:LAD 0/3:3:15,25 0/1:1:11,7
-chr1   4   .  T   C     .    .      .    GT:LAA:LAD ./.:.:.     0/0
+##FORMAT=<ID=LAD,Number=LR,Type=Integer,Description="Local read depths"> (*\stepmark{1}*)
+#CHROM POS ID REF ALT (*\lstmark{2}*)  QUAL FILTER INFO FORMAT  (*\lstmark{3}*)   S1          S2
+chr1   1   .  G   A,C   .    .      .    GT:LAA:LAD 2/2:2:20,30 0/1:1:12,9
+chr1   2   .  A   C,G,T .    .      .    GT:LAA:LAD 0/3:3:15,25 0/1:1:11,7
+chr1   3   .  T   C     .    .      .    GT:LAA:LAD ./.:.:.     0/0
 \end{lstlisting}
 
-Figure~\ref{fig:model} shows how VCF Core models the fields of Listing~\ref{lst:vcf-example}, in three steps marked on the figure.
-\stepmark{1} A \term{VCFFile} represents \texttt{example.vcf} and links to its \term{VCFHeader} (lines 1--6) and four \term{VCFRecord} resources (lines 8--11).
+Figure~\ref{fig:model} shows how VCF Core models the fields of Listing~\ref{lst:vcf-example}, in three steps marked on both.
+\stepmark{1} A \term{VCFFile} represents \texttt{example.vcf} and links to its \term{VCFHeader} (lines 1--6) and three \term{VCFRecord} resources (lines 8--10).
 The header contains \term{HeaderLine} resources; a \term{FORMATHeaderLine} is also a \term{FieldDefinition}, supplying a field's identifier, type, and cardinality, as \texttt{LAD} does on line 6.
-\stepmark{2} Each record describes a location and alleles; line 8 declares one \texttt{ALT} allele, \texttt{ALT=T}, modelled as a single \term{AltAllele}.
-\stepmark{3} Its \term{VariantCall} groups field values and sample observations, and a \term{SampleCall} describes the values within the column named \texttt{S1} on line 7.
+\stepmark{2} Each record describes a location and its alleles: line 8 gives the reference base "\texttt{G}" (\texttt{REF}) at position 1 of \texttt{chr1} and two alternate alleles, "\texttt{A}" and "\texttt{C}" (\texttt{ALT}), numbered 1 and 2 after the reference's 0; each alternate becomes an \term{AltAllele}.
+\stepmark{3} The \term{VariantCall} term groups record values and sample observations, and a \term{SampleCall} describes the values within the sample column named \texttt{S1} on line 7.
 
-The first record is deliberately simple for \texttt{S1}: \texttt{GT=0/1} calls "G" and "T", and \texttt{LAA=1} selects the only \texttt{ALT} allele.
-The declaration \texttt{Number=LR} means that \texttt{LAD=18,22} gives depth for the \texttt{REF} allele "G" followed by that local \texttt{ALT} allele "T"~\cite{vcf45}.
-VCF Core represents "22" as a \term{FieldValueItem} linked through \term{forAllele} to "T", and through its \term{FormatFieldValue} to the declaration and sample observation.
+The \texttt{FORMAT} column splits \texttt{S1}'s entry on line 8, \texttt{2/2:2:20,30}, into three values.
+\texttt{GT=2/2} calls allele 2 (\texttt{ALT}[2]), "\texttt{C}", on both chromosome copies, and \texttt{LAA=2} lists the alternate alleles this sample's depths describe, here only "\texttt{C}".
+Line 6 (\stepmark{1}) declares \texttt{LAD} with \texttt{Number=LR}: defined by the VCF specification as one depth for the reference allele, followed by one depth for each allele listed in \texttt{LAA}, not one for every \texttt{ALT} allele~\cite{vcf45}.
+\texttt{S1}'s depths therefore assign 20 reads to "\texttt{G}" and 30 reads to "\texttt{C}", whereas matching the depths to \texttt{ALT} by position would wrongly give 30 to "\texttt{A}".
+VCF Core represents 30 as a \term{FieldValueItem} linked through \term{forAllele} to "\texttt{C}", and through \term{FormatFieldValue} to the header and sample.
 
 
 \begin{figure}[htbp]
@@ -61,13 +64,13 @@ VCF Core represents "22" as a \term{FieldValueItem} linked through \term{forAlle
 \node[box] (header) at (72,0) {VCFHeader\\\scriptsize lines 1--6};
 \node[box] (line) at (128,0) {FORMATHeaderLine\\\scriptsize\texttt{LAD, Number=LR}\\\scriptsize line 6};
 \node[box] (record) at (17,-18) {VCFRecord\\\scriptsize line 8};
-\node[box] (allele) at (72,-18) {AltAllele\\\scriptsize\texttt{alleleValue "T"}\\\scriptsize line 8, \texttt{ALT}[1]};
-\node[expanded] (item) at (128,-18) {FieldValueItem\\\scriptsize\texttt{itemValue 22}\\\scriptsize line 8, \texttt{LAD}[2]};
+\node[box] (allele) at (72,-18) {AltAllele\\\scriptsize\texttt{alleleValue "C"}\\\scriptsize line 8, \texttt{ALT}[2]};
+\node[expanded] (item) at (128,-18) {FieldValueItem\\\scriptsize\texttt{itemValue 30}\\\scriptsize line 8, \texttt{LAD}[2]};
 \node[box] (call) at (17,-36) {VariantCall};
 \node[expanded] (sample) at (72,-36) {SampleCall\\\scriptsize\texttt{sampleId "S1"}\\\scriptsize line 7};
-\node[expanded] (value) at (128,-36) {FormatFieldValue\\\scriptsize\texttt{fieldValue "18,22"}\\\scriptsize line 8, \texttt{LAD}};
+\node[expanded] (value) at (128,-36) {FormatFieldValue\\\scriptsize\texttt{fieldValue "20,30"}\\\scriptsize line 8, \texttt{LAD}};
 \node[condensed] (matrix) at (72,-54) {CohortCallMatrix};
-\node[condensed] (vector) at (128,-54) {FormatValueVector\\\scriptsize\texttt{encodedValues "18,22"}\\\scriptsize line 8, \texttt{LAD}};
+\node[condensed] (vector) at (128,-54) {FormatValueVector\\\scriptsize\texttt{encodedValues "20,30\textbackslash t12,9"}\\\scriptsize line 8, \texttt{LAD}};
 \node[anchor=east] at ([xshift=-2mm]file.west) {\stepmark{1}};
 \node[anchor=east] at ([xshift=-2mm]record.west) {\stepmark{2}};
 \node[anchor=east] at ([xshift=-2mm]call.west) {\stepmark{3}};
@@ -89,32 +92,31 @@ VCF Core represents "22" as a \term{FieldValueItem} linked through \term{forAlle
 \caption{
   Selected resources for the first record (line 8) of Listing~\ref{lst:vcf-example}, walked through in steps \stepmark{1}--\stepmark{3}. 
   Purple nodes are \textit{expanded}-profile resources, orange \textit{condensed}. 
-  Depth 22 is explicitly associated with allele T in the \textit{expanded} profile. 
+  Depth 30 is associated with "\texttt{C}", the sample's local allele, not with \texttt{ALT}[1], "\texttt{A}". 
   \texttt{LAA} has no node of its own because its resolution is already applied in \term{forAllele}. 
   The two dashed links show that both profiles resolve to the same \term{FieldDefinition}. 
-  Records on lines 9--11, column \texttt{S2}, other fields, alleles, and header lines are omitted.
+  Lines 9--10, the expanded resources for \texttt{S2}, other fields, allele "\texttt{A}", and header lines are omitted; the condensed vector holds both samples, tab-separated.
   }
 \label{fig:model}
 \end{figure}
 
 VCF Core provides two \emph{sample profiles} for representing sample-level observations.
 In the \emph{expanded} profile, each sample value is represented as its own RDF resource. 
-In the \emph{condensed} profile, values are stored as sample-ordered vectors, avoiding per-sample field resources but requiring decoding to access an individual value.
+In the \emph{condensed} profile, values are stored in sample-ordered vector literals and recovered using the corresponding FORMAT definition and sample ordering (see the \href{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}{github docs}\footnote{\url{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}}).
 
-The difference is primarily one of scale for multi-sample VCF files (as used in cohort studies such as~\cite{1000genomes2015global}). 
+The difference is primarily one of scale for multi-sample VCF files (as used in cohort studies such as~\cite{1000genomes2015global}), and concerns the number of RDF statements:
 \[
-\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{samples}}N_{\mathrm{FORMAT}}\right)}_{\text{(E) Expanded}}
+\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{samples}}N_{\mathrm{FORMAT}}\right)}_{\text{(E) Expanded statements}}
 \qquad
-\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{FORMAT}}\right)}_{\text{(C) Condensed}} .
+\underbrace{O\!\left(N_{\mathrm{variants}}N_{\mathrm{FORMAT}}\right)}_{\text{(C) Condensed statements}} .
 \]
 
-For illustration, a VCF with \(1{,}000\) variants (rows) across \(2{,}500\) samples (sample columns) using the \texttt{FORMAT} column \texttt{GT:LAA:LAD} from above, would produce approximately \(1.1\times10^{8}\) sample-related statements in expanded profile (e), and approximately \(3.05\times10^{4}\) in condensed profile (c).
-For datasets containing millions of variants and thousands of samples, reducing the number of triples by several orders of magnitude using the condensed profile can substantially decrease graph size and make storage and usage more practical.
-Importantly, both profiles preserve the same underlying values, the trade-off is direct queryability. 
-Expanded graphs support SPARQL access to individual sample values and their relationships, while condensed graphs require a decoding step before those values can be queried individually.
-In the condensed profile, values are stored inside vector literals and recovered using the corresponding FORMAT definition and sample ordering, see \href{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}{github docs} for more detail\footnote{\url{https://github.com/ecrum19/VCF-RDFizer/blob/main/docs/sample-representation-guide.md}}.
+For illustration, a VCF with \(1{,}000\) variants across \(2{,}500\) samples using the \texttt{FORMAT} column \texttt{GT:LAA:LAD} from above yields approximately \(1.6\times10^{8}\) statements in the expanded profile and \(7.9\times10^{4}\) in the condensed profile, calculated by extrapolating the statements the VCF Core materializer produces for small files (\href{https://github.com/ecrum19/SWAT4HCLS_2027/tree/main/long_revised/scripts}{\path{scripts/statement-counts.py}}).
+This reduction eases loading and storage at cohort scale, but each condensed vector still holds one value per sample, so the size of the stored values and the cost of decoding them still grow with \(N_{\mathrm{samples}}\).
+Both profiles preserve the same values; the trade-off is direct queryability, since expanded graphs support SPARQL access to individual sample values and their relationships, whereas condensed values must first be decoded.
 Both profiles retain the same file, header, and record context, including version-specific registries and validation overlays selected from \term{fileFormat}~\cite{vcfc210}.
 
+RDF representations of \texttt{example.vcf} (Listing~\ref{lst:vcf-example}) using VCF Core, materialized using both expanded and condensed profiles, are available on \href{https://github.com/ecrum19/SWAT4HCLS_2027/tree/main/long_revised/examples}{github}\footnote{\url{https://github.com/ecrum19/SWAT4HCLS_2027/tree/main/long_revised/examples}}.
 
 \subsection{Assessment design}
 Each research question adapts an established practice.
@@ -125,5 +127,9 @@ RQ3 and RQ4 are task-based and comparative evaluations, judging the representati
 \paragraph{Evaluated artifacts and reproduction.}
 \label{sec:reproduction}
 All results use VCF Core v2.1.3~\cite{vcfc210} and VCF-RDFizer v3.0.3, with the latter's container pinned by digest.
-The \href{https://github.com/ecrum19/SWAT4HCLS_2027}{experimental repository}\footnote{\url{https://github.com/ecrum19/SWAT4HCLS_2027}} provides the referenced files, requirements, fixtures, queries, expected answers, per-RQ procedures, and pinned versions and digests in \path{PINS.md}.
-Runs record specification digests, commands, graphs, results, and environments, including rdflib~7.6.0 for query execution.
+No triple store or database is involved: each graph is an N-Triples file loaded into an in-memory rdflib~7.6.0 graph, and every SPARQL~1.1 query, including the controls, runs on rdflib's query engine.
+These simple and easily reproducible methods suffice for fixtures of the tested size.
+Store-level performance is out of scope for this study.
+The \href{https://github.com/ecrum19/SWAT4HCLS_2027}{experimental repository}\footnote{\url{https://github.com/ecrum19/SWAT4HCLS_2027}} holds one directory per research question (\path{RQ1/}--\path{RQ4/}), each with a script for reproduction, inputs, recorded results, and an \path{EXPERIMENT.md} file describing the procedure and its design.
+\href{https://github.com/ecrum19/SWAT4HCLS_2027/tree/main/long_revised/examples}{\path{long_revised/examples/}} holds machine-readable versions of this paper's listings, their materialized graphs, and the full queries. 
+\href{https://github.com/ecrum19/SWAT4HCLS_2027/blob/main/PINS.md}{\path{PINS.md}} lists every pinned version and digest.

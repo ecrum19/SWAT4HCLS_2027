@@ -1,7 +1,7 @@
 PREFIX vcfc: <https://w3id.org/vcf-core/vocab#>
 PREFIX ex:   <https://example.org/annotations#>
 
-# W4: which sample observations correspond to a flagged alteration, and what
+# RQ3: which sample observations correspond to a flagged alteration, and what
 # source evidence supports them?
 #
 # The join between the annotation snapshot and the VCF Core graph is the four

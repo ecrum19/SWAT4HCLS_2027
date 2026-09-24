@@ -9,7 +9,8 @@ sh RQ3/run.sh
 
 Needs `git`, `docker` and `python3` with `rdflib`. No local checkout of anything:
 the vocabulary and the converter are cloned from GitHub at pinned tags and the
-container image is pulled by digest. Output lands in `results/`.
+container image is pulled by digest. The graph is produced by the **converter**,
+VCF-RDFizer `v3.0.3`, in the expanded profile. Output lands in `results/`.
 
 ## The question the case study asks
 
@@ -25,9 +26,12 @@ wrong one.
 
 ## Inputs
 
+Everything the experiment reads is in [`inputs/`](inputs/). The only thing
+fetched is the software being evaluated (see below).
+
 | | |
 | --- | --- |
-| VCF | `coverage/methodology/fixtures/local-alleles-v4.5.vcf`, from the pinned vocabulary release. Four sites, one sample, each site written twice — once with `LAA`/`LAD`/`LPL` and once with the equivalent global `AD`/`PL`. |
+| [`inputs/local-alleles-v4.5.vcf`](inputs/local-alleles-v4.5.vcf) | The VCF. Four synthetic sites, one sample column (`sample`), each site written twice — once with local-allele fields `LAA`/`LAD`/`LPL` and once with the equivalent global `AD`/`PL`. **Where it comes from:** a copy of `coverage/methodology/fixtures/local-alleles-v4.5.vcf` in the vcf-core-vocabulary `v2.1.3` release; `run.sh` checks the two are byte-identical before converting and stops if they are not (sha256 `f3168bc3…`). |
 | [`inputs/annotations.ttl`](inputs/annotations.ttl) | Five flagged alterations. **Entirely synthetic and labelled as such in the file.** Local rather than federated so the example returns the same answer on every run. |
 | [`inputs/local-allele-evidence.rq`](inputs/local-allele-evidence.rq) | The query. The annotation-to-record join is written out in it — four literals: contig, position, REF, ALT — rather than hidden inside a pre-minted identifier. |
 | [`inputs/expected.json`](inputs/expected.json) | The answers, derived from the VCF text and the `Number=LR` rule **before the query was run**, never from converter output. Each row records why it is expected; each exclusion records why it is absent. |

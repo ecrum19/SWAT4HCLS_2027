@@ -14,11 +14,12 @@ We also compare the two profiles case by case.
 Because producers mint different resource bases, fragment-bearing IRIs are compared by fragment alone; a wrong namespace with the correct fragment could therefore escape detection.
 
 \paragraph{Semantic round-trip.}
-A complementary check reconstructs the seven fixed columns, sample genotypes, header lines, INFO entries, and non-GT FORMAT values from structured RDF properties and compares them with the source.
-The preserved-source properties \term{infoRaw}, \term{sampleDataRaw}, and \term{genotypeString} cannot be used.
+A complementary check, run on expanded graphs only, reconstructs the seven fixed columns, sample genotypes, header lines, INFO entries, and non-GT FORMAT values from structured RDF properties and compares them with the source.
+The preserved-source properties \term{infoRaw}, \term{sampleDataRaw}, and \term{genotypeString} are not used.
 Deliberate alterations or deletions of genotype, field, and header data verify that mismatches are detected.
 A leading phase indicator is normalized because VCF 4.4--4.5 permits equivalent forms such as \texttt{|0|1} and \texttt{0|1}, but allele order, missing calls, ploidy, and intervening phase indicators must still match exactly.
-The check uses only expanded graphs because condensed decoding requires an accessor the converter does not yet emit.
+A condensed round-trip is not yet possible because of no implemented method to decode sample values from encoded vectors at the time of writing.
+Only sample-level values would differ, since both profiles agree on every query above the sample level (Section~\ref{sec:profilesresult}).
 
 \subsection{Results}
 \label{sec:crossproducer}

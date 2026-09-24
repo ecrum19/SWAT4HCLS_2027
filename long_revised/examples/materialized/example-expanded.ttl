@@ -1,0 +1,736 @@
+@prefix ex: <file://example.vcf#> .
+@prefix vcfc: <https://w3id.org/vcf-core/vocab#> .
+@prefix xsd: <http://www.w3.org/2001/XMLSchema#> .
+
+<file://example.vcf> a vcfc:VCF45File,
+        vcfc:VCFFile ;
+    vcfc:fileFormat "VCFv4.5" ;
+    vcfc:hasHeader ex:header ;
+    vcfc:hasRecord <file://example.vcf#record/1>,
+        <file://example.vcf#record/2>,
+        <file://example.vcf#record/3> ;
+    vcfc:hasSampleSet ex:samples ;
+    vcfc:referenceGenome "https://example.org/reference.fa" ;
+    vcfc:representationProfile vcfc:ExpandedRepresentation .
+
+<file://example.vcf#call/1> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasFormatKey <file://example.vcf#call/1/formatKey/1>,
+        <file://example.vcf#call/1/formatKey/2>,
+        <file://example.vcf#call/1/formatKey/3> ;
+    vcfc:hasSampleCall <file://example.vcf#sample/1/S1>,
+        <file://example.vcf#sample/1/S2> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/1/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/1/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/1/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+<file://example.vcf#call/2> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasFormatKey <file://example.vcf#call/2/formatKey/1>,
+        <file://example.vcf#call/2/formatKey/2>,
+        <file://example.vcf#call/2/formatKey/3> ;
+    vcfc:hasSampleCall <file://example.vcf#sample/2/S1>,
+        <file://example.vcf#sample/2/S2> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/2/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/2/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/2/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+<file://example.vcf#call/3> a vcfc:VariantCall ;
+    vcfc:filter "."^^vcfc:Null ;
+    vcfc:filterStatus vcfc:FiltersNotApplied ;
+    vcfc:formatRaw "GT:LAA:LAD" ;
+    vcfc:hasFormatKey <file://example.vcf#call/3/formatKey/1>,
+        <file://example.vcf#call/3/formatKey/2>,
+        <file://example.vcf#call/3/formatKey/3> ;
+    vcfc:hasSampleCall <file://example.vcf#sample/3/S1>,
+        <file://example.vcf#sample/3/S2> ;
+    vcfc:infoRaw "." ;
+    vcfc:qual "."^^vcfc:Null .
+
+<file://example.vcf#call/3/formatKey/1> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 .
+
+<file://example.vcf#call/3/formatKey/2> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 .
+
+<file://example.vcf#call/3/formatKey/3> a vcfc:FormatKey ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 .
+
+ex:header a vcfc:VCFHeader ;
+    vcfc:hasColumnHeader <file://example.vcf#header/columns> ;
+    vcfc:hasHeaderLine <file://example.vcf#header/line/1>,
+        <file://example.vcf#header/line/2>,
+        <file://example.vcf#header/line/3>,
+        <file://example.vcf#header/line/4>,
+        <file://example.vcf#header/line/5>,
+        <file://example.vcf#header/line/6> .
+
+<file://example.vcf#header/columns> a vcfc:ColumnHeaderLine ;
+    vcfc:hasGenotypeColumns <file://example.vcf#samples/S1>,
+        <file://example.vcf#samples/S2> .
+
+<file://example.vcf#header/line/1> a vcfc:FileFormatHeaderLine ;
+    vcfc:headerKey "fileformat" ;
+    vcfc:headerValue "VCFv4.5" ;
+    vcfc:lineIndex 1 .
+
+<file://example.vcf#header/line/2> a vcfc:ReferenceHeaderLine ;
+    vcfc:headerKey "reference" ;
+    vcfc:headerValue "https://example.org/reference.fa" ;
+    vcfc:lineIndex 2 .
+
+<file://example.vcf#header/line/3/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "chr1" .
+
+<file://example.vcf#header/line/3/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "length" ;
+    vcfc:attributeValue "1000" .
+
+<file://example.vcf#header/line/4/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "GT" .
+
+<file://example.vcf#header/line/4/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "1" .
+
+<file://example.vcf#header/line/4/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "String" .
+
+<file://example.vcf#header/line/4/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Genotype" .
+
+<file://example.vcf#header/line/5/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "LAA" .
+
+<file://example.vcf#header/line/5/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "." .
+
+<file://example.vcf#header/line/5/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "Integer" .
+
+<file://example.vcf#header/line/5/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Local ALT indices" .
+
+<file://example.vcf#header/line/6/attribute/1> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 1 ;
+    vcfc:attributeKey "ID" ;
+    vcfc:attributeValue "LAD" .
+
+<file://example.vcf#header/line/6/attribute/2> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 2 ;
+    vcfc:attributeKey "Number" ;
+    vcfc:attributeValue "LR" .
+
+<file://example.vcf#header/line/6/attribute/3> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 3 ;
+    vcfc:attributeKey "Type" ;
+    vcfc:attributeValue "Integer" .
+
+<file://example.vcf#header/line/6/attribute/4> a vcfc:HeaderAttribute ;
+    vcfc:attributeIndex 4 ;
+    vcfc:attributeKey "Description" ;
+    vcfc:attributeValue "Local read depths" .
+
+<file://example.vcf#record/1> a vcfc:VCFRecord ;
+    vcfc:alt "A,C" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/1/allele/1>,
+        <file://example.vcf#record/1/allele/2> ;
+    vcfc:hasCall <file://example.vcf#call/1> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/1/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/1/allele/0> ;
+    vcfc:pos 1 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 1 ;
+    vcfc:ref "G" .
+
+<file://example.vcf#record/1/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#record/2> a vcfc:VCFRecord ;
+    vcfc:alt "C,G,T" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/2/allele/1>,
+        <file://example.vcf#record/2/allele/2>,
+        <file://example.vcf#record/2/allele/3> ;
+    vcfc:hasCall <file://example.vcf#call/2> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/2/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:pos 2 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 2 ;
+    vcfc:ref "A" .
+
+<file://example.vcf#record/2/allele/2> a vcfc:AltAllele ;
+    vcfc:alleleIndex 2 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "G" .
+
+<file://example.vcf#record/2/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#record/3> a vcfc:VCFRecord ;
+    vcfc:alt "C" ;
+    vcfc:chrom "chr1" ;
+    vcfc:chromosome <file://example.vcf#header/line/3> ;
+    vcfc:hasAltAllele <file://example.vcf#record/3/allele/1> ;
+    vcfc:hasCall <file://example.vcf#call/3> ;
+    vcfc:hasPaddingInterpretation <file://example.vcf#record/3/padding> ;
+    vcfc:hasReferenceAllele <file://example.vcf#record/3/allele/0> ;
+    vcfc:pos 3 ;
+    vcfc:recordId "."^^vcfc:Null ;
+    vcfc:recordIndex 3 ;
+    vcfc:ref "T" .
+
+<file://example.vcf#record/3/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#record/3/padding> a vcfc:PaddingInterpretation ;
+    vcfc:paddingBaseCount 0 ;
+    vcfc:paddingRule vcfc:PaddingNotDetermined .
+
+<file://example.vcf#sample/1/S1> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S1> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/1/S1/fmt/GT>,
+        <file://example.vcf#sample/1/S1/fmt/LAA>,
+        <file://example.vcf#sample/1/S1/fmt/LAD> ;
+    vcfc:hasGenotype <file://example.vcf#sample/1/S1/genotype> ;
+    vcfc:sampleFieldsRaw "2/2:2:20,30" ;
+    vcfc:sampleId "S1" .
+
+<file://example.vcf#sample/1/S1/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "2/2" ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S1/fmt/GT/item/0> .
+
+<file://example.vcf#sample/1/S1/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "2/2" ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S1/fmt/LAA> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 ;
+    vcfc:fieldValue "2" ;
+    vcfc:fieldValueInteger 2 ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S1/fmt/LAA/item/0> .
+
+<file://example.vcf#sample/1/S1/fmt/LAA/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue 2 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S1/fmt/LAD> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 ;
+    vcfc:fieldValue "20,30" ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S1/fmt/LAD/item/0>,
+        <file://example.vcf#sample/1/S1/fmt/LAD/item/1> .
+
+<file://example.vcf#sample/1/S1/fmt/LAD/item/0> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/1/allele/0> ;
+    vcfc:itemValue 20 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S1/fmt/LAD/item/1> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/1/allele/2> ;
+    vcfc:itemValue 30 ;
+    vcfc:valueIndex 1 .
+
+<file://example.vcf#sample/1/S1/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "2/2"^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/1/S1/genotype/0>,
+        <file://example.vcf#sample/1/S1/genotype/1> ;
+    vcfc:hasLocalAlleleSet <file://example.vcf#sample/1/S1/local> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/1/S1/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:calledAllele <file://example.vcf#record/1/allele/2> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/1/S1/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:calledAllele <file://example.vcf#record/1/allele/2> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/1/S1/local> a vcfc:LocalAlleleSet ;
+    vcfc:hasLocalAllele <file://example.vcf#record/1/allele/2> ;
+    vcfc:hasLocalAlleleMembership <file://example.vcf#sample/1/S1/local/1> .
+
+<file://example.vcf#sample/1/S1/local/1> a vcfc:LocalAlleleMembership ;
+    vcfc:localAllele <file://example.vcf#record/1/allele/2> ;
+    vcfc:localIndex 1 .
+
+<file://example.vcf#sample/1/S2> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S2> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/1/S2/fmt/GT>,
+        <file://example.vcf#sample/1/S2/fmt/LAA>,
+        <file://example.vcf#sample/1/S2/fmt/LAD> ;
+    vcfc:hasGenotype <file://example.vcf#sample/1/S2/genotype> ;
+    vcfc:sampleFieldsRaw "0/1:1:12,9" ;
+    vcfc:sampleId "S2" .
+
+<file://example.vcf#sample/1/S2/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "0/1" ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S2/fmt/GT/item/0> .
+
+<file://example.vcf#sample/1/S2/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "0/1" ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S2/fmt/LAA> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 ;
+    vcfc:fieldValue "1" ;
+    vcfc:fieldValueInteger 1 ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S2/fmt/LAA/item/0> .
+
+<file://example.vcf#sample/1/S2/fmt/LAA/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue 1 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S2/fmt/LAD> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 ;
+    vcfc:fieldValue "12,9" ;
+    vcfc:hasValueItem <file://example.vcf#sample/1/S2/fmt/LAD/item/0>,
+        <file://example.vcf#sample/1/S2/fmt/LAD/item/1> .
+
+<file://example.vcf#sample/1/S2/fmt/LAD/item/0> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/1/allele/0> ;
+    vcfc:itemValue 12 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/1/S2/fmt/LAD/item/1> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/1/allele/1> ;
+    vcfc:itemValue 9 ;
+    vcfc:valueIndex 1 .
+
+<file://example.vcf#sample/1/S2/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "0/1"^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/1/S2/genotype/0>,
+        <file://example.vcf#sample/1/S2/genotype/1> ;
+    vcfc:hasLocalAlleleSet <file://example.vcf#sample/1/S2/local> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/1/S2/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:calledAllele <file://example.vcf#record/1/allele/0> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/1/S2/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:calledAllele <file://example.vcf#record/1/allele/1> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/1/S2/local> a vcfc:LocalAlleleSet ;
+    vcfc:hasLocalAllele <file://example.vcf#record/1/allele/1> ;
+    vcfc:hasLocalAlleleMembership <file://example.vcf#sample/1/S2/local/1> .
+
+<file://example.vcf#sample/1/S2/local/1> a vcfc:LocalAlleleMembership ;
+    vcfc:localAllele <file://example.vcf#record/1/allele/1> ;
+    vcfc:localIndex 1 .
+
+<file://example.vcf#sample/2/S1> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S1> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/2/S1/fmt/GT>,
+        <file://example.vcf#sample/2/S1/fmt/LAA>,
+        <file://example.vcf#sample/2/S1/fmt/LAD> ;
+    vcfc:hasGenotype <file://example.vcf#sample/2/S1/genotype> ;
+    vcfc:sampleFieldsRaw "0/3:3:15,25" ;
+    vcfc:sampleId "S1" .
+
+<file://example.vcf#sample/2/S1/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "0/3" ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S1/fmt/GT/item/0> .
+
+<file://example.vcf#sample/2/S1/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "0/3" ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S1/fmt/LAA> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 ;
+    vcfc:fieldValue "3" ;
+    vcfc:fieldValueInteger 3 ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S1/fmt/LAA/item/0> .
+
+<file://example.vcf#sample/2/S1/fmt/LAA/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue 3 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S1/fmt/LAD> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 ;
+    vcfc:fieldValue "15,25" ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S1/fmt/LAD/item/0>,
+        <file://example.vcf#sample/2/S1/fmt/LAD/item/1> .
+
+<file://example.vcf#sample/2/S1/fmt/LAD/item/0> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:itemValue 15 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S1/fmt/LAD/item/1> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/2/allele/3> ;
+    vcfc:itemValue 25 ;
+    vcfc:valueIndex 1 .
+
+<file://example.vcf#sample/2/S1/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "0/3"^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/2/S1/genotype/0>,
+        <file://example.vcf#sample/2/S1/genotype/1> ;
+    vcfc:hasLocalAlleleSet <file://example.vcf#sample/2/S1/local> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/2/S1/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:calledAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/2/S1/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:calledAllele <file://example.vcf#record/2/allele/3> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/2/S1/local> a vcfc:LocalAlleleSet ;
+    vcfc:hasLocalAllele <file://example.vcf#record/2/allele/3> ;
+    vcfc:hasLocalAlleleMembership <file://example.vcf#sample/2/S1/local/1> .
+
+<file://example.vcf#sample/2/S1/local/1> a vcfc:LocalAlleleMembership ;
+    vcfc:localAllele <file://example.vcf#record/2/allele/3> ;
+    vcfc:localIndex 1 .
+
+<file://example.vcf#sample/2/S2> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S2> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/2/S2/fmt/GT>,
+        <file://example.vcf#sample/2/S2/fmt/LAA>,
+        <file://example.vcf#sample/2/S2/fmt/LAD> ;
+    vcfc:hasGenotype <file://example.vcf#sample/2/S2/genotype> ;
+    vcfc:sampleFieldsRaw "0/1:1:11,7" ;
+    vcfc:sampleId "S2" .
+
+<file://example.vcf#sample/2/S2/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "0/1" ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S2/fmt/GT/item/0> .
+
+<file://example.vcf#sample/2/S2/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "0/1" ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S2/fmt/LAA> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 ;
+    vcfc:fieldValue "1" ;
+    vcfc:fieldValueInteger 1 ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S2/fmt/LAA/item/0> .
+
+<file://example.vcf#sample/2/S2/fmt/LAA/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue 1 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S2/fmt/LAD> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 ;
+    vcfc:fieldValue "11,7" ;
+    vcfc:hasValueItem <file://example.vcf#sample/2/S2/fmt/LAD/item/0>,
+        <file://example.vcf#sample/2/S2/fmt/LAD/item/1> .
+
+<file://example.vcf#sample/2/S2/fmt/LAD/item/0> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:itemValue 11 ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/2/S2/fmt/LAD/item/1> a vcfc:FieldValueItem ;
+    vcfc:forAllele <file://example.vcf#record/2/allele/1> ;
+    vcfc:itemValue 7 ;
+    vcfc:valueIndex 1 .
+
+<file://example.vcf#sample/2/S2/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "0/1"^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/2/S2/genotype/0>,
+        <file://example.vcf#sample/2/S2/genotype/1> ;
+    vcfc:hasLocalAlleleSet <file://example.vcf#sample/2/S2/local> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/2/S2/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:calledAllele <file://example.vcf#record/2/allele/0> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/2/S2/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:calledAllele <file://example.vcf#record/2/allele/1> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/2/S2/local> a vcfc:LocalAlleleSet ;
+    vcfc:hasLocalAllele <file://example.vcf#record/2/allele/1> ;
+    vcfc:hasLocalAlleleMembership <file://example.vcf#sample/2/S2/local/1> .
+
+<file://example.vcf#sample/2/S2/local/1> a vcfc:LocalAlleleMembership ;
+    vcfc:localAllele <file://example.vcf#record/2/allele/1> ;
+    vcfc:localIndex 1 .
+
+<file://example.vcf#sample/3/S1> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S1> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/3/S1/fmt/GT>,
+        <file://example.vcf#sample/3/S1/fmt/LAA>,
+        <file://example.vcf#sample/3/S1/fmt/LAD> ;
+    vcfc:hasGenotype <file://example.vcf#sample/3/S1/genotype> ;
+    vcfc:sampleFieldsRaw "./.:.:." ;
+    vcfc:sampleId "S1" .
+
+<file://example.vcf#sample/3/S1/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "./." ;
+    vcfc:hasValueItem <file://example.vcf#sample/3/S1/fmt/GT/item/0> .
+
+<file://example.vcf#sample/3/S1/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "./." ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/3/S1/fmt/LAA> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/5> ;
+    vcfc:fieldIndex 2 ;
+    vcfc:fieldValue "."^^vcfc:Null ;
+    vcfc:hasValueItem <file://example.vcf#sample/3/S1/fmt/LAA/item/0> .
+
+<file://example.vcf#sample/3/S1/fmt/LAA/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "."^^vcfc:Null ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/3/S1/fmt/LAD> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/6> ;
+    vcfc:fieldIndex 3 ;
+    vcfc:fieldValue "."^^vcfc:Null ;
+    vcfc:hasValueItem <file://example.vcf#sample/3/S1/fmt/LAD/item/0> .
+
+<file://example.vcf#sample/3/S1/fmt/LAD/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "."^^vcfc:Null ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/3/S1/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "./."^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/3/S1/genotype/0>,
+        <file://example.vcf#sample/3/S1/genotype/1> ;
+    vcfc:hasLocalAlleleSet <file://example.vcf#sample/3/S1/local> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/3/S1/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:isNoCall true ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/3/S1/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:isNoCall true ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/3/S1/local> a vcfc:LocalAlleleSet .
+
+<file://example.vcf#sample/3/S2> a vcfc:SampleCall ;
+    vcfc:forSample <file://example.vcf#samples/S2> ;
+    vcfc:hasFormatValue <file://example.vcf#sample/3/S2/fmt/GT> ;
+    vcfc:hasGenotype <file://example.vcf#sample/3/S2/genotype> ;
+    vcfc:sampleFieldsRaw "0/0" ;
+    vcfc:sampleId "S2" .
+
+<file://example.vcf#sample/3/S2/fmt/GT> a vcfc:FormatFieldValue ;
+    vcfc:declaredBy <file://example.vcf#header/line/4> ;
+    vcfc:fieldIndex 1 ;
+    vcfc:fieldValue "0/0" ;
+    vcfc:hasValueItem <file://example.vcf#sample/3/S2/fmt/GT/item/0> .
+
+<file://example.vcf#sample/3/S2/fmt/GT/item/0> a vcfc:FieldValueItem ;
+    vcfc:itemValue "0/0" ;
+    vcfc:valueIndex 0 .
+
+<file://example.vcf#sample/3/S2/genotype> a vcfc:Genotype ;
+    vcfc:genotypeString "0/0"^^vcfc:GenotypeString ;
+    vcfc:hasAlleleCall <file://example.vcf#sample/3/S2/genotype/0>,
+        <file://example.vcf#sample/3/S2/genotype/1> ;
+    vcfc:phasingStatus vcfc:Unphased ;
+    vcfc:ploidy 2 .
+
+<file://example.vcf#sample/3/S2/genotype/0> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 0 ;
+    vcfc:calledAllele <file://example.vcf#record/3/allele/0> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+<file://example.vcf#sample/3/S2/genotype/1> a vcfc:GenotypeAlleleCall ;
+    vcfc:callIndex 1 ;
+    vcfc:calledAllele <file://example.vcf#record/3/allele/0> ;
+    vcfc:isNoCall false ;
+    vcfc:phaseIndicator "/" .
+
+ex:samples a vcfc:SampleSet ;
+    vcfc:hasSample <file://example.vcf#samples/S1>,
+        <file://example.vcf#samples/S2> .
+
+<file://example.vcf#record/3/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "T" .
+
+<file://example.vcf#header/line/3> a vcfc:ContigHeaderLine ;
+    vcfc:contigId "chr1" ;
+    vcfc:contigLength 1000 ;
+    vcfc:hasAttribute <file://example.vcf#header/line/3/attribute/1>,
+        <file://example.vcf#header/line/3/attribute/2> ;
+    vcfc:headerKey "contig" ;
+    vcfc:headerValue "<ID=chr1,length=1000>" ;
+    vcfc:lineIndex 3 .
+
+<file://example.vcf#record/1/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "G" .
+
+<file://example.vcf#record/1/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "A" .
+
+<file://example.vcf#record/2/allele/0> a vcfc:ReferenceAllele ;
+    vcfc:alleleIndex 0 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "A" .
+
+<file://example.vcf#record/2/allele/1> a vcfc:AltAllele ;
+    vcfc:alleleIndex 1 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#record/2/allele/3> a vcfc:AltAllele ;
+    vcfc:alleleIndex 3 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "T" .
+
+<file://example.vcf#samples/S1> a vcfc:VCFSample ;
+    vcfc:sampleIndex 1 ;
+    vcfc:sampleName "S1" .
+
+<file://example.vcf#samples/S2> a vcfc:VCFSample ;
+    vcfc:sampleIndex 2 ;
+    vcfc:sampleName "S2" .
+
+<file://example.vcf#record/1/allele/2> a vcfc:AltAllele ;
+    vcfc:alleleIndex 2 ;
+    vcfc:alleleKind vcfc:BaseSequenceAllele ;
+    vcfc:alleleValue "C" .
+
+<file://example.vcf#header/line/5> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldArity vcfc:ArityVariable ;
+    vcfc:fieldDescription "Local ALT indices" ;
+    vcfc:fieldId "LAA" ;
+    vcfc:fieldNumber "." ;
+    vcfc:fieldType vcfc:IntegerType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/5/attribute/1>,
+        <file://example.vcf#header/line/5/attribute/2>,
+        <file://example.vcf#header/line/5/attribute/3>,
+        <file://example.vcf#header/line/5/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=LAA,Number=.,Type=Integer,Description=\"Local ALT indices\">" ;
+    vcfc:lineIndex 5 .
+
+<file://example.vcf#header/line/6> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldArity vcfc:ArityPerLocalAllele ;
+    vcfc:fieldDescription "Local read depths" ;
+    vcfc:fieldId "LAD" ;
+    vcfc:fieldNumber "LR" ;
+    vcfc:fieldType vcfc:IntegerType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/6/attribute/1>,
+        <file://example.vcf#header/line/6/attribute/2>,
+        <file://example.vcf#header/line/6/attribute/3>,
+        <file://example.vcf#header/line/6/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=LAD,Number=LR,Type=Integer,Description=\"Local read depths\">" ;
+    vcfc:lineIndex 6 .
+
+<file://example.vcf#header/line/4> a vcfc:FORMATHeaderLine ;
+    vcfc:fieldDescription "Genotype" ;
+    vcfc:fieldId "GT" ;
+    vcfc:fieldNumber "1" ;
+    vcfc:fieldNumberInteger 1 ;
+    vcfc:fieldType vcfc:StringType ;
+    vcfc:hasAttribute <file://example.vcf#header/line/4/attribute/1>,
+        <file://example.vcf#header/line/4/attribute/2>,
+        <file://example.vcf#header/line/4/attribute/3>,
+        <file://example.vcf#header/line/4/attribute/4> ;
+    vcfc:headerKey "FORMAT" ;
+    vcfc:headerValue "<ID=GT,Number=1,Type=String,Description=\"Genotype\">" ;
+    vcfc:lineIndex 4 .

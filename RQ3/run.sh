@@ -25,8 +25,11 @@ CONVERTER_TAG="v3.0.3"
 CONVERTER_IMAGE="ecrum19/vcf-rdfizer"
 CONVERTER_DIGEST="sha256:31f1361b6d66591a43e706caeba7c079f498a6ae69d9d279effa82d26beaf57a"
 
-# The fixture the case study runs on. It exercises VCF 4.5 local alleles, which
-# is what makes the answer depend on interpreting Number=LR correctly.
+# The fixture the case study runs on: RQ3/inputs/local-alleles-v4.5.vcf. It
+# exercises VCF 4.5 local alleles, which is what makes the answer depend on
+# interpreting Number=LR correctly. It is a copy of the fixture released with the
+# vocabulary at $VOCAB_TAG (coverage/methodology/fixtures/); the check below stops
+# the run if the two ever differ, so this directory never drifts from the release.
 FIXTURE="local-alleles-v4.5"
 # Expanded profile only: the query walks per-sample value resources, which the
 # condensed profile stores as vectors instead.
@@ -58,12 +61,24 @@ docker tag "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "rq3-vcf-rdfizer:$CONVERTER_TAG"
 printf '  vocabulary %s at %s\n' "$VOCAB_TAG"     "$(git -C "$VOCAB"   rev-parse --short HEAD)"
 printf '  converter  %s at %s\n' "$CONVERTER_TAG" "$(git -C "$RDFIZER" rev-parse --short HEAD)"
 
+# ------------------------------------------------------------ fixture check ---
+INPUT="$HERE/inputs/$FIXTURE.vcf"
+RELEASED="$VOCAB/coverage/methodology/fixtures/$FIXTURE.vcf"
+say "Checking inputs/$FIXTURE.vcf against the released fixture"
+if ! cmp -s "$INPUT" "$RELEASED"; then
+  printf '  inputs/%s.vcf differs from %s at %s\n' "$FIXTURE" "coverage/methodology/fixtures/$FIXTURE.vcf" "$VOCAB_TAG" >&2
+  printf '  Refusing to run on an input that is not the released fixture.\n' >&2
+  exit 1
+fi
+FIXTURE_SHA256="$(shasum -a 256 "$INPUT" | cut -d' ' -f1)"
+printf '  identical (sha256 %s)\n' "$FIXTURE_SHA256"
+
 # -------------------------------------------------------------- conversion ---
 GRAPH="$WORK/converted/$PROFILE/$FIXTURE/$FIXTURE.nt.gz"
 if [ ! -f "$GRAPH" ]; then
   say "Converting $FIXTURE.vcf ($PROFILE profile)"
   mkdir -p "$WORK/in"
-  cp "$VOCAB/coverage/methodology/fixtures/$FIXTURE.vcf" "$WORK/in/"
+  cp "$INPUT" "$WORK/in/"
   "$PYTHON" "$RDFIZER/vcf_rdfizer.py" -m full -i "$WORK/in/$FIXTURE.vcf" \
     --sample-representation "$PROFILE" --representations none --rdf-compression none \
     --no-progress --quiet -I rq3-vcf-rdfizer -v "$CONVERTER_TAG" -o "$WORK/converted/$PROFILE"
@@ -79,10 +94,10 @@ RESULTS_DIR="$OUT" "$PYTHON" "$HERE/check.py" "$GRAPH" | tee "$OUT/check.txt"
 # ------------------------------------------------------------- provenance ----
 "$PYTHON" - "$VOCAB_TAG" "$(git -C "$VOCAB" rev-parse HEAD)" \
              "$CONVERTER_TAG" "$(git -C "$RDFIZER" rev-parse HEAD)" \
-             "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "$FIXTURE" "$PROFILE" <<'PY' > "$OUT/run.json"
+             "$CONVERTER_IMAGE@$CONVERTER_DIGEST" "$FIXTURE" "$PROFILE" "$FIXTURE_SHA256" <<'PY' > "$OUT/run.json"
 import datetime, json, platform, sys
 
-vtag, vcommit, ctag, ccommit, cimage, fixture, profile = sys.argv[1:8]
+vtag, vcommit, ctag, ccommit, cimage, fixture, profile, fsha = sys.argv[1:9]
 
 def pkg(name):
     try:
@@ -101,7 +116,9 @@ json.dump({
         "converter": {"repository": "https://github.com/ecrum19/VCF-RDFizer",
                       "tag": ctag, "commit": ccommit, "image": cimage},
     },
-    "case": {"fixture": f"coverage/methodology/fixtures/{fixture}.vcf",
+    "case": {"fixture": f"RQ3/inputs/{fixture}.vcf",
+             "fixtureSha256": fsha,
+             "fixtureOrigin": f"vcf-core-vocabulary {vtag}: coverage/methodology/fixtures/{fixture}.vcf (verified identical before conversion)",
              "sampleProfile": profile,
              "annotations": "inputs/annotations.ttl (synthetic, labelled as such in the file)"},
 }, sys.stdout, indent=1, sort_keys=True)
