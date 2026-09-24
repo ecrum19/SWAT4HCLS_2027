@@ -44,7 +44,7 @@ orcid=0000-0001-5118-256X,
 email=ruben.taelman@ugent.be
 ]
 \address[1]{IDLab, Department of Electronics and Information Systems, Ghent University -- imec, Belgium}
-\address[2]{Flemish institute for Technological Research (VITO) Mol, Belgium}
+\address[2]{Flemish Institute for Technological Research (VITO), Mol, Belgium}
 \cortext[1]{Corresponding author.}
 
 
@@ -54,17 +54,17 @@ email=ruben.taelman@ugent.be
 Connecting genomic observations to biomedical knowledge depends on preserving the context that makes each observation interpretable.
 In the Variant Call Format (VCF), overlooking version rules, field declarations, or sample-specific allele relationships can silently associate evidence with the wrong variant.
 % Need: Why something needed to be done at all
-Existing semantic models leave parts of this context to application-specific conventions, limiting what users can retrieve and integrate without the loss of context.
+Existing semantic models leave parts of this context to application-specific conventions, limiting what users can retrieve and integrate without losing context.
 % Task: What was undertaken to address the need
-We developed VCF Core, a vocabulary that makes this context explicit and provides version-specific representations for VCF 4.1--4.5, allowing data to be interpreted according to its declared specification.
+We developed VCF Core, a vocabulary that makes this context explicit and provides version-specific representations for VCF 4.1--4.5, allowing data to be interpreted according to the specification version the file declares.
 % Object: What the present document does or covers
 This paper evaluates VCF Core's specification coverage, robustness, and practical utility.
 Our reproducible workflow combines competency questions, specification-derived tests, negative controls, cross-implementation comparisons, and semantic round-tripping, with explicit expected answers and transparent reporting of passing, failing, and untested requirements.
 % Findings: What the work done yielded or revealed
-VCF Core offers two sample profiles: expanded which gives each VCF sample value its own resource, and condensed which stores sample values in compact vectors.
+VCF Core offers two sample profiles: expanded, which gives each VCF sample value a dedicated resource, and condensed, which stores sample values in compact vectors.
 The specification-derived assessment demonstrates preservation in all 210 test cases in both profiles, and direct structural retrieval in all 210 expanded and 165 condensed cases, exercising 53 of 94 registered VCF specification requirements.
 A synthetic integration experiment further demonstrates that standard SPARQL queries can correctly join local-allele evidence to external annotations while retaining source provenance, without application-specific decoding.
-% Conclusion & Perspectives: What we found and how it imacts the future, beyond this work
+% Conclusion & Perspectives: What we found and how it impacts the future, beyond this work
 By making VCF interpretation context explicit through native graph relationships, VCF Core turns operations otherwise dependent on format-specific code into reusable semantic structures, providing a foundation for conversion and querying while enabling the incorporation of source observations with broader biomedical knowledge.
 \end{abstract}
 \begin{keywords}
@@ -84,11 +84,9 @@ Variant Call Format\sep RDF\sep Genomic data\sep Vocabulary\sep Data integration
 \section{Conclusion}
 
 VCF Core provides a shared semantic foundation for representing VCF observations together with the context needed to interpret them. 
-Our assessments demonstrate structured retrieval for the tested requirements, agreement between two independently implemented producers on 738 of 840 checks, with the remaining differences traced to properties the converter does not yet emit.
+Our assessments demonstrate structural retrieval for the tested requirements in the expanded profile and agreement between two separately implemented producers on 738 of 840 checks, with the remaining differences mostly traced to properties the converter does not yet emit.
 
-Remaining work includes untested requirements, incomplete converter support, and evaluation on realistic datasets and workflows. 
 By making field declarations, allele relationships, and sample context explicit, VCF Core enables converters and downstream applications to reuse the same interpretation rules while linking source observations to broader biomedical models. 
-We welcome further review, testing, and contributions to strengthen the resource.
 
 
 % \begin{acknowledgments}
@@ -96,9 +94,8 @@ We welcome further review, testing, and contributions to strengthen the resource
 % Ruben Taelman is a postdoctoral fellow of the Research Foundation -- Flanders (FWO) (1202124N).
 % \end{acknowledgments}
 
-% AUTHOR REVIEW R17: reconfirm this disclosure after reviewing the revised manuscript and the documented query-review scope.
 \section*{Declaration on Generative AI}
-Claude Opus 5~\cite{anthropic2026claudeopus5} and GPT-6 Astra~\cite{openai2026gpt6astra} assisted with vocabulary development, drafting the RQ1 requirements, assessment scripts, initial SPARQL query drafts, and proof-reading manuscript figure captions and text. The authors reviewed all AI outputs and take full responsibility for the manuscript, experiments, tools, and repositories.
+Claude Opus 5~\cite{anthropic2026claudeopus5} and GPT-6 Astra~\cite{openai2026gpt6astra} assisted with vocabulary development, drafting the RQ1 requirements, assessment scripts, initial SPARQL query drafts, and proofreading manuscript figure captions and text. The authors reviewed all AI outputs and take full responsibility for the manuscript, experiments, tools, and repositories.
 
 \label{endofmain}
 

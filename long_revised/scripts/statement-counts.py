@@ -7,7 +7,7 @@ of statements per record, per sample column and per (record, sample) cell is
 solved for exactly, and those counts are extrapolated. Linearity is checked on a
 further file before extrapolating, so a non-linear producer fails loudly.
 
-Every record copies line 9 of Listing 1 (two ALT alleles, one local allele) and
+Every record copies line 8 of Listing 1 (two ALT alleles, one local allele) and
 every sample carries S1's value from that line, using the FORMAT column
 GT:LAA:LAD. The counts are statements, not bytes: each condensed vector literal
 still holds one value per sample.

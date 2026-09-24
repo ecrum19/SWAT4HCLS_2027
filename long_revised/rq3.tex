@@ -8,7 +8,7 @@ The experiment has three inputs, all in \href{https://github.com/ecrum19/SWAT4HC
 The first is a VCF fixture, \path{local-alleles-v4.5.vcf}, of four synthetic sites for one sample column, each site written twice: with local-allele (\texttt{LAA}, \texttt{LAD}, \texttt{LPL}) and with global (\texttt{AD}, \texttt{PL}) fields.
 The second, \path{annotations.ttl}, is a separately authored snapshot of five invented, flagged alterations that shares no identifiers with the fixture.
 The third is the query, \path{local-allele-evidence.rq}, excerpted in Listing~\ref{lst:localallele}.
-VCF-RDFizer 3.0.3~\cite{vcfrConverter2026} converts the fixture in the expanded profile, and the query runs over that graph together with the snapshot, joining on contig, position, reference allele, and alternate allele, then retrieving supporting depth through \term{forAllele}.
+VCF-RDFizer v3.0.3~\cite{vcfrConverter2026} converts the fixture in the expanded profile, and the query runs over that graph together with the snapshot, joining on contig, position, reference allele, and alternate allele, then retrieving supporting depth through \term{forAllele}.
 This assumes the same reference assembly, unchecked against the VCF reference declaration, and identical as-written alleles without normalization or VRS identification.
 The sample identifies a VCF column, not a patient.
 
@@ -33,25 +33,25 @@ Prefix declarations, \term{SELECT}, filtering, and provenance retrieval are omit
 The query keeps only depths of at least 20 (\texttt{LAD >= 20}), distinguishing correct allele-depth joins from positional misreading while retaining source context.
 Expected rows, authored before execution, are compared across eight answer fields, with a ninth, the source file, checked against the converted input path.
 Each of the three excluded alterations is checked individually.
-The example concerns only \texttt{Number=LR} \texttt{LAD}.
+The example concerns only the \texttt{Number=LR} field \texttt{LAD}.
 The snapshot's annotations have no biological meaning and are stored with the experiment so that every run returns the same answer.
 
 \subsection{Results}
 \label{sec:integration}
 
-On the fixture, the query returns the two expected alterations and retains the correct file, record, sample, and FORMAT declaration context.
+On the fixture, the query returns the two expected alterations and retains the correct file, record, sample, and \texttt{FORMAT} declaration context.
 
 To explain the result without a further listing, Table~\ref{tab:local-allele-example} and Figure~\ref{fig:model} use Listing~\ref{lst:vcf-example} rather than the experimental fixture.
-In Listing~\ref{lst:vcf-example} lines 8--9 are simplified versions of the fixture's first two local-allele records, keeping the positions, reference alleles, and the local alleles and depths that the joins use, with \texttt{S1} representing the fixture's sample.
-\stepmark{A} For \texttt{chr1:1~G>C}, the four location and allele values listed in the annotation (\href{https://github.com/ecrum19/SWAT4HCLS_2027/blob/main/long_revised/examples/annotations.ttl}{\path{long_revised/examples/annotations.ttl}}) identify the record's "C" allele, and \term{forAllele} leads to depth 30 (Figure~\ref{fig:model}).
-\stepmark{B} For \texttt{chr1:1~G>A}, the same location matches, but no \texttt{LAD} value of \texttt{S1} is linked to "A", so the query excludes the alteration.
-\texttt{S2} is not considered in this representative example.
+In Listing~\ref{lst:vcf-example}, lines 8--9 are simplified versions of the fixture's first two local-allele records, keeping the positions, reference alleles, and the local alleles and depths that the joins use, with \texttt{S1} representing the fixture's sample.
+\stepmark{A} For \texttt{chr1:1~G>C}, the four location and allele values listed in the annotation (\href{https://github.com/ecrum19/SWAT4HCLS_2027/blob/main/long_revised/examples/annotations.ttl}{\path{long_revised/examples/annotations.ttl}}) identify the record's ``C'' allele, and \term{forAllele} leads to depth 30 (Figure~\ref{fig:model}).
+\stepmark{B} For \texttt{chr1:1~G>A}, the same location matches, but no \texttt{LAD} value of \texttt{S1} is linked to ``A'', so the query excludes the alteration.
+\texttt{S2} is not considered here.
 
 \begin{table}[htbp]
 \centering
 \caption{Two readings of \texttt{S1}'s allele depths on lines 8--9 of Listing~\ref{lst:vcf-example}: through \term{forAllele}, as \texttt{Number=LR} requires, or by position in \texttt{ALT}. 
-Each cell illustrates the allele that receives the second depth and, in parentheses, the flagged alteration that depth then supports. 
-Both depths pass the threshold of 20, so the reading alone decides which alterations the query returns.}
+Each cell gives the allele that receives the second depth and, in parentheses, the flagged alteration that depth supports. 
+Both depths pass the threshold of 20, so only the reading decides the answer.}
 \label{tab:local-allele-example}
 \small
 \begin{tabular*}{\linewidth}{@{\extracolsep{\fill}}lccll@{}}

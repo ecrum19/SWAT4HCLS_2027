@@ -7,9 +7,7 @@
 
 \paragraph{Assessing VCF Core's coverage of VCF meaning.}
 \label{sec:summary}
-This study evaluates whether VCF Core preserves the information needed to interpret VCF observations and makes that context directly retrievable in RDF. 
-The results show strong representation but incomplete demonstrated coverage: all tested expanded-profile requirements pass, while many requirements remain unassessed (Figure~\ref{fig:requirement-results}). 
-Lower condensed-profile structure scores reflect its different access model, where individual sample values require decoding. 
+The results show strong representation but incomplete demonstrated coverage: all tested expanded-profile requirements pass, many remain unassessed (Figure~\ref{fig:requirement-results}), and condensed structure scores are lower because sample values there need decoding. 
 
 \paragraph{Extending demonstrated coverage.}
 The clearest next step is to broaden testing of structural-variant fields, allele-dependent values, version-specific rules, and constructs that currently lack enforcement evidence. 
@@ -17,19 +15,18 @@ New fixtures should isolate individual rules, derive expected answers from the s
 Because the present tests were often guided by clear specification examples, the demonstrated subset should not be treated as representative of all VCF complexity.
 Turning specification rules into executable tests also exposed inconsistencies and ambiguities in examples and declarations. 
 Such tests therefore provide useful feedback for specification maintenance by making an interpretation explicit and reviewable, as seen in other conformance-testing settings~\cite{bishop2005conformance,niu2022interop}. 
-Extending the fixture set with additional production files, counterexamples, and clarified requirements would strengthen both vocabulary coverage and its grounding in the VCF specification~\cite{beier2022fairvcf}.
+Extending the fixture set with additional production files, counterexamples, and clarified requirements would strengthen vocabulary coverage and grounding in the VCF specification~\cite{beier2022fairvcf}.
 
 \paragraph{A reusable assessment for conversion engines.}
-RQ2 shows that the same assessment can be reused across independent conversion strategies. 
-It detected both incorrect value-to-allele associations and remaining representation mismatches, showing why structural checks should be complemented by tests of recovered values and their relationships.
-Because the assessment is defined against a shared vocabulary, different converters can be evaluated against the same requirements before comparing performance or graph size. 
-The current results support this across two implementations, although their shared authorship means independent reproduction remains necessary future work.
+Because the assessment is defined against the shared vocabulary, RQ2 shows that it can be reused across separate conversion strategies, evaluating each converter against the same requirements before comparing performance or graph size.
+The assessment detected both incorrect value-to-allele associations and remaining representation mismatches, showing why structural checks should be complemented by tests of recovered values and their relationships.
+The current results support this reuse across two implementations, although their shared authorship means independent reproduction remains necessary future work.
 
 \paragraph{Integrating observations with external knowledge.}
 RQ3 uses local alleles to show why VCF interpretation context matters when observations are linked to external knowledge. 
 VCF Core makes the sample-specific allele association explicit through \term{forAllele}, which the specification instead recommends handling in external libraries~\cite{vcf45}.
 The example shows that this interpretation can be resolved during conversion and reused by downstream queries, rather than decoded repeatedly. 
-However, the demonstration is synthetic and assumes a shared assembly and identical allele representation, thus realistic biomedical integration and normalization should be assessed in future work.
+However, the demonstration is synthetic and assumes a shared assembly and identical allele representation; realistic biomedical integration and normalization should therefore be assessed in future work.
 
 \paragraph{VCF Core among existing models.}
 Because the comparison criteria in Table~\ref{tab:models} reflect the problems VCF Core was designed to solve, RQ4's results should be read within that scope rather than as a general ranking of genomic ontologies. 
@@ -38,9 +35,9 @@ The published mappings express graded relationships between terms rather than as
 
 \paragraph{Future work and independent evaluation.}
 \label{sec:clinicalqueries}
-Future work should evaluate VCF Core in realistic biomedical workflows, such as linking pharmacogenomic interpretations to supporting observations~\cite{lee2022cpic,pharmcatmethods}, rare-disease candidates to phenotype knowledge~\cite{hpo,putman2024monarch}, or tumour observations to therapeutic evidence~\cite{griffith2017civic}. 
-These scenarios require further biomedical models, reviewed instance mappings, and explicit sample--specimen--patient relationships, with success measured by answer correctness and traceability.
+Future work should test VCF Core in realistic biomedical workflows, such as linking pharmacogenomic interpretations to supporting observations~\cite{lee2022cpic,pharmcatmethods}, rare-disease candidates to phenotype knowledge~\cite{hpo,putman2024monarch}, or tumour observations to therapeutic evidence~\cite{griffith2017civic}. 
+These scenarios require biomedical models, reviewed instance mappings, and explicit sample--specimen--patient relationships, with success measured by answer correctness and traceability.
 
 Larger cohort studies should also measure conversion, storage, loading, and query costs alongside semantic correctness. 
-The current round-trip and integration evaluations cover only the expanded profile but approaches such as SciSPARQL querying of condensed vectors should be investigated~\cite{andrejev2012scisparql}.
+The current round-trip and integration evaluations cover only the expanded profile, but approaches such as SciSPARQL querying of condensed vectors should be investigated~\cite{andrejev2012scisparql}.
 
